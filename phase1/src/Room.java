@@ -58,4 +58,12 @@ public class Room {
     {
         eventsScheduled.add(eventID);
     }
+    /**
+     * Removes an event ID to the eventsScheduled list
+     * @param eventID ID of an event to be removed from the schedule for Room
+     */
+    public void removeEventID(int eventID)
+    {
+        eventsScheduled.remove(eventID);
+    }
 }
