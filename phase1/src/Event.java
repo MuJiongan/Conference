@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
  * Represents an event in the conference.
  */
-public class event{
+public class Event{
     /**
      * The startTime of the event
      */
@@ -16,7 +16,7 @@ public class event{
      */
     private int roomID;
     /**
-     * The list of all users IDs in the event
+     * The list of all the users IDs in the event
      */
     private ArrayList<Integer> userIDs;
     /**
@@ -30,26 +30,26 @@ public class event{
     /**
      * The total number of the event
      */
-    private static int numberOfEvents;
+    private static int numberOfEvents = 0;
     /**
      * The event ID
      */
-    private int eventID
+    private int eventID;
 
     /**
      * Create a new event object with the given startTime, endTime, roomID, name
-     * @param the start time of the event
-     * @param the end time of the event
-     * @param the roomID of the event
-     * @param the name of the event
+     * @param startTime of the event
+     * @param endTime  the event
+     * @param roomID of the event
+     * @param name of the event
      */
-    public event(String startTime, String endTime, int roomID, String name){
+    public Event(String startTime, String endTime, int roomID, String name){
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomID = roomID;
         this.name = name;
         this.eventID = numberOfEvents;
-        this.numberofEvents++;
+        numberOfEvents++;
     }
 
     /**
@@ -82,22 +82,24 @@ public class event{
     }
     /**
      * Adds an speaker ID to the speakerIDs list
-     * @param speaker ID to be added in the Event
+     * @param speakerID to be added in the Event
      */
-    public void addSpeakerID(String speakerID) {
+    public void addSpeakerID(int speakerID) {
         speakerIDs.add(speakerID);
     }
     /**
      * Adds an user ID to the userIDs list
-     * @param user ID to be added in the Event
+     * @param userID to be added in the Event
      */
-    public void addUserID(String userID) {
+    public void addUserID(int userID) {
         userIDs.add(userID);
     }
     /**
      * removes an user ID from the userIDs list
-     * @param user ID to be removed in the Event
+     * @param userID to be removed in the Event
      */
-    public void removeUserID(String userID){userIDs.remove(userID)}
+    public void removeUserID(int userID) {
+        userIDs.remove(userID);
+    }
 
 }
