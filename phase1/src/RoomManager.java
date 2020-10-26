@@ -58,6 +58,7 @@ public class RoomManager {
      */
     public void addRoom(Room room)
     {
+        if (!rooms.contains(room))
         rooms.add(room);
     }
 
@@ -82,7 +83,15 @@ public class RoomManager {
         return r.getEventsScheduled();
     }
 
-
+    public void addEvent (Room r, int event)
+    {
+        ArrayList<Integer> eventCopy = r.getEventsScheduled();
+        if (!eventCopy.contains(event))
+        {
+            r.addEventID(event);
+        }
+    }
+//Ask about calling entity methoDs in the conroller
 
 
 }
