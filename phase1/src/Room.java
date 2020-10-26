@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 /**
  * Represents a room in the conference.
@@ -65,5 +66,13 @@ public class Room {
     public void removeEventID(int eventID)
     {
         eventsScheduled.remove(eventID);
+    }
+
+    /**
+     * Returns a shallow copy of getEventsScheduled
+     * @return shallow copy of getEventsScheduled
+     */
+    public ArrayList<Integer> getEventsScheduled() {
+        return (ArrayList<Integer>) eventsScheduled.clone();
     }
 }
