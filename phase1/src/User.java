@@ -6,14 +6,14 @@ import java.util.List;
  */
 public abstract class User {
 
-    private Integer userID;
+    private int userID;
     private String name;
     private String userName;
     private String passWord;
     private List<Integer> messagesList;
     private List<Integer> contactList;
     private List<Integer> eventsAttend;
-    private static Integer numOfUsers = 0;
+    private static int numOfUsers = 0;
 
     /**
      * Constructs an instance of Student based on Strings of information
@@ -36,7 +36,7 @@ public abstract class User {
      * Returns the userID of the user
      * @return the userID of the user
      */
-    public Integer getUserId() {
+    public int getUserId() {
         return userID;
     }
 
@@ -84,7 +84,7 @@ public abstract class User {
      * Add a message ID to the message list of the user
      * @param messageID to be added to the message list of the user
      */
-    public void addMessage(Integer messageID) {
+    public void addMessage(int messageID) {
         this.messagesList.add(messageID);
     }
 
@@ -100,7 +100,7 @@ public abstract class User {
      * Add a contact's userID to the contact list of the user
      * @param contactID to be added to the contact list of the user
      */
-    public void addContact(Integer contactID) {
+    public void addContact(int contactID) {
         this.messagesList.add(contactID);
     }
 
@@ -116,7 +116,7 @@ public abstract class User {
      * Add an event to the event list which the user is going to attend
      * @param eventID to be added to the contact list of the user
      */
-    public void addEvent(Integer eventID) {
+    public void addEvent(int eventID) {
         this.eventsAttend.add(eventID);
     }
 
@@ -124,7 +124,7 @@ public abstract class User {
      * Remove an event to the event list which the user is going to attend
      * @param eventID to be added to the contact list of the user
      */
-    public void removeEvent(Integer eventID) {
+    public void removeEvent(int eventID) {
         this.eventsAttend.remove(eventID);
     }
 }
