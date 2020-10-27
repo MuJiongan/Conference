@@ -1,18 +1,41 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a User in the conference system
  */
 public abstract class User {
 
+    /**
+     * Stores the userID of the user
+     */
     private int userID;
+    /**
+     * Stores the name of the user
+     */
     private String name;
+    /**
+     * Stores the user name of the user
+     */
     private String userName;
+    /**
+     * Stores the password of the user
+     */
     private String passWord;
-    private List<Integer> messagesList;
-    private List<Integer> contactList;
-    private List<Integer> eventsAttend;
+    /**
+     * Stores a list of message IDs received and sent by the user
+     */
+    private ArrayList<Integer> messagesList;
+    /**
+     * Stores a list of contact IDs of the user
+     */
+    private ArrayList<Integer> contactList;
+    /**
+     * Stores a list of event IDs the user is going to attend
+     */
+    private ArrayList<Integer> eventsAttend;
+    /**
+     * The total number of the Users
+     */
     private static int numOfUsers = 0;
 
     /**
@@ -49,8 +72,8 @@ public abstract class User {
     }
 
     /**
-     * Returns the username of the user
-     * @return the username of the user
+     * Returns the userName of the user
+     * @return the userName of the user
      */
     public String getUserName() {
         return userName;
@@ -61,8 +84,8 @@ public abstract class User {
     }
 
     /**
-     * Returns the password of the user
-     * @return the password of the user
+     * Returns the passWord of the user
+     * @return the passWord of the user
      */
     public String getPassWord() {
         return passWord;
@@ -73,56 +96,56 @@ public abstract class User {
     }
 
     /**
-     * Returns the a list of ids of messages received of the user
-     * @return the a list of ids of messages received of the user
+     * Returns the shallow copy of messagesList of the user
+     * @return shallow copy of messagesList of the user
      */
-    public List<Integer> getMessagesList() {
-        return messagesList;
+    public ArrayList<Integer> getMessagesList() {
+        return (ArrayList<Integer>) messagesList.clone();
     }
 
     /**
-     * Add a message ID to the message list of the user
-     * @param messageID to be added to the message list of the user
+     * Add a message ID to the messagesList of the user
+     * @param messageID to be added to the messagesList of the user
      */
     public void addMessage(int messageID) {
         this.messagesList.add(messageID);
     }
 
     /**
-     * Returns the a list of ids of contacts of the user
-     * @return the a list of ids of contacts of the user
+     * Returns the shallow copy of contactList of the user
+     * @return shallow copy of contactList of the user
      */
-    public List<Integer> getContactList() {
-        return contactList;
+    public ArrayList<Integer> getContactList() {
+        return (ArrayList<Integer>) contactList.clone();
     }
 
     /**
-     * Add a contact's userID to the contact list of the user
-     * @param contactID to be added to the contact list of the user
+     * Add a contact's userID to the contactList of the user
+     * @param contactID to be added to the contactList of the user
      */
     public void addContact(int contactID) {
-        this.messagesList.add(contactID);
+        this.contactList.add(contactID);
     }
 
     /**
-     * Returns the a list of ids of events the user is going to attend
-     * @return the a list of ids of events the user is going to attend
+     * Returns the shallow copy of eventsAttend list of the user
+     * @return shallow copy of eventsAttend list of the user
      */
-    public List<Integer> getEventsAttend() {
-        return eventsAttend;
+    public ArrayList<Integer> getEventsAttend() {
+        return (ArrayList<Integer>) eventsAttend.clone();
     }
 
     /**
-     * Add an event to the event list which the user is going to attend
-     * @param eventID to be added to the contact list of the user
+     * Add an event to the eventsAttend list of the user
+     * @param eventID to be added to the eventsAttend list of the user
      */
     public void addEvent(int eventID) {
         this.eventsAttend.add(eventID);
     }
 
     /**
-     * Remove an event to the event list which the user is going to attend
-     * @param eventID to be added to the contact list of the user
+     * Remove an event to the eventsAttend list of the user
+     * @param eventID to be added to the eventsAttend list of the user
      */
     public void removeEvent(int eventID) {
         this.eventsAttend.remove(eventID);
