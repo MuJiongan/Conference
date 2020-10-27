@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class EventManager {
     /**
-     * The list of all the events
+     * The list of all events
      */
     private ArrayList<Event> events;
     /**

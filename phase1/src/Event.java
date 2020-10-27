@@ -4,11 +4,11 @@ import java.util.ArrayList;
  */
 public class Event{
     /**
-     * The startTime of the event
+     * The start Time of the event
      */
     private String startTime;
     /**
-     * The endTime of the event
+     * The end Time of the event
      */
     private String endTime;
     /**
