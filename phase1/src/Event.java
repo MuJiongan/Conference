@@ -4,11 +4,11 @@ import java.util.ArrayList;
  */
 public class Event{
     /**
-     * The startTime of the event
+     * The start Time of the event
      */
     private String startTime;
     /**
-     * The endTime of the event
+     * The end Time of the event
      */
     private String endTime;
     /**
@@ -101,5 +101,39 @@ public class Event{
     public void removeUserID(int userID) {
         userIDs.remove(userID);
     }
-
+    /**
+     * Returns the shallow copy of UserIDs of the event
+     * @return the UserIDs of the event
+     */
+    public ArrayList<Integer> getUserIDs() {
+        return (ArrayList<Integer>) userIDs.clone();
+    }
+    /**
+     * Returns the shallow copy of SpeakerIDs of the event
+     * @return the SpeakerIDs of the event
+     */
+    public ArrayList<Integer> getSpeakerIDs() {
+        return (ArrayList<Integer>) speakerIDs.clone();
+    }
+    /**
+     * Returns the eventID of the event
+     * @return the eventID of the event
+     */
+    public int getEventID() {
+        return eventID;
+    }
+    /**
+     * removes an speaker ID from the speakerIDs list
+     * @param speakerID to be removed in the Event
+     */
+    public void removeSpeakerID(int speakerID) {
+        speakerIDs.remove(speakerID);
+    }
+    /**
+     * change the room ID of the event
+     * @param roomID new roomID
+     */
+    public void changeRoomID(int roomID){
+        this.roomID = roomID;
+    }
 }
