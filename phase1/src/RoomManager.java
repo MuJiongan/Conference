@@ -1,9 +1,12 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+
 
 /**
  * Use Case class that will manage how the Room objects are updated during run-time
  */
-public class RoomManager {
+public class RoomManager implements Serializable {
     /**
      * Stores all the instances of room in the conference
      */
@@ -55,11 +58,16 @@ public class RoomManager {
     /**
      * Add a new Room to the list of all Room in the conference
      * @param room Room to add to list
+     * @return True if room was succesfully added, false otherwise
      */
-    public void addRoom(Room room)
+    public boolean addRoom(Room room)
     {
         if (!rooms.contains(room))
-        rooms.add(room);
+        {
+            rooms.add(room);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -69,7 +77,6 @@ public class RoomManager {
      */
     public int getCapacity(Room r)
     {
-        //Ask About THis
         return r.getCapacity();
     }
 
@@ -83,7 +90,12 @@ public class RoomManager {
         return r.getEventsScheduled();
     }
 
-    public void addEvent (Room r, int event)
+    /**
+     * Schedules an event in Room r, assumes that event is valid for that specific room
+     * @param r Represents the room where event will happen
+     * @param event Represents the event ID of Event we want to schedule
+     */
+    public void scheduleEvent (Room r, int event)
     {
         ArrayList<Integer> eventCopy = r.getEventsScheduled();
         if (!eventCopy.contains(event))
@@ -91,7 +103,47 @@ public class RoomManager {
             r.addEventID(event);
         }
     }
-//Ask about calling entity methoDs in the conroller
+
+    /**
+     * Read the RoomManager object that was stored in a .ser file
+     * @param path String representing the file path
+     * @return RoomManager object read from .ser file
+     * @throws ClassNotFoundException is thrown if RoomManager object is not found
+     */
+    public RoomManager readFromFile (String path) throws ClassNotFoundException {
+
+        try {
+            InputStream file = new FileInputStream(path); // String path should be "fileName.ser"
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
+
+            // deserialize the StudentManager
+            RoomManager rm = (RoomManager) input.readObject();
+            input.close();
+            return rm;
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "Cannot read from input file, returning" +
+                    "a new StudentManager.", ex);
+            return null;
+        }
+    }
+
+    /**
+     * Write the RoomManager object to a .ser file to store once program exists
+     * @param filePath file to write to
+     * @throws IOException is thrown if file we want to write to does not exist
+     */
+    public void saveToFile(String filePath) throws IOException {
+
+        OutputStream file = new FileOutputStream(filePath);
+        OutputStream buffer = new BufferedOutputStream(file);
+        ObjectOutput output = new ObjectOutputStream(buffer);
+
+        // serialize the RoomManager
+        output.writeObject(this);
+        output.close();
+    }
+
 
 
 }
