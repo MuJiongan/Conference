@@ -35,6 +35,11 @@ public class Event{
      * The event ID
      */
     private int eventID;
+    /**
+     * The event capacity
+     */
+    private int capacity;
+
 
     /**
      * Create a new event object with the given startTime, endTime, roomID, name
@@ -43,12 +48,13 @@ public class Event{
      * @param roomID of the event
      * @param name of the event
      */
-    public Event(String startTime, String endTime, int roomID, String name){
+    public Event(String startTime, String endTime, int roomID, String name, int capacity){
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomID = roomID;
         this.name = name;
         this.eventID = numberOfEvents;
+        this.capacity = capacity;
         numberOfEvents++;
     }
 
@@ -136,4 +142,9 @@ public class Event{
     public void changeRoomID(int roomID){
         this.roomID = roomID;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
 }
+
