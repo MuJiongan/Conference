@@ -1,11 +1,12 @@
+import java.io.*;
 import java.util.ArrayList;
 
-public class MessageManager {
+public class MessageManager implements Serializable{
 
     /**
      * The list of all Messages
      */
-    private ArrayList<Message> messages;
+    private ArrayList<Message> messages = new ArrayList<>();
 
     /**
      * Returns the shallow copy of all messages in a list
@@ -53,5 +54,42 @@ public class MessageManager {
         return message.getMessageID();
     }
 
+    /**
+     * Read the MessageManager object that was stored in a .ser file
+     * @param path String representing the file path
+     * @return MessageManager object read from .ser file
+     * @throws ClassNotFoundException is thrown if MessageManager object is not found
+     */
+    public MessageManager readFromFile (String path) throws ClassNotFoundException {
+
+        try {
+            InputStream file = new FileInputStream(path); // String path should be "fileName.ser"
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
+
+            // deserialize the StudentManager
+            MessageManager mm = (MessageManager) input.readObject();
+            input.close();
+            return mm;
+        } catch (IOException ex) {
+            return new MessageManager();
+        }
+    }
+
+    /**
+     * Write the MessageManager object to a .ser file to store once program exists
+     * @param filePath file to write to
+     * @throws IOException is thrown if file we want to write to does not exist
+     */
+    public void saveToFile(String filePath) throws IOException {
+
+        OutputStream file = new FileOutputStream(filePath);
+        OutputStream buffer = new BufferedOutputStream(file);
+        ObjectOutput output = new ObjectOutputStream(buffer);
+
+        // serialize the MessageManager
+        output.writeObject(this);
+        output.close();
+    }
 
 }
