@@ -185,6 +185,43 @@ public class UserManager implements Serializable{
         return user.getEventsAttend();
     }
     /**
+     * return a User object if the User has the correct password, username, and type and return null otherwise
+     * @param username the username given by the user
+     * @param password the password given by the user
+     * @param userType the given User type
+     * @custom.precondition
+     * userType.equals("attendee") || userType.equals("speaker") || userType.equals("organizer")
+     * @return the user if it has the correct password, username and type and null otherwise
+     */
+    public User validate(String username, String password, String userType){
+        if(userType.equals("attendee")){
+            for (User user: attendees){
+                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
+                    return user;
+                }
+            }
+        }
+        else if(userType.equals("speaker")){
+            for (User user: speakers){
+                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
+                    return user;
+                }
+            }
+        }
+        else if(userType.equals("organizer")){
+            for (User user: organizers){
+                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
+
+
+
+
+    /**
      * Read the UserManager object that was stored in a .ser file
      * @param path String representing the file path
      * @return UserManager object read from .ser file
