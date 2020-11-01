@@ -122,9 +122,7 @@ public class RoomManager implements Serializable {
             input.close();
             return rm;
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, "Cannot read from input file, returning" +
-                    "a new StudentManager.", ex);
-            return null;
+            return new RoomManager();
         }
     }
 
