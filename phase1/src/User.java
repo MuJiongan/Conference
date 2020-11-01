@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents a User in the conference system
  */
-public abstract class User {
+public abstract class User implements Serializable {
 
     /**
      * Stores the userID of the user

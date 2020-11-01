@@ -5,19 +5,32 @@ public class ConferenceSystem {
     private MessageManager mm;
 
 
-    public ConferenceSystem()
-    {
-        rm = rm.readFromFile("roommanager.ser");
-        em = em.readFromFile();
-        am = am.readFromFile();
-        sm = sm.readFromFile();
-        om = om.readFromFile();
+    public ConferenceSystem() {
+        um = new UserManager();
+        rm = new RoomManager();
+        em = new EventManager();
+        mm = new MessageManager();
+        try{
+            um = um.readFromFile("phase1/src/usermanager.ser");
+//            rm = rm.readFromFile("roommanager.ser");
+//            em = em.readFromFile("eventmanager.ser");
+//            mm = mm.readFromFile("messagemanager.ser");
+        }catch (ClassNotFoundException ex)
+        {
+            System.out.println("Something went wrong when trying to read from file");
+        }
+
+
+
     }
     public void run()
     {
-        UserController current = new LogInSystem(am, om, sm);
-        current = current.run();
-        current.run()
+        UserController current = new LogInSystem(um);
+        User new_user = current.run();
+        if (new_user != null)
+        {
+            System.out.println("Good");
+        }
     }
 
 }
