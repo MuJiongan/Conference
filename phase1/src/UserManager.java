@@ -190,25 +190,25 @@ public class UserManager implements Serializable{
      * @param password the password given by the user
      * @param userType the given User type
      * @custom.precondition
-     * userType.equals("attendee") || userType.equals("speaker") || userType.equals("organizer")
+     * userType.toLowerCase().equals("attendee") || userType.toLowerCase().equals("speaker") || userType.toLowerCase().equals("organizer")
      * @return the user if it has the correct password, username and type and null otherwise
      */
     public User validate(String username, String password, String userType){
-        if(userType.equals("attendee")){
+        if(userType.toLowerCase().equals("attendee")){
             for (User user: attendees){
                 if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
                     return user;
                 }
             }
         }
-        else if(userType.equals("speaker")){
+        else if(userType.toLowerCase().equals("speaker")){
             for (User user: speakers){
                 if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
                     return user;
                 }
             }
         }
-        else if(userType.equals("organizer")){
+        else if(userType.toLowerCase().equals("organizer")){
             for (User user: organizers){
                 if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
                     return user;
