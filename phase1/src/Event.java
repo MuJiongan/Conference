@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Represents an event in the conference.
  */
-public class Event{
+public class Event implements Serializable {
     /**
      * The start Time of the event
      */

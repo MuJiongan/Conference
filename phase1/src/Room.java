@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 /**
@@ -5,7 +6,7 @@ import java.util.ArrayList;
  * A room is where the events will occur and has a capacity limit for number of people.
  *
  */
-public class Room {
+public class Room implements Serializable {
     /**
      * The total number of rooms in the conference
      */

@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents the messages for the conference.
  */
-public class Message {
+public class Message implements Serializable {
 
     /**
      * Stores the User id of sender
