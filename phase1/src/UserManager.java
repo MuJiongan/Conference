@@ -231,6 +231,25 @@ public class UserManager implements Serializable{
         return null;
     }
 
+    public boolean hasUserName(String username)
+    {
+        for (User userOrg: organizers){
+            if (userOrg.getUserName().equals(username)){
+                return true;
+            }
+        }
+        for (User userAtt: attendees){
+            if (userAtt.getUserName().equals(username)){
+                return true;
+            }
+        }
+        for (User userSpe: speakers){
+            if (userSpe.getUserName().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
