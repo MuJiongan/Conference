@@ -103,6 +103,19 @@ public class UserManager implements Serializable{
         }
         return null;
     }
+
+
+    /**
+     * creates a new attendee object and returns it
+     * @param name User's real name
+     * @param username User's username
+     * @param password User's password
+     * @return the user object that we created
+     */
+
+    public Attendee createAttendee(String name, String username, String password){
+        return new Attendee(name, username, password);
+    }
     /**
      * return the speaker object given the speaker ID, null if not found
      * @param speakerID the given speakerID
