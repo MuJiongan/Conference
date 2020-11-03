@@ -3,25 +3,15 @@ public class ConferenceSystem {
     private RoomManager rm;
     private EventManager em;
     private MessageManager mm;
+    private ReadWrite gateway;
 
 
     public ConferenceSystem() {
-        um = new UserManager();
-        rm = new RoomManager();
-        em = new EventManager();
-        mm = new MessageManager();
-        try{
-            um = um.readFromFile("phase1/src/usermanager.ser");
-//            rm = rm.readFromFile("roommanager.ser");
-//            em = em.readFromFile("eventmanager.ser");
-//            mm = mm.readFromFile("messagemanager.ser");
-        }catch (ClassNotFoundException ex)
-        {
-            System.out.println("Something went wrong when trying to read from file");
-        }
-
-
-
+        gateway = new ReadWrite();
+        um = gateway.readUser("phase1/src/usermanager.ser");
+//        rm = gateway.readRoom("phase1/src/roommanager.ser");
+//        em = gateway.readEvent("phase1/src/eventmanager.ser");
+//        mm = gateway.readMessage("phase1/src/messagemanager.ser");
     }
     public void run()
     {
@@ -29,7 +19,8 @@ public class ConferenceSystem {
         User new_user = current.run();
         if (new_user != null)
         {
-            System.out.println("Good");
+            System.out.println(um.getAttendees().size());
+            System.out.println(new_user.getUserName());
         }
     }
 
