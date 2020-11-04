@@ -175,19 +175,26 @@ public class UserManager implements Serializable{
         }
     }
     /**
-     * add a messageID to the list of all messages of the user
+     * add a messageID to the list of the messageSent
+     * @param user the given User object
+     * @param messageID ID of the message the user is sending
+     * @param receiverID of the receiver of the message
+     * @custom.precondition
+     * receiverID and messageID have to be valid
+     */
+    public void addSentMessageID(int messageID, User user, int receiverID){
+        user.addSentMessage(receiverID, messageID);
+    }
+    /**
+     * add a messageID to the list of the messageReceived
      * @param user the given User object
      * @param messageID ID of the message the user is receiving
-     * @return true if and only if the message is successfully added to the list
+     * @param senderID sender of the message
+     * @custom.precondition
+     * senderID and messageID have to be valid
      */
-    public boolean addMessageID(int messageID, User user){
-        for (int i = 0; i<user.getMessagesList().size(); i++){
-            if(messageID == user.getMessagesList().get(i)){
-                return false;
-            }
-        }
-        user.addMessage(messageID);
-        return true;
+    public void addReceivedMessageID(int messageID, User user, int senderID){
+        user.addReceivedMessage(senderID, messageID);
     }
     /**
      * return a list of all events the user is going to attend

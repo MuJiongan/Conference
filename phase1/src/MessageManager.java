@@ -44,6 +44,9 @@ public class MessageManager implements Serializable{
         }
         return null;
     }
+    public Message createMessage(String content, int senderID, int receiverID){
+        return new Message(senderID, receiverID, content);
+    }
 
     /**
      * return the messageID given the Message object

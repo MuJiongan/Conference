@@ -1,5 +1,7 @@
+
 import java.util.ArrayList;
-public class AttendeeMenu implements UserController{
+
+public class AttendeeMenu extends implements UserController{
     private UserManager um;
     private RoomManager rm;
     private EventManager em;
@@ -38,9 +40,13 @@ public class AttendeeMenu implements UserController{
         }
     }
 
-//    public boolean sendMessage(int receiverID){
-//
-//    }
+    public boolean sendMessage(int receiverID, String messageContent){
+        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
+        mm.addMessage(message);
+
+
+
+    }
 
 //    public boolean viewMessage(){
 //    // viewMessage
