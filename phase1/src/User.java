@@ -1,6 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public abstract class User implements Serializable {
@@ -22,9 +22,13 @@ public abstract class User implements Serializable {
      */
     private String passWord;
     /**
-     * Stores a list of message IDs received and sent by the user
+     * Stores a HashMap with key of the receiver's ID and value of message ID sent by this user
      */
-    private ArrayList<Integer> messagesList;
+    private HashMap<Integer, ArrayList<Integer>> messageSent;
+    /**
+     * Stores a HashMap with key of the sender's ID and value of message ID received by this user
+     */
+    private HashMap<Integer, ArrayList<Integer>> messageReceived;
     /**
      * Stores a list of contact IDs of the user
      */
@@ -50,7 +54,8 @@ public abstract class User implements Serializable {
         this.name = name;
         this.userName = userName;
         this.passWord = passWord;
-        this.messagesList = new ArrayList<>();
+        this.messageSent = new HashMap<>();
+        this.messageReceived = new HashMap<>();
         this.contactList = new ArrayList<>();
         this.eventsAttend = new ArrayList<>();
     }
@@ -96,20 +101,49 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Returns the shallow copy of messagesList of the user
-     * @return shallow copy of messagesList of the user
+     * Returns the shallow copy of messagesList sent by the receiverID received by the user
+     * @param receiverID receiver ID
+     * @return shallow copy of messagesList sent by the receiverID received by the user
      */
-    public ArrayList<Integer> getMessagesList() {
-        return (ArrayList<Integer>) messagesList.clone();
+    public ArrayList<Integer> getMessagesSent(int receiverID) {
+        return (ArrayList<Integer>) messageSent.get(receiverID).clone();
     }
 
     /**
-     * Add a message ID to the messagesList of the user
-     * @param messageID to be added to the messagesList of the user
+     * Returns the shallow copy of messagesList sent to the senderID received from the user
+     * @param senderID sender ID
+     * @return shallow copy of messagesList sent to the senderID received from the user
      */
-    public void addMessage(int messageID) {
-        this.messagesList.add(messageID);
+    public ArrayList<Integer> getMessagesReceived(int senderID) {
+        return (ArrayList<Integer>) messageReceived.get(senderID).clone();
     }
+
+    /**
+     * Add a message ID to the receiverID's list
+     * @param receiverID receiver ID
+     * @param messageID message ID
+     */
+    public void addSentMessage(int receiverID, int messageID) {
+        if (!messageSent.containsKey(receiverID)){
+            ArrayList<Integer> newList = new ArrayList<>();
+            messageSent.put(receiverID, newList);
+        }
+        this.messageSent.get(receiverID).add(messageID);
+
+    }
+    /**
+     * Add a message ID to the receiverID's list
+     * @param senderID sender ID
+     * @param messageID message ID
+     */
+    public void addReceivedMessage(int senderID, int messageID) {
+        if (!messageReceived.containsKey(senderID)){
+            ArrayList<Integer> newList = new ArrayList<>();
+            messageReceived.put(senderID, newList);
+        }
+        this.messageReceived.get(senderID).add(messageID);
+    }
+
 
     /**
      * Returns the shallow copy of contactList of the user
