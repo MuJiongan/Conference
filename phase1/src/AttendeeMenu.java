@@ -1,7 +1,4 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import java.util.ArrayList;
-
 public class AttendeeMenu implements UserController{
     private UserManager um;
     private RoomManager rm;

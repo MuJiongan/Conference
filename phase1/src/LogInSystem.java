@@ -17,10 +17,11 @@ public class LogInSystem implements UserController {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("Would you like to login or create Attendee account");
+        System.out.println("1. Login\n2. Create new Account");
         try {
             String input = br.readLine();
-            if (input.toLowerCase().equals("login")) {
+            if (input.equals("1")) {
+                System.out.println("Please enter your credentials");
                 while (!input.equals("exit") && prompts.hasNext()) {
                     System.out.println(prompts.next());
                     input = br.readLine();
@@ -30,8 +31,10 @@ public class LogInSystem implements UserController {
                 }
                 return um.validate(inputs.get(2), inputs.get(3), inputs.get(0));
             }
-            else {
+            else if (input.equals("2"))
+            {
                 prompts.next();
+                System.out.println("Please follow the steps to create an account:");
                 while (!input.equals("exit") && prompts.hasNext()) {
                     System.out.println(prompts.next());
                     input = br.readLine();
@@ -50,8 +53,11 @@ public class LogInSystem implements UserController {
                     um.addAttendee(newAccount);
                     return (User) newAccount;
                 }
-
             }
+            else {
+                return null;
+            }
+
         } catch (IOException e) {
             System.out.println("Something went wrong");
             return null;

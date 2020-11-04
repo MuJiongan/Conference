@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EventManager {
@@ -10,6 +11,27 @@ public class EventManager {
      * Returns the shallow copy of all events in a list
      * @return the shallow copy of all events in a list
      */
+    //Precondition: eventID is in events
+    public LocalDateTime getStartTime(int eventID)
+    {
+        Event e = getEventByID(eventID);
+        return e.getStartTime();
+    }
+    public void setStartTime(int eventID, LocalDateTime time)
+    {
+        Event e = getEventByID(eventID);
+        e.setStartTime(time);
+    }
+    public LocalDateTime getEndTime(int eventID)
+    {
+        Event e = getEventByID(eventID);
+        return e.getEndTime();
+    }
+    public void setEndTime(int eventID, LocalDateTime time)
+    {
+        Event e = getEventByID(eventID);
+        e.setEndTime(time);
+    }
     public ArrayList<Event> getEvents() {
         return (ArrayList<Event>) events.clone();
     }

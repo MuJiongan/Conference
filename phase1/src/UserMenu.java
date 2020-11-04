@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class UserMenu {
     private UserManager um;
     private RoomManager rm;
@@ -17,6 +19,15 @@ public abstract class UserMenu {
         mm.addMessage(message);
 
 
+    }
+    public ArrayList<Event> viewEvents()
+    {
+        ArrayList<Integer> events = um.getEventList(currentUser);
+        String message = "Here is your schedule:\n";
+        for (int x : events)
+        {
+
+        }
     }
 
 //    public boolean viewMessage(){
