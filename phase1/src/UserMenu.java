@@ -14,21 +14,23 @@ public abstract class UserMenu {
         this.mm = mm;
         this.user = user;
     }
-    public boolean sendMessage(int receiverID, String messageContent){
-        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
-        mm.addMessage(message);
-
-
-    }
-    public ArrayList<Event> viewEvents()
+//    public boolean sendMessage(int receiverID, String messageContent){
+//        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
+//        mm.addMessage(message);
+//
+//
+//    }
+    public ArrayList<Event> viewAllEvents()
     {
         ArrayList<Integer> events = um.getEventList(user);
         String message = "Here is your schedule:\n";
         for (int x : events)
         {
             Event event = em.getEventByID(x);
-            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + em.get;
+            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
         }
+        System.out.println(message);
+        return em.getEvents();
     }
 
 //    public boolean viewMessage(){

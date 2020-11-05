@@ -1,19 +1,11 @@
 
 import java.util.ArrayList;
 
-public class AttendeeMenu extends implements UserController{
-    private UserManager um;
-    private RoomManager rm;
-    private EventManager em;
-    private MessageManager mm;
-    private User user;
+public class AttendeeMenu extends UserMenu implements UserController{
+
 
     public AttendeeMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user){
-        this.um = um;
-        this.rm = rm;
-        this.em = em;
-        this.mm = mm;
-        this.user = user;
+        super(um, rm, em, mm, user);
     }
 
     public ArrayList<Event> allEvents(){
