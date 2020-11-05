@@ -7,17 +7,17 @@ import java.util.ArrayList;
 public class SpeakerMenu extends UserMenu implements UserController{
 
 
-    public SpeakerMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User currentUser)
+    public SpeakerMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User currentUser, ReadWrite gateway)
     {
-        super(um, rm, em, mm, currentUser);
+        super(um, rm, em, mm, currentUser, gateway);
     }
     private boolean canSend(int receiverID)
     {
-        ArrayList<Integer> talks = this.getUm().getEventList(this.getUser());
+        ArrayList<Integer> talks = this.getUsers().getEventList(this.getUser());
         for (int x: talks)
         {
-            Event talk = this.getEm().getEventByID(x);
-            ArrayList<Integer> people = this.getEm().getUserIDs(talk);
+            Event talk = this.getEvents().getEventByID(x);
+            ArrayList<Integer> people = this.getEvents().getUserIDs(talk);
             if (people.contains(receiverID))
             {
                 return true;
@@ -67,6 +67,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             System.out.println("Please enter a valid option");
             return null;
         }
+        this.saveInfo();
         System.out.println("See you again soon");
         return null;
     }

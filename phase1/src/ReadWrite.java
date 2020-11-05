@@ -71,7 +71,6 @@ public class ReadWrite {
             System.out.println(e.getMessage());
         }
     }
-
     public void saveEvent (String path)
     {
         try{

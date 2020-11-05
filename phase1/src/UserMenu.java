@@ -8,13 +8,15 @@ public abstract class UserMenu {
     private EventManager em;
     private MessageManager mm;
     private User user;
+    private ReadWrite gateway;
 
-    public UserMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user){
+    public UserMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
         this.um = um;
         this.rm = rm;
         this.em = em;
         this.mm = mm;
         this.user = user;
+        this.gateway =gateway;
     }
 
     // precondition: receiverID has to be valid. Check before you send the message
@@ -43,25 +45,29 @@ public abstract class UserMenu {
         return user;
     }
 
-    public EventManager getEm() {
+    public EventManager getEvents() {
         return em;
     }
 
-    public MessageManager getMm() {
+    public MessageManager getMessages() {
         return mm;
     }
 
-    public RoomManager getRm() {
+    public RoomManager getRooms() {
         return rm;
     }
 
-    public UserManager getUm() {
+    public UserManager getUsers() {
         return um;
     }
 
-
     public HashMap<Integer, ArrayList<Integer>> viewMessage(){
-    System.out.println("Here we view all the received messages");
-    return um.getReceivedMessages(user);
-  }
+        System.out.println("Here we view all the received messages");
+        return um.getReceivedMessages(user);
+    }
+
+    public void saveInfo()
+    {
+        gateway.saveAll();
+    }
 }

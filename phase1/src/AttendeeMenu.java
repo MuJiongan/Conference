@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class AttendeeMenu extends UserMenu implements UserController{
 
 
-    public AttendeeMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user){
-        super(um, rm, em, mm, user);
+    public AttendeeMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
+        super(um, rm, em, mm, user, gateway);
     }
 
 //    public ArrayList<Event> eventsTheyCanSignUpFor(){
@@ -19,9 +19,9 @@ public class AttendeeMenu extends UserMenu implements UserController{
 //    }
 
     public boolean cancelEnrollment(int eventID){
-        if (getUser().getEventsAttend().contains(eventID)||super.getEm().getEventByID(eventID) != null) {
+        if (getUser().getEventsAttend().contains(eventID)||super.getEvents().getEventByID(eventID) != null) {
             getUser().removeEvent(eventID);
-            getEm().removeUserID(getUser().getUserId(), getEm().getEventByID(eventID));
+            getEvents().removeUserID(getUser().getUserId(), getEvents().getEventByID(eventID));
             return true;
         }else{
             return false;
@@ -29,11 +29,11 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     public boolean signUp(int eventID){
-        if (getEm().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
+        if (getEvents().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
             return false;
         }else{
             getUser().addEvent(eventID);
-            getEm().addUserID(getUser().getUserId(), getEm().getEventByID(eventID));
+            getEvents().addUserID(getUser().getUserId(), getEvents().getEventByID(eventID));
             return true;
         }
     }

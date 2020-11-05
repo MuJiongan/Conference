@@ -27,12 +27,13 @@ public class ConferenceSystem {
                    // current = new AttendeeMenu(um, rm, em, mm, new_user);
                    // current.run();
                 } else if (um.getSpeakers().contains(new_user)) {
-                    current = new SpeakerMenu(um, rm, em, mm, new_user);
+                    current = new SpeakerMenu(um, rm, em, mm, new_user, gateway);
                     current.run();
+                    System.out.println("lol");
                 }
                 else if (um.getOrganizers().contains(new_user))
                 {
-                    current = new OrganizerMenu(um, rm, em, mm, new_user);
+                    current = new OrganizerMenu(um, rm, em, mm, new_user, gateway);
                     current.run();
                 }
             } else {
