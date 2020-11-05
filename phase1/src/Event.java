@@ -92,7 +92,8 @@ public class Event implements Serializable {
      * @param userID to be removed in the Event
      */
     public void removeUserID(int userID) {
-        userIDs.remove(userID);
+        Integer userId = userID;
+        userIDs.remove(userId);
     }
     /**
      * Returns the shallow copy of UserIDs of the event
@@ -120,7 +121,8 @@ public class Event implements Serializable {
      * @param speakerID to be removed in the Event
      */
     public void removeSpeakerID(int speakerID) {
-        speakerIDs.remove(speakerID);
+        Integer speakerId = speakerID;
+        speakerIDs.remove(speakerId);
     }
     /**
      * change the room ID of the event

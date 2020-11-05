@@ -56,8 +56,8 @@ public class EventTest {
         speak1.addUserID(321);
         speak1.addUserID(1234);
         speak1.removeUserID(321);
-        assertSame("incorrect UserID",123, speak1.getUserIDs().get(0) );
-        assertSame("incorrect UserID",1234, speak1.getUserIDs().get(1) );
+        assertEquals("incorrect UserID",Integer.valueOf(123), speak1.getUserIDs().get(0) );
+        assertEquals("incorrect UserID",Integer.valueOf(1234), speak1.getUserIDs().get(1) );
     }
 
     @Test(timeout = 50)
@@ -69,8 +69,8 @@ public class EventTest {
         speak1.addSpeakerID(4567);
         speak1.addSpeakerID(23355);
         speak1.removeSpeakerID(4567);
-        assertSame("incorrect SpeakerID", 567, speak1.getSpeakerIDs().get(0));
-        assertSame("incorrect SpeakerID", 23355, speak1.getSpeakerIDs().get(1));
+        assertEquals("incorrect SpeakerID", Integer.valueOf(567), speak1.getSpeakerIDs().get(0));
+        assertEquals("incorrect SpeakerID", Integer.valueOf(23355), speak1.getSpeakerIDs().get(1));
     }
 
     @Test(timeout = 50)
