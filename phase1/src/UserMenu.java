@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class UserMenu {
     private UserManager um;
@@ -16,11 +18,12 @@ public abstract class UserMenu {
     }
 
     // precondition: receiverID has to be valid. Check before you send the message
-    public void sendMessage(int receiverID, String messageContent){
+    public boolean sendMessage(int receiverID, String messageContent){
        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
        mm.addMessage(message);
        um.addSentMessageID(mm.getIdByMessage(message), user, receiverID);
        um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
+       return true;
     }
 
     public ArrayList<Event> viewAllEvents()
@@ -57,7 +60,10 @@ public abstract class UserMenu {
     }
 
 
-    public ArrayList<Message> viewMessage(){
-    
+    public HashMap<Integer, ArrayList<Integer>> viewMessage(){
+    ArrayList<Message> messageList = new ArrayList<>();
+
+    System.out.println("Here we view all the received messages");
+    return um.getReceivedMessages(user);
   }
 }

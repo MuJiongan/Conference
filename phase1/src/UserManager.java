@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserManager implements Serializable{
     /**
@@ -277,6 +278,24 @@ public class UserManager implements Serializable{
             return user3;
         }
         return null;
+    }
+    /**
+     * return the HashMap receivedMessages given the userID
+     * @Precondition user object has to be valid(in one of the UserManager lists)
+     * @param user object of which user to access
+     * @return the HashMap receivedMessages
+     */
+    public HashMap<Integer, ArrayList<Integer>> getReceivedMessages(User user){
+        return user.getMessagesReceived();
+    }
+    /**
+     * return the HashMap sentMessages given the userID
+     * @Precondition user object has to be valid(in one of the UserManager lists)
+     * @param user object of which user to access
+     * @return the HashMap sentMessages
+     */
+    public HashMap<Integer, ArrayList<Integer>> getSentMessages(User user){
+        return user.getMessagesSent();
     }
 
 

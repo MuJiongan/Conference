@@ -101,21 +101,19 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Returns the shallow copy of messagesList sent by the receiverID received by the user
-     * @param receiverID receiver ID
-     * @return shallow copy of messagesList sent by the receiverID received by the user
+     * Returns the shallow copy of the HashMap messageSent
+     * @return shallow copy of messageSent
      */
-    public ArrayList<Integer> getMessagesSent(int receiverID) {
-        return (ArrayList<Integer>) messageSent.get(receiverID).clone();
+    public HashMap<Integer, ArrayList<Integer>> getMessagesSent() {
+        return (HashMap<Integer, ArrayList<Integer>>) messageSent.clone();
     }
 
     /**
-     * Returns the shallow copy of messagesList sent to the senderID received from the user
-     * @param senderID sender ID
-     * @return shallow copy of messagesList sent to the senderID received from the user
+     * Returns the shallow copy of the HashMap messageReceived
+     * @return shallow copy of messageReceived
      */
-    public ArrayList<Integer> getMessagesReceived(int senderID) {
-        return (ArrayList<Integer>) messageReceived.get(senderID).clone();
+    public HashMap<Integer, ArrayList<Integer>> getMessagesReceived() {
+        return (HashMap<Integer, ArrayList<Integer>>) messageReceived.clone();
     }
 
     /**
