@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,43 +20,49 @@ public abstract class UserMenu {
 
     // precondition: receiverID has to be valid. Check before you send the message
     public boolean sendMessage(int receiverID, String messageContent){
-       Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
-       mm.addMessage(message);
-       um.addSentMessageID(mm.getIdByMessage(message), user, receiverID);
-       um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
-       return true;
+        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
+        mm.addMessage(message);
+        um.addSentMessageID(mm.getIdByMessage(message), user, receiverID);
+        um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
+        return true;
     }
 
     public ArrayList<Event> viewAllEvents()
     {
         ArrayList<Integer> events = um.getEventList(user);
-        String message = "Here is your schedule:\n";
-        for (int x : events)
-        {
-            Event event = em.getEventByID(x);
-            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
+        ArrayList<Event> actualEvents = new ArrayList<>();
+        for (Integer eventID: events){
+            Event event = em.getEventByID(eventID);
+            actualEvents.add(event);
         }
-        System.out.println(message);
-        return null;
+//        String message = "Here is your schedule:\n";
+//        for (int x : events)
+//        {
+//            Event event = em.getEventByID(x);
+//            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
+//        }
+//        System.out.println(message);
+
+        return actualEvents;
     }
 
     public User getUser() {
         return user;
     }
 
-    public EventManager getEvents() {
+    public EventManager getEventManager() {
         return em;
     }
 
-    public MessageManager getMessages() {
+    public MessageManager getMessageManager() {
         return mm;
     }
 
-    public RoomManager getRooms() {
+    public RoomManager getRoomManager() {
         return rm;
     }
 
-    public UserManager getUsers() {
+    public UserManager getUserManager() {
         return um;
     }
 
@@ -68,6 +73,6 @@ public abstract class UserMenu {
 
     public void saveInfo()
     {
-        gateway.saveAll(um, em, rm, mm);
+        gateway.saveAll();
     }
 }
