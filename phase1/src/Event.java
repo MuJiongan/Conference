@@ -31,6 +31,8 @@ public class Event implements Serializable {
         this.name = name;
         this.capacity = capacity;
         this.eventID = numberOfEvents;
+        userIDs = new ArrayList<Integer>();
+        speakerIDs = new ArrayList<Integer>();
         numberOfEvents++;
     }
 
