@@ -68,7 +68,39 @@ public class ReadWrite {
         }
         catch (IOException e)
         {
-            ;
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void saveEvent (String path)
+    {
+        try{
+            events.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void saveRoom (String path) {
+        try{
+            rooms.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void saveMessage (String path)
+    {
+        try{
+            messages.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 }
