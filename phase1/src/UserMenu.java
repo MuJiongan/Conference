@@ -14,12 +14,15 @@ public abstract class UserMenu {
         this.mm = mm;
         this.user = user;
     }
-//    public boolean sendMessage(int receiverID, String messageContent){
-//        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
-//        mm.addMessage(message);
-//
-//
-//    }
+
+    // precondition: receiverID has to be valid. Check before you send the message
+    public void sendMessage(int receiverID, String messageContent){
+       Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
+       mm.addMessage(message);
+       um.addSentMessageID(mm.getIdByMessage(message), user, receiverID);
+       um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
+    }
+
     public ArrayList<Event> viewAllEvents()
     {
         ArrayList<Integer> events = um.getEventList(user);
@@ -33,7 +36,28 @@ public abstract class UserMenu {
         return em.getEvents();
     }
 
-//    public boolean viewMessage(){
-//    // viewMessage
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public EventManager getEm() {
+        return em;
+    }
+
+    public MessageManager getMm() {
+        return mm;
+    }
+
+    public RoomManager getRm() {
+        return rm;
+    }
+
+    public UserManager getUm() {
+        return um;
+    }
+
+
+    public ArrayList<Message> viewMessage(){
+    
+  }
 }

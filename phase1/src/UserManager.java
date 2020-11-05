@@ -134,7 +134,7 @@ public class UserManager implements Serializable{
      * @param user the given User object
      * @return the userID corresponding to the user object
      */
-    private int getIDByUser(User user){
+    public int getIDByUser(User user){
         return user.getUserId();
     }
     /**
@@ -258,6 +258,26 @@ public class UserManager implements Serializable{
         return false;
     }
 
+    /**
+     * return the User object given the user ID, null if not found
+     * @param userID the given attendeeID
+     * @return the userID object corresponding to the ID, null if not found
+     */
+    public User getUserByID(int userID){
+        User user1 = getAttendee(userID);
+        if (user1 != null){
+            return user1;
+        }
+        User user2 = getSpeaker(userID);
+        if (user2 != null){
+            return user2;
+        }
+        User user3 = getSpeaker(userID);
+        if (user3 != null){
+            return user3;
+        }
+        return null;
+    }
 
 
     /**

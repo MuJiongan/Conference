@@ -8,10 +8,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
         super(um, rm, em, mm, user);
     }
 
-    public ArrayList<Event> allEvents(){
-        return em.getEvents();
-    }
-
 //    public ArrayList<Event> eventsTheyCanSignUpFor(){
 //        ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
 //        for (Event event: em.getEvents()){
@@ -23,33 +19,21 @@ public class AttendeeMenu extends UserMenu implements UserController{
 //    }
 
     public boolean cancelEnrollment(int eventID){
-        if (user.getEventsAttend().contains(eventID)||em.getEventByID(eventID) != null) {
-            user.removeEvent(eventID);
-            em.removeUserID(user.getUserId(), em.getEventByID(eventID));
+        if (getUser().getEventsAttend().contains(eventID)||super.getEm().getEventByID(eventID) != null) {
+            getUser().removeEvent(eventID);
+            getEm().removeUserID(getUser().getUserId(), getEm().getEventByID(eventID));
             return true;
         }else{
             return false;
         }
     }
 
-    public boolean sendMessage(int receiverID, String messageContent){
-        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
-        mm.addMessage(message);
-
-
-
-    }
-
-//    public boolean viewMessage(){
-//    // viewMessage
-//    }
-
     public boolean signUp(int eventID){
-        if (em.getEventByID(eventID) == null ||user.getEventsAttend().contains(eventID)){
+        if (getEm().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
             return false;
         }else{
-            user.addEvent(eventID);
-            em.addUserID(user.getUserId(), em.getEventByID(eventID));
+            getUser().addEvent(eventID);
+            getEm().addUserID(getUser().getUserId(), getEm().getEventByID(eventID));
             return true;
         }
     }
