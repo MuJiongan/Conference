@@ -171,7 +171,14 @@ public class EventManager {
             return new EventManager();
         }
     }
-
+    /**
+     * return the event name given the event object
+     * @param event the given Event object
+     * @return the event name corresponding to the Event object
+     */
+    public String getName (Event event){
+        return event.getName();
+    }
     /**
      * Write the EventManager object to a .ser file to store once program exists
      * @param filePath file to write to
