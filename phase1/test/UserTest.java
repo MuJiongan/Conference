@@ -9,7 +9,7 @@ public class UserTest {
 
     // the constructor
     @Test(timeout = 50)
-    public void testAttendee(){
+    public void testConstructor(){
         Attendee attendee = new Attendee("a", "a", "123");
         Organizer organizer = new Organizer("o", "o", "123");
         Speaker speaker = new Speaker("s", "s", "123");
