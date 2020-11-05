@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Gateway class to read and write from files
  */
@@ -56,6 +58,17 @@ public class ReadWrite {
         catch (ClassNotFoundException c) {
             System.out.println(c.getMessage());
             return messages;
+        }
+    }
+    //methods to write to file
+    public void saveUser(String path)
+    {
+        try{
+            users.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            ;
         }
     }
 }

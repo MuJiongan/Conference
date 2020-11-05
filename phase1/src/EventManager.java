@@ -194,5 +194,9 @@ public class EventManager {
         output.writeObject(this);
         output.close();
     }
+    public ArrayList<Integer> getUserIDs(Event event){
+        return  event.getUserIDs();
+
+    }
 
 }

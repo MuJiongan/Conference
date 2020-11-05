@@ -36,7 +36,7 @@ public abstract class UserMenu {
             message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
         }
         System.out.println(message);
-        return em.getEvents();
+        return null;
     }
 
     public User getUser() {
@@ -61,8 +61,6 @@ public abstract class UserMenu {
 
 
     public HashMap<Integer, ArrayList<Integer>> viewMessage(){
-    ArrayList<Message> messageList = new ArrayList<>();
-
     System.out.println("Here we view all the received messages");
     return um.getReceivedMessages(user);
   }
