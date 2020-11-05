@@ -177,10 +177,11 @@ public abstract class User implements Serializable {
 
     /**
      * Remove an event to the eventsAttend list of the user
-     * @param eventID to be added to the eventsAttend list of the user
+     * @param eventID to be removed from the eventsAttend list of the user
      */
     public void removeEvent(int eventID) {
-        this.eventsAttend.remove(eventID);
+        Integer eventId = eventID;
+        this.eventsAttend.remove(eventId);
     }
 }
 
