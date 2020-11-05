@@ -11,9 +11,10 @@ public class ConferenceSystem {
     public ConferenceSystem() {
         gateway = new ReadWrite();
         um = gateway.readUser("phase1/src/usermanager.ser");
-//        rm = gateway.readRoom("phase1/src/roommanager.ser");
-//        em = gateway.readEvent("phase1/src/eventmanager.ser");
-//        mm = gateway.readMessage("phase1/src/messagemanager.ser");
+        rm = gateway.readRoom("phase1/src/roommanager.ser");
+        em = gateway.readEvent("phase1/src/eventmanager.ser");
+        mm = gateway.readMessage("phase1/src/messagemanager.ser");
+        System.out.println(um.getAttendees().size());
     }
     public void run()
     {
@@ -24,8 +25,8 @@ public class ConferenceSystem {
             if (new_user != null) {
                 iterate = false;
                 if (um.getAttendees().contains(new_user)) {
-                   // current = new AttendeeMenu(um, rm, em, mm, new_user);
-                   // current.run();
+                   current = new AttendeeMenu(um, rm, em, mm, new_user, gateway);
+                   current.run();
                 } else if (um.getSpeakers().contains(new_user)) {
                     current = new SpeakerMenu(um, rm, em, mm, new_user, gateway);
                     current.run();

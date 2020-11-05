@@ -61,20 +61,20 @@ public class ReadWrite {
         }
     }
     //methods to write to file
-    public void saveUser(String path)
+    public void saveUser(String path, UserManager um)
     {
         try{
-            users.saveToFile(path);
+            users.saveToFile(path,um);
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
     }
-    public void saveEvent (String path)
+    public void saveEvent (String path, EventManager em)
     {
         try{
-            events.saveToFile(path);
+            events.saveToFile(path, em);
         }
         catch (IOException e)
         {
@@ -82,9 +82,9 @@ public class ReadWrite {
         }
     }
 
-    public void saveRoom (String path) {
+    public void saveRoom (String path, RoomManager rm) {
         try{
-            rooms.saveToFile(path);
+            rooms.saveToFile(path, rm);
         }
         catch (IOException e)
         {
@@ -92,20 +92,20 @@ public class ReadWrite {
         }
     }
 
-    public void saveMessage (String path)
+    public void saveMessage (String path, MessageManager mm)
     {
         try{
-            messages.saveToFile(path);
+            messages.saveToFile(path, mm);
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
     }
-    public void saveAll(){
-        saveUser("phase1/src/usermanager.ser");
-        saveMessage("phase1/src/messagemanager.ser");
-        saveRoom("phase1/src/roommanager.ser");
-        saveEvent("phase1/src/eventmanager.ser");
+    public void saveAll(UserManager um, EventManager em, RoomManager rm, MessageManager mm){
+        saveUser("phase1/src/usermanager.ser", um);
+        saveMessage("phase1/src/messagemanager.ser", mm);
+        saveRoom("phase1/src/roommanager.ser", rm);
+        saveEvent("phase1/src/eventmanager.ser", em);
     }
 }

@@ -68,6 +68,6 @@ public abstract class UserMenu {
 
     public void saveInfo()
     {
-        gateway.saveAll();
+        gateway.saveAll(um, em, rm, mm);
     }
 }

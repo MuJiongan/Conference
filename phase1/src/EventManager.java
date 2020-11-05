@@ -2,7 +2,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class EventManager {
+public class EventManager implements Serializable{
     /**
      * The list of all events
      */
@@ -184,14 +184,14 @@ public class EventManager {
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
-    public void saveToFile(String filePath) throws IOException {
+    public void saveToFile(String filePath, EventManager e) throws IOException {
 
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
         // serialize the EventManager
-        output.writeObject(this);
+        output.writeObject(e);
         output.close();
     }
     public ArrayList<Integer> getUserIDs(Event event){

@@ -84,14 +84,14 @@ public class MessageManager implements Serializable{
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
-    public void saveToFile(String filePath) throws IOException {
+    public void saveToFile(String filePath, MessageManager m) throws IOException {
 
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
         // serialize the MessageManager
-        output.writeObject(this);
+        output.writeObject(m);
         output.close();
     }
 
