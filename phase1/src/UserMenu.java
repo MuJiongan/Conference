@@ -22,11 +22,12 @@ public abstract class UserMenu {
     }
     public ArrayList<Event> viewEvents()
     {
-        ArrayList<Integer> events = um.getEventList(currentUser);
+        ArrayList<Integer> events = um.getEventList(user);
         String message = "Here is your schedule:\n";
         for (int x : events)
         {
-
+            Event event = em.getEventByID(x);
+            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + em.get;
         }
     }
 

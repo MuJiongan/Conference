@@ -11,26 +11,21 @@ public class EventManager {
      * Returns the shallow copy of all events in a list
      * @return the shallow copy of all events in a list
      */
-    //Precondition: eventID is in events
-    public LocalDateTime getStartTime(int eventID)
+    public LocalDateTime getStartTime(Event event)
     {
-        Event e = getEventByID(eventID);
-        return e.getStartTime();
+        return event.getStartTime();
     }
-    public void setStartTime(int eventID, LocalDateTime time)
+    public void setStartTime(Event event, LocalDateTime time)
     {
-        Event e = getEventByID(eventID);
-        e.setStartTime(time);
+        event.setStartTime(time);
     }
-    public LocalDateTime getEndTime(int eventID)
+    public LocalDateTime getEndTime(Event event)
     {
-        Event e = getEventByID(eventID);
-        return e.getEndTime();
+       return event.getEndTime();
     }
-    public void setEndTime(int eventID, LocalDateTime time)
+    public void setEndTime(Event event, LocalDateTime time)
     {
-        Event e = getEventByID(eventID);
-        e.setEndTime(time);
+        event.setEndTime(time);
     }
     public ArrayList<Event> getEvents() {
         return (ArrayList<Event>) events.clone();
