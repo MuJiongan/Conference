@@ -83,4 +83,16 @@ public class EventTest {
         assertSame("incorrect RoomID", 102, speak1.getRoomID());
     }
 
+    @Test(timeout = 50)
+    public void testGetEventID() {
+        Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
+                LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
+                "CSC207", 30);
+        Event speak2 = new Event(LocalDateTime.of(2020, 1, 1, 10, 0, 0),
+                LocalDateTime.of(2020, 1, 1, 11, 0, 0), 121,
+                "CSC258", 40);
+        assertSame("incorrect EventID", 0, speak1.getEventID());
+        assertSame("incorrect EventID", 1, speak2.getEventID());
+    }
+
 }
