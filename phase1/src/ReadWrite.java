@@ -103,4 +103,10 @@ public class ReadWrite {
             System.out.println(e.getMessage());
         }
     }
+    public void saveAll(){
+        saveUser("phase1/src/usermanager.ser");
+        saveMessage("phase1/src/messagemanager.ser");
+        saveRoom("phase1/src/roommanager.ser");
+        saveEvent("phase1/src/eventmanager.ser");
+    }
 }
