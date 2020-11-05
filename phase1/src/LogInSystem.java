@@ -44,7 +44,7 @@ public class LogInSystem implements UserController {
                 }
                 if (um.hasUserName(inputs.get(1)))
                 {
-                    System.out.println("That username is already in use. Program ending");
+                    System.out.println("That username is already in use");
                     return null;
                 }
                 else

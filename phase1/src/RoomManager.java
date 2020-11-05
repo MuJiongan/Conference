@@ -131,14 +131,14 @@ public class RoomManager implements Serializable {
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
-    public void saveToFile(String filePath, RoomManager r) throws IOException {
+    public void saveToFile(String filePath) throws IOException {
 
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
         // serialize the RoomManager
-        output.writeObject(r);
+        output.writeObject(this);
         output.close();
     }
 

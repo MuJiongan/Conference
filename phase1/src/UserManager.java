@@ -326,14 +326,14 @@ public class UserManager implements Serializable{
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
-    public void saveToFile(String filePath, UserManager u) throws IOException {
+    public void saveToFile(String filePath) throws IOException {
 
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
         // serialize the UserManager
-        output.writeObject(u);
+        output.writeObject(this);
         output.close();
     }
 

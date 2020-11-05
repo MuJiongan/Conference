@@ -60,21 +60,28 @@ public class ReadWrite {
             return messages;
         }
     }
+    public void setManagers(UserManager um, EventManager em, RoomManager rm, MessageManager mm)
+    {
+        users = um;
+        events = em;
+        rooms = rm;
+        messages = mm;
+    }
     //methods to write to file
-    public void saveUser(String path, UserManager um)
+    public void saveUser(String path)
     {
         try{
-            users.saveToFile(path,um);
+            users.saveToFile(path);
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
     }
-    public void saveEvent (String path, EventManager em)
+    public void saveEvent (String path)
     {
         try{
-            events.saveToFile(path, em);
+            events.saveToFile(path);
         }
         catch (IOException e)
         {
@@ -82,9 +89,9 @@ public class ReadWrite {
         }
     }
 
-    public void saveRoom (String path, RoomManager rm) {
+    public void saveRoom (String path) {
         try{
-            rooms.saveToFile(path, rm);
+            rooms.saveToFile(path);
         }
         catch (IOException e)
         {
@@ -92,20 +99,20 @@ public class ReadWrite {
         }
     }
 
-    public void saveMessage (String path, MessageManager mm)
+    public void saveMessage (String path)
     {
         try{
-            messages.saveToFile(path, mm);
+            messages.saveToFile(path);
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
     }
-    public void saveAll(UserManager um, EventManager em, RoomManager rm, MessageManager mm){
-        saveUser("phase1/src/usermanager.ser", um);
-        saveMessage("phase1/src/messagemanager.ser", mm);
-        saveRoom("phase1/src/roommanager.ser", rm);
-        saveEvent("phase1/src/eventmanager.ser", em);
+    public void saveAll(){
+        saveUser("phase1/src/usermanager.ser");
+        saveMessage("phase1/src/messagemanager.ser");
+        saveRoom("phase1/src/roommanager.ser");
+        saveEvent("phase1/src/eventmanager.ser");
     }
 }

@@ -14,6 +14,7 @@ public class ConferenceSystem {
         rm = gateway.readRoom("phase1/src/roommanager.ser");
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
+        gateway.setManagers(um, em, rm, mm);
         System.out.println(um.getAttendees().size());
     }
     public void run()

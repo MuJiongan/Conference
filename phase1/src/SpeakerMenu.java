@@ -13,11 +13,11 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
     private boolean canSend(int receiverID)
     {
-        ArrayList<Integer> talks = this.getUsers().getEventList(this.getUser());
+        ArrayList<Integer> talks = this.getUserManager().getEventList(this.getUser());
         for (int x: talks)
         {
-            Event talk = this.getEvents().getEventByID(x);
-            ArrayList<Integer> people = this.getEvents().getUserIDs(talk);
+            Event talk = this.getEventManager().getEventByID(x);
+            ArrayList<Integer> people = this.getEventManager().getUserIDs(talk);
             if (people.contains(receiverID))
             {
                 return true;
