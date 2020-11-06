@@ -44,6 +44,17 @@ public class MessageManager implements Serializable{
         }
         return null;
     }
+    /**
+     * return the Message content given the message ID
+     * @param messageID the given Message ID
+     * @return the content variable in Message corresponding to the messageID
+     */
+    public String getMescontentById(int messageID){
+        Message actualmessage = this.getMessageById(messageID);
+        return actualmessage.getContent();
+    }
+
+
     public Message createMessage(String content, int senderID, int receiverID){
         return new Message(senderID, receiverID, content);
     }

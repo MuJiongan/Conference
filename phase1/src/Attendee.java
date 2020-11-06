@@ -1,14 +1,7 @@
-import java.util.ArrayList;
-/**
- * Represents a attendee in the conference.
- */
-
 public class Attendee extends User{
-    /**
-     * Create an instance of Attendee
-     */
-    public Attendee(String name, String username, String password){
+    public Attendee(String username, String password, String name) {
         super(name, username, password);
     }
+
 
 }

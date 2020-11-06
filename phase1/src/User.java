@@ -30,7 +30,8 @@ public abstract class User implements Serializable {
      */
     private HashMap<Integer, ArrayList<Integer>> messageReceived;
     /**
-     * Stores a list of contact IDs of the user
+     * Stores a HashMap with key to be the ID of the message sender who sent message to this user and value to be ID of
+     * the message sent by the sender
      */
     private ArrayList<Integer> contactList;
     /**
@@ -184,4 +185,3 @@ public abstract class User implements Serializable {
         this.eventsAttend.remove(eventId);
     }
 }
-

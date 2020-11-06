@@ -156,6 +156,15 @@ public class UserManager implements Serializable{
         return true;
     }
     /**
+     * return the username  given the userid
+     * @param userId the given userid
+     * @return the username corresponding to the user id
+     */
+    public String getUsernameById(int userId){
+        return getUserByID(userId).getUserName();
+    }
+
+    /**
      * remove an eventID from the list of all events the user is going to cancel
      * @param user the given User object
      * @param eventID ID of the event the user is going to cancel
