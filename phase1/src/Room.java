@@ -65,7 +65,8 @@ public class Room implements Serializable {
      */
     public void removeEventID(int eventID)
     {
-        eventsScheduled.remove(eventID);
+        Integer eventId = eventID;
+        eventsScheduled.remove(eventId);
     }
 
     /**
