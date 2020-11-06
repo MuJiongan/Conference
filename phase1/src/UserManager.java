@@ -282,7 +282,7 @@ public class UserManager implements Serializable{
         if (user2 != null){
             return user2;
         }
-        User user3 = getSpeaker(userID);
+        User user3 = getOrganizer(userID);
         if (user3 != null){
             return user3;
         }
