@@ -19,9 +19,5 @@ public class Main
 
         ConferenceSystem c = new ConferenceSystem();
         c.run();
-
-
-        Integer x = new Integer(2);
-        System.out.println(x+2);
     }
 }
