@@ -161,7 +161,7 @@ public class ReadWrite {
     public void saveAll(){
         saveAttendees("phase1/src/attendeemanager.ser");
         saveOrganizers("phase1/src/organizermanager.ser");
-        saveSpeakers("phase1/src/speakersmanager.ser");
+        saveSpeakers("phase1/src/speakermanager.ser");
         saveMessage("phase1/src/messagemanager.ser");
         saveRoom("phase1/src/roommanager.ser");
         saveEvent("phase1/src/eventmanager.ser");
