@@ -4,28 +4,55 @@ import java.io.IOException;
  * Gateway class to read and write from files
  */
 public class ReadWrite {
-    private UserManager users;
+    private AttendeeManager attendees;
+    private OrganizerManager organizers;
+    private SpeakerManager speakers;
     private RoomManager rooms;
     private EventManager events;
     private MessageManager messages;
 
     public ReadWrite()
     {
-        users = new UserManager();
+
+        attendees = new AttendeeManager();
+        organizers = new OrganizerManager();
+        speakers = new SpeakerManager();
         rooms = new RoomManager();
         events = new EventManager();
         messages = new MessageManager();
     }
-    public UserManager readUser(String path)
+    public AttendeeManager readAttendee(String path)
     {
         try
         {
-            return users.readFromFile(path);
+            return attendees.readFromFile(path);
         }
         catch (ClassNotFoundException c) {
-            System.out.println(c.getMessage());
-            return users;
+            System.out.println("Couldn't find file " + path);
+            return attendees;
          }
+    }
+    public OrganizerManager readOrganizer(String path)
+    {
+        try
+        {
+            return organizers.readFromFile(path);
+        }
+        catch (ClassNotFoundException c) {
+            System.out.println("Couldn't find file " + path);
+            return organizers;
+        }
+    }
+    public SpeakerManager readSpeaker(String path)
+    {
+        try
+        {
+            return speakers.readFromFile(path);
+        }
+        catch (ClassNotFoundException c) {
+            System.out.println("Couldn't find file " + path);
+            return speakers;
+        }
     }
     public RoomManager readRoom(String path)
     {
@@ -60,22 +87,44 @@ public class ReadWrite {
             return messages;
         }
     }
-    public void setManagers(UserManager um, EventManager em, RoomManager rm, MessageManager mm)
+    public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, EventManager em, RoomManager rm, MessageManager mm)
     {
-        users = um;
+        attendees = am;
+        organizers = om;
+        speakers = sm;
         events = em;
         rooms = rm;
         messages = mm;
     }
     //methods to write to file
-    public void saveUser(String path)
+    public void saveAttendees(String path)
     {
         try{
-            users.saveToFile(path);
+            attendees.saveToFile(path);
         }
         catch (IOException e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("Couldn't save AttendeeManager");
+        }
+    }
+    public void saveOrganizers(String path)
+    {
+        try{
+            organizers.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Couldn't save OrganizerManager");
+        }
+    }
+    public void saveSpeakers(String path)
+    {
+        try{
+            speakers.saveToFile(path);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Couldn't save SpeakerManager");
         }
     }
     public void saveEvent (String path)
@@ -110,7 +159,9 @@ public class ReadWrite {
         }
     }
     public void saveAll(){
-        saveUser("phase1/src/usermanager.ser");
+        saveAttendees("phase1/src/attendeemanager.ser");
+        saveOrganizers("phase1/src/organizermanager.ser");
+        saveSpeakers("phase1/src/speakersmanager.ser");
         saveMessage("phase1/src/messagemanager.ser");
         saveRoom("phase1/src/roommanager.ser");
         saveEvent("phase1/src/eventmanager.ser");

@@ -7,13 +7,12 @@ import java.util.ArrayList;
 public class SpeakerMenu extends UserMenu implements UserController{
 
 
-    public SpeakerMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User currentUser, ReadWrite gateway)
-    {
-        super(um, rm, em, mm, currentUser, gateway);
+    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
+        super(am, om, sm, rm, em, mm, user, gateway);
     }
     private boolean canSend(int receiverID)
     {
-        ArrayList<Integer> talks = this.getUserManager().getEventList(this.getUser());
+        ArrayList<Integer> talks = this.getCurrentManager().getEventList(this.getUser());
         for (int x: talks)
         {
             Event talk = this.getEventManager().getEventByID(x);

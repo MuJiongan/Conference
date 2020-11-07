@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 public class ConferenceSystem {
-    private UserManager um;
+    private AttendeeManager am;
+    private OrganizerManager om;
+    private SpeakerManager sm;
     private RoomManager rm;
     private EventManager em;
     private MessageManager mm;
@@ -10,32 +12,36 @@ public class ConferenceSystem {
 
     public ConferenceSystem() {
         gateway = new ReadWrite();
-        um = gateway.readUser("phase1/src/usermanager.ser");
+        am = gateway.readAttendee("phase1/src/attendeemanager.ser");
+        om = gateway.readOrganizer("phase1/src/organizermanager.ser");
+        sm = gateway.readSpeaker("phase1/src/speakermanager.ser");
         rm = gateway.readRoom("phase1/src/roommanager.ser");
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
-        gateway.setManagers(um, em, rm, mm);
-        System.out.println(um.getAttendees().size());
+        gateway.setManagers(am, om, sm, em, rm, mm);
+        System.out.println(am.getUsers().size());
+        System.out.println(om.getUsers().size());
+        System.out.println(sm.getUsers().size());
     }
     public void run()
     {
-        UserController current = new LogInSystem(um);
+        UserController current = new LogInSystem(am, om, sm);
         boolean iterate = true;
         while (iterate) {
             User new_user = current.run();
             if (new_user != null) {
                 iterate = false;
-                if (um.getAttendees().contains(new_user)) {
-                   current = new AttendeeMenu(um, rm, em, mm, new_user, gateway);
+                if (am.getUsers().contains(new_user)) {
+                   current = new AttendeeMenu(am, om, sm, rm, em, mm, new_user, gateway);
                    current.run();
-                } else if (um.getSpeakers().contains(new_user)) {
-                    current = new SpeakerMenu(um, rm, em, mm, new_user, gateway);
-                    current.run();
-                    System.out.println("lol");
                 }
-                else if (um.getOrganizers().contains(new_user))
+                else if (sm.getUsers().contains(new_user)) {
+                    current = new SpeakerMenu(am, om, sm, rm, em, mm, new_user, gateway);
+                    current.run();
+                }
+                else if (om.getUsers().contains(new_user))
                 {
-                    current = new OrganizerMenu(um, rm, em, mm, new_user, gateway);
+                    current = new OrganizerMenu(am, om, sm, rm, em, mm, new_user, gateway);
                     current.run();
                 }
             } else {

@@ -2,133 +2,35 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserManager implements Serializable{
+public abstract class UserManager implements Serializable{
     /**
      * The list of all attendees
      */
-    private ArrayList<Attendee> attendees = new ArrayList<Attendee>();
-    /**
-     * The list of all organizers
-     */
-    private ArrayList<Organizer> organizers = new ArrayList<Organizer>();
-    /**
-     * The list of all speakers
-     */
-    private ArrayList<Speaker> speakers = new ArrayList<Speaker>();
-    /**
-     * Returns the shallow copy of all attendees in a list
-     * @return the shallow copy of all attendees in a list
-     */
-    public ArrayList<Attendee> getAttendees(){
-        return (ArrayList<Attendee>) attendees.clone();
+    private ArrayList<User> users;
+    public UserManager()
+    {
+        users = new ArrayList<>();
     }
     /**
-     * Returns the shallow copy of all organizers in a list
-     * @return the shallow copy of all organizers in a list
+     * Returns the shallow copy of all users in the list
+     * @return the shallow copy of all users in a list
      */
-    public ArrayList<Organizer> getOrganizers(){
-        return (ArrayList<Organizer>) organizers.clone();
+    public ArrayList<User> getUsers(){
+        return (ArrayList<User>) users.clone();
     }
     /**
-     * Returns the shallow copy of all speakers in a list
-     * @return the shallow copy of all speakers in a list
+     * add a user to list of users
+     * @param user to be added
+     * @return true if and only if the user is successfully added to the list
      */
-    public ArrayList<Speaker> getSpeakers(){
-        return (ArrayList<Speaker>) speakers.clone();
-    }
-    /**
-     * add a attendee to attendees
-     * @param attendee to be added
-     * @return true if and only if the attendee is successfully added to the attendee list
-     */
-    public boolean addAttendee(Attendee attendee){
-        for (User person: attendees){
-            if(person == attendee){
+    public boolean addUser(User user){
+        for (User person: users){
+            if(person == user){
                 return false;
             }
         }
-        attendees.add(attendee);
+        users.add(user);
         return true;
-    }
-    /**
-     * add an organizer to organizers
-     * @param organizer to be added
-     * @return true if and only if the organizer is successfully added to the organizer list
-     */
-    public boolean addOrganizer(Organizer organizer){
-        for (User person: organizers){
-            if(person == organizer){
-                return false;
-            }
-        }
-        organizers.add(organizer);
-        return true;
-    }
-    /**
-     * add a speaker to speakers
-     * @param speaker to be added
-     * @return true if and only if the speaker is successfully added to the speaker list
-     */
-    public boolean addSpeaker(Speaker speaker){
-        for (User person: speakers){
-            if(person == speaker){
-                return false;
-            }
-        }
-        speakers.add(speaker);
-        return true;
-    }
-    /**
-     * return the attendee object given the user ID, null if not found
-     * @param attendeeID the given attendeeID
-     * @return the attendee object corresponding to the ID, null if not found
-     */
-    public User getAttendee(int attendeeID){
-        for (User person: attendees){
-            if(person.getUserId() == attendeeID){
-                return person;
-            }
-        }
-        return null;
-    }
-    /**
-     * return the organizer object given the organizer ID, null if not found
-     * @param organizerID the given organizerID
-     * @return the organizer object corresponding to the ID, null if not found
-     */
-    public User getOrganizer(int organizerID){
-        for (User person: organizers){
-            if(person.getUserId() == organizerID){
-                return person;
-            }
-        }
-        return null;
-    }
-
-
-    /**
-     * creates a new attendee object and returns it
-     * @param name User's real name
-     * @param username User's username
-     * @param password User's password
-     * @return the user object that we created
-     */
-
-    public Attendee createAttendee(String name, String username, String password){
-        return new Attendee(name, username, password);
-    }
-    /**
-     * return the speaker object given the speaker ID, null if not found
-     * @param speakerID the given speakerID
-     * @return the speaker object corresponding to the ID, null if not found
-     */
-    public User getSpeaker(int speakerID){
-        for (User person: speakers){
-            if(person.getUserId() == speakerID){
-                return person;
-            }
-        }
-        return null;
     }
     /**
      * return the userID given the user object
@@ -218,31 +120,14 @@ public class UserManager implements Serializable{
      * return a User object if the User has the correct password, username, and type and return null otherwise
      * @param username the username given by the user
      * @param password the password given by the user
-     * @param userType the given User type
      * @custom.precondition
      * userType.toLowerCase().equals("attendee") || userType.toLowerCase().equals("speaker") || userType.toLowerCase().equals("organizer")
      * @return the user if it has the correct password, username and type and null otherwise
      */
-    public User validate(String username, String password, String userType){
-        if(userType.toLowerCase().equals("attendee")){
-            for (User user: attendees){
-                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
-                    return user;
-                }
-            }
-        }
-        else if(userType.toLowerCase().equals("speaker")){
-            for (User user: speakers){
-                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
-                    return user;
-                }
-            }
-        }
-        else if(userType.toLowerCase().equals("organizer")){
-            for (User user: organizers){
-                if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
-                    return user;
-                }
+    public User validate(String username, String password){
+        for (User user: users){
+            if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
+                return user;
             }
         }
         return null;
@@ -250,18 +135,8 @@ public class UserManager implements Serializable{
 
     public boolean hasUserName(String username)
     {
-        for (User userOrg: organizers){
-            if (userOrg.getUserName().equals(username)){
-                return true;
-            }
-        }
-        for (User userAtt: attendees){
-            if (userAtt.getUserName().equals(username)){
-                return true;
-            }
-        }
-        for (User userSpe: speakers){
-            if (userSpe.getUserName().equals(username)){
+        for (User user: users){
+            if (user.getUserName().equals(username)){
                 return true;
             }
         }
@@ -274,17 +149,12 @@ public class UserManager implements Serializable{
      * @return the userID object corresponding to the ID, null if not found
      */
     public User getUserByID(int userID){
-        User user1 = getAttendee(userID);
-        if (user1 != null){
-            return user1;
-        }
-        User user2 = getSpeaker(userID);
-        if (user2 != null){
-            return user2;
-        }
-        User user3 = getOrganizer(userID);
-        if (user3 != null){
-            return user3;
+        for (User user: users)
+        {
+            if (user.getUserId() == userID)
+            {
+                return user;
+            }
         }
         return null;
     }
@@ -308,42 +178,8 @@ public class UserManager implements Serializable{
     }
 
 
-    /**
-     * Read the UserManager object that was stored in a .ser file
-     * @param path String representing the file path
-     * @return UserManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if UserManager object is not found
-     */
-    public UserManager readFromFile (String path) throws ClassNotFoundException {
 
-        try {
-            InputStream file = new FileInputStream(path); // String path should be "fileName.ser"
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
 
-            // deserialize the StudentManager
-            UserManager um = (UserManager) input.readObject();
-            input.close();
-            return um;
-        } catch (IOException ex) {
-            return new UserManager();
-        }
-    }
 
-    /**
-     * Write the UserManager object to a .ser file to store once program exists
-     * @param filePath file to write to
-     * @throws IOException is thrown if file we want to write to does not exist
-     */
-    public void saveToFile(String filePath) throws IOException {
-
-        OutputStream file = new FileOutputStream(filePath);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
-
-        // serialize the UserManager
-        output.writeObject(this);
-        output.close();
-    }
 
 }

@@ -3,10 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class OrganizerMenu extends UserMenu implements UserController{
-    public OrganizerMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User currentUser, ReadWrite gateway)
-    {
-        super(um, rm, em, mm, currentUser, gateway);
+public class OrganizerMenu extends AttendeeMenu implements UserController{
+    public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
+        super(am, om, sm, rm, em, mm, user, gateway);
     }
     @Override
     public User run() {

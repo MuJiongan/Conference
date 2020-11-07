@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class AttendeeMenu extends UserMenu implements UserController{
 
 
-    public AttendeeMenu(UserManager um, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
-        super(um, rm, em, mm, user, gateway);
+    public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
+        super(am, om, sm, rm, em, mm, user, gateway);
     }
 
     public ArrayList<Event> eventsTheyCanSignUpFor(){
@@ -46,17 +46,17 @@ public class AttendeeMenu extends UserMenu implements UserController{
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
         System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                "in Event \n5. Enter New Room \n6. Create Speaker Account \n7.Schedule Speaker \n8.Exit");
+                "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
         try{
             String input = br.readLine();
-            while (!input.equals("8"))
+            while (!input.equals("7"))
             {
                 if (input.equals("1"))
                 {
                     this.viewAllEvents();
                 }
                 System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                        "in Event \n5. Enter New Room \n6. Create Speaker Account \n7.Schedule Speaker \n8.Exit");
+                        "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
                 input = br.readLine();
             }
         } catch (IOException e) {
@@ -72,7 +72,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     private boolean canSignUp(Event event){
         LocalDateTime startTime = getEventManager().getStartTime(event);
         LocalDateTime endTime = getEventManager().getEndTime(event);
-        for (Integer eventToSignUpFor: getUserManager().getEventList(getUser())){
+        for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
             Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
             LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
             if (newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime)){

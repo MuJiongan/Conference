@@ -1,4 +1,3 @@
-Account (Speaker, Attendee, Organizer)
 Name
 Username
 Password

@@ -4,11 +4,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LogInSystem implements UserController {
-    private UserManager um;
+    private AttendeeManager am;
+    private OrganizerManager om;
+    private SpeakerManager sm;
 
-    public LogInSystem(UserManager um)
+    public LogInSystem(AttendeeManager am, OrganizerManager om, SpeakerManager sm)
     {
-        this.um = um;
+        this.am = am;
+        this.om = om;
+        this.sm = sm;
     }
 
     @Override
@@ -29,11 +33,20 @@ public class LogInSystem implements UserController {
                         inputs.add(input);
                     }
                 }
-                return um.validate(inputs.get(2), inputs.get(3), inputs.get(0));
+                User user =  am.validate(inputs.get(1), inputs.get(2));
+                if (!(user == null))
+                {
+                    return user;
+                }
+                user = om.validate(inputs.get(1), inputs.get(2));
+                if (!(user == null))
+                {
+                    return user;
+                }
+                return sm.validate(inputs.get(1), inputs.get(2));
             }
             else if (input.equals("2"))
             {
-                prompts.next();
                 System.out.println("Please follow the steps to create an account:");
                 while (!input.equals("exit") && prompts.hasNext()) {
                     System.out.println(prompts.next());
@@ -42,16 +55,16 @@ public class LogInSystem implements UserController {
                         inputs.add(input);
                     }
                 }
-                if (um.hasUserName(inputs.get(1)))
+                if (am.hasUserName(inputs.get(1)) || om.hasUserName(inputs.get(1)) || sm.hasUserName(inputs.get(1)))
                 {
                     System.out.println("That username is already in use");
                     return null;
                 }
                 else
                 {
-                    Attendee newAccount = um.createAttendee(inputs.get(0), inputs.get(1), inputs.get(2));
-                    um.addAttendee(newAccount);
-                    return (User) newAccount;
+                    Attendee newAccount = am.createAttendee(inputs.get(0), inputs.get(1), inputs.get(2));
+                    am.addUser(newAccount);
+                    return newAccount;
                 }
             }
             else {
