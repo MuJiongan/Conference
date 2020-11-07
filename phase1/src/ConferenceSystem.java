@@ -32,17 +32,21 @@ public class ConferenceSystem {
             if (new_user != null) {
                 iterate = false;
                 if (am.getUsers().contains(new_user)) {
-                   current = new AttendeeMenu(am, om, sm, rm, em, mm, new_user, gateway);
+                   current = new AttendeeMenu(am, om, sm, rm, em, mm, new_user);
                    current.run();
+                   gateway.saveAll();
+
                 }
                 else if (sm.getUsers().contains(new_user)) {
-                    current = new SpeakerMenu(am, om, sm, rm, em, mm, new_user, gateway);
+                    current = new SpeakerMenu(am, om, sm, rm, em, mm, new_user);
                     current.run();
+                    gateway.saveAll();
                 }
                 else if (om.getUsers().contains(new_user))
                 {
-                    current = new OrganizerMenu(am, om, sm, rm, em, mm, new_user, gateway);
+                    current = new OrganizerMenu(am, om, sm, rm, em, mm, new_user);
                     current.run();
+                    gateway.saveAll();
                 }
             } else {
                 System.out.println("Error please try again");

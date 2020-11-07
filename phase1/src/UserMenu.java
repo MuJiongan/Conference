@@ -9,10 +9,9 @@ public abstract class UserMenu {
     private EventManager em;
     private MessageManager mm;
     private User user;
-    private ReadWrite gateway;
     private UserManager currentManager;
 
-    public UserMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
+    public UserMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         this.am = am;
         this.om = om;
         this.sm = sm;
@@ -20,7 +19,7 @@ public abstract class UserMenu {
         this.em = em;
         this.mm = mm;
         this.user = user;
-        this.gateway =gateway;
+
         if (this.am.getUsers().contains(this.user))
         {
            currentManager = this.am;
@@ -102,10 +101,7 @@ public abstract class UserMenu {
         return currentManager.getReceivedMessages(user);
     }
 
-    public void saveInfo()
-    {
-        gateway.saveAll();
-    }
+
     public ArrayList<Event> viewMyEvents() {
         ArrayList<Event> eventsTheyAttended = new ArrayList<>();
         for (Integer eventID : getUser().getEventsAttend()) {

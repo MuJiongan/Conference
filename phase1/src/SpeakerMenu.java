@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class SpeakerMenu extends UserMenu implements UserController{
 
 
-    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
-        super(am, om, sm, rm, em, mm, user, gateway);
+    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
+        super(am, om, sm, rm, em, mm, user);
     }
     private boolean canSend(int receiverID)
     {
@@ -69,7 +69,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             System.out.println("Please enter a valid option");
             return null;
         }
-        this.saveInfo();
+
         System.out.println("See you again soon");
         return null;
     }

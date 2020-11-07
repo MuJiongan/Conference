@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class AttendeeMenu extends UserMenu implements UserController{
 
 
-    public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
-        super(am, om, sm, rm, em, mm, user, gateway);
+    public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
+        super(am, om, sm, rm, em, mm, user);
     }
 
     public ArrayList<Event> eventsTheyCanSignUpFor(){
@@ -63,7 +63,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             System.out.println("Please enter a valid option");
             return null;
         }
-        this.saveInfo();
+
         System.out.println("See you again soon");
         return null;
     }

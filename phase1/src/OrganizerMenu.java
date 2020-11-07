@@ -4,8 +4,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
-    public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user, ReadWrite gateway){
-        super(am, om, sm, rm, em, mm, user, gateway);
+    public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
+        super(am, om, sm, rm, em, mm, user);
     }
     @Override
     public User run() {
@@ -30,7 +30,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             System.out.println("Please enter a valid option");
             return null;
         }
-        this.saveInfo();
+
         System.out.println("See you again soon");
         return null;
     }
