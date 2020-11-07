@@ -75,4 +75,11 @@ public abstract class UserMenu {
     {
         gateway.saveAll();
     }
+    public ArrayList<Event> viewMyEvents() {
+        ArrayList<Event> eventsTheyAttended = new ArrayList<>();
+        for (Integer eventID : getUser().getEventsAttend()) {
+            eventsTheyAttended.add(getEventManager().getEventByID(eventID));
+        }
+        return eventsTheyAttended;
+    }
 }

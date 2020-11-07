@@ -55,6 +55,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 {
                     this.viewAllEvents();
                 }
+                else if (input.equals("2")){
+                    this.viewMyEvents();
+                }
                 else if (input.equals("5"))
                 {
                     this.viewMessage();
