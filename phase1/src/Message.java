@@ -30,7 +30,10 @@ public class Message implements Serializable {
      * Stores the id of the message
      */
     private int messageID;
-
+    /**
+     * Stores the condition of whether the message is read by receiver
+     */
+    private boolean unread;
 
     /**
      * Constructor:
@@ -44,6 +47,7 @@ public class Message implements Serializable {
         this.receiverID = _receiverID;
         this.content = _content;
         this.messageID = numOfMessages;
+        this.unread = false;
         numOfMessages++;
     }
 
@@ -79,4 +83,17 @@ public class Message implements Serializable {
         return messageID;
     }
 
+    /**
+     * Getter:
+     *    Returns the unread condition of message
+     */
+    public boolean getMessageCondition(){
+        return unread;
+    }
+    /**
+     * Change the condition of message
+     */
+    public void changeMessageCondition(){
+        unread = true;
+    }
 }
