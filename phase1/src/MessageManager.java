@@ -106,4 +106,13 @@ public class MessageManager implements Serializable{
         output.close();
     }
 
+    /**
+     * Change the read condition of all message
+     */
+    public void readAllMessage(){
+        for (Message message: messages){
+            message.changeMessageCondition();
+        }
+    }
+
 }
