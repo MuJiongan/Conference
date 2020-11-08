@@ -44,33 +44,119 @@ public class SpeakerMenu extends UserMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("1. View All Events \n2. View your Events \n3. Message Attendee \n4. Message all Attendees " +
-                "in Event \n5. View Messages \n6. Exit");
+        System.out.println("1. View your Events \n2. View contact list \n3. Exit");
         try{
             String input = br.readLine();
-            while (!input.equals("6"))
+            while (!input.equals("3"))
             {
                 if (input.equals("1"))
                 {
-                    this.viewAllEvents();
+                    this.runViewMyEvents();
                 }
                 else if (input.equals("2")){
-                    this.viewMyEvents();
+                    this.runViewContacts();
                 }
-                else if (input.equals("5"))
-                {
-                    this.viewMessage();
-                }
-                System.out.println("1. View All Events \n2. View your Events \n3. Message Attendee \n4. Message all Attendees " +
-                        "in Event \n5. View Messages \n6. Exit");
+//                System.out.println("Please enter a valid option and try again");
+                System.out.println("1. View your Events \n2. View contact list \n3. Exit");
                 input = br.readLine();
             }
         } catch (IOException e) {
             System.out.println("Please enter a valid option");
             return null;
         }
-
+//        this.saveInfo();
         System.out.println("See you again soon");
+        return null;
+    }
+
+    public User runViewMyEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        UserPropertiesIterator prompts = new UserPropertiesIterator();
+        ArrayList<String> inputs = new ArrayList<>();
+        this.viewMyEvents();
+        System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    System.out.println("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()){
+                        System.out.println("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    int eventID = super.getUser().getEventsAttend().get(index);
+                    System.out.println("Please type in your message: ");
+                    String input3 = br.readLine();
+//                    this.messageAll(eventID, input3);
+                    System.out.println("Message Sent");
+                }
+                System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Please enter a valid option: ");
+            return null;
+        }
+        return null;
+    }
+
+    public User runViewContacts() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        UserPropertiesIterator prompts = new UserPropertiesIterator();
+        ArrayList<String> inputs = new ArrayList<>();
+        this.viewMyContacts();
+        System.out.println("1. View chat history \n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    System.out.println("Please enter a friend number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyContacts().size()){
+                        System.out.println("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    int receiverID = super.getUser().getContactList().get(index);
+                    this.runViewChat(receiverID);
+                }
+                System.out.println("1. View chat history \n2. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Please enter a valid option: ");
+            return null;
+        }
+        return null;
+    }
+
+    public User runViewChat(int receiverID) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        UserPropertiesIterator prompts = new UserPropertiesIterator();
+        ArrayList<String> inputs = new ArrayList<>();
+        this.viewChat(receiverID);
+        System.out.println("1. Send Message \n2. Exit");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    System.out.println("Please type your message here: ");
+                    String input2 = br.readLine();
+                    this.sendMessage(receiverID, input2);
+                    this.readAllMessage(receiverID);
+                    this.viewChat(receiverID);
+                }
+                System.out.println("1. Send Message \n2. Exit");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Please enter a valid option");
+            return null;
+        }
         return null;
     }
 }

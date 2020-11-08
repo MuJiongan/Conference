@@ -107,12 +107,10 @@ public class MessageManager implements Serializable{
     }
 
     /**
-     * Change the read condition of all message
+     * Change the condition of message
      */
-    public void readAllMessage(){
-        for (Message message: messages){
-            message.changeMessageCondition();
-        }
+    public void changeMessageCondition(int messageID){
+        this.getMessageById(messageID).changeMessageCondition();
     }
 
 }

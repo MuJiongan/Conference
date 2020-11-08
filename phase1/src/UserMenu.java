@@ -109,4 +109,26 @@ public abstract class UserMenu {
         }
         return eventsTheyAttended;
     }
+
+    public ArrayList<Event> viewMyContacts() {
+        ArrayList<Event> contacts = new ArrayList<>();
+        for (Integer userID : getUser().getContactList()) {
+            contacts.add(getEventManager().getEventByID(userID));
+        }
+        return contacts;
+        // presenter print number before each name
+    }
+
+//    to be implemented
+    public void readAllMessage(int friendID) {
+        ArrayList<Event> messages = new ArrayList<>();
+    }
+
+    // to be implemented
+    public ArrayList<Message> viewChat(int receiverID){
+        ArrayList<Message> messages = new ArrayList<>();
+        return messages;
+    }
+
+
 }
