@@ -159,23 +159,15 @@ public abstract class UserManager implements Serializable{
         return null;
     }
     /**
-     * return the HashMap receivedMessages given the userID
+     * return the HashMap Messages given the userID
      * @Precondition user object has to be valid(in one of the UserManager lists)
      * @param user object of which user to access
-     * @return the HashMap receivedMessages
+     * @return the HashMap Messages
      */
-    public HashMap<Integer, ArrayList<Integer>> getReceivedMessages(User user){
-        return user.getMessagesReceived();
+    public HashMap<Integer, ArrayList<Integer>> getMessages(User user){
+        return user.getMessages();
     }
-    /**
-     * return the HashMap sentMessages given the userID
-     * @Precondition user object has to be valid(in one of the UserManager lists)
-     * @param user object of which user to access
-     * @return the HashMap sentMessages
-     */
-    public HashMap<Integer, ArrayList<Integer>> getSentMessages(User user){
-        return user.getMessagesSent();
-    }
+
 
 
 

@@ -98,7 +98,7 @@ public abstract class UserMenu {
 
     public HashMap<Integer, ArrayList<Integer>> viewMessage(){
         System.out.println("Here we view all the received messages");
-        return currentManager.getReceivedMessages(user);
+        return currentManager.getMessages(user);
     }
 
 
@@ -119,15 +119,30 @@ public abstract class UserMenu {
         // presenter print number before each name
     }
 
-//    to be implemented
+
     public void readAllMessage(int friendID) {
-        ArrayList<Event> messages = new ArrayList<>();
+        for(Integer messageID:getUser().getMessages().get(friendID)){
+            Message message = getMessageManager().getMessageById(messageID);
+            if(message.getSenderID() == friendID){
+                getMessageManager().changeMessageCondition(messageID);
+            }
+        }
+
     }
 
-    // to be implemented
     public ArrayList<Message> viewChat(int receiverID){
-        ArrayList<Message> messages = new ArrayList<>();
-        return messages;
+        ArrayList<Message> chatHistory = new ArrayList<>();
+        for(Integer messageID:getUser().getMessages().get(receiverID)){
+            chatHistory.add(getMessageManager().getMessageById(messageID));
+        }
+        return chatHistory;
+    }
+
+    public void messageAll(Integer eventID, String message){
+        Event event = em.getEventByID(eventID);
+        for(Integer userid: event.getUserIDs()){
+            sendMessage(userid, message);
+        }
     }
 
 

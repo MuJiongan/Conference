@@ -24,14 +24,9 @@ public abstract class User implements Serializable {
     /**
      * Stores a HashMap with key of the receiver's ID and value of message ID sent by this user
      */
-    private HashMap<Integer, ArrayList<Integer>> messageSent;
+    private HashMap<Integer, ArrayList<Integer>> message;
     /**
-     * Stores a HashMap with key of the sender's ID and value of message ID received by this user
-     */
-    private HashMap<Integer, ArrayList<Integer>> messageReceived;
-    /**
-     * Stores a HashMap with key to be the ID of the message sender who sent message to this user and value to be ID of
-     * the message sent by the sender
+     * Stores a HashMap with key of the sender's ID and value of message ID
      */
     private ArrayList<Integer> contactList;
     /**
@@ -55,8 +50,7 @@ public abstract class User implements Serializable {
         this.name = name;
         this.userName = userName;
         this.passWord = passWord;
-        this.messageSent = new HashMap<>();
-        this.messageReceived = new HashMap<>();
+        this.message = new HashMap<>();
         this.contactList = new ArrayList<>();
         this.eventsAttend = new ArrayList<>();
     }
@@ -102,20 +96,13 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Returns the shallow copy of the HashMap messageSent
-     * @return shallow copy of messageSent
+     * Returns the shallow copy of the HashMap message
+     * @return shallow copy of message
      */
-    public HashMap<Integer, ArrayList<Integer>> getMessagesSent() {
-        return (HashMap<Integer, ArrayList<Integer>>) messageSent.clone();
+    public HashMap<Integer, ArrayList<Integer>> getMessages() {
+        return (HashMap<Integer, ArrayList<Integer>>) message.clone();
     }
 
-    /**
-     * Returns the shallow copy of the HashMap messageReceived
-     * @return shallow copy of messageReceived
-     */
-    public HashMap<Integer, ArrayList<Integer>> getMessagesReceived() {
-        return (HashMap<Integer, ArrayList<Integer>>) messageReceived.clone();
-    }
 
     /**
      * Add a message ID to the receiverID's list
@@ -123,11 +110,11 @@ public abstract class User implements Serializable {
      * @param messageID message ID
      */
     public void addSentMessage(int receiverID, int messageID) {
-        if (!messageSent.containsKey(receiverID)){
+        if (!message.containsKey(receiverID)){
             ArrayList<Integer> newList = new ArrayList<>();
-            messageSent.put(receiverID, newList);
+            message.put(receiverID, newList);
         }
-        this.messageSent.get(receiverID).add(messageID);
+        this.message.get(receiverID).add(messageID);
 
     }
     /**
@@ -136,11 +123,11 @@ public abstract class User implements Serializable {
      * @param messageID message ID
      */
     public void addReceivedMessage(int senderID, int messageID) {
-        if (!messageReceived.containsKey(senderID)){
+        if (!message.containsKey(senderID)){
             ArrayList<Integer> newList = new ArrayList<>();
-            messageReceived.put(senderID, newList);
+            message.put(senderID, newList);
         }
-        this.messageReceived.get(senderID).add(messageID);
+        this.message.get(senderID).add(messageID);
     }
 
 
