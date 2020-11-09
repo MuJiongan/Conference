@@ -83,12 +83,12 @@ public class EventManager implements Serializable{
 
     /**
      * add a userID to the list of all attendees in the event
-     * @param userID Attendee to be added
+     * @param user Attendee to be added
      * @param event in which event the attendee is being added
      * @return true if and only if the attendee is successfully added to the list
      */
-    public boolean addUserID(int userID, Event event){
-
+    public boolean addUserID(User user, Event event){
+        int userID = user.getUserId();
         for (int i = 0; i<event.getUserIDs().size(); i++){
             if (userID == event.getUserIDs().get(i)){
                 return false;
@@ -101,28 +101,31 @@ public class EventManager implements Serializable{
 
     /**
      * add a speakerID to the list of all speakers in the event
-     * @param speakerID speaker to be added
+     * @param speaker the Speaker that Event to be added
      * @param event in which event the speaker is being added
      * @return true if and only if the speaker is successfully added to the list
      */
-    public boolean addSpeakerID(int speakerID, Event event){
+    public boolean addSpeakerID(Speaker speaker, Event event){
+        int speakerID = speaker.getUserId();
         for (int i = 0; i<event.getSpeakerIDs().size(); i++){
             if (speakerID == event.getSpeakerIDs().get(i)){
                 return false;
             }
         }
         event.addSpeakerID(speakerID);
+        speaker.addEventsAsSpeaker(event);
         return true;
     }
 
 
     /**
-     * Remove an attendee to the list of all attendees in the event
-     * @param userID Attendee to be removed
-     * @param event in which event the attendee is being removed
-     * @return true if and only if the attendee is successfully removed
+     * Remove an Attendee's ID from the list of all attendees of the event
+     * @param user Attendee to be removed
+     * @param event in which event the Attendee is being removed
+     * @return true if and only if the Attendee is successfully removed
      */
-    public boolean removeUserID(int userID, Event event) {
+    public boolean removeUserID(User user, Event event) {
+        int userID = user.getUserId();
         boolean exists = false;
         for (int i = 0; i < event.getUserIDs().size(); i++) {
             if (userID == event.getUserIDs().get(i)) {
@@ -141,12 +144,13 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Remove an speaker to the list of all attendees in the event
-     * @param speakerID speaker to be removed
-     * @param event in which event the attendee is being removed
-     * @return true if and only if the speaker is successfully removed
+     * Remove a Speaker's ID from the list of all Speaker of the event
+     * @param speaker Speaker to be removed
+     * @param event in which event the Speaker is being removed
+     * @return true if and only if the Speaker is successfully removed
      */
-    public boolean removeSpeakerID(int speakerID, Event event) {
+    public boolean removeSpeakerID(Speaker speaker, Event event) {
+        int speakerID = speaker.getUserId();
         boolean exists = false;
         for (int i = 0; i < event.getSpeakerIDs().size(); i++) {
             if (speakerID == event.getSpeakerIDs().get(i)) {
@@ -166,10 +170,11 @@ public class EventManager implements Serializable{
 
     /**
      * change the room ID to a new ID of a given event
-     * @param roomID new room ID
+     * @param room new Room
      * @param event in which event the roomID is being changed
      */
-    public void changeRoomID(int roomID, Event event){
+    public void changeRoomID(Room room, Event event){
+        int roomID = room.getRoomID();
         event.changeRoomID(roomID);
     }
 

@@ -18,4 +18,15 @@ public class Speaker extends User{
         super(name, username, password);
         this.eventsAsSpeaker = new ArrayList<>();
     }
+
+
+    /**
+     *  Add event into the Speaker's eventsAsSpeaker list
+     */
+    public void addEventsAsSpeaker(Event event){
+        this.eventsAsSpeaker.add(event.getEventID());
+    }
+
+
+
 }
