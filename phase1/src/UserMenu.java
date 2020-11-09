@@ -35,10 +35,8 @@ public abstract class UserMenu {
     }
 
     // precondition: receiverID has to be valid. Check before you send the message
-    public boolean sendMessage(int receiverID, String messageContent){
-        Message message = mm.createMessage(messageContent, user.getUserId(), receiverID);
-        mm.addMessage(message);
-        currentManager.addSentMessageID(mm.getIdByMessage(message), user, receiverID);
+    public boolean sendMessage(int receiverID, Message message){
+        currentManager.addMessageID(mm.getIdByMessage(message), user, receiverID);
         //um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
         // Remember to add recevied message in sendMessage extension
         return true;
@@ -138,7 +136,7 @@ public abstract class UserMenu {
         return chatHistory;
     }
 
-    public void messageAll(Integer eventID, String message){
+    public void messageAll(Integer eventID, Message message){
         Event event = em.getEventByID(eventID);
         for(Integer userid: event.getUserIDs()){
             sendMessage(userid, message);

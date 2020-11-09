@@ -105,32 +105,18 @@ public abstract class User implements Serializable {
 
 
     /**
-     * Add a message ID to the receiverID's list
-     * @param receiverID receiver ID
+     * Add a message ID to the user's hashmap
+     * @param userID receiver ID
      * @param messageID message ID
      */
-    public void addSentMessage(int receiverID, int messageID) {
-        if (!message.containsKey(receiverID)){
+    public void addMessage(int userID, int messageID) {
+        if (!message.containsKey(userID)){
             ArrayList<Integer> newList = new ArrayList<>();
-            message.put(receiverID, newList);
+            message.put(userID, newList);
         }
-        this.message.get(receiverID).add(messageID);
+        this.message.get(userID).add(messageID);
 
     }
-    /**
-     * Add a message ID to the receiverID's list
-     * @param senderID sender ID
-     * @param messageID message ID
-     */
-    public void addReceivedMessage(int senderID, int messageID) {
-        if (!message.containsKey(senderID)){
-            ArrayList<Integer> newList = new ArrayList<>();
-            message.put(senderID, newList);
-        }
-        this.message.get(senderID).add(messageID);
-    }
-
-
     /**
      * Returns the shallow copy of contactList of the user
      * @return shallow copy of contactList of the user

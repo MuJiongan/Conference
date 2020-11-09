@@ -20,9 +20,7 @@ public class Presenter {
     }
 
     public static void printSpeakermenu(){
-        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy \n4. Message Attendee " +
-                "\n5. Message all Attendees in Event \n6. View Messages \n7.Cancel enrollment(s) \n8.Sign up events" +
-                "\n9. Exit");
+        System.out.println("1. View your Events \n2. View contact list \n3. Exit");
     }
 
 
