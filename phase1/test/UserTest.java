@@ -48,64 +48,45 @@ public class UserTest {
         assertSame("incorrect password\n", "789", speaker.getPassWord());
     }
 
-    // test addSentMessage and getMessageSent
-//    @Test(timeout = 50)
-//    public void testGetMessages(){
-//        Attendee attendee = new Attendee("a", "a", "123");
-//        Organizer organizer = new Organizer("o", "o", "123");
-//        Speaker speaker = new Speaker("s", "s", "789");
-//        assertEquals("incorrect message sent\n", 0, attendee.getMessages().size());
-//        assertEquals("incorrect message sent\n", 0, organizer.getMessages().size());
-//        assertEquals("incorrect message sent\n", 0, speaker.getMessages().size());
-//        Message message1 = new Message(1, 2, "Hi");
-//        attendee.addMessage(1, 1);
-//        organizer.addMessage(1, 1);
-//        assertEquals("incorrect message sent\n", 1, attendee.getMessagesSent().size());
-//        assertEquals("incorrect message sent\n", 1, attendee.getMessagesSent().get(2).size());
-//        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessagesSent().get(2).get(0));
-//        attendee.addSentMessage(2, 1);
-//        assertEquals("incorrect message sent\n", 1, attendee.getMessagesSent().size());
-//        assertEquals("incorrect message sent\n", 2, attendee.getMessagesSent().get(2).size());
-//        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessagesSent().get(2).get(0));
-//        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessagesSent().get(2).get(1));
-//        Message message2 = new Message(1, 3, "Hello");
-//        attendee.addSentMessage(3, 2);
-//        assertEquals("incorrect message sent\n", 2, attendee.getMessagesSent().size());
-//        assertEquals("incorrect message sent\n", 2, attendee.getMessagesSent().get(2).size());
-//        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessagesSent().get(2).get(0));
-//        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessagesSent().get(2).get(1));
-//        assertEquals("incorrect message sent\n", 1, attendee.getMessagesSent().get(3).size());
-//        assertEquals("incorrect message sent\n", 2, (int) attendee.getMessagesSent().get(3).get(0));
-//    }
-
-    // test addReceivedMessage and getMessageReceived
-//    @Test(timeout = 50)
-//    public void testGetMessageReceived(){
-//        Attendee attendee = new Attendee("a", "a", "123");
-//        Organizer organizer = new Organizer("o", "o", "123");
-//        Speaker speaker = new Speaker("s", "s", "789");
-//        assertEquals("incorrect message received\n", 0, attendee.getMessagesReceived().size());
-//        assertEquals("incorrect message received\n", 0, organizer.getMessagesReceived().size());
-//        assertEquals("incorrect message received\n", 0, speaker.getMessagesReceived().size());
-//        Message message1 = new Message(2, 2, "Hi");
-//        attendee.addReceivedMessage(2, 1);
-//        assertEquals("incorrect message received\n", 1, attendee.getMessagesReceived().size());
-//        assertEquals("incorrect message received\n", 1, attendee.getMessagesReceived().get(2).size());
-//        assertEquals("incorrect message received\n", 1, (int) attendee.getMessagesReceived().get(2).get(0));
-//        attendee.addReceivedMessage(2, 1);
-//        assertEquals("incorrect message received\n", 1, attendee.getMessagesReceived().size());
-//        assertEquals("incorrect message received\n", 2, attendee.getMessagesReceived().get(2).size());
-//        assertEquals("incorrect message received\n", 1, (int) attendee.getMessagesReceived().get(2).get(0));
-//        assertEquals("incorrect message received\n", 1, (int) attendee.getMessagesReceived().get(2).get(1));
-//        Message message2 = new Message(3, 3, "Hello");
-//        attendee.addReceivedMessage(3, 2);
-//        assertEquals("incorrect message received\n", 2, attendee.getMessagesReceived().size());
-//        assertEquals("incorrect message received\n", 2, attendee.getMessagesReceived().get(2).size());
-//        assertEquals("incorrect message received\n", 1, (int) attendee.getMessagesReceived().get(2).get(0));
-//        assertEquals("incorrect message received\n", 1, (int) attendee.getMessagesReceived().get(2).get(1));
-//        assertEquals("incorrect message received\n", 1, attendee.getMessagesReceived().get(3).size());
-//        assertEquals("incorrect message received\n", 2, (int) attendee.getMessagesReceived().get(3).get(0));
-//    }
+    // test addMessage and getMessages
+    @Test(timeout = 50)
+    public void testGetMessages(){
+        Attendee attendee = new Attendee("a", "a", "123");
+        Organizer organizer = new Organizer("o", "o", "123");
+        Speaker speaker = new Speaker("s", "s", "789");
+        assertEquals("incorrect message sent\n", 0, attendee.getMessages().size());
+        assertEquals("incorrect message sent\n", 0, organizer.getMessages().size());
+        assertEquals("incorrect message sent\n", 0, speaker.getMessages().size());
+        Message message1 = new Message(1, 2, "Hi");
+        attendee.addMessage(2, 1);
+        organizer.addMessage(1, 1);
+        assertEquals("incorrect message sent\n", 1, attendee.getMessages().size());
+        assertEquals("incorrect message sent\n", 1, attendee.getMessages().get(2).size());
+        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessages().get(2).get(0));
+        assertEquals("incorrect message received\n", 1, organizer.getMessages().size());
+        assertEquals("incorrect message received\n", 1, organizer.getMessages().get(1).size());
+        assertEquals("incorrect message received\n", 1, (int) organizer.getMessages().get(1).get(0));
+        attendee.addMessage(2, 1);
+        organizer.addMessage(1, 1);
+        assertEquals("incorrect message sent\n", 1, attendee.getMessages().size());
+        assertEquals("incorrect message sent\n", 2, attendee.getMessages().get(2).size());
+        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessages().get(2).get(0));
+        assertEquals("incorrect message sent\n", 1, (int) attendee.getMessages().get(2).get(1));
+        assertEquals("incorrect message received\n", 1, organizer.getMessages().size());
+        assertEquals("incorrect message received\n", 2, organizer.getMessages().get(1).size());
+        assertEquals("incorrect message received\n", 1, (int) organizer.getMessages().get(1).get(0));
+        assertEquals("incorrect message received\n", 1, (int) organizer.getMessages().get(1).get(1));
+        Message message2 = new Message(1, 3, "Hello");
+        speaker.addMessage(1, 2);
+        attendee.addMessage(3, 2);
+        assertEquals("incorrect message sent\n", 2, attendee.getMessages().size());
+        assertEquals("incorrect message sent\n", 2, attendee.getMessages().get(2).size());
+        assertEquals("incorrect message sent\n", 1, attendee.getMessages().get(3).size());
+        assertEquals("incorrect message sent\n", 2, (int) attendee.getMessages().get(3).get(0));
+        assertEquals("incorrect message received\n", 1, speaker.getMessages().size());
+        assertEquals("incorrect message received\n", 1, speaker.getMessages().get(1).size());
+        assertEquals("incorrect message received\n", 2, (int) speaker.getMessages().get(1).get(0));
+    }
 
     // test addContact and getContactList
     @Test(timeout = 50)
