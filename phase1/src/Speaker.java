@@ -21,13 +21,27 @@ public class Speaker extends User{
 
 
     /**
-     *  Add event into the Speaker's eventsAsSpeaker list
+     * Returns the shallow copy of eventsAsSpeaker list of the Speaker
+     * @return shallow copy of eventsAsSpeaker list of the Speaker
+     */
+    public ArrayList<Integer> getEventsAsSpeaker(){
+        return (ArrayList<Integer>) eventsAsSpeaker.clone();
+    }
+
+
+    /**
+     *  Add eventID into the Speaker's eventsAsSpeaker list
      */
     public void addEventsAsSpeaker(int eventID){
-
         this.eventsAsSpeaker.add(eventID);
     }
 
 
+    /**
+     * Remove eventID from the Speaker's eventsAsSpeaker list
+     */
+    public void removeEventsAsSpeaker(int eventID){
+        this.eventsAsSpeaker.remove(eventID);
+    }
 
 }

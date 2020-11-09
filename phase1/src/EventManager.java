@@ -162,6 +162,7 @@ public class EventManager implements Serializable{
         }
         else{
             event.removeSpeakerID(speakerID);
+            speaker.removeEventsAsSpeaker(event.getEventID());
             return true;
         }
 
