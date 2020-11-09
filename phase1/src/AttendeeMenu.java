@@ -59,7 +59,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     public boolean cancelEnrollment(int eventID){
         if (getUser().getEventsAttend().contains(eventID)||getEventManager().getEventByID(eventID) != null) {
             getUser().removeEvent(eventID);
-            getEventManager().removeUserID(getUser(), getEventManager().getEventByID(eventID));
+            getEventManager().removeUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
             Presenter.print("Cancellation successful!");
             return true;
         }else{
@@ -73,7 +73,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             return false;
         }else{
             getUser().addEvent(eventID);
-            getEventManager().addUserID(getUser(), getEventManager().getEventByID(eventID));
+            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
             return true;
         }
     }
