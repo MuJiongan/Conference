@@ -113,7 +113,7 @@ public class EventManager implements Serializable{
             }
         }
         event.addSpeakerID(speakerID);
-        speaker.addEventsAsSpeaker(event);
+        speaker.addEventsAsSpeaker(event.getEventID());
         return true;
     }
 

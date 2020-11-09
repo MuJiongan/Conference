@@ -23,8 +23,9 @@ public class Speaker extends User{
     /**
      *  Add event into the Speaker's eventsAsSpeaker list
      */
-    public void addEventsAsSpeaker(Event event){
-        this.eventsAsSpeaker.add(event.getEventID());
+    public void addEventsAsSpeaker(int eventID){
+
+        this.eventsAsSpeaker.add(eventID);
     }
 
 
