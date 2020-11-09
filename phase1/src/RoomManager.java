@@ -25,7 +25,7 @@ public class RoomManager implements Serializable {
      * @param id ID of room we want
      * @return Room with corresponding id. If none exists, return null
      */
-    public Room getRoombyID(int id)
+    public Room getRoomByID(int id)
     {
         //Invariant: Assume that we enter enter a valid id
         for (Room r: rooms)
