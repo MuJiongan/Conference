@@ -168,6 +168,10 @@ public abstract class UserManager implements Serializable{
         return user.getMessages();
     }
 
+    public boolean idInList(int userID){
+        return users.contains(getUserByID(userID));
+    }
+
 
 
 
