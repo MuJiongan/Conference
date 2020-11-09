@@ -42,7 +42,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             }
             //add message to this user's hashmap
             super.sendMessage(receiverID, message);
-            System.out.println("Messages sent");
+            Presenter.print("Messages sent");
             return true;
         }
         else
@@ -76,7 +76,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 else if (input.equals("2")){
                     this.runViewContacts();
                 }
-//                System.out.println("Please enter a valid option and try again");
                 Presenter.printSpeakermenu();
                 input = br.readLine();
             }
@@ -119,6 +118,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
             System.out.println("Please enter a valid option: ");
             return null;
         }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+            return null;
+        }
         return null;
     }
 
@@ -132,11 +135,11 @@ public class SpeakerMenu extends UserMenu implements UserController{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
-                    System.out.println("Please enter a friend number: ");
+                    Presenter.print("Please enter a friend number: ");
                     String input2 = br.readLine();
                     int index = Integer.parseInt(input2) - 1;
                     while (index <= 0 || index >= this.viewMyContacts().size()){
-                        System.out.println("Please enter a valid option: ");
+                        Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
                         index = Integer.parseInt(input2) - 1;
                     }
@@ -147,7 +150,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option: ");
+            Presenter.print("Please enter a valid option: ");
+            return null;
+        } catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID");
             return null;
         }
         return null;
@@ -163,7 +169,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
-                    System.out.println("Please type your message here: ");
+                    Presenter.print("Please type your message here: ");
                     String input2 = br.readLine();
                     this.sendMessage(receiverID, input2);
                     this.readAllMessage(receiverID);

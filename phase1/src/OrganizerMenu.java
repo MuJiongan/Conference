@@ -7,6 +7,15 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         super(am, om, sm, rm, em, mm, user);
     }
+
+    public void messageAll(int eventID, String content)
+    {
+        Event event = getEventManager().getEventByID(eventID);
+        for (int userID: event.getUserIDs())
+        {
+            sendMessage(userID, content);
+        }
+    }
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
