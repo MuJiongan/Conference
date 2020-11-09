@@ -30,9 +30,12 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Create new Speaker account
-     * @return
+     * @return true if new Speaker account successfully created
      */
-
+    public boolean addSpeaker(String name, String username, String password) {
+        Speaker s = new Speaker(name, username, password);
+        return getSpeakerManager().addUser(s);
+    }
 
     /**
      * Schedule Speaker to an Event
