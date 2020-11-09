@@ -16,6 +16,38 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             sendMessage(userID, content);
         }
     }
+
+
+    /**
+     * Enter new Rooms into the System
+     * @return true if room successfully enter
+     */
+    public boolean enterRoom(int capacity){
+        Room r = new Room(capacity);
+        return getRoomManager().addRoom(r);
+    }
+
+
+    /**
+     * Create new Speaker account
+     * @return
+     */
+
+
+    /**
+     * Schedule Speaker to an Event
+     * @return
+     */
+
+
+    /**
+     * Schedule new Event
+     * @return
+     */
+
+
+
+
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
