@@ -6,17 +6,19 @@ public class SpeakerManager extends UserManager implements Serializable{
     {
         super();
     }
+
+
     /**
-     * creates a new attendee object and returns it
+     * Creates a new Speaker object and returns it
      * @param name User's real name
      * @param username User's username
      * @param password User's password
      * @return the user object that we created
      */
-
     public Speaker createSpeaker(String name, String username, String password){
         return new Speaker(name, username, password);
     }
+
 
     /**
      * Read the UserManager object that was stored in a .ser file
@@ -39,6 +41,8 @@ public class SpeakerManager extends UserManager implements Serializable{
             return new SpeakerManager();
         }
     }
+
+
     /**
      * Write the UserManager object to a .ser file to store once program exists
      * @param filePath file to write to
@@ -54,4 +58,5 @@ public class SpeakerManager extends UserManager implements Serializable{
         output.writeObject(this);
         output.close();
     }
+
 }
