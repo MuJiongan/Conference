@@ -17,9 +17,9 @@ public class RoomManagerTest {
         assertSame("add room failed\n", false, rm.addRoom(r1));
 
         // test getRoomID
-        assertSame("gets incorrect roomID\n", r1, rm.getRoombyID(0));
-        assertSame("gets incorrect roomID\n", r2, rm.getRoombyID(1));
-        assertSame("gets incorrect roomID\n", null, rm.getRoombyID(3));
+        assertSame("gets incorrect roomID\n", r1, rm.getRoomByID(0));
+        assertSame("gets incorrect roomID\n", r2, rm.getRoomByID(1));
+        assertSame("gets incorrect roomID\n", null, rm.getRoomByID(3));
 
         // test getIDbyRoom
         assertSame("gets incorrect room\n", 0, rm.getIDbyRoom(r1));
