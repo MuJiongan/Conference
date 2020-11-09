@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
@@ -22,9 +23,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * Enter new Rooms into the System
      * @return true if room successfully enter
      */
-    public boolean enterRoom(int capacity){
-        Room r = new Room(capacity);
-        return getRoomManager().addRoom(r);
+    public boolean enterRoom(Room room){
+        return getRoomManager().addRoom(room);
     }
 
 
@@ -33,21 +33,49 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if new Speaker account successfully created
      */
     public boolean addSpeaker(String name, String username, String password) {
-        Speaker s = new Speaker(name, username, password);
+        Speaker s = getSpeakerManager().createSpeaker(name, username, password);
         return getSpeakerManager().addUser(s);
     }
 
-    /**
-     * Schedule Speaker to an Event
-     * @return
-     */
-
 
     /**
-     * Schedule new Event
-     * @return
+     * Schedule Speaker to an existing Event
+     * @return true if speakerID successfully added to an existing Event
      */
+    public boolean scheduleSpeakerToEvent(Speaker speaker, Event event){
+        int speakerID = speaker.getUserId();
+        return getEventManager().addSpeakerID(speakerID, event);
+    }
 
+
+    /**
+     * Schedule Speaker to a new Event
+     * @param speaker the Speaker who is to be scheduled
+     * @param startTime the LocalDateTime of start time of Event
+     * @param endTime the LocalDateTime of end time of Event
+     * @param roomID ID of room that this Event is scheduled in
+     * @param capacity maximum number of attendees allowed in this Event
+     * @return true if speakerID successfully added to a new Event with given info
+     */
+    public boolean scheduleSpeakerToEvent(Speaker speaker, LocalDateTime startTime, LocalDateTime endTime,
+                                          int roomID, String name, int capacity){
+        int speakerID = speaker.getUserId();
+        Event event = createEvent(startTime, endTime, roomID, name, capacity);
+        return getEventManager().addSpeakerID(speakerID, event);
+    }
+
+
+    /**
+     * Create a new Event and return it
+     * @param startTime the LocalDateTime of start time of Event
+     * @param endTime the LocalDateTime of end time of Event
+     * @param roomID ID of room that this Event is scheduled in
+     * @param capacity maximum number of attendees allowed in this Event
+     * @return the Event object we created
+     */
+    public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
+        return new Event(startTime, endTime, roomID, name, capacity);
+    }
 
 
 
