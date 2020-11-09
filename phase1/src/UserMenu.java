@@ -42,24 +42,7 @@ public abstract class UserMenu {
         return true;
     }
 
-    public ArrayList<Event> viewAllEvents()
-    {
-        ArrayList<Integer> events = currentManager.getEventList(user);
-        ArrayList<Event> actualEvents = new ArrayList<>();
-        for (Integer eventID: events){
-            Event event = em.getEventByID(eventID);
-            actualEvents.add(event);
-        }
-//        String message = "Here is your schedule:\n";
-//        for (int x : events)
-//        {
-//            Event event = em.getEventByID(x);
-//            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
-//        }
-//        System.out.println(message);
 
-        return actualEvents;
-    }
 
     public User getUser() {
         return user;
@@ -134,13 +117,6 @@ public abstract class UserMenu {
             chatHistory.add(getMessageManager().getMessageById(messageID));
         }
         return chatHistory;
-    }
-
-    public void messageAll(Integer eventID, Message message){
-        Event event = em.getEventByID(eventID);
-        for(Integer userid: event.getUserIDs()){
-            sendMessage(userid, message);
-        }
     }
 
 

@@ -21,12 +21,49 @@ public class AttendeeMenu extends UserMenu implements UserController{
         return eventsTheyCanSignUpFor;
     }
 
+    // receiverID has to be in the user's contact list
+    public boolean sendMessage(int receiverID, String messageContent){
+            boolean canSend = false;
+            Message message = getMessageManager().createMessage(messageContent, this.getUser().getUserId(), receiverID);
+
+            if (getAttendeeManager().idInList(receiverID)) {
+                canSend = true;
+                getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+            }
+            else if (getOrganizerManager().idInList(receiverID))
+            {
+                canSend = true;
+                getOrganizerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+            }
+            else if (getSpeakerManager().idInList(receiverID)){
+                canSend = true;
+                getSpeakerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+            }
+            if (!canSend){
+                Presenter.print("Receiver ID doesn't exist");
+                return false;
+            }
+            else{
+                Presenter.print("Messages sent");
+                getMessageManager().addMessage(message);
+                return true;
+            }
+
+
+
+
+
+
+
+    }
     public boolean cancelEnrollment(int eventID){
-        if (getUser().getEventsAttend().contains(eventID)||super.getEventManager().getEventByID(eventID) != null) {
+        if (getUser().getEventsAttend().contains(eventID)||getEventManager().getEventByID(eventID) != null) {
             getUser().removeEvent(eventID);
             getEventManager().removeUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            Presenter.print("Cancellation successful!");
             return true;
         }else{
+            Presenter.print("Cancellation unsuccessful!");
             return false;
         }
     }
@@ -40,7 +77,24 @@ public class AttendeeMenu extends UserMenu implements UserController{
             return true;
         }
     }
+    public ArrayList<Event> viewAllEvents()
+    {
+        ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
+        ArrayList<Event> actualEvents = new ArrayList<>();
+        for (Integer eventID: events){
+            Event event = getEventManager().getEventByID(eventID);
+            actualEvents.add(event);
+        }
+//        String message = "Here is your schedule:\n";
+//        for (int x : events)
+//        {
+//            Event event = em.getEventByID(x);
+//            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
+//        }
+//        System.out.println(message);
 
+        return actualEvents;
+    }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
@@ -72,10 +126,11 @@ public class AttendeeMenu extends UserMenu implements UserController{
     private boolean canSignUp(Event event){
         LocalDateTime startTime = getEventManager().getStartTime(event);
         LocalDateTime endTime = getEventManager().getEndTime(event);
+        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size() - getEventManager().getUserIDs(event).size();
         for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
             Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
             LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
-            if (newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime)){
+            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime)) || vacancy == 0){
                 return false;
             }
         }

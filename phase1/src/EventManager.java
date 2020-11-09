@@ -198,5 +198,14 @@ public class EventManager implements Serializable{
         return  event.getUserIDs();
 
     }
+    public ArrayList<Integer> getSpeakerIDs(Event event){
+        return  event.getSpeakerIDs();
+
+    }
+
+
+    public int getCapacity(Event event){
+        return event.getCapacity();
+    }
 
 }
