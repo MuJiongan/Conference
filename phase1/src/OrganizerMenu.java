@@ -183,8 +183,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                "in Event \n5. Enter New Room \n6. Create Speaker Account \n7.Schedule Speaker \n8.Exit");
+        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
+                "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
+                "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
+                "\n10.Sign up events\n10.Exit");
         try{
             String input = br.readLine();
             while (!input.equals("10"))
@@ -193,8 +195,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 {
                     this.viewAllEvents();
                 }
-                System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                        "in Event \n5. Enter New Room \n6. Create Speaker Account \n7.Schedule Speaker \n8.Exit");
+                System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
+                        "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
+                        "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
+                        "\n10.Sign up events\n10.Exit");
                 input = br.readLine();
             }
         } catch (IOException e) {
