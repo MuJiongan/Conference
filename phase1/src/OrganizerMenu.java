@@ -135,12 +135,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if and only if the Event has Speaker other than the given Speaker
      */
     private boolean hasSpeaker(Speaker speaker, int eventID){
-        if
-//        if(getEventManager().getEventByID(eventID).getSpeakerIDs().size() == 0) return false;
-//        for(Integer speakerID : getEventManager().getEventByID(eventID).getSpeakerIDs()){
-//            if(speakerID != speaker.getUserId()) return true;
-//        }
-//        return false;
+        if(getEventManager().getEventByID(eventID).getSpeakerIDs().size() == 0) return false;
+        for(Integer speakerID : getEventManager().getEventByID(eventID).getSpeakerIDs()){
+            if(speakerID != speaker.getUserId()) return true;
+        }
+        return false;
     }
 
 
