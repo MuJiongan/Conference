@@ -10,7 +10,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
     public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         super(am, om, sm, rm, em, mm, user);
     }
-
     public ArrayList<Event> eventsTheyCanSignUpFor(){
         ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
         for (Event event: getEventManager().getEvents()){
@@ -19,6 +18,31 @@ public class AttendeeMenu extends UserMenu implements UserController{
             }
         }
         return eventsTheyCanSignUpFor;
+    }
+
+    private boolean canSignUp(Event event){
+        LocalDateTime startTime = getEventManager().getStartTime(event);
+        LocalDateTime endTime = getEventManager().getEndTime(event);
+        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size() - getEventManager().getUserIDs(event).size();
+        for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
+            Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
+            LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
+            LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
+            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime) && newEndTime.isBefore(endTime)&& newEndTime.isAfter(startTime)) || vacancy == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean signUp(int eventID){
+        if (getEventManager().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
+            return false;
+        }else{
+            getUser().addEvent(eventID);
+            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            return true;
+        }
     }
 
     // receiverID has to be in the user's contact list
@@ -48,13 +72,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 getMessageManager().addMessage(message);
                 return true;
             }
-
-
-
-
-
-
-
     }
     public boolean cancelEnrollment(int eventID){
         if (getUser().getEventsAttend().contains(eventID)||getEventManager().getEventByID(eventID) != null) {
@@ -68,15 +85,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
         }
     }
 
-    public boolean signUp(int eventID){
-        if (getEventManager().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
-            return false;
-        }else{
-            getUser().addEvent(eventID);
-            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
-            return true;
-        }
-    }
     public ArrayList<Event> viewAllEvents()
     {
         ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
@@ -85,58 +93,165 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Event event = getEventManager().getEventByID(eventID);
             actualEvents.add(event);
         }
-//        String message = "Here is your schedule:\n";
-//        for (int x : events)
-//        {
-//            Event event = em.getEventByID(x);
-//            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
-//        }
-//        System.out.println(message);
-
         return actualEvents;
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
+        Presenter.printAttendeemenu();
         try{
             String input = br.readLine();
-            while (!input.equals("7"))
+            while (!input.equals("5"))
             {
                 if (input.equals("1"))
                 {
-                    this.viewAllEvents();
+                    Presenter.viewAllevent(viewAllEvents(), getEventManager());
+                    runViewAllEvents();
                 }
-                System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                        "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
+                else if (input.equals("2"))
+                {
+                    Presenter.viewAllevent(viewMyEvents(), getEventManager());
+                    runViewMyEvents();
+                }
+                else if (input.equals("3"))
+                {
+                    Presenter.print("Here is your contact list");
+                    runViewContacts();
+                }
+                else if (input.equals("4"))
+                {
+                    runManage();
+                }
+                Presenter.printAttendeemenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
+            Presenter.print("Please enter a valid option");
             return null;
         }
 
-        System.out.println("See you again soon");
+        Presenter.print("See you again soon");
         return null;
     }
-
-
-    private boolean canSignUp(Event event){
-        LocalDateTime startTime = getEventManager().getStartTime(event);
-        LocalDateTime endTime = getEventManager().getEndTime(event);
-        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size() - getEventManager().getUserIDs(event).size();
-        for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
-            Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
-            LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
-            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime)) || vacancy == 0){
-                return false;
+    public void runViewAllEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Sign up for event\n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    signUp(index);
+                    Presenter.print("Successfully signed up!");
+                }
             }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
         }
-        return true;
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
+    }
+    public void runViewMyEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Cancel Event\n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    cancelEnrollment(index);
+                    Presenter.print("Enrolment canelled!");
+                }
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
     }
 
-
-
+    public void runViewContacts() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.viewMyContacts();
+        Presenter.print("1. View chat history \n2. Go back to the main menu");
+        try {
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter a friend number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyContacts().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    int receiverID = super.getUser().getContactList().get(index);
+                    runViewChat(receiverID);
+                }
+                Presenter.print("1. View chat history \n2. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        } catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID");
+        }
+    }
+    public void runViewChat(int receiverID) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.viewChat(receiverID);
+        Presenter.print("1. Send Message \n2. Go Back to Contacts List");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    Presenter.print("Please type your message here: ");
+                    String input2 = br.readLine();
+                    sendMessage(receiverID, input2);
+                    this.readAllMessage(receiverID);
+                   //TODO Why this method?  this.viewChat(receiverID);
+                }
+                Presenter.print("1. Send Message \n2. Go Back to Contacts List");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option");
+        }
+    }
+    public void runManage() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Change Name  \n2. Go back to main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    Presenter.print("Please type new name ");
+                    String name = br.readLine();
+                    getUser().setName(name);
+                }
+                Presenter.print("1. Change Name  \n2. Go back to main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option");
+        }
+    }
 }

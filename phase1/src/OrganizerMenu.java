@@ -49,7 +49,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         if(availableAtTime(speaker, event.getStartTime(), event.getEndTime())
                 && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
                 && getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            speaker.addEventsAsSpeaker(event.getEventID());
+            getSpeakerManager().addEventID(event.getEventID(), speaker);
             return true;
         }
         return false;
@@ -72,7 +72,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 && availableAtTime(speaker, event.getStartTime(), event.getEndTime())
                 && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
                 && getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            // speaker.addEventsAsSpeaker(event.getEventID());
             getSpeakerManager().addEventID(event.getEventID(), speaker);
             return true;
         }
@@ -88,7 +87,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if Speaker is available to speak at specific time
      */
     public boolean availableAtTime(Speaker speaker, LocalDateTime startTime, LocalDateTime endTime){
-        for(Integer eventID : speaker.getEventsAsSpeaker()){
+        for(Integer eventID : getSpeakerManager().getEventList(speaker)){
             if(!checkTime(startTime, endTime, eventID)){
                 return false;
             }
@@ -107,7 +106,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, int eventID){
         LocalDateTime startTimeForNewEvent = getEventManager().getEventByID(eventID).getStartTime();
         LocalDateTime endTimeForNewEvent = getEventManager().getEventByID(eventID).getEndTime();
-        return (!endTime.isAfter(startTimeForNewEvent))&&(!startTime.isBefore(endTimeForNewEvent));
+        boolean condition1 = (endTime.isAfter(startTimeForNewEvent))&&(endTime.isBefore(endTimeForNewEvent));
+        boolean condition2 = (startTime.isAfter(startTimeForNewEvent))&&(startTime.isBefore(endTimeForNewEvent));
+        return !condition1 && !condition2;
     }
 
 
@@ -167,8 +168,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public boolean cancelEvents(Event event){
         ArrayList<Integer> Speakers = event.getSpeakerIDs();
         for(Integer speakerID: Speakers) {
-            Speaker s = (Speaker) getSpeakerManager().getUserByID(speakerID);
-            s.removeEventsAsSpeaker(event.getEventID());
+            Speaker speaker = (Speaker) getSpeakerManager().getUserByID(speakerID);
+            getSpeakerManager().removeEventID(event.getEventID(), speaker);
         }
         return true;
     }

@@ -166,8 +166,8 @@ public abstract class UserManager implements Serializable{
         user.addToContactsList(newID);
     }
 
-    public void setName(int userID, String newName){
-        this.getUserByID(userID).setName(newName);
+    public void setName(User user, String name)
+    {
+        user.setName(name);
     }
-
 }

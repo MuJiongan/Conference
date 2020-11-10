@@ -166,4 +166,9 @@ public abstract class User implements Serializable {
     {
         contactList.add(userID);
     }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }
