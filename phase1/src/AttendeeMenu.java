@@ -130,7 +130,8 @@ public class AttendeeMenu extends UserMenu implements UserController{
         for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
             Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
             LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
-            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime)) || vacancy == 0){
+            LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
+            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime) && newEndTime.isBefore(endTime)&& newEndTime.isAfter(startTime)) || vacancy == 0){
                 return false;
             }
         }
