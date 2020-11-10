@@ -15,7 +15,7 @@ public class UserTest {
         Speaker speaker = new Speaker("s", "s", "123");
     }
 
-    // test getName
+    // test getName and setUserName
     @Test(timeout = 50)
     public void testGetName(){
         Attendee attendee = new Attendee("a", "a", "123");
@@ -24,6 +24,8 @@ public class UserTest {
         assertSame("incorrect name\n", "a", attendee.getName());
         assertSame("incorrect name\n", "o", organizer.getName());
         assertSame("incorrect name\n", "s", speaker.getName());
+        attendee.setName("a1");
+        assertSame("incorrect name\n", "a1", attendee.getName());
     }
 
     // test test getUserName
