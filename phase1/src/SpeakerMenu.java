@@ -59,6 +59,19 @@ public class SpeakerMenu extends UserMenu implements UserController{
             sendMessage(userID, content);
         }
     }
+
+    public boolean changeName(String newName){
+        if (!this.getCurrentManager().hasName(newName)){
+            this.getSpeakerManager().setName(this.getUser(), newName);
+            Presenter.print("Successfully modified");
+            return true;
+        }
+        else{
+            System.out.println("Name already existed");
+            return false;
+        }
+    }
+
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -67,7 +80,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         Presenter.printSpeakermenu();
         try{
             String input = br.readLine();
-            while (!input.equals("3"))
+            while (!input.equals("4"))
             {
                 if (input.equals("1"))
                 {
@@ -75,6 +88,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 }
                 else if (input.equals("2")){
                     this.runViewContacts();
+                }
+                else if (input.equals("3")){
+                    this.runManageAccount();
                 }
                 Presenter.printSpeakermenu();
                 input = br.readLine();
@@ -93,7 +109,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
-            while (!input.equals("3")){
+            while (!input.equals("2")){
                 if (input.equals("1")) {
                     System.out.println("Please enter an event number: ");
                     String input2 = br.readLine();
@@ -108,10 +124,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     String input3 = br.readLine();
                     this.messageAll(eventID, input3);
                     System.out.println("Message Sent");
-                }
-                else if (input.equals("2"))
-                {
-                    Presenter.print("Function is under construction");
                 }
                 System.out.println("1. Message all attendees in one event\n2. Go back to the main menu");
                 input = br.readLine();
@@ -166,7 +178,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
         this.viewChat(receiverID);
-        System.out.println("1. Send Message \n2. Exit");
+        System.out.println("1. Send Message \n2. Go back to the contact list");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
@@ -177,7 +189,32 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     this.readAllMessage(receiverID);
                     this.viewChat(receiverID);
                 }
-                System.out.println("1. Send Message \n2. Exit");
+                System.out.println("1. Send Message \n2. Go back to the contact list");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Please enter a valid option");
+            return null;
+        }
+        return null;
+    }
+
+    public User runManageAccount() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        UserPropertiesIterator prompts = new UserPropertiesIterator();
+        ArrayList<String> inputs = new ArrayList<>();
+        Presenter.print("Current name: " + this.getUser().getName());
+        System.out.println("1. Change my name \n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    Presenter.print("Please type in your new name here: ");
+                    String input2 = br.readLine();
+                    this.changeName(input2);
+                }
+                Presenter.print("Current name: " + this.getUser().getName());
+                System.out.println("1. Change my name \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
