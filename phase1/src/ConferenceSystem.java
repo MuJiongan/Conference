@@ -23,6 +23,26 @@ public class ConferenceSystem {
         System.out.println(om.getUsers().size());
         System.out.println(sm.getUsers().size());
     }
+
+    // This method also handles the contact list
+    public User createOrganizerAccount(String name, String username, String password){
+        User organizer = createOrganizerAccount(name, username, password);
+        om.addUser(organizer);
+        // Initiate the contact list
+        for (User attendee: am.getUsers()){
+            // add every attendee to this organizer's contact list
+            om.addToContactsList(organizer, am.getIDByUser(attendee));
+        }
+        for (User speaker: sm.getUsers()){
+            // add every speaker to this organizer's contact list
+            om.addToContactsList(organizer, sm.getIDByUser(speaker));
+        }
+        // However, there is still more things we need to check
+        // When organizer sends a message to a speaker or an attendee, add this organizer to their contact list (done)
+        return organizer;
+
+    }
+
     public void run()
     {
         UserController current = new LogInSystem(am, om, sm);

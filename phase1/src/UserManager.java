@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -168,6 +169,10 @@ public abstract class UserManager implements Serializable{
 
     public void setName(User user, String name)
     {
-        user.setName(name);
+        user.userSetName(name);
     }
+    public ArrayList<Integer> getContactList(User user){
+        return user.getContactList();
+    }
+
 }
