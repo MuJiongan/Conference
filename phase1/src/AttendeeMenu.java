@@ -117,6 +117,11 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 else if (input.equals("3"))
                 {
                     Presenter.print("Here is your contact list");
+                    runViewContacts();
+                }
+                else if (input.equals("4"))
+                {
+                    runManage();
                 }
                 Presenter.printAttendeemenu();
                 input = br.readLine();
@@ -182,8 +187,71 @@ public class AttendeeMenu extends UserMenu implements UserController{
         }
     }
 
-
-
-
-
+    public void runViewContacts() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.viewMyContacts();
+        Presenter.print("1. View chat history \n2. Go back to the main menu");
+        try {
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter a friend number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyContacts().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    int receiverID = super.getUser().getContactList().get(index);
+                    runViewChat(receiverID);
+                }
+                Presenter.print("1. View chat history \n2. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        } catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID");
+        }
+    }
+    public void runViewChat(int receiverID) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.viewChat(receiverID);
+        Presenter.print("1. Send Message \n2. Go Back to Contacts List");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    Presenter.print("Please type your message here: ");
+                    String input2 = br.readLine();
+                    sendMessage(receiverID, input2);
+                    this.readAllMessage(receiverID);
+                   //TODO Why this method?  this.viewChat(receiverID);
+                }
+                Presenter.print("1. Send Message \n2. Go Back to Contacts List");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option");
+        }
+    }
+    public void runManage() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Change Name  \n2. Go back to main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")){
+                if (input.equals("1")) {
+                    Presenter.print("Please type new name ");
+                    String name = br.readLine();
+                    getUser().setName(name);
+                }
+                Presenter.print("1. Change Name  \n2. Go back to main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option");
+        }
+    }
 }
