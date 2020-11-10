@@ -80,10 +80,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
+            Presenter.print("Please enter a valid option");
             return null;
         }
-        System.out.println("See you again soon");
+        Presenter.print("See you again soon");
         return null;
     }
 
@@ -92,10 +92,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
         this.viewMyEvents();
-        System.out.println("1. Message all attendees in one event \n2. Message one attendee in event\n2. Go back to the main menu");
+        System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
-            while (!input.equals("2")){
+            while (!input.equals("3")){
                 if (input.equals("1")) {
                     System.out.println("Please enter an event number: ");
                     String input2 = br.readLine();
@@ -111,7 +111,11 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     this.messageAll(eventID, input3);
                     System.out.println("Message Sent");
                 }
-                System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
+                else if (input.equals("2"))
+                {
+                    Presenter.print("Function is under construction");
+                }
+                System.out.println("1. Message all attendees in one event\n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
