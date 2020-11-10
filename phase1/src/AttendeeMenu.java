@@ -41,6 +41,17 @@ public class AttendeeMenu extends UserMenu implements UserController{
         }else{
             getUser().addEvent(eventID);
             getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            // add the attendee to the speaker's contact list
+            Event event = getEventManager().getEventByID(eventID);
+            ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(event);
+            for (Integer speakerID: speakerIDs){
+                User speaker = getSpeakerManager().getUserByID(speakerID);
+                Integer userID = getCurrentManager().getIDByUser(getUser());
+                // Check if the attendee is already in speaker's contact list
+                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
+                getSpeakerManager().addToContactsList(speaker, userID);}
+            }
+
             return true;
         }
     }
@@ -62,6 +73,13 @@ public class AttendeeMenu extends UserMenu implements UserController{
             else if (getSpeakerManager().idInList(receiverID)){
                 canSend = true;
                 getSpeakerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                // Add the attendee to speaker's contact list (if doesn't exist)
+                User speaker = getSpeakerManager().getUserByID(receiverID);
+                Integer userID = getCurrentManager().getIDByUser(getUser());
+                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
+                    getSpeakerManager().addToContactsList(speaker, userID);
+                }
+
             }
             if (!canSend){
                 Presenter.print("Receiver ID doesn't exist");
@@ -97,8 +115,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         Presenter.printAttendeeMenu();
         try{
             String input = br.readLine();

@@ -19,6 +19,35 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     }
 
 
+    // Need to override because when an organizer sends a message, we might add that organizer to the receiver's contact list
+    @Override
+    public boolean sendMessage(int receiverID, String messageContent) {
+        if (super.sendMessage(receiverID, messageContent)){
+            Integer organizerID = getOrganizerManager().getIDByUser(getUser());
+            // If this receiver is a speaker, add the organizer to the speaker's contact list
+            if (getSpeakerManager().idInList(receiverID)){
+                User speaker = getSpeakerManager().getUserByID(receiverID);
+
+                // Check if the organizer already exists in the speaker's contact list
+                if (!getSpeakerManager().getContactList(speaker).contains(organizerID)){
+                getSpeakerManager().addToContactsList(speaker, organizerID);}
+            }
+            // If this receiver is a attendee, add the organizer to the attendee's contact list
+            else if (getAttendeeManager().idInList(receiverID)){
+                User attendee = getAttendeeManager().getUserByID(receiverID);
+
+                // Check if the organizer already exists in the speaker's contact list
+                if (!getAttendeeManager().getContactList(attendee).contains(organizerID)){
+                    getAttendeeManager().addToContactsList(attendee, organizerID);}
+            }
+            // Don't know about the organizer. I assumed organizers aren't allowed to message each other
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * Enter new Rooms into the System
      * @return true if room successfully enter
@@ -34,6 +63,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      */
     public boolean createSpeaker(String name, String username, String password) {
         Speaker s = getSpeakerManager().createSpeaker(name, username, password);
+        // can't initialize contact list because the speaker has no talks to give for now
         return getSpeakerManager().addUser(s);
     }
 
@@ -50,6 +80,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
                 && getEventManager().addSpeakerID(speaker.getUserId(), event)){
             getSpeakerManager().addEventID(event.getEventID(), speaker);
+            // initialize the speaker's contact list
+            for(Integer userIDInEvent: getEventManager().getUserIDs(event)){
+                if (!getSpeakerManager().getContactList(speaker).contains(userIDInEvent)){
+                getSpeakerManager().addToContactsList(speaker, userIDInEvent);}
+            }
             return true;
         }
         return false;

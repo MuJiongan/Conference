@@ -14,6 +14,30 @@ public class LogInSystem implements UserController {
         this.om = om;
         this.sm = sm;
     }
+    public void initializeAttendeeContactsList(Attendee newAttendee){
+        for (User attendee: am.getUsers()){
+            // Add every attendee to this new attendee's contact list
+            am.addToContactsList(newAttendee, am.getIDByUser(attendee));
+            // Add this new attendee's to every attendee's contact list
+            am.addToContactsList(attendee, am.getIDByUser(newAttendee));
+
+        }
+        for (User speaker: sm.getUsers()){
+
+            // Add every speaker to this new attendee's contact list
+            am.addToContactsList(newAttendee, sm.getIDByUser(speaker));
+        }
+        for (User organizer: om.getUsers()){
+            // Add this new attendee to each organizer's contact list
+            om.addToContactsList(organizer, am.getIDByUser(newAttendee));
+        }
+        // There are still things we need to do.
+        // Whenever an organizer messages an attendee, we add that organizer to the attendee's contact list (done)
+        // Whenever this attendee signs up for an event, add this attendee to speaker's contact list (done)
+        // (check if the attendee is already is the speaker's contact list)
+        // Whenever an attendee messages a speaker, add this attendee to speaker's contact list (done)
+        // (check if the attendee is already is the speaker's contact list)
+    }
 
     @Override
     public User run()
