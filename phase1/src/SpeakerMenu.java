@@ -89,8 +89,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public User runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         this.viewMyEvents();
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{

@@ -10,7 +10,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
     public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         super(am, om, sm, rm, em, mm, user);
     }
-
     public ArrayList<Event> eventsTheyCanSignUpFor(){
         ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
         for (Event event: getEventManager().getEvents()){
@@ -19,6 +18,31 @@ public class AttendeeMenu extends UserMenu implements UserController{
             }
         }
         return eventsTheyCanSignUpFor;
+    }
+
+    private boolean canSignUp(Event event){
+        LocalDateTime startTime = getEventManager().getStartTime(event);
+        LocalDateTime endTime = getEventManager().getEndTime(event);
+        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size() - getEventManager().getUserIDs(event).size();
+        for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
+            Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
+            LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
+            LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
+            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime) && newEndTime.isBefore(endTime)&& newEndTime.isAfter(startTime)) || vacancy == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean signUp(int eventID){
+        if (getEventManager().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
+            return false;
+        }else{
+            getUser().addEvent(eventID);
+            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            return true;
+        }
     }
 
     // receiverID has to be in the user's contact list
@@ -48,13 +72,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 getMessageManager().addMessage(message);
                 return true;
             }
-
-
-
-
-
-
-
     }
     public boolean cancelEnrollment(int eventID){
         if (getUser().getEventsAttend().contains(eventID)||getEventManager().getEventByID(eventID) != null) {
@@ -68,15 +85,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
         }
     }
 
-    public boolean signUp(int eventID){
-        if (getEventManager().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
-            return false;
-        }else{
-            getUser().addEvent(eventID);
-            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
-            return true;
-        }
-    }
     public ArrayList<Event> viewAllEvents()
     {
         ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
@@ -85,22 +93,14 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Event event = getEventManager().getEventByID(eventID);
             actualEvents.add(event);
         }
-//        String message = "Here is your schedule:\n";
-//        for (int x : events)
-//        {
-//            Event event = em.getEventByID(x);
-//            message = message + " " +em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event) +"\n";
-//        }
-//        System.out.println(message);
-
         return actualEvents;
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
+        System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
+               "\n5.Log out");
         try{
             String input = br.readLine();
             while (!input.equals("7"))
@@ -123,20 +123,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
 
-    private boolean canSignUp(Event event){
-        LocalDateTime startTime = getEventManager().getStartTime(event);
-        LocalDateTime endTime = getEventManager().getEndTime(event);
-        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size() - getEventManager().getUserIDs(event).size();
-        for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
-            Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
-            LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
-            LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
-            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime) && newEndTime.isBefore(endTime)&& newEndTime.isAfter(startTime)) || vacancy == 0){
-                return false;
-            }
-        }
-        return true;
-    }
+
 
 
 

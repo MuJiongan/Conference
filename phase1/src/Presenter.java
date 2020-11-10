@@ -14,9 +14,8 @@ public class Presenter {
     }
 
     public static void printAttendeemenu(){
-        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy \n4. Message " +
-                "an Attendee \n5. Message a Speaker in Event \n6. View Messages \n7.Cancel enrollment(s) " +
-                "\n7.Sign up events\n8. Exit");
+        System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
+                "\n5. Log Out");
     }
 
     public static void printSpeakermenu(){
@@ -25,7 +24,7 @@ public class Presenter {
 
 
     public static void viewAllevent(ArrayList<Event> actualEvent, EventManager em){
-        String message = "Here is your schecule:\n";
+        String message = "Here is the conference's schedule:\n";
         for (Event event: actualEvent){
             message = message + " " + em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event);}
             System.out.println(message);

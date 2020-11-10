@@ -25,6 +25,7 @@ public class LogInSystem implements UserController {
         try {
             String input = br.readLine();
             if (input.equals("1")) {
+                prompts.next();
                 System.out.println("Please enter your credentials");
                 while (!input.equals("exit") && prompts.hasNext()) {
                     System.out.println(prompts.next());
@@ -33,17 +34,17 @@ public class LogInSystem implements UserController {
                         inputs.add(input);
                     }
                 }
-                User user =  am.validate(inputs.get(1), inputs.get(2));
+                User user =  am.validate(inputs.get(0), inputs.get(1));
                 if (!(user == null))
                 {
                     return user;
                 }
-                user = om.validate(inputs.get(1), inputs.get(2));
+                user = om.validate(inputs.get(0), inputs.get(1));
                 if (!(user == null))
                 {
                     return user;
                 }
-                return sm.validate(inputs.get(1), inputs.get(2));
+                return sm.validate(inputs.get(0), inputs.get(1));
             }
             else if (input.equals("2"))
             {
