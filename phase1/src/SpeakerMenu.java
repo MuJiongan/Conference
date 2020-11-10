@@ -60,18 +60,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
         }
     }
 
-    public boolean changeName(String newName){
-        if (!this.getCurrentManager().hasName(newName)){
-            this.getSpeakerManager().setName(this.getUser(), newName);
-            Presenter.print("Successfully modified");
-            return true;
-        }
-        else{
-            System.out.println("Name already existed");
-            return false;
-        }
-    }
-
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -100,7 +88,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         return null;
     }
 
-    public User runViewMyEvents() {
+    public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         this.viewMyEvents();
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
@@ -110,33 +98,33 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 if (input.equals("1")) {
                     System.out.println("Please enter an event number: ");
                     String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyEvents().size()){
-                        System.out.println("Please enter a valid option: ");
-                        input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
+                    try {
+                        int index = Integer.parseInt(input2) - 1;
+                        while (index <= 0 || index >= this.viewMyEvents().size()){
+                            System.out.println("Please enter a valid option: ");
+                            input2 = br.readLine();
+                            index = Integer.parseInt(input2) - 1;
+                        }
+                        int eventID = getUser().getEventsAttend().get(index);
+                        System.out.println("Please type in your message: ");
+                        String input3 = br.readLine();
+                        this.messageAll(eventID, input3);
+                        System.out.println("Message Sent");
+                    } catch (NumberFormatException ne) {
+                        Presenter.print("Please enter an integer value for the ID!!");
+                    } catch (IOException ie) {
+                        Presenter.print("Please enter a valid option: ");
                     }
-                    int eventID = getUser().getEventsAttend().get(index);
-                    System.out.println("Please type in your message: ");
-                    String input3 = br.readLine();
-                    this.messageAll(eventID, input3);
-                    System.out.println("Message Sent");
                 }
                 System.out.println("1. Message all attendees in one event\n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option: ");
-            return null;
+            Presenter.print("Please enter a valid option: ");
         }
-        catch (NumberFormatException n) {
-            Presenter.print("Please enter an integer value for the ID!!");
-            return null;
-        }
-        return null;
     }
 
-    public User runViewContacts() {
+    public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
@@ -147,30 +135,31 @@ public class SpeakerMenu extends UserMenu implements UserController{
             while (!input.equals("2")){
                 if (input.equals("1")) {
                     Presenter.print("Please enter a friend number: ");
-                    String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyContacts().size()){
+                    try {
+                        String input2 = br.readLine();
+                        int index = Integer.parseInt(input2) - 1;
+                        while (index <= 0 || index >= this.viewMyContacts().size()){
+                            Presenter.print("Please enter a valid option: ");
+                            input2 = br.readLine();
+                            index = Integer.parseInt(input2) - 1;
+                        }
+                        int receiverID = super.getUser().getContactList().get(index);
+                        this.runViewChat(receiverID);
+                    } catch (NumberFormatException ne) {
+                        Presenter.print("Please enter an integer value for the ID");
+                    } catch (IOException ie) {
                         Presenter.print("Please enter a valid option: ");
-                        input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
                     }
-                    int receiverID = super.getUser().getContactList().get(index);
-                    this.runViewChat(receiverID);
                 }
                 System.out.println("1. View chat history \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");
-            return null;
-        } catch (NumberFormatException n) {
-            Presenter.print("Please enter an integer value for the ID");
-            return null;
         }
-        return null;
     }
 
-    public User runViewChat(int receiverID) {
+    public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
@@ -190,13 +179,11 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
-            return null;
+            Presenter.print("Please enter a valid option");
         }
-        return null;
     }
 
-    public User runManageAccount() {
+    public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
@@ -215,9 +202,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
-            return null;
+            Presenter.print("Please enter a valid option");
         }
-        return null;
     }
 }

@@ -118,7 +118,17 @@ public abstract class UserMenu {
         return user.getMessages().get(receiverID);
     }
 
-
+    public boolean changeName(String newName){
+        if (!this.getAttendeeManager().hasName(newName) && !this.getOrganizerManager().hasName(newName) && !this.getSpeakerManager().hasName(newName)){
+            this.getSpeakerManager().setName(this.getUser(), newName);
+            Presenter.print("Successfully modified");
+            return true;
+        }
+        else{
+            System.out.println("Name already existed");
+            return false;
+        }
+    }
 
 
 }
