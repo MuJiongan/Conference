@@ -22,7 +22,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             {
                 return true;
             }
-        }
+            }
         return false;
     }
 
@@ -64,7 +64,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        Presenter.printSpeakermenu();
+        Presenter.printSpeakerMenu();
         try{
             String input = br.readLine();
             while (!input.equals("3"))
@@ -76,7 +76,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 else if (input.equals("2")){
                     this.runViewContacts();
                 }
-                Presenter.printSpeakermenu();
+                Presenter.printSpeakerMenu();
                 input = br.readLine();
             }
         } catch (IOException e) {

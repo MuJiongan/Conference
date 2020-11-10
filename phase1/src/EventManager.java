@@ -69,7 +69,14 @@ public class EventManager implements Serializable{
         }
         return null;
     }
-
+    /**
+     * return the vacancy given the event object
+     * @param event the given Event object
+     * @return the vacancy corresponding to the Event object
+     */
+    public int getVacancy(Event event){
+        return event.getCapacity() - event.getUserIDs().size();
+    }
 
     /**
      * return the event ID given the event object
