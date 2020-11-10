@@ -196,6 +196,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 {
                     this.viewAllEvents();
                 }
+                else if (input.equals("4"))
+                {
+
+                }
                 System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
                         "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
                         "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
