@@ -32,7 +32,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * Create new Speaker account
      * @return true if new Speaker account successfully created
      */
-    public boolean addSpeaker(String name, String username, String password) {
+    public boolean createSpeaker(String name, String username, String password) {
         Speaker s = getSpeakerManager().createSpeaker(name, username, password);
         return getSpeakerManager().addUser(s);
     }
@@ -72,7 +72,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 && availableAtTime(speaker, event.getStartTime(), event.getEndTime())
                 && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
                 && getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            speaker.addEventsAsSpeaker(event.getEventID());
+            // speaker.addEventsAsSpeaker(event.getEventID());
+            getSpeakerManager().addEventID(event.getEventID(), speaker);
             return true;
         }
         return false;
@@ -134,11 +135,12 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if and only if the Event has Speaker other than the given Speaker
      */
     private boolean hasSpeaker(Speaker speaker, int eventID){
-        if(getEventManager().getEventByID(eventID).getSpeakerIDs().size() == 0) return false;
-        for(Integer speakerID : getEventManager().getEventByID(eventID).getSpeakerIDs()){
-            if(speakerID != speaker.getUserId()) return true;
-        }
-        return false;
+        if
+//        if(getEventManager().getEventByID(eventID).getSpeakerIDs().size() == 0) return false;
+//        for(Integer speakerID : getEventManager().getEventByID(eventID).getSpeakerIDs()){
+//            if(speakerID != speaker.getUserId()) return true;
+//        }
+//        return false;
     }
 
 
