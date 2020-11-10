@@ -107,7 +107,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, int eventID){
         LocalDateTime startTimeForNewEvent = getEventManager().getEventByID(eventID).getStartTime();
         LocalDateTime endTimeForNewEvent = getEventManager().getEventByID(eventID).getEndTime();
-        return (!endTime.isAfter(startTimeForNewEvent))&&(!startTime.isBefore(endTimeForNewEvent));
+        boolean condition1 = (endTime.isAfter(startTimeForNewEvent))&&(endTime.isBefore(endTimeForNewEvent));
+        boolean condition2 = (startTime.isAfter(startTimeForNewEvent))&&(startTime.isBefore(endTimeForNewEvent));
+        return !condition1 && !condition2;
     }
 
 
