@@ -168,7 +168,7 @@ public abstract class UserManager implements Serializable{
 
     public void setName(User user, String name)
     {
-        user.setName(name);
+        user.userSetName(name);
     }
 
     public boolean hasName(String name) {

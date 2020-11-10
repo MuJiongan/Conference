@@ -16,7 +16,7 @@ public class Presenter {
     public static void printAttendeeMenu(){
         System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy \n4. Message " +
                 "an Attendee \n5. Message a Speaker in Event \n6. View Messages \n7.Cancel enrollment(s) " +
-                "\n7.Sign up events\n8. Log out");
+                "\n7.Sign up events\n8. Log out");}
     public static void printAttendeemenu(){
         System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
                 "\n5. Log Out");
