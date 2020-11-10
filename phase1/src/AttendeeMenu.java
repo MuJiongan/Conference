@@ -99,29 +99,88 @@ public class AttendeeMenu extends UserMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
-               "\n5.Log out");
+        Presenter.printAttendeemenu();
         try{
             String input = br.readLine();
-            while (!input.equals("7"))
+            while (!input.equals("5"))
             {
                 if (input.equals("1"))
                 {
-                    this.viewAllEvents();
+                    Presenter.viewAllevent(viewAllEvents(), getEventManager());
+                    runViewAllEvents();
                 }
-                System.out.println("1. View All Events \n2. View your Events \n3. Message User \n4. Message Users" +
-                        "in Event \n5. Enter New Room \n6.Schedule Speaker \n7.Exit");
+                else if (input.equals("2"))
+                {
+                    Presenter.viewAllevent(viewMyEvents(), getEventManager());
+                    runViewMyEvents();
+                }
+                else if (input.equals("3"))
+                {
+                    Presenter.print("Here is your contact list");
+                }
+                Presenter.printAttendeemenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
+            Presenter.print("Please enter a valid option");
             return null;
         }
 
-        System.out.println("See you again soon");
+        Presenter.print("See you again soon");
         return null;
     }
-
+    public void runViewAllEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Sign up for event\n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    signUp(index);
+                    Presenter.print("Successfully signed up!");
+                }
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
+    }
+    public void runViewMyEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Cancel Event\n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    cancelEnrollment(index);
+                    Presenter.print("Enrolment canelled!");
+                }
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
+    }
 
 
 

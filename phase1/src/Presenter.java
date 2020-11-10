@@ -24,7 +24,7 @@ public class Presenter {
 
 
     public static void viewAllevent(ArrayList<Event> actualEvent, EventManager em){
-        String message = "Here is the conference's schedule:\n";
+        String message = "Here is the schedule:\n";
         for (Event event: actualEvent){
             message = message + " " + em.getStartTime(event) + " "+ em.getEndTime(event) + " " + em.getName(event);}
             System.out.println(message);
