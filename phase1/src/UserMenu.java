@@ -82,7 +82,6 @@ public abstract class UserMenu {
         return currentManager.getMessages(user);
     }
 
-
     public ArrayList<Event> viewMyEvents() {
         ArrayList<Event> eventsTheyAttended = new ArrayList<>();
         for (Integer eventID : getUser().getEventsAttend()) {
@@ -100,6 +99,10 @@ public abstract class UserMenu {
         // presenter print number before each name
     }
 
+    public ArrayList<Integer> viewMyContactList(){
+        return user.getContactList();
+    }
+
 
     public void readAllMessage(int friendID) {
         for(Integer messageID:getUser().getMessages().get(friendID)){
@@ -111,13 +114,11 @@ public abstract class UserMenu {
 
     }
 
-    public ArrayList<Message> viewChat(int receiverID){
-        ArrayList<Message> chatHistory = new ArrayList<>();
-        for(Integer messageID:getUser().getMessages().get(receiverID)){
-            chatHistory.add(getMessageManager().getMessageById(messageID));
-        }
-        return chatHistory;
+    public ArrayList<Integer> viewChat(int receiverID){
+        return user.getMessages().get(receiverID);
     }
+
+
 
 
 }

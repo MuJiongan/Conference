@@ -68,6 +68,10 @@ public class MessageManager implements Serializable{
         return message.getMessageID();
     }
 
+    public int getSenderIDByMessId(Integer messageid){
+        return getMessageById(messageid).getSenderID();
+    }
+
     /**
      * Read the MessageManager object that was stored in a .ser file
      * @param path String representing the file path

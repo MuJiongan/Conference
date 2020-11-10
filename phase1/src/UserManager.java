@@ -62,8 +62,8 @@ public abstract class UserManager implements Serializable{
      * @param userId the given userid
      * @return the username corresponding to the user id
      */
-    public String getUsernameById(int userId){
-        return getUserByID(userId).getUserName();
+    public String getnameById(int userId){
+        return getUserByID(userId).getName();
     }
 
     /**

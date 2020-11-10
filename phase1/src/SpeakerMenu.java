@@ -89,9 +89,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 else if (input.equals("2")){
                     this.runViewContacts();
                 }
-                else if (input.equals("3")){
-                    this.runManageAccount();
-                }
                 Presenter.printSpeakermenu();
                 input = br.readLine();
             }
