@@ -64,7 +64,25 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public boolean createSpeaker(String name, String username, String password) {
         Speaker s = getSpeakerManager().createSpeaker(name, username, password);
         // can't initialize contact list because the speaker has no talks to give for now
-        return getSpeakerManager().addUser(s);
+        // add this speaker to organizers and attendees contact list
+        boolean added = getSpeakerManager().addUser(s);
+        int speakerID = getSpeakerManager().getIDByUser(s);
+        if (added){
+            // Add the speaker to the attendee's contact list
+            for (User attendee: getAttendeeManager().getUsers()){
+                getAttendeeManager().addToContactsList(attendee, speakerID);
+            }
+            // Add the speaker to the organizer's contact list
+            for (User organizer: getOrganizerManager().getUsers()){
+                getOrganizerManager().addToContactsList(organizer, speakerID);
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+
+
     }
 
 
