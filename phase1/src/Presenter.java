@@ -14,16 +14,12 @@ public class Presenter {
     }
 
     public static void printAttendeeMenu(){
-        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy \n4. Message " +
-                "an Attendee \n5. Message a Speaker in Event \n6. View Messages \n7.Cancel enrollment(s) " +
-                "\n7.Sign up events\n8. Log out");}
-    public static void printAttendeemenu(){
         System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
                 "\n5. Log Out");
     }
 
     public static void printSpeakerMenu(){
-        System.out.println("1. View your Events \n2. View contact list \n3. Manage account \n4. Log in");
+        System.out.println("1. View your Events \n2. View contact list \n3. Manage account \n4. Log Out");
     }
 
     public static void viewContacts(ArrayList<Integer> contactList, UserManager currentManager){
@@ -57,11 +53,12 @@ public class Presenter {
         String divider = "------------------------";
         String heading1 = "Events";
         String heading2 = "Time";
+        String heading3 = "Room";
         int i = 1;
 
         System.out.println("Here is your events:");
         System.out.println("");
-        System.out.printf("%-15s %-15s %n", heading1, heading2);
+        System.out.printf("%-15s %-15s %-15s %n", heading1, heading2, heading3);
         for (Event event: eventsTheyAttended){
             System.out.printf("%-15s %10s %n", i + "." + em.getName(event),em.getStartTime(event) + " "
                     + em.getEndTime(event));
@@ -75,11 +72,12 @@ public class Presenter {
         String heading1 = "Events";
         String heading2 = "Time";
         String heading3 = "Vacancy";
+        String heading4 = "Room";
         int i = 1;
 
-        System.out.println("Here is your events:");
+        System.out.println("Here is all the scheduled events:");
         System.out.println("");
-        System.out.printf("%-15s %-15s %-15s %n", heading1, heading2, heading3);
+        System.out.printf("%-15s %-15s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event: allEventsInSystem){
             System.out.printf("%-15s %-10s %d %n", i + "." + em.getName(event),em.getStartTime(event) + " "
                     + em.getEndTime(event) + " ", em.getVacancy(event));

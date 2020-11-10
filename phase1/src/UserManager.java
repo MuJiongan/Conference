@@ -171,12 +171,4 @@ public abstract class UserManager implements Serializable{
         user.userSetName(name);
     }
 
-    public boolean hasName(String name) {
-        for (User user: users){
-            if (user.getName().equals(name)){
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -99,7 +99,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
-        Presenter.printAttendeemenu();
+        Presenter.printAttendeeMenu();
         try{
             String input = br.readLine();
             while (!input.equals("5"))
@@ -111,7 +111,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 }
                 else if (input.equals("2"))
                 {
-                    Presenter.viewAllEvents(viewMyEvents(), getEventManager());
+                    Presenter.viewMyEvents(viewMyEvents(), getEventManager());
                     runViewMyEvents();
                 }
                 else if (input.equals("3"))
@@ -121,9 +121,9 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 }
                 else if (input.equals("4"))
                 {
-                    runManage();
+                    runManageAccount();
                 }
-                Presenter.printAttendeemenu();
+                Presenter.printAttendeeMenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
@@ -236,18 +236,20 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter a valid option");
         }
     }
-    public void runManage() {
+    public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Presenter.print("1. Change Name  \n2. Go back to main menu");
+        Presenter.print("Current name: " + this.getUser().getName());
+        Presenter.print("1. Change my name \n2. Go back to the main menu");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
-                    Presenter.print("Please type new name ");
-                    String name = br.readLine();
-                    getUser().setName(name);
+                    Presenter.print("Please type in your new name here: ");
+                    String input2 = br.readLine();
+                    getAttendeeManager().setName(getUser(), input2);
                 }
-                Presenter.print("1. Change Name  \n2. Go back to main menu");
+                Presenter.print("Current name: " + this.getUser().getName());
+                Presenter.print("1. Change my name \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
