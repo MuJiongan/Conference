@@ -161,7 +161,10 @@ public abstract class UserManager implements Serializable{
         return users.contains(getUserByID(userID));
     }
 
-
+    public void addToContactsList(User user, int newID)
+    {
+        user.addToContactsList(newID);
+    }
 
 
 

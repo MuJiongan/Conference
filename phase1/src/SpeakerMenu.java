@@ -92,7 +92,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         UserPropertiesIterator prompts = new UserPropertiesIterator();
         ArrayList<String> inputs = new ArrayList<>();
         this.viewMyEvents();
-        System.out.println("1. Message all attendees in one event \n2. Message one attendee in event\n3. Go back to the main menu");
+        System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
             while (!input.equals("3")){
@@ -115,7 +115,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 {
                     Presenter.print("Function is under construction");
                 }
-                System.out.println("1. Message all attendees in one event \n2. Message one attendee in event\n3. Go back to the main menu");
+                System.out.println("1. Message all attendees in one event\n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {

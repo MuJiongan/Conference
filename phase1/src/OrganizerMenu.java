@@ -182,8 +182,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
                 "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
                 "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
@@ -198,7 +196,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 }
                 else if (input.equals("4"))
                 {
-
+                    runMessage();
                 }
                 System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
                         "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
@@ -213,5 +211,19 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
         System.out.println("See you again soon");
         return null;
+    }
+
+    public void runMessage()
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("Please print the ID of who you would like to message");
+        try {
+            String userID = br.readLine();
+            int index = Integer.parseInt(userID) - 1;
+
+        } catch (IOException e) {
+            System.out.println("Please enter a valid option");
+        }
+
     }
 }

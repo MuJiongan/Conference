@@ -157,4 +157,9 @@ public abstract class User implements Serializable {
         Integer eventId = eventID;
         this.eventsAttend.remove(eventId);
     }
+
+    public void addToContactsList(int userID)
+    {
+        contactList.add(userID);
+    }
 }
