@@ -111,15 +111,20 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Schedule Speaker to a new Event
-     * @param speaker the Speaker who is to be scheduled
+     * @param speakerID the Speaker who is to be scheduled
      * @param startTime the LocalDateTime of start time of Event
      * @param endTime the LocalDateTime of end time of Event
      * @param roomID ID of room that this Event is scheduled in
      * @param capacity maximum number of attendees allowed in this Event
      * @return true if speakerID successfully added to the new Event
      */
-    public boolean scheduleSpeakerToEvent(Speaker speaker, LocalDateTime startTime, LocalDateTime endTime,
+    public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
                                           int roomID, String name, int capacity){
+        User speaker = getSpeakerManager().getUserByID(speakerID);
+        if (speaker == null){
+            Presenter.print("Speaker ID doesn't exist.");
+            return false;
+        }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
         if(event != null
                 && availableAtTime(speaker, event.getStartTime(), event.getEndTime())
@@ -139,7 +144,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param endTime the LocalDateTime of end time of Event
      * @return true if Speaker is available to speak at specific time
      */
-    public boolean availableAtTime(Speaker speaker, LocalDateTime startTime, LocalDateTime endTime){
+    public boolean availableAtTime(User speaker, LocalDateTime startTime, LocalDateTime endTime){
         for(Integer eventID : getSpeakerManager().getEventList(speaker)){
             if(!checkTime(startTime, endTime, eventID)){
                 return false;
@@ -173,7 +178,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param endTime end time of event
      * @return true if Speaker is available to speak in specific room
      */
-    public boolean availableInRoom(Speaker speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
+    public boolean availableInRoom(User speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
         ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for(Integer eventID : events) {
             if(checkTime(startTime, endTime, eventID) && hasSpeaker(speaker, eventID)) return false;
@@ -188,7 +193,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param eventID ID of the Event to be checked
      * @return true if and only if the Event has Speaker other than the given Speaker
      */
-    private boolean hasSpeaker(Speaker speaker, int eventID){
+    private boolean hasSpeaker(User speaker, int eventID){
         if(getEventManager().getEventByID(eventID).getSpeakerIDs().size() == 0) return false;
         for(Integer speakerID : getEventManager().getEventByID(eventID).getSpeakerIDs()){
             if(speakerID != speaker.getUserId()) return true;
