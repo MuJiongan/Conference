@@ -16,8 +16,8 @@ public class MessageTest {
     public void testSenderID(){
         Message m1 = new Message(1, 2, "Hi");
         Message m2 = new Message(2, 3, "Hello");
-        assertSame("incorrect name\n", 1, m1.getSenderID());
-        assertSame("incorrect name\n", 2, m2.getSenderID());
+        assertSame("gets incorrect sender ID\n", 1, m1.getSenderID());
+        assertSame("gets incorrect sender ID\n", 2, m2.getSenderID());
     }
 
     // test getReceiverID
@@ -25,8 +25,8 @@ public class MessageTest {
     public void testReceiverID(){
         Message m1 = new Message(1, 2, "Hi");
         Message m2 = new Message(2, 3, "Hello");
-        assertSame("incorrect name\n", 2, m1.getReceiverID());
-        assertSame("incorrect name\n", 3, m2.getReceiverID());
+        assertSame("gets incorrect receiver ID\n", 2, m1.getReceiverID());
+        assertSame("gets incorrect receiver ID\n", 3, m2.getReceiverID());
     }
 
     // test getContent
@@ -34,8 +34,8 @@ public class MessageTest {
     public void testContent(){
         Message m1 = new Message(1, 2, "Hi");
         Message m2 = new Message(2, 3, "Hello");
-        assertSame("incorrect name\n", "Hi", m1.getContent());
-        assertSame("incorrect name\n", "Hello", m2.getContent());
+        assertSame("gets incorrect content\n", "Hi", m1.getContent());
+        assertSame("gets incorrect content\n", "Hello", m2.getContent());
     }
 
     // test getMessageCondition
@@ -43,8 +43,8 @@ public class MessageTest {
     public void testGetMessageCondition(){
         Message m1 = new Message(1, 2, "Hi");
         Message m2 = new Message(2, 3, "Hello");
-        assertSame("incorrect name\n", false, m1.getMessageCondition());
-        assertSame("incorrect name\n", false, m2.getMessageCondition());
+        assertSame("gets incorrect condition\n", false, m1.getMessageCondition());
+        assertSame("gets incorrect condition\n", false, m2.getMessageCondition());
     }
 
     // test changeMessageCondition
@@ -52,10 +52,10 @@ public class MessageTest {
     public void testChangeMessageCondition(){
         Message m1 = new Message(1, 2, "Hi");
         Message m2 = new Message(2, 3, "Hello");
-        assertSame("incorrect name\n", false, m1.getMessageCondition());
-        assertSame("incorrect name\n", false, m2.getMessageCondition());
+        assertSame("gets incorrect condition\n", false, m1.getMessageCondition());
+        assertSame("gets incorrect condition\n", false, m2.getMessageCondition());
         m1.changeMessageCondition();
-        assertSame("incorrect name\n", true, m1.getMessageCondition());
-        assertSame("incorrect name\n", false, m2.getMessageCondition());
+        assertSame("failed to change condition\n", true, m1.getMessageCondition());
+        assertSame("failed to change condition\n", false, m2.getMessageCondition());
     }
 }

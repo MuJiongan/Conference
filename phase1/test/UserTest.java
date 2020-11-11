@@ -24,7 +24,7 @@ public class UserTest {
         assertSame("incorrect name\n", "a", attendee.getName());
         assertSame("incorrect name\n", "o", organizer.getName());
         assertSame("incorrect name\n", "s", speaker.getName());
-        attendee.setName("a1");
+        attendee.userSetName("a1");
         assertSame("incorrect name\n", "a1", attendee.getName());
     }
 
@@ -120,14 +120,14 @@ public class UserTest {
         assertEquals("incorrect message sent\n", 0, speaker.getEventsAttend().size());
         LocalDateTime start1 = LocalDateTime.of(2020, 11, 1, 15, 00, 00);
         LocalDateTime end1 = LocalDateTime.of(2020, 11, 1, 16, 00, 00);
-        Room room1 = new Room(10);
+        Room room1 = new Room(10, "MP102");
         Event event1 = new Event(start1, end1, 1, "Talk 1", 10);
         attendee.addEvent(0);
         assertEquals("incorrect message sent\n", 1, attendee.getEventsAttend().size());
         assertEquals("incorrect message sent\n", 0, (int) attendee.getEventsAttend().get(0));
         LocalDateTime start2 = LocalDateTime.of(2020, 11, 1, 10, 00, 00);
         LocalDateTime end2 = LocalDateTime.of(2020, 11, 1, 11, 00, 00);
-        Room room2 = new Room(10);
+        Room room2 = new Room(10, "MP202");
         Event event2 = new Event(start2, end2, 2, "Talk 2", 10);
         attendee.addEvent(1);
         assertEquals("incorrect message sent\n", 2, attendee.getEventsAttend().size());
