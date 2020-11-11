@@ -161,12 +161,19 @@ public abstract class User implements Serializable {
         Integer eventId = eventID;
         this.eventsAttend.remove(eventId);
     }
-
+    /**
+     * Add the userid to the contactList of this user
+     * @param userID the id of the user that this user can message to and receive messages from
+     * @
+     */
     public void addToContactsList(int userID)
     {
         contactList.add(userID);
     }
-
+    /**
+     * change the name of this user to the given name
+     * @param name new name that this user want to set
+     */
     public void userSetName(String name)
     {
         this.name = name;
