@@ -107,7 +107,14 @@ public class RoomManager implements Serializable {
     public Room createRoom(String name, int capacity){
         return new Room(capacity, name);
     }
-
+    /**
+     * Get the room name
+     * @param room Room
+     * @return the name of Room room
+     */
+    public String getRoomName(Room room){
+        return room.getName();
+    }
     /**
      * Read the RoomManager object that was stored in a .ser file
      * @param path String representing the file path
