@@ -154,7 +154,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
                     int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                    while (index <= 0 || index >= this.viewAllEvents().size()) {
                         Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
                         index = Integer.parseInt(input2) - 1;
