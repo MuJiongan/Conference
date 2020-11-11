@@ -70,7 +70,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             {
                 if (input.equals("1"))
                 {
-                    this.runViewMyEvents();
+                    this.runViewMyEvents(); //Edit this menu part
                 }
                 else if (input.equals("2")){
                     this.runViewContacts();
@@ -92,7 +92,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewMyEvents();
+        Presenter.viewMyEvents(viewMyEvents(), getEventManager());
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
@@ -163,8 +163,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         this.viewChat(receiverID);
         System.out.println("1. Send Message \n2. Go back to the contact list");
         try{

@@ -22,17 +22,20 @@ public class Room implements Serializable {
      * Stores the id of the Room
      */
     private int roomID;
+    private String name;
 
     /**
      * Create a new Room object with the given capacity
      * @param capacity maximum capcity of the room
+     * @param name name of the room
      */
-    public Room(int capacity)
+    public Room(int capacity, String name)
     {
         this.capacity = capacity;
         eventsScheduled = new ArrayList<>();
         roomID = numberOfRooms;
         numberOfRooms++;
+        this.name = name;
     }
     /**
      * Returns the maximum capacity of the room.
@@ -76,4 +79,9 @@ public class Room implements Serializable {
     public ArrayList<Integer> getEventsScheduled() {
         return (ArrayList<Integer>) eventsScheduled.clone();
     }
+
+    public String getName() {
+        return name;
+    }
 }
+

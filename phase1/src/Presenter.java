@@ -8,9 +8,8 @@ public class Presenter {
     }
 
     public static void printOrganizermenu(){
-        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
-                "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
-                "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s) \n10.Sign up events\n10.Log out");
+        System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
+                "\n5. Create new Accounts\n6. Add New Room\n7. Log Out");
     }
 
     public static void printAttendeeMenu(){
@@ -68,7 +67,7 @@ public class Presenter {
             System.out.println(divider);
         }
 
-            public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em){
+            public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em, RoomManager rm){
                 String divider = "------------------------";
                 String heading1 = "Events";
                 String heading2 = "Time";
@@ -80,8 +79,10 @@ public class Presenter {
                 System.out.println("");
                 System.out.printf("%-15s %-15s %-15s %-15s %n", heading1, heading2, heading3, heading4);
                 for (Event event : allEventsInSystem) {
+                    int roomID = em.getRoomID(event);
+                    Room room = rm.getRoomByID(roomID);
                     System.out.printf("%-15s %-10s %d %n", i + "." + em.getName(event), em.getStartTime(event) + " "
-                            + em.getEndTime(event) + " ", em.getVacancy(event));
+                            + em.getEndTime(event) + " ", em.getVacancy(event) + " ", rm.getRoomName(room));
                     i += 1;
                 }
                 System.out.println(divider);

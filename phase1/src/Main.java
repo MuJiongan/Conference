@@ -24,6 +24,7 @@ public class Main
 //        }
 
         ConferenceSystem c = new ConferenceSystem();
+        //c.createOrganizerAccount("Max", "LonzoTheGoat", "12345678");
         c.run();
     }
 }

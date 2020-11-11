@@ -105,13 +105,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     public ArrayList<Event> viewAllEvents()
     {
-        ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
-        ArrayList<Event> actualEvents = new ArrayList<>();
-        for (Integer eventID: events){
-            Event event = getEventManager().getEventByID(eventID);
-            actualEvents.add(event);
-        }
-        return actualEvents;
+        return getEventManager().getEvents();
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -122,7 +116,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             {
                 if (input.equals("1"))
                 {
-                    Presenter.viewAllEvents(viewAllEvents(), getEventManager());
+                    Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     runViewAllEvents();
                 }
                 else if (input.equals("2"))
@@ -160,7 +154,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
                     int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                    while (index <= 0 || index >= this.viewAllEvents().size()) {
                         Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
                         index = Integer.parseInt(input2) - 1;

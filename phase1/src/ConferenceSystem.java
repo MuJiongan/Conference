@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ConferenceSystem {
+public class ConferenceSystem implements Serializable {
     private AttendeeManager am;
     private OrganizerManager om;
     private SpeakerManager sm;
@@ -10,7 +11,7 @@ public class ConferenceSystem {
     private ReadWrite gateway;
 
 
-    public ConferenceSystem() {
+    public ConferenceSystem(){
         gateway = new ReadWrite();
         am = gateway.readAttendee("phase1/src/attendeemanager.ser");
         om = gateway.readOrganizer("phase1/src/organizermanager.ser");
@@ -19,14 +20,11 @@ public class ConferenceSystem {
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
         gateway.setManagers(am, om, sm, em, rm, mm);
-        System.out.println(am.getUsers().size());
-        System.out.println(om.getUsers().size());
-        System.out.println(sm.getUsers().size());
     }
 
     // This method also handles the contact list
     public User createOrganizerAccount(String name, String username, String password){
-        User organizer = createOrganizerAccount(name, username, password);
+        User organizer = om.createOrganizer(name, username, password);
         om.addUser(organizer);
         // Initiate the contact list
         for (User attendee: am.getUsers()){
