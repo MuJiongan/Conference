@@ -57,6 +57,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public void enterRoom(String name, int capacity){
         Room newRoom = getRoomManager().createRoom(name, capacity);
         getRoomManager().addRoom(newRoom);
+        Presenter.print("Room Succesfully added");
         //Maybe we need to check duplicate names
     }
 
@@ -317,9 +318,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     int speakerID = Integer.parseInt(br.readLine());
 
                     scheduleSpeakerToEvent(speakerID, startTime, endTime, roomID, name, capacity);
-
-
                 }
+                Presenter.print("1. Sign up for event\n2. Schedule an event\n3. Go back to the main menu");
+                input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");

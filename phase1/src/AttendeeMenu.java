@@ -105,13 +105,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     public ArrayList<Event> viewAllEvents()
     {
-        ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
-        ArrayList<Event> actualEvents = new ArrayList<>();
-        for (Integer eventID: events){
-            Event event = getEventManager().getEventByID(eventID);
-            actualEvents.add(event);
-        }
-        return actualEvents;
+        return getEventManager().getEvents();
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
