@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Represents a organizer in the conference.
  */
 
-public class Speaker extends User{
+public class Speaker extends User implements Serializable {
 
 
     /**

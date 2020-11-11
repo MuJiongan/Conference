@@ -1,9 +1,10 @@
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Gateway class to read and write from files
  */
-public class ReadWrite {
+public class ReadWrite implements Serializable {
     private AttendeeManager attendees;
     private OrganizerManager organizers;
     private SpeakerManager speakers;
