@@ -116,7 +116,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             {
                 if (input.equals("1"))
                 {
-                    Presenter.viewAllEvents(viewAllEvents(), getEventManager());
+                    Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     runViewAllEvents();
                 }
                 else if (input.equals("2"))

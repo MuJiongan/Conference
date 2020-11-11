@@ -67,7 +67,7 @@ public class Presenter {
             System.out.println(divider);
         }
 
-            public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em){
+            public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em, RoomManager rm){
                 String divider = "------------------------";
                 String heading1 = "Events";
                 String heading2 = "Time";
@@ -79,8 +79,10 @@ public class Presenter {
                 System.out.println("");
                 System.out.printf("%-15s %-15s %-15s %-15s %n", heading1, heading2, heading3, heading4);
                 for (Event event : allEventsInSystem) {
+                    int roomID = em.getRoomID(event);
+                    Room room = rm.getRoomByID(roomID);
                     System.out.printf("%-15s %-10s %d %n", i + "." + em.getName(event), em.getStartTime(event) + " "
-                            + em.getEndTime(event) + " ", em.getVacancy(event));
+                            + em.getEndTime(event) + " ", em.getVacancy(event) + " ", rm.getRoomName(room));
                     i += 1;
                 }
                 System.out.println(divider);

@@ -242,4 +242,10 @@ public class EventManager implements Serializable{
         return event.getCapacity();
     }
 
+    public int getRoomID(Event event){
+        return event.getRoomID();
+    }
+
+
+
 }

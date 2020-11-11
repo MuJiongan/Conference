@@ -248,7 +248,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             String input = br.readLine();
             while (!input.equals("7")) {
                 if (input.equals("1")) {
-                    Presenter.viewAllEvents(viewAllEvents(), getEventManager());
+                    Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     runViewAllEvents();
                 } else if (input.equals("2")) {
                     Presenter.viewMyEvents(viewMyEvents(), getEventManager());
