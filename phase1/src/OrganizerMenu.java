@@ -62,6 +62,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if new Speaker account successfully created
      */
     public boolean createSpeaker(String name, String username, String password) {
+
         Speaker s = getSpeakerManager().createSpeaker(name, username, password);
         // can't initialize contact list because the speaker has no talks to give for now
         // add this speaker to organizers and attendees contact list
@@ -76,9 +77,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             for (User organizer: getOrganizerManager().getUsers()){
                 getOrganizerManager().addToContactsList(organizer, speakerID);
             }
+            Presenter.print("Speaker successfully created");
             return true;
         }
         else{
+            Presenter.print("Something went wrong!");
             return false;
         }
 

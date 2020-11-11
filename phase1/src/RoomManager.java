@@ -71,7 +71,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Get the capcity of a certain Room r
+     * Get the capacity of a certain Room r
      * @param r Room's capacity we want
      * @return the capacity of Room r
      */
@@ -102,6 +102,10 @@ public class RoomManager implements Serializable {
         {
             r.addEventID(event);
         }
+    }
+
+    public Room createRoom(String name, int capacity){
+        return new Room(capacity, name);
     }
 
     /**
@@ -141,6 +145,8 @@ public class RoomManager implements Serializable {
         output.writeObject(this);
         output.close();
     }
+
+
 
 
 
