@@ -22,8 +22,8 @@ public class RoomManagerTest {
         assertSame("gets incorrect roomID\n", null, rm.getRoomByID(3));
 
         // test getName
-        assertSame("gets incorrect room name\n", "Meeting room 1", rm.getName(r1));
-        assertSame("gets incorrect room name\n", "MP102", rm.getName(r2));
+        assertSame("gets incorrect room name\n", "Meeting room 1", rm.getRoomName(r1));
+        assertSame("gets incorrect room name\n", "MP102", rm.getRoomName(r2));
 
         // test getIDbyRoom
         assertSame("gets incorrect room\n", 0, rm.getIDbyRoom(r1));
