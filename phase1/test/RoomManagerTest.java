@@ -9,9 +9,9 @@ public class RoomManagerTest {
 
         // test addRoom
         RoomManager rm = new RoomManager();
-        Room r1 = new Room(2);
-        Room r2 = new Room(200);
-        Room r3 = new Room(300);
+        Room r1 = new Room(2, "Meeting room 1");
+        Room r2 = new Room(200, "MP102");
+        Room r3 = new Room(300, "MP202");
         assertSame("add room failed\n", true, rm.addRoom(r1));
         assertSame("add room failed\n", true, rm.addRoom(r2));
         assertSame("add room failed\n", false, rm.addRoom(r1));
@@ -20,6 +20,10 @@ public class RoomManagerTest {
         assertSame("gets incorrect roomID\n", r1, rm.getRoomByID(0));
         assertSame("gets incorrect roomID\n", r2, rm.getRoomByID(1));
         assertSame("gets incorrect roomID\n", null, rm.getRoomByID(3));
+
+        // test getName
+        assertSame("gets incorrect room name\n", "Meeting room 1", rm.getName(r1));
+        assertSame("gets incorrect room name\n", "MP102", rm.getName(r2));
 
         // test getIDbyRoom
         assertSame("gets incorrect room\n", 0, rm.getIDbyRoom(r1));

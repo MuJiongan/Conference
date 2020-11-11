@@ -90,6 +90,10 @@ public class RoomManager implements Serializable {
         return r.getEventsScheduled();
     }
 
+    public String getName(Room r){
+        return r.getName();
+    }
+
     /**
      * Schedules an event in Room r, assumes that event is valid for that specific room
      * @param r Represents the room where event will happen
