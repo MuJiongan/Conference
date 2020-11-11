@@ -246,6 +246,8 @@ public class EventManager implements Serializable{
         return event.getRoomID();
     }
 
-
+    public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
+        return new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1);
+    }
 
 }

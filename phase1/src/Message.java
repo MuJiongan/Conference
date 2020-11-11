@@ -20,12 +20,6 @@ public class Message implements Serializable {
      * Stores the message content
      */
     private String content;
-
-    /**
-     * Stores the total number of Messages
-     */
-    private static int numOfMessages = 0;
-
     /**
      * Stores the id of the message
      */
@@ -42,13 +36,12 @@ public class Message implements Serializable {
      *   @param _receiverID of the message,
      *   @param _content of the message.
      */
-    public Message(int _senderID, int _receiverID, String _content){
+    public Message(int _senderID, int _receiverID, String _content, int messageID){
         this.senderID = _senderID;
         this.receiverID = _receiverID;
         this.content = _content;
-        this.messageID = numOfMessages;
+        this.messageID = messageID;
         this.unread = false;
-        numOfMessages++;
     }
 
     /**

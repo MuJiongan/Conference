@@ -7,10 +7,6 @@ import java.util.ArrayList;
  */
 public class Room implements Serializable {
     /**
-     * The total number of rooms in the conference
-     */
-    private static int numberOfRooms = 0;
-    /**
      * The maximum number of people in the room at one time
      */
     private int capacity;
@@ -29,12 +25,11 @@ public class Room implements Serializable {
      * @param capacity maximum capcity of the room
      * @param name name of the room
      */
-    public Room(int capacity, String name)
+    public Room(int capacity, String name, int roomID)
     {
         this.capacity = capacity;
         eventsScheduled = new ArrayList<>();
-        roomID = numberOfRooms;
-        numberOfRooms++;
+        this.roomID = roomID;
         this.name = name;
     }
     /**

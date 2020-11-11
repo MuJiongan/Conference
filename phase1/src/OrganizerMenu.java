@@ -213,7 +213,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return the Event object we created
      */
     public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
-        Event event = new Event(startTime, endTime, roomID, name, capacity);
+        Event event = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
         if(getEventManager().addEvent(event)){
             return event;
         }

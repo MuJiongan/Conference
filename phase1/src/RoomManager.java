@@ -106,7 +106,7 @@ public class RoomManager implements Serializable {
     }
 
     public Room createRoom(String name, int capacity){
-        return new Room(capacity, name);
+        return new Room(capacity, name, rooms.size() + 1);
     }
     /**
      * Get the room name

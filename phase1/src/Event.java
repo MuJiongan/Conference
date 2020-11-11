@@ -12,7 +12,6 @@ public class Event implements Serializable {
     private ArrayList<Integer> userIDs;
     private ArrayList<Integer> speakerIDs;
     private String name;
-    private static int numberOfEvents = 0;
     private int eventID;
     private int capacity;
 
@@ -24,16 +23,16 @@ public class Event implements Serializable {
      * @param roomID of the event
      * @param name of the event
      */
-    public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
+    public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int eventID){
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomID = roomID;
         this.name = name;
         this.capacity = capacity;
-        this.eventID = numberOfEvents;
+        this.eventID = eventID;
         userIDs = new ArrayList<Integer>();
         speakerIDs = new ArrayList<Integer>();
-        numberOfEvents++;
+
     }
 
     /**
