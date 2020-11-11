@@ -81,8 +81,8 @@ public class Presenter {
                 for (Event event : allEventsInSystem) {
                     int roomID = em.getRoomID(event);
                     Room room = rm.getRoomByID(roomID);
-                    System.out.printf("%-15s %-10s %d %n", i + "." + em.getName(event), em.getStartTime(event) + " "
-                            + em.getEndTime(event) + " ", em.getVacancy(event) + " ", rm.getRoomName(room));
+                    System.out.printf("%-15s %-10s %d %n", em.getIDByEvent(event)+ "." + em.getName(event), em.getStartTime(event) + " "
+                            + em.getEndTime(event) + " ", em.getVacancy(event)); //+ " ", rm.getRoomName(room));
                     i += 1;
                 }
                 System.out.println(divider);

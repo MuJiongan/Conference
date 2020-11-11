@@ -248,6 +248,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             String input = br.readLine();
             while (!input.equals("7")) {
                 if (input.equals("1")) {
+                    System.out.println(getSpeakerManager().getUsers().get(0).getUserId());
+                    System.out.println(getOrganizerManager().getUsers().get(0).getUserId());
                     Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     this.runViewAllEvents();
                 } else if (input.equals("2")) {
@@ -287,12 +289,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 if (input.equals("1")) {
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index > this.viewAllEvents().size()) {
-                        Presenter.print("Please enter a valid option: ");
-                        input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
-                    }
+                    int index = Integer.parseInt(input2);
                     signUp(index);
                     Presenter.print("Successfully signed up!");
                 }
