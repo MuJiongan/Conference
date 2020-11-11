@@ -14,8 +14,8 @@ public class AttendeeManagerTest {
         // Test getUser
         Assert.assertEquals("The list of attendee is initially non-empty",0, am.getUsers().size());
 
-        Attendee a1 = new Attendee("Steve", "Steve@gmail.com", "123", 1);
-        Attendee a2 = new Attendee("Mike", "Mike@gmail.com", "12334", 2);
+        Attendee a1 = new Attendee("Steve", "Steve@gmail.com", "123",1);
+        Attendee a2 = new Attendee("Mike", "Mike@gmail.com", "12334",2);
         Attendee a3 = new Attendee("Crystal", "crystal@gmail.com", "23423",3);
 
         // Test addUser

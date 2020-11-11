@@ -11,14 +11,14 @@ public class EventTest {
     public void testEvent() {
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30,400);
     }
     // test getRoomID
     @Test(timeout = 50)
     public void testGetRoomID(){
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30,400);
         assertSame("incorrect RoomID\n", 101, speak1.getRoomID());
     }
 
@@ -27,7 +27,7 @@ public class EventTest {
     public void testGetStartTime(){
         LocalDateTime start1 = LocalDateTime.of(2020, 1, 1, 20, 0, 0);
         LocalDateTime end1 = LocalDateTime.of(2020, 1, 1, 21, 0, 0);
-        Event speak1 = new Event(start1, end1, 101, "CSC207", 30);
+        Event speak1 = new Event(start1, end1, 101, "CSC207", 30,400);
         assertSame("incorrect StartTime\n", start1, speak1.getStartTime());
 
     }
@@ -36,7 +36,7 @@ public class EventTest {
     public void testGetEndTime() {
         LocalDateTime start1 = LocalDateTime.of(2020, 1, 1, 20, 0, 0);
         LocalDateTime end1 = LocalDateTime.of(2020, 1, 1, 21, 0, 0);
-        Event speak1 = new Event(start1, end1, 101, "CSC207", 30);
+        Event speak1 = new Event(start1, end1, 101, "CSC207", 30,400);
         assertSame("incorrect StartTime\n", end1, speak1.getEndTime());
     }
 
@@ -47,7 +47,7 @@ public class EventTest {
         LocalDateTime start2 = LocalDateTime.of(2020, 2, 1, 9, 0, 0);
         LocalDateTime end1 = LocalDateTime.of(2020, 1, 1, 21, 0, 0);
         LocalDateTime end2 = LocalDateTime.of(2020, 2, 1, 10, 0, 0);
-        Event speak1 = new Event(start1, end1, 101, "CSC207", 30);
+        Event speak1 = new Event(start1, end1, 101, "CSC207", 30,400);
         speak1.setStartTime(start2);
         speak1.setEndTime(end2);
         assertSame("incorrect StartTime\n", start2, speak1.getStartTime());
@@ -58,7 +58,7 @@ public class EventTest {
     public void testGetName(){
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30,400);
         assertSame("incorrect name\n", "CSC207", speak1.getName());
     }
 
@@ -66,7 +66,7 @@ public class EventTest {
     public void testGetUserIDs(){
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30, 400);
         speak1.addUserID(123);
         speak1.addUserID(321);
         speak1.addUserID(1234);
@@ -79,7 +79,7 @@ public class EventTest {
     public void testGetSpeakerIDs() {
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30, 400);
         speak1.addSpeakerID(567);
         speak1.addSpeakerID(4567);
         speak1.addSpeakerID(23355);
@@ -92,10 +92,18 @@ public class EventTest {
     public void testGetRoomIDs() {
         Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
                 LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
-                "CSC207", 30);
+                "CSC207", 30, 400);
         assertSame("incorrect RoomID\n", 101, speak1.getRoomID());
         speak1.changeRoomID(102);
         assertSame("incorrect RoomID\n", 102, speak1.getRoomID());
+    }
+
+    @Test(timeout = 50)
+    public void testGetEventID() {
+        Event speak1 = new Event(LocalDateTime.of(2020, 1, 1, 20, 0, 0),
+                LocalDateTime.of(2020, 1, 1, 21, 0, 0), 101,
+                "CSC207", 30, 400);
+        assertEquals("incorrect EventID\n", 400, speak1.getEventID());
     }
 
 

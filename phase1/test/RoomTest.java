@@ -10,20 +10,20 @@ public class RoomTest {
     // the constructor
     @Test(timeout = 50)
     public void testConstructor(){
-        Room room1 = new Room(30, "MP102");
+        Room room1 = new Room(30, "MP102",102);
     }
 
     // test getCapacity
     @Test(timeout = 50)
     public void testGetCapacity(){
-        Room room1 = new Room(30, "MP102");
+        Room room1 = new Room(30, "MP102", 102);
         assertSame("incorrect capacity\n", 30, room1.getCapacity());
     }
 
     // test getEventID
     @Test(timeout = 50)
     public void testGetEventID(){
-        Room room1 = new Room(30, "MP102");
+        Room room1 = new Room(30, "MP102", 102);
         room1.addEventID(100);
         room1.addEventID(102);
         room1.addEventID(103);
@@ -35,7 +35,13 @@ public class RoomTest {
     // test getName
     @Test(timeout = 50)
     public void testGetName(){
-        Room room1 = new Room(30, "MP102");
+        Room room1 = new Room(30, "MP102", 102);
         assertSame("gets incorrect name\n", "MP102", room1.getName());
+    }
+    // test getRoomID
+    @Test(timeout = 50)
+    public void testGetRoomID(){
+        Room room1 = new Room(30, "MP102", 102);
+        assertSame("gets incorrect RoomID\n", 102, room1.getRoomID());
     }
 }
