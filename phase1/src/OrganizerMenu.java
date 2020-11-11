@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
@@ -52,8 +54,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * Enter new Rooms into the System
      * @return true if room successfully enter
      */
-    public boolean enterRoom(Room room){
-        return getRoomManager().addRoom(room);
+    public void enterRoom(String name, int capacity){
+        Room newRoom = getRoomManager().createRoom(name, capacity);
+        getRoomManager().addRoom(newRoom);
+        //Maybe we need to check duplicate names
     }
 
 
@@ -87,8 +91,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
 
     }
-
-
     /**
      * Schedule Speaker to an existing Event
      * @param speaker the Speaker to be scheduled
@@ -110,8 +112,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         }
         return false;
     }
-
-
     /**
      * Schedule Speaker to a new Event
      * @param speakerID the Speaker who is to be scheduled
@@ -121,12 +121,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param capacity maximum number of attendees allowed in this Event
      * @return true if speakerID successfully added to the new Event
      */
-    public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
+    public void scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
                                           int roomID, String name, int capacity){
         User speaker = getSpeakerManager().getUserByID(speakerID);
         if (speaker == null){
             Presenter.print("Speaker ID doesn't exist.");
-            return false;
         }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
         if(event != null
@@ -134,9 +133,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
                 && getEventManager().addSpeakerID(speaker.getUserId(), event)){
             getSpeakerManager().addEventID(event.getEventID(), speaker);
-            return true;
+            Presenter.print("New Event Scheduled");
         }
-        return false;
     }
 
 
@@ -244,48 +242,143 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
-                "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
-                "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
-                "\n10.Sign up events\n10.Exit");
-        try{
+        Presenter.printOrganizermenu();
+        try {
             String input = br.readLine();
-            while (!input.equals("10"))
-            {
-                if (input.equals("1"))
-                {
-                    this.viewAllEvents();
+            while (!input.equals("7")) {
+                if (input.equals("1")) {
+                    Presenter.viewAllEvents(viewAllEvents(), getEventManager());
+                    runViewAllEvents();
+                } else if (input.equals("2")) {
+                    Presenter.viewMyEvents(viewMyEvents(), getEventManager());
+                    runViewMyEvents();
+                } else if (input.equals("3")) {
+                    Presenter.print("Here is your contact list");
+                    runViewContacts();
+                } else if (input.equals("4")) {
+                    runManageAccount();
                 }
-                else if (input.equals("4"))
+                else if (input.equals("5"))
                 {
-                    runMessage();
+                    runCreateAccounts();
                 }
-                System.out.println("1. View All Events \n2. View your Events \n3.View events with vacancy " +
-                        "\n4. Message an Attendee \n5. Message Attendees in Event \n6. Enter New Room " +
-                        "\n7. Create Speaker Account \n8.Schedule Speaker \n9.Cancel enrollment(s)" +
-                        "\n10.Sign up events\n10.Exit");
+                else if (input.equals("6"))
+                {
+                    runAddRoom();
+                }
+                Presenter.printOrganizermenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
+            Presenter.print("Please enter a valid option");
             return null;
         }
-
-        System.out.println("See you again soon");
+        Presenter.print("See you again soon");
         return null;
     }
+    @Override
+    public void runViewAllEvents() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. Sign up for event\n2. Schedule an event\n3. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("3")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter an event number: ");
+                    String input2 = br.readLine();
+                    int index = Integer.parseInt(input2) - 1;
+                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                        Presenter.print("Please enter a valid option: ");
+                        input2 = br.readLine();
+                        index = Integer.parseInt(input2) - 1;
+                    }
+                    signUp(index);
+                    Presenter.print("Successfully signed up!");
+                }
+                else if (input.equals("2"))
+                {
+                    Presenter.print("Enter the start time of your event (format year-mm-ddThour:minute:second)");
+                    LocalDateTime startTime = LocalDateTime.parse(br.readLine());
+                    Presenter.print("Enter the end time of your event (format year-mm-ddThour:minute:second)");
+                    LocalDateTime endTime = LocalDateTime.parse(br.readLine());
+                    Presenter.print("Enter the room ID where event will occur");
+                    int roomID = Integer.parseInt(br.readLine());
+                    Presenter.print("Ebter the name of the event");
+                    String name = br.readLine();
+                    Presenter.print("Enter the event capacity");
+                    int capacity = Integer.parseInt(br.readLine());
+                    while (capacity <= 0)
+                    {
+                        Presenter.print("Enter a valid event capacity (postive number)");
+                        capacity = Integer.parseInt(br.readLine());
+                    }
+                    //Maybe print our speaker ID's
+                    Presenter.print("Enter the speaker ID for this event");
+                    int speakerID = Integer.parseInt(br.readLine());
 
-    public void runMessage()
+                    scheduleSpeakerToEvent(speakerID, startTime, endTime, roomID, name, capacity);
+
+
+                }
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
+        catch (DateTimeParseException d)
+        {
+            Presenter.print("Please format your time properly!");
+        }
+    }
+    public void runCreateAccounts()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Presenter.print("Please print the ID of who you would like to message");
-        try {
-            String userID = br.readLine();
-            int index = Integer.parseInt(userID) - 1;
+        Presenter.print("1. Create Speaker Account\n2. Go back to the main menu");
+        try{
+            String input = br.readLine();
+            while (!input.equals("2")) {
+                if (input.equals("1")) {
+                    Presenter.print("Enter the name of the speaker");
+                    String name = br.readLine();
+                    Presenter.print("Enter the username of the speaker");
+                    String username = br.readLine();
+                    while (getAttendeeManager().hasUserName(username) || getSpeakerManager().hasUserName(username) ||
+                            getOrganizerManager().hasUserName(username))
+                    {
+                        Presenter.print("Username already in use, enter a new username");
+                        username = br.readLine();
+                    }
+                    Presenter.print("Enter new password");
+                    String password = br.readLine();
+                    createSpeaker(name, username, password);
+                }
+                Presenter.print("1. Create Speaker Account\n2. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        }
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
+    }
+    public void runAddRoom()
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            Presenter.print("Enter the name of the room");
+            String name = br.readLine();
+            Presenter.print("Enter capacity of the room");
+            int capacity = Integer.parseInt(br.readLine());
+            enterRoom(name, capacity);
 
         } catch (IOException e) {
-            System.out.println("Please enter a valid option");
+            Presenter.print("Please enter a valid option: ");
         }
-
+        catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID!!");
+        }
     }
 }

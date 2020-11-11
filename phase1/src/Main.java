@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Main
 {
     public static void main(String[] args){
-
 //        Organizer o = new Organizer("Jonathan", "chenjo14", "12345678");
 //        Speaker s = new Speaker("Steve", "ste123", "steven");
 //        Attendee a = new Attendee("Michael", "GOAT", "Jordan11");
@@ -25,7 +24,7 @@ public class Main
 //        }
 
         ConferenceSystem c = new ConferenceSystem();
-        c.createOrganizerAccount("Max", "LonzoTheGoat", "12345678");
+        //c.createOrganizerAccount("Max", "LonzoTheGoat", "12345678");
         c.run();
     }
 }

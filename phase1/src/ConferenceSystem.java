@@ -20,9 +20,6 @@ public class ConferenceSystem implements Serializable {
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
         gateway.setManagers(am, om, sm, em, rm, mm);
-        System.out.println(am.getUsers().size());
-        System.out.println(om.getUsers().size());
-        System.out.println(sm.getUsers().size());
     }
 
     // This method also handles the contact list

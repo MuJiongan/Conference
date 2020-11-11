@@ -92,7 +92,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewMyEvents();
+        Presenter.viewMyEvents(viewMyEvents(), getEventManager());
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
