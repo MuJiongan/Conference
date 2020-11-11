@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ConferenceSystem {
+public class ConferenceSystem implements Serializable {
     private AttendeeManager am;
     private OrganizerManager om;
     private SpeakerManager sm;
@@ -10,7 +11,7 @@ public class ConferenceSystem {
     private ReadWrite gateway;
 
 
-    public ConferenceSystem() {
+    public ConferenceSystem(){
         gateway = new ReadWrite();
         am = gateway.readAttendee("phase1/src/attendeemanager.ser");
         om = gateway.readOrganizer("phase1/src/organizermanager.ser");
@@ -19,10 +20,27 @@ public class ConferenceSystem {
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
         gateway.setManagers(am, om, sm, em, rm, mm);
-        System.out.println(am.getUsers().size());
-        System.out.println(om.getUsers().size());
-        System.out.println(sm.getUsers().size());
     }
+
+    // This method also handles the contact list
+    public User createOrganizerAccount(String name, String username, String password){
+        User organizer = om.createOrganizer(name, username, password);
+        om.addUser(organizer);
+        // Initiate the contact list
+        for (User attendee: am.getUsers()){
+            // add every attendee to this organizer's contact list
+            om.addToContactsList(organizer, am.getIDByUser(attendee));
+        }
+        for (User speaker: sm.getUsers()){
+            // add every speaker to this organizer's contact list
+            om.addToContactsList(organizer, sm.getIDByUser(speaker));
+        }
+        // However, there is still more things we need to check
+        // When organizer sends a message to a speaker or an attendee, add this organizer to their contact list (done)
+        return organizer;
+
+    }
+
     public void run()
     {
         UserController current = new LogInSystem(am, om, sm);

@@ -63,21 +63,23 @@ public class SpeakerMenu extends UserMenu implements UserController{
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
-//        Presenter.printSpeakerMenu();
+        Presenter.printSpeakerMenu();
         try{
             String input = br.readLine();
             while (!input.equals("4"))
             {
                 if (input.equals("1"))
                 {
-                    this.runViewMyEvents();
+                    this.runViewMyEvents(); //Edit this menu part
                 }
                 else if (input.equals("2")){
                     this.runViewContacts();
                 }
-//                Presenter.printSpeakerMenu();
+                else if (input.equals("3"))
+                {
+                    runManageAccount();
+                }
+                Presenter.printSpeakerMenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
@@ -90,7 +92,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewMyEvents();
+        Presenter.viewMyEvents(viewMyEvents(), getEventManager());
         System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
@@ -161,8 +163,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         this.viewChat(receiverID);
         System.out.println("1. Send Message \n2. Go back to the contact list");
         try{
@@ -185,20 +185,18 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
         Presenter.print("Current name: " + this.getUser().getName());
-        System.out.println("1. Change my name \n2. Go back to the main menu");
+        Presenter.print("1. Change my name \n2. Go back to the main menu");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
                     Presenter.print("Please type in your new name here: ");
                     String input2 = br.readLine();
-                    this.changeName(input2);
+                    getSpeakerManager().setName(getUser(), input2);
                 }
                 Presenter.print("Current name: " + this.getUser().getName());
-                System.out.println("1. Change my name \n2. Go back to the main menu");
+                Presenter.print("1. Change my name \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {

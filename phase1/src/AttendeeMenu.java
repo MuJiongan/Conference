@@ -41,6 +41,17 @@ public class AttendeeMenu extends UserMenu implements UserController{
         }else{
             getUser().addEvent(eventID);
             getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            // add the attendee to the speaker's contact list
+            Event event = getEventManager().getEventByID(eventID);
+            ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(event);
+            for (Integer speakerID: speakerIDs){
+                User speaker = getSpeakerManager().getUserByID(speakerID);
+                Integer userID = getCurrentManager().getIDByUser(getUser());
+                // Check if the attendee is already in speaker's contact list
+                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
+                getSpeakerManager().addToContactsList(speaker, userID);}
+            }
+
             return true;
         }
     }
@@ -62,6 +73,13 @@ public class AttendeeMenu extends UserMenu implements UserController{
             else if (getSpeakerManager().idInList(receiverID)){
                 canSend = true;
                 getSpeakerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                // Add the attendee to speaker's contact list (if doesn't exist)
+                User speaker = getSpeakerManager().getUserByID(receiverID);
+                Integer userID = getCurrentManager().getIDByUser(getUser());
+                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
+                    getSpeakerManager().addToContactsList(speaker, userID);
+                }
+
             }
             if (!canSend){
                 Presenter.print("Receiver ID doesn't exist");
@@ -87,31 +105,23 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     public ArrayList<Event> viewAllEvents()
     {
-        ArrayList<Integer> events = getCurrentManager().getEventList(getUser());
-        ArrayList<Event> actualEvents = new ArrayList<>();
-        for (Integer eventID: events){
-            Event event = getEventManager().getEventByID(eventID);
-            actualEvents.add(event);
-        }
-        return actualEvents;
+        return getEventManager().getEvents();
     }
     public User run(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
-        Presenter.printAttendeemenu();
+        Presenter.printAttendeeMenu();
         try{
             String input = br.readLine();
             while (!input.equals("5"))
             {
                 if (input.equals("1"))
                 {
-                    Presenter.viewAllevent(viewAllEvents(), getEventManager());
+                    Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     runViewAllEvents();
                 }
                 else if (input.equals("2"))
                 {
-                    Presenter.viewAllevent(viewMyEvents(), getEventManager());
+                    Presenter.viewMyEvents(viewMyEvents(), getEventManager());
                     runViewMyEvents();
                 }
                 else if (input.equals("3"))
@@ -121,9 +131,9 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 }
                 else if (input.equals("4"))
                 {
-                    runManage();
+                    runManageAccount();
                 }
-                Presenter.printAttendeemenu();
+                Presenter.printAttendeeMenu();
                 input = br.readLine();
             }
         } catch (IOException e) {
@@ -144,7 +154,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
                     int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                    while (index <= 0 || index >= this.viewAllEvents().size()) {
                         Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
                         index = Integer.parseInt(input2) - 1;
@@ -236,18 +246,20 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter a valid option");
         }
     }
-    public void runManage() {
+    public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Presenter.print("1. Change Name  \n2. Go back to main menu");
+        Presenter.print("Current name: " + this.getUser().getName());
+        Presenter.print("1. Change my name \n2. Go back to the main menu");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
-                    Presenter.print("Please type new name ");
-                    String name = br.readLine();
-                    getUser().setName(name);
+                    Presenter.print("Please type in your new name here: ");
+                    String input2 = br.readLine();
+                    getAttendeeManager().setName(getUser(), input2);
                 }
-                Presenter.print("1. Change Name  \n2. Go back to main menu");
+                Presenter.print("Current name: " + this.getUser().getName());
+                Presenter.print("1. Change my name \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {

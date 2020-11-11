@@ -71,7 +71,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Get the capcity of a certain Room r
+     * Get the capacity of a certain Room r
      * @param r Room's capacity we want
      * @return the capacity of Room r
      */
@@ -104,6 +104,17 @@ public class RoomManager implements Serializable {
         }
     }
 
+    public Room createRoom(String name, int capacity){
+        return new Room(capacity, name);
+    }
+    /**
+     * Get the room name
+     * @param room Room
+     * @return the name of Room room
+     */
+    public String getRoomName(Room room){
+        return room.getName();
+    }
     /**
      * Read the RoomManager object that was stored in a .ser file
      * @param path String representing the file path
@@ -141,6 +152,8 @@ public class RoomManager implements Serializable {
         output.writeObject(this);
         output.close();
     }
+
+
 
 
 
