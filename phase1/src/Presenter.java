@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Presenter {
 
@@ -36,7 +35,6 @@ public class Presenter {
         public static void viewChat (ArrayList < Integer > messageIDList, MessageManager mm,
                 UserManager um,int receiverID){
             String divider = "------------------------";
-            // Should the method recieve a usermenu as parameter or a hashmap?
 
             System.out.println("Here is all messages with" + um.getnameById(receiverID));
             System.out.println("");
@@ -49,45 +47,46 @@ public class Presenter {
 
 
 
-        public static void viewMyEvents (ArrayList < Event > eventsTheyAttended, EventManager em){
-            String divider = "------------------------";
-            String heading1 = "Events";
-            String heading2 = "Time";
-            String heading3 = "Room";
-            int i = 1;
+    public static void viewMyEvents (ArrayList <Event> eventsTheyAttended, EventManager em){
+        String divider = "------------------------";
+        String heading1 = "Events";
+        String heading2 = "Time";
+        String heading3 = "Room";
+        int i = 1;
 
-            System.out.println("Here is your events:");
-            System.out.println("");
-            System.out.printf("%-15s %-15s %-15s %n", heading1, heading2, heading3);
-            for (Event event : eventsTheyAttended) {
-                System.out.printf("%-15s %10s %n", i + "." + em.getName(event), em.getStartTime(event) + " "
-                        + em.getEndTime(event));
-                i += 1;
-            }
-            System.out.println(divider);
+        System.out.println("Here is your events:");
+        System.out.println("");
+        System.out.printf("%-15s %-15s %34s %n", heading1, heading2, heading3);
+        for (Event event : eventsTheyAttended) {
+            System.out.printf("%-15s %-10s %10s %n", i + "." + em.getName(event), em.getStartTime(event) + " "
+                    + em.getEndTime(event), em.getRoomNameByEvent(event));
+            i += 1;
         }
+        System.out.println(divider);
+    }
 
-            public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em, RoomManager rm){
-                String divider = "------------------------";
-                String heading1 = "Events";
-                String heading2 = "Time";
-                String heading3 = "Vacancy";
-                String heading4 = "Room";
-                int i = 1;
+    public static void viewAllEvents (ArrayList < Event > allEventsInSystem, EventManager em, RoomManager rm){
+        String divider = "------------------------";
+        String heading1 = "Events";
+        String heading2 = "Time";
+        String heading3 = "Vacancy";
+        String heading4 = "Room";
+        int i = 1;
 
-                System.out.println("Here is all the scheduled events:");
-                System.out.println("");
-                System.out.printf("%-15s %-15s %-15s %-15s %n", heading1, heading2, heading3, heading4);
-                for (Event event : allEventsInSystem) {
-                    int roomID = em.getRoomID(event);
-                    Room room = rm.getRoomByID(roomID);
-                    System.out.printf("%-15s %-10s %d %n", em.getIDByEvent(event)+ "." + em.getName(event), em.getStartTime(event) + " "
-                            + em.getEndTime(event) + " ", em.getVacancy(event)); //+ " ", rm.getRoomName(room));
-                    i += 1;
-                }
-                System.out.println(divider);
-            }
+        System.out.println("Here is all the scheduled events:");
+        System.out.println("");
+        System.out.printf("%-15s %-15s %32s %5s %n", heading1, heading2, heading3, heading4);
+        for (Event event : allEventsInSystem) {
+            int roomID = em.getRoomID(event);
+            Room room = rm.getRoomByID(roomID);
+            System.out.printf("%-15s %-10s %d %10s %n", em.getIDByEvent(event)+ "." + em.getName(event), em.getStartTime(event) + " "
+                    + em.getEndTime(event) + " ", em.getVacancy(event) , rm.getRoomName(room));
+            i += 1;
         }
+        System.out.println(divider);
+    }
+}
+
 
 //        String display = "Here is your schedule:";
 //        int i = 1;
