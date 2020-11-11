@@ -14,8 +14,8 @@ public class AttendeeManager extends UserManager implements Serializable{
      * @return the user object that we created
      */
 
-    public Attendee createAttendee(String name, String username, String password){
-        return new Attendee(name, username, password);
+    public Attendee createAttendee(String name, String username, String password, int userID){
+        return new Attendee(name, username, password, userID);
     }
 
     /**

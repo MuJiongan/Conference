@@ -10,8 +10,8 @@ public class Speaker extends User implements Serializable {
     /**
      * Create an instance of Organizer
      */
-    public Speaker(String name, String username, String password){
-        super(name, username, password);
+    public Speaker(String name, String username, String password, int userID){
+        super(name, username, password, userID);
     }
 
 

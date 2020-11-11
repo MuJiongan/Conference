@@ -68,7 +68,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      */
     public boolean createSpeaker(String name, String username, String password) {
 
-        Speaker s = getSpeakerManager().createSpeaker(name, username, password);
+        Speaker s = getSpeakerManager().createSpeaker(name, username, password, getNewID());
         // can't initialize contact list because the speaker has no talks to give for now
         // add this speaker to organizers and attendees contact list
         boolean added = getSpeakerManager().addUser(s);
@@ -248,8 +248,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             String input = br.readLine();
             while (!input.equals("7")) {
                 if (input.equals("1")) {
-                    System.out.println(getSpeakerManager().getUsers().get(0).getUserId());
-                    System.out.println(getOrganizerManager().getUsers().get(0).getUserId());
                     Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     this.runViewAllEvents();
                 } else if (input.equals("2")) {
@@ -378,5 +376,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         catch (NumberFormatException n) {
             Presenter.print("Please enter an integer value for the ID!!");
         }
+
     }
+
+
 }

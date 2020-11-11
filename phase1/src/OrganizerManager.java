@@ -14,8 +14,8 @@ public class OrganizerManager extends UserManager implements Serializable{
      * @return the user object that we created
      */
 
-    public Organizer createOrganizer(String name, String username, String password){
-        return new Organizer(name, username, password);
+    public Organizer createOrganizer(String name, String username, String password, int userID){
+        return new Organizer(name, username, password, userID);
     }
 
     /**

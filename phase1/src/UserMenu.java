@@ -118,6 +118,11 @@ public abstract class UserMenu {
         return user.getMessages().get(receiverID);
     }
 
+    public int getNewID(){
+        int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size();
+        return size + 1;
+    }
+
 
 
 }

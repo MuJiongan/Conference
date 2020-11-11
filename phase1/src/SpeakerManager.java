@@ -15,8 +15,8 @@ public class SpeakerManager extends UserManager implements Serializable{
      * @param password User's password
      * @return the user object that we created
      */
-    public Speaker createSpeaker(String name, String username, String password){
-        return new Speaker(name, username, password);
+    public Speaker createSpeaker(String name, String username, String password, int userID){
+        return new Speaker(name, username, password, userID);
     }
 
 

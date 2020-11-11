@@ -9,8 +9,8 @@ public class Attendee extends User implements Serializable {
     /**
      * Create an instance of Attendee
      */
-    public Attendee(String name, String username, String password){
-        super(name, username, password);
+    public Attendee(String name, String username, String password, int userID){
+        super(name, username, password, userID);
     }
 
 }

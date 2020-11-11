@@ -87,7 +87,7 @@ public class LogInSystem implements UserController {
                 }
                 else
                 {
-                    Attendee newAccount = am.createAttendee(inputs.get(0), inputs.get(1), inputs.get(2));
+                    Attendee newAccount = am.createAttendee(inputs.get(0), inputs.get(1), inputs.get(2), getNewID());
                     am.addUser(newAccount);
                     return newAccount;
                 }
@@ -100,6 +100,10 @@ public class LogInSystem implements UserController {
             System.out.println("Something went wrong");
             return null;
         }
+    }
+    public int getNewID(){
+        int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
+        return size + 1;
     }
 
 }

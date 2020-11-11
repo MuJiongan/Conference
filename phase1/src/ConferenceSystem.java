@@ -24,7 +24,7 @@ public class ConferenceSystem implements Serializable {
 
     // This method also handles the contact list
     public User createOrganizerAccount(String name, String username, String password){
-        User organizer = om.createOrganizer(name, username, password);
+        User organizer = om.createOrganizer(name, username, password, getNewID());
         om.addUser(organizer);
         // Initiate the contact list
         for (User attendee: am.getUsers()){
@@ -39,6 +39,10 @@ public class ConferenceSystem implements Serializable {
         // When organizer sends a message to a speaker or an attendee, add this organizer to their contact list (done)
         return organizer;
 
+    }
+    public int getNewID(){
+        int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
+        return size + 1;
     }
 
     public void run()

@@ -33,10 +33,6 @@ public abstract class User implements Serializable {
      * Stores a list of event IDs the user is going to attend
      */
     private ArrayList<Integer> eventsAttend;
-    /**
-     * The total number of the Users
-     */
-    private static int numOfUsers = 0;
 
     /**
      * Constructs an instance of Student based on Strings of information
@@ -44,9 +40,9 @@ public abstract class User implements Serializable {
      * @param userName User's username
      * @param passWord User's password
      */
-    public User(String name, String userName, String passWord) {
-        numOfUsers++;
-        this.userID = numOfUsers;
+    public User(String name, String userName, String passWord, int userID) {
+
+        this.userID = userID;
         this.name = name;
         this.userName = userName;
         this.passWord = passWord;
