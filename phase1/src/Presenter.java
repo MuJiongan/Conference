@@ -1,55 +1,77 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Presenter {
 
-    public static void print(String printStuff) {
+    public static void print(String printStuff){
         System.out.println(printStuff);
     }
 
-    public static void printOrganizermenu() {
+    public static void printOrganizermenu(){
         System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
                 "\n5. Create new Accounts\n6. Add New Room\n7. Log Out");
     }
 
-    public static void printAttendeeMenu() {
+    public static void printAttendeeMenu(){
         System.out.println("1. View All Events \n2. View My Events \n3. View Contact List \n4. Manage Account" +
                 "\n5. Log Out");
     }
 
-    public static void printSpeakerMenu() {
+    public static void printSpeakerMenu(){
         System.out.println("1. View your Events \n2. View contact list \n3. Manage account \n4. Log Out");
     }
 
-    public static void viewContacts(ArrayList<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm) {
+    public static void viewContacts(ArrayList<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm){
         System.out.println("Here is people you can sent messages to: ");
+        String divider = "------------------------";
         for (Integer userId : contactList) {
-            if (am.idInList(userId)) {
+            if (am.idInList(userId))
+            {
                 System.out.println(userId + "." + am.getnameById(userId));
-            } else if (om.idInList(userId)) {
+            }
+            else if (om.idInList(userId))
+            {
                 System.out.println(userId + "." + om.getnameById(userId));
-            } else {
+            }
+            else
+            {
                 System.out.println(userId + "." + sm.getnameById(userId));
             }
-
-
         }
         // want to add unread feature.
-        String divider = "------------------------";
-    }
-
-    public static void viewChat(ArrayList<Integer> messageIDList, MessageManager mm,
-                                UserManager um, int receiverID) {
-        String divider = "------------------------";
-
-
-        System.out.println("Here is all messages with" + um.getnameById(receiverID));
-        System.out.println("");
-        for (Integer messageId : messageIDList) {
-            String senderName = um.getnameById(mm.getSenderIDByMessId(messageId));
-            System.out.println(senderName + ":" + mm.getMescontentById(messageId));
-        }
         System.out.println(divider);
     }
+
+        public static void viewChat (int receiverID, HashMap<Integer, ArrayList<Integer>> messageIDList,MessageManager mm,
+                                     AttendeeManager am, OrganizerManager om, SpeakerManager sm){
+            String divider = "------------------------";
+            System.out.println("Here is your chat history:");
+            if (messageIDList.get(receiverID) == null)
+            {
+                System.out.println("No chat history");
+            }
+            else{
+                for (Integer messageId : messageIDList.get(receiverID)) {
+                    int sendID = mm.getSenderIDByMessId(messageId);
+                    String senderName = "";
+                    if (am.idInList(sendID))
+                    {
+                        senderName = am.getnameById(sendID);
+                    }
+                    else if (om.idInList(sendID))
+                    {
+                        senderName = om.getnameById(sendID);
+                    }
+                    else
+                    {
+                        senderName = sm.getnameById(sendID);
+                    }
+                    System.out.println(senderName + ":" + mm.getMescontentById(messageId));
+                }
+            }
+
+            System.out.println(divider);
+        }
 
 
     public static void viewMyEvents(ArrayList<Event> eventsTheyAttended, EventManager em, RoomManager rm) {

@@ -42,6 +42,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             }
             //add message to this user's hashmap
             super.sendMessage(receiverID, message);
+            getMessageManager().addMessage(message);
             Presenter.print("Messages sent");
             return true;
         }
@@ -73,7 +74,8 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     this.runViewMyEvents(); //Edit this menu part
                 }
                 else if (input.equals("2")){
-                    this.runViewContacts();
+                    Presenter.viewContacts(getSpeakerManager().getContactList(getUser()), getAttendeeManager(), getOrganizerManager(), getSpeakerManager());
+                    runViewContacts();
                 }
                 else if (input.equals("3"))
                 {
@@ -128,54 +130,40 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
-        this.viewMyContacts();
-        System.out.println("1. View chat history \n2. Go back to the main menu");
-        try{
+        Presenter.print("1. View chat history \n2. Go back to the main menu");
+        try {
             String input = br.readLine();
-            while (!input.equals("2")){
+            while (!input.equals("2")) {
                 if (input.equals("1")) {
                     Presenter.print("Please enter a friend number: ");
-                    try {
-                        String input2 = br.readLine();
-                        int index = Integer.parseInt(input2) - 1;
-                        while (index <= 0 || index >= this.viewMyContacts().size()){
-                            Presenter.print("Please enter a valid option: ");
-                            input2 = br.readLine();
-                            index = Integer.parseInt(input2) - 1;
-                        }
-                        int receiverID = super.getUser().getContactList().get(index);
-                        this.runViewChat(receiverID);
-                    } catch (NumberFormatException ne) {
-                        Presenter.print("Please enter an integer value for the ID");
-                    } catch (IOException ie) {
-                        Presenter.print("Please enter a valid option: ");
-                    }
+                    int index = Integer.parseInt(br.readLine());
+                    runViewChat(index);
                 }
-                System.out.println("1. View chat history \n2. Go back to the main menu");
+                Presenter.print("1. View chat history \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");
+        } catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID");
         }
     }
 
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewChat(receiverID);
-        System.out.println("1. Send Message \n2. Go back to the contact list");
+        Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
+                , getOrganizerManager(), getSpeakerManager());
+        Presenter.print("1. Send Message \n2. Go Back to Contacts List");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
                 if (input.equals("1")) {
                     Presenter.print("Please type your message here: ");
                     String input2 = br.readLine();
-                    this.sendMessage(receiverID, input2);
-                    this.readAllMessage(receiverID);
-                    this.viewChat(receiverID);
+                    sendMessage(receiverID, input2);
+                    // this.readAllMessage(receiverID);
                 }
-                System.out.println("1. Send Message \n2. Go back to the contact list");
+                Presenter.print("1. Send Message \n2. Go Back to Contacts List");
                 input = br.readLine();
             }
         } catch (IOException e) {

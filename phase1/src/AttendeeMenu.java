@@ -64,15 +64,20 @@ public class AttendeeMenu extends UserMenu implements UserController{
             if (getAttendeeManager().idInList(receiverID)) {
                 canSend = true;
                 getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                getAttendeeManager().addMessageID(message.getMessageID(), getAttendeeManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
+                getMessageManager().addMessage(message);
             }
-            else if (getOrganizerManager().idInList(receiverID))
-            {
-                canSend = true;
-                getOrganizerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
-            }
+//            else if (getOrganizerManager().idInList(receiverID))
+//            {
+//                canSend = true;
+//                getOrganizerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+//                getMessageManager().addMessage(message);
+//            } Attendees cant message organizers
             else if (getSpeakerManager().idInList(receiverID)){
                 canSend = true;
-                getSpeakerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                getSpeakerManager().addMessageID(message.getMessageID(), getSpeakerManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
+                getMessageManager().addMessage(message);
                 // Add the attendee to speaker's contact list (if doesn't exist)
                 User speaker = getSpeakerManager().getUserByID(receiverID);
                 Integer userID = getCurrentManager().getIDByUser(getUser());
@@ -199,22 +204,14 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewMyContacts();
         Presenter.print("1. View chat history \n2. Go back to the main menu");
         try {
             String input = br.readLine();
             while (!input.equals("2")) {
                 if (input.equals("1")) {
                     Presenter.print("Please enter a friend number: ");
-                    String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyContacts().size()) {
-                        Presenter.print("Please enter a valid option: ");
-                        input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
-                    }
-                    int receiverID = super.getUser().getContactList().get(index);
-                    runViewChat(receiverID);
+                    int index = Integer.parseInt(br.readLine());
+                    runViewChat(index);
                 }
                 Presenter.print("1. View chat history \n2. Go back to the main menu");
                 input = br.readLine();
@@ -227,7 +224,8 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        this.viewChat(receiverID);
+        Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
+        , getOrganizerManager(), getSpeakerManager());
         Presenter.print("1. Send Message \n2. Go Back to Contacts List");
         try{
             String input = br.readLine();
@@ -236,8 +234,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                     Presenter.print("Please type your message here: ");
                     String input2 = br.readLine();
                     sendMessage(receiverID, input2);
-                    this.readAllMessage(receiverID);
-                   //TODO Why this method?  this.viewChat(receiverID);
+                   // this.readAllMessage(receiverID);
                 }
                 Presenter.print("1. Send Message \n2. Go Back to Contacts List");
                 input = br.readLine();
