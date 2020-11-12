@@ -98,6 +98,10 @@ public abstract class UserMenu {
         return user.getContactList().contains(friendID);
     }
 
+    public boolean hasEvent(int eventID){
+        return user.getContactList().contains(eventID);
+    }
+
     public void readAllMessage(int friendID) {
         for(Integer messageID:getUser().getMessages().get(friendID)){
             Message message = getMessageManager().getMessageById(messageID);

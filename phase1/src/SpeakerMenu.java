@@ -103,13 +103,12 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     System.out.println("Please enter an event number: ");
                     String input2 = br.readLine();
                     try {
-                        int index = Integer.parseInt(input2) - 1;
-                        while (index <= 0 || index >= this.viewMyEvents().size()){
+                        int eventID = Integer.parseInt(input2);
+                        while (!this.hasEvent(eventID)){
                             System.out.println("Please enter a valid option: ");
                             input2 = br.readLine();
-                            index = Integer.parseInt(input2) - 1;
+                            eventID = Integer.parseInt(input2);
                         }
-                        int eventID = getUser().getEventsAttend().get(index);
                         System.out.println("Please type in your message: ");
                         String input3 = br.readLine();
                         this.messageAll(eventID, input3);
