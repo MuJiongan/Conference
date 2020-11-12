@@ -99,7 +99,11 @@ public abstract class UserMenu {
     }
 
     public boolean hasEvent(int eventID){
-        return user.getContactList().contains(eventID);
+        return this.getEventManager().getEvents().contains(eventID);
+    }
+
+    public boolean hasMyEvent(int eventID){
+        return user.getEventsAttend().contains(eventID);
     }
 
     public void readAllMessage(int friendID) {

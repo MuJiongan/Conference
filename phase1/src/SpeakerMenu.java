@@ -104,7 +104,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     String input2 = br.readLine();
                     try {
                         int eventID = Integer.parseInt(input2);
-                        while (!this.hasEvent(eventID)){
+                        while (!this.hasMyEvent(eventID)){
                             System.out.println("Please enter a valid option: ");
                             input2 = br.readLine();
                             eventID = Integer.parseInt(input2);
