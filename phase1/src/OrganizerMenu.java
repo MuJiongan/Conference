@@ -276,10 +276,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     Presenter.viewAllEvents(viewAllEvents(), getEventManager(), getRoomManager());
                     this.runViewAllEvents();
                 } else if (input.equals("2")) {
-                    Presenter.viewMyEvents(viewMyEvents(), getEventManager());
+                    Presenter.viewMyEvents(viewMyEvents(), getEventManager(), getRoomManager());
                     runViewMyEvents();
                 } else if (input.equals("3")) {
-                    Presenter.print("Here is your contact list");
+                    Presenter.viewContacts(getOrganizerManager().getContactList(getUser()), getAttendeeManager(), getOrganizerManager(), getSpeakerManager());
                     runViewContacts();
                 } else if (input.equals("4")) {
                     runManageAccount();

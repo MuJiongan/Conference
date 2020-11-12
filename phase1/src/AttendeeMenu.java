@@ -121,12 +121,12 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 }
                 else if (input.equals("2"))
                 {
-                    Presenter.viewMyEvents(viewMyEvents(), getEventManager());
+                    Presenter.viewMyEvents(viewMyEvents(), getEventManager(), getRoomManager());
                     runViewMyEvents();
                 }
                 else if (input.equals("3"))
                 {
-                    Presenter.print("Here is your contact list");
+                    Presenter.viewContacts(getAttendeeManager().getContactList(getUser()), getAttendeeManager(), getOrganizerManager(), getSpeakerManager());
                     runViewContacts();
                 }
                 else if (input.equals("4"))
