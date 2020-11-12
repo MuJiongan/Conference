@@ -136,16 +136,26 @@ public class SpeakerMenu extends UserMenu implements UserController{
             while (!input.equals("2")) {
                 if (input.equals("1")) {
                     Presenter.print("Please enter a friend number: ");
-                    int index = Integer.parseInt(br.readLine());
-                    runViewChat(index);
+                    String input2 = br.readLine();
+                    try {
+                        int friendID = Integer.parseInt(input2);
+                        while (!this.hasContact(friendID)){
+                            System.out.println("Please enter a valid option: ");
+                            input2 = br.readLine();
+                            friendID = Integer.parseInt(input2);
+                        }
+                        this.runViewChat(friendID);
+                    } catch (NumberFormatException ne) {
+                        Presenter.print("Please enter an integer value for the ID!!");
+                    } catch (IOException ie) {
+                        Presenter.print("Please enter a valid option: ");
+                    }
                 }
                 Presenter.print("1. View chat history \n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");
-        } catch (NumberFormatException n) {
-            Presenter.print("Please enter an integer value for the ID");
         }
     }
 
@@ -161,8 +171,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
                     Presenter.print("Please type your message here: ");
                     String input2 = br.readLine();
                     sendMessage(receiverID, input2);
-                    // this.readAllMessage(receiverID);
+                    this.readAllMessage(receiverID);
                 }
+                Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
+                        , getOrganizerManager(), getSpeakerManager());
                 Presenter.print("1. Send Message \n2. Go Back to Contacts List");
                 input = br.readLine();
             }

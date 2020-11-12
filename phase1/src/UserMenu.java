@@ -90,19 +90,13 @@ public abstract class UserMenu {
         return eventsTheyAttended;
     }
 
-    public ArrayList<Event> viewMyContacts() {
-        ArrayList<Event> contacts = new ArrayList<>();
-        for (Integer userID : getUser().getContactList()) {
-            contacts.add(getEventManager().getEventByID(userID));
-        }
-        return contacts;
-        // presenter print number before each name
-    }
-
     public ArrayList<Integer> viewMyContactList(){
         return user.getContactList();
     }
 
+    public boolean hasContact(int friendID){
+        return user.getContactList().contains(friendID);
+    }
 
     public void readAllMessage(int friendID) {
         for(Integer messageID:getUser().getMessages().get(friendID)){
