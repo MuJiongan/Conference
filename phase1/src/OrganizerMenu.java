@@ -134,6 +134,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("Speaker ID doesn't exist.");
             return false;
         }
+        if (!haveEnoughCapacity(roomID, capacity)){
+            Presenter.print("Room doesn't have enough capacity.");
+            return false;
+        }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
 
         if (!availableAtTime(speaker, startTime, endTime)){
@@ -260,7 +264,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         return event;
     }
 
-
+    public boolean haveEnoughCapacity(int roomID, int capacity){
+        int roomCapacity = getRoomManager().getRoomByID(roomID).getCapacity();
+        return roomCapacity >= capacity;
+    }
 /*
     * remove Speakers, Attendees, Organizers from Event
     * remove Event from list
