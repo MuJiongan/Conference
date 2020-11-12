@@ -88,6 +88,7 @@ public class LogInSystem implements UserController {
                 else
                 {
                     Attendee newAccount = am.createAttendee(inputs.get(0), inputs.get(1), inputs.get(2), getNewID());
+                    initializeAttendeeContactsList(newAccount);
                     am.addUser(newAccount);
                     return newAccount;
                 }
