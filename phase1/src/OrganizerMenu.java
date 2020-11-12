@@ -122,20 +122,39 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param capacity maximum number of attendees allowed in this Event
      * @return true if speakerID successfully added to the new Event
      */
-    public void scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
+    public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
                                           int roomID, String name, int capacity){
         User speaker = getSpeakerManager().getUserByID(speakerID);
         if (speaker == null){
             Presenter.print("Speaker ID doesn't exist.");
+            return false;
         }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
-        if(event != null
-                && availableAtTime(speaker, event.getStartTime(), event.getEndTime())
-                && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
-                && getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            getSpeakerManager().addEventID(event.getEventID(), speaker);
-            Presenter.print("New Event Scheduled");
+
+        if (!availableAtTime(speaker, startTime, endTime)){
+            Presenter.print("The speaker is not available at the time");
+            return false;
         }
+        if (!availableInRoom(speaker, roomID, startTime, endTime)){
+
+            Presenter.print("The room you entered is occupied at the time");
+            return false;
+        }
+        if (!getEventManager().addSpeakerID(speaker.getUserId(), event)){
+            Presenter.print("You can't add this speaker. The event already has a speaker");
+            return false;
+
+        }
+
+        if (event == null) {
+            Presenter.print("Event is not valid!");
+            return false;
+
+        }
+        getSpeakerManager().addEventID(event.getEventID(), speaker);
+        Presenter.print("New Event Scheduled");
+        return true;
+
     }
 
 
@@ -148,9 +167,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      */
     public boolean availableAtTime(User speaker, LocalDateTime startTime, LocalDateTime endTime){
         for(Integer eventID : getSpeakerManager().getEventList(speaker)){
-            if(!checkTime(startTime, endTime, eventID)){
-                return false;
-            }
+            Event event = getEventManager().getEventByID(eventID);
+            LocalDateTime existingStartTime = getEventManager().getStartTime(event);
+            LocalDateTime existingEndTime = getEventManager().getEndTime(event);
+            if(!checkTime(startTime, endTime, existingStartTime, existingEndTime))
+            return false;
         }
         return true;
     }
@@ -160,14 +181,15 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * Check whether event conflict with the given period of time
      * @param startTime start time of 1st pair of time
      * @param endTime end time of 1st pair of time
-     * @param eventID event ID of 2nd event
+     * @param newStartTime start time of 2nd pair of time
+     * @param newEndTime end time of 2nd pair of time
      * @return true if and only if no conflict occur
      */
-    private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, int eventID){
-        LocalDateTime startTimeForNewEvent = getEventManager().getEventByID(eventID).getStartTime();
-        LocalDateTime endTimeForNewEvent = getEventManager().getEventByID(eventID).getEndTime();
-        boolean condition1 = (endTime.isAfter(startTimeForNewEvent))&&(endTime.isBefore(endTimeForNewEvent));
-        boolean condition2 = (startTime.isAfter(startTimeForNewEvent))&&(startTime.isBefore(endTimeForNewEvent));
+    private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime, LocalDateTime newEndTime){
+        // endTime is between the newStartTime and newEndTime
+        boolean condition1 = (endTime.isAfter(newEndTime))&&(endTime.isBefore(newStartTime));
+        boolean condition2 = (startTime.isAfter(newEndTime))&&(startTime.isBefore(newStartTime));
+        // if one of the conditions fails, return false
         return !condition1 && !condition2;
     }
 
@@ -183,7 +205,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public boolean availableInRoom(User speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
         ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for(Integer eventID : events) {
-            if(checkTime(startTime, endTime, eventID) && hasSpeaker(speaker, eventID)) return false;
+            Event event = getEventManager().getEventByID(eventID);
+            LocalDateTime existingStartTime = getEventManager().getStartTime(event);
+            LocalDateTime existingEndTime = getEventManager().getEndTime(event);
+            if(!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;
         }
         return true;
     }
