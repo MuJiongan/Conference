@@ -154,8 +154,7 @@ public class RoomManager implements Serializable {
         output.close();
     }
 
-
-
-
-
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
 }

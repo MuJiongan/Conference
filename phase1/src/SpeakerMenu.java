@@ -48,7 +48,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         }
         else
         {
-            System.out.println("Please enter a valid userID");
+            System.out.println("Please enter a valid userID or enter a userID that you can send message to.");
             return false;
         }
     }

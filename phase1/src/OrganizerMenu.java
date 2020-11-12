@@ -134,6 +134,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("Speaker ID doesn't exist.");
             return false;
         }
+        if (!haveEnoughCapacity(roomID, capacity)){
+            Presenter.print("Room doesn't have enough capacity.");
+            return false;
+        }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
 
         if (!availableAtTime(speaker, startTime, endTime)){
@@ -260,7 +264,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         return event;
     }
 
-
+    public boolean haveEnoughCapacity(int roomID, int capacity){
+        int roomCapacity = getRoomManager().getRoomByID(roomID).getCapacity();
+        return roomCapacity >= capacity;
+    }
 /*
     * remove Speakers, Attendees, Organizers from Event
     * remove Event from list
@@ -337,9 +344,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     LocalDateTime startTime = LocalDateTime.parse(br.readLine());
                     Presenter.print("Enter the end time of your event (format year-mm-ddThour:minute:second)");
                     LocalDateTime endTime = LocalDateTime.parse(br.readLine());
+
+                    Presenter.printRooms(getRoomManager().getRooms(), getRoomManager());
                     Presenter.print("Enter the room ID where event will occur");
                     int roomID = Integer.parseInt(br.readLine());
-                    Presenter.print("Ebter the name of the event");
+                    Presenter.print("Enter the name of the event");
                     String name = br.readLine();
                     Presenter.print("Enter the event capacity");
                     int capacity = Integer.parseInt(br.readLine());
@@ -349,7 +358,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                         capacity = Integer.parseInt(br.readLine());
                     }
                     //Maybe print our speaker ID's
+                    Presenter.printSpeakers(getSpeakerManager().getUsers(), getSpeakerManager());
                     Presenter.print("Enter the speaker ID for this event");
+
                     int speakerID = Integer.parseInt(br.readLine());
 
                     scheduleSpeakerToEvent(speakerID, startTime, endTime, roomID, name, capacity);
