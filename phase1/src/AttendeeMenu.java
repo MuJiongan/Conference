@@ -36,7 +36,12 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     public boolean signUp(int eventID){
-        if (getEventManager().getEventByID(eventID) == null ||getUser().getEventsAttend().contains(eventID)){
+        if (getEventManager().getEventByID(eventID) == null){
+            Presenter.print("event doesn't exist");
+            return false;
+        }
+        if (getUser().getEventsAttend().contains(eventID)){
+            Presenter.print("You already signed up for this event.");
             return false;
         }else{
             getUser().addEvent(eventID);
