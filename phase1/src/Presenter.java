@@ -114,27 +114,28 @@ public class Presenter {
     }
 
 
-    public static void printSpeakers(ArrayList<Integer> speakers, UserManager current) {
+    public static void printSpeakers(ArrayList<User> speakers, UserManager current) {
         String heading = "Speaker's name";
         int i = 1;
         System.out.println("Here is all speakers available");
         System.out.println(" ");
         System.out.printf("%-4s %n", heading);
-        for (Integer speaker : speakers) {
-            System.out.println(i + "." + current.getnameById(speaker));
+        for (User speaker : speakers) {
+            int speakerID = current.getIDByUser(speaker);
+            System.out.println(current.getIDByUser(speaker) + "." + current.getnameById(speakerID));
             i += 1;
         }
     }
 
     public static void printRooms(ArrayList<Room> rooms, RoomManager rm) {
         String heading = "Room's name";
-        int i = 1;
+
         System.out.println("Here is all rooms available");
         System.out.println(" ");
         System.out.printf("%-4s %n", heading);
         for (Room room : rooms) {
-            System.out.println(i + "." + rm.getRoomName(room));
-            i += 1;
+            System.out.println(rm.getIDbyRoom(room) + "." + rm.getRoomName(room));
+
         }
     }
 }
