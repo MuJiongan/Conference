@@ -125,6 +125,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
                                           int roomID, String name, int capacity){
         User speaker = getSpeakerManager().getUserByID(speakerID);
+        Room room = getRoomManager().getRoomByID(roomID);
+        if (room == null){
+            Presenter.print("RoomID doesn't exist.");
+            return false;
+        }
         if (speaker == null){
             Presenter.print("Speaker ID doesn't exist.");
             return false;
@@ -151,7 +156,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             return false;
 
         }
+        getEventManager().addEvent(event);
         getSpeakerManager().addEventID(event.getEventID(), speaker);
+
+        getRoomManager().scheduleEvent(room, getEventManager().getIDByEvent(event));
         Presenter.print("New Event Scheduled");
         return true;
 
@@ -187,10 +195,20 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      */
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime, LocalDateTime newEndTime){
         // endTime is between the newStartTime and newEndTime
-        boolean condition1 = (endTime.isAfter(newEndTime))&&(endTime.isBefore(newStartTime));
-        boolean condition2 = (startTime.isAfter(newEndTime))&&(startTime.isBefore(newStartTime));
+        // return true if the endtime is in between
+        boolean condition1 = (!endTime.isAfter(newEndTime))&&(!endTime.isBefore(newStartTime));
+
+        boolean condition2 = (!startTime.isAfter(newEndTime))&&(!startTime.isBefore(newStartTime));
+        boolean condition3 = (!newEndTime.isAfter(endTime))&&(!newEndTime.isBefore(startTime));
+        boolean condition4 = (!newStartTime.isAfter(endTime))&&(!newStartTime.isBefore(startTime));
+
+
+
         // if one of the conditions fails, return false
-        return !condition1 && !condition2;
+        if (condition1 || condition2 || condition3 || condition4){
+            return false;
+        }
+        return true;
     }
 
 
@@ -239,10 +257,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      */
     public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
         Event event = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
-        if(getEventManager().addEvent(event)){
-            return event;
-        }
-        return null;
+        return event;
     }
 
 
