@@ -82,7 +82,6 @@ public class Presenter {
         String heading4 = "Room";
 
         System.out.println("Here is your scheduled events:");
-        System.out.println("");
         System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event : eventsTheyAttended) {
             int roomID = em.getRoomID(event);
@@ -102,7 +101,6 @@ public class Presenter {
         String heading4 = "Room";
 
         System.out.println("Here is all the scheduled events:");
-        System.out.println("");
         System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event : allEventsInSystem) {
             int roomID = em.getRoomID(event);
@@ -117,7 +115,7 @@ public class Presenter {
     public static void printSpeakers(ArrayList<User> speakers, UserManager current) {
         String heading = "Speaker's name";
         int i = 1;
-        System.out.println("Here is all speakers available");
+        System.out.println("Here are all speakers registered");
         System.out.println(" ");
         System.out.printf("%-4s %n", heading);
         for (User speaker : speakers) {

@@ -77,10 +77,6 @@ public abstract class UserMenu {
         return currentManager;
     }
 
-    public HashMap<Integer, ArrayList<Integer>> viewMessage(){
-        System.out.println("Here we view all the received messages");
-        return currentManager.getMessages(user);
-    }
 
     public ArrayList<Event> viewMyEvents() {
         ArrayList<Event> eventsTheyAttended = new ArrayList<>();
@@ -99,7 +95,7 @@ public abstract class UserMenu {
     }
 
     public boolean hasEvent(int eventID){
-        return this.getEventManager().getEvents().contains(eventID);
+        return this.getEventManager().getEvents().contains(getEventManager().getEventByID(eventID));
     }
 
     public boolean hasMyEvent(int eventID){

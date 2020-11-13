@@ -34,11 +34,11 @@ public class SpeakerMenu extends UserMenu implements UserController{
             getMessageManager().addMessage(message);
             //Add message to receiver's hashmap
             if (getAttendeeManager().idInList(receiverID)) {
-                getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                getAttendeeManager().addMessageID(message.getMessageID(),getAttendeeManager().getUserByID(receiverID), getSpeakerManager().getIDByUser(getUser()));
             }
             else if (getOrganizerManager().idInList(receiverID))
             {
-                getOrganizerManager().addMessageID(message.getMessageID(), getUser(), receiverID);
+                getOrganizerManager().addMessageID(message.getMessageID(),getOrganizerManager().getUserByID(receiverID), getSpeakerManager().getIDByUser(getUser()));
             }
             //add message to this user's hashmap
             super.sendMessage(receiverID, message);
@@ -55,7 +55,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     public void messageAll(int eventID, String content)
     {
         Event event = getEventManager().getEventByID(eventID);
-        for (int userID: event.getUserIDs())
+        for (int userID: getEventManager().getUserIDs(event))
         {
             sendMessage(userID, content);
         }
@@ -71,7 +71,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
             {
                 if (input.equals("1"))
                 {
-                    this.runViewMyEvents(); //Edit this menu part
+                    runViewMyEvents(); //Edit this menu part
                 }
                 else if (input.equals("2")){
                     Presenter.viewContacts(getSpeakerManager().getContactList(getUser()), getAttendeeManager(), getOrganizerManager(), getSpeakerManager());
@@ -112,7 +112,6 @@ public class SpeakerMenu extends UserMenu implements UserController{
                         System.out.println("Please type in your message: ");
                         String input3 = br.readLine();
                         this.messageAll(eventID, input3);
-                        System.out.println("Message Sent");
                     } catch (NumberFormatException ne) {
                         Presenter.print("Please enter an integer value for the ID!!");
                     } catch (IOException ie) {
