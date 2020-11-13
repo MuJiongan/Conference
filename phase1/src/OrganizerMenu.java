@@ -11,13 +11,12 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         super(am, om, sm, rm, em, mm, user);
     }
 
-    public void messageAll(int eventID, String content)
+    public void messageAll(UserManager current, String content)
     {
-        Event event = getEventManager().getEventByID(eventID);
-        for (int userID: event.getUserIDs())
-        {
-            sendMessage(userID, content);
+        for (User user: current.getUsers()){
+            sendMessage(current.getIDByUser(user), content);
         }
+
     }
 
 
@@ -427,6 +426,39 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         }
 
     }
-
+    @Override
+    public void runViewContacts() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n4. Go back to the main menu");
+        try {
+            String input = br.readLine();
+            while (!input.equals("4")) {
+                if (input.equals("1")) {
+                    Presenter.print("Please enter a friend number: ");
+                    int index = Integer.parseInt(br.readLine());
+                    runViewChat(index);
+                }
+                else if (input.equals("2")) {
+                    Presenter.print("What should your message be:");
+                    String input2 = br.readLine();
+                    messageAll(getAttendeeManager(), input2);
+                }
+                else if (input.equals("3")) {
+                    Presenter.print("What should your message be:");
+                    String input2 = br.readLine();
+                    messageAll(getSpeakerManager(), input2);
+                }
+                else{
+                    Presenter.print("Please enter a valid option!");
+                }
+                Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n4. Go back to the main menu");
+                input = br.readLine();
+            }
+        } catch (IOException e) {
+            Presenter.print("Please enter a valid option: ");
+        } catch (NumberFormatException n) {
+            Presenter.print("Please enter an integer value for the ID");
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ public class AttendeeManager extends UserManager implements Serializable{
      * @param name User's real name
      * @param username User's username
      * @param password User's password
+     * @param userID User's ID
      * @return the user object that we created
      */
 

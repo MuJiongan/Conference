@@ -22,6 +22,8 @@ public class Event implements Serializable {
      * @param endTime  the event
      * @param roomID of the event
      * @param name of the event
+     * @param capacity of the event
+     * @param eventID of the event
      */
     public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int eventID){
         this.startTime = startTime;
@@ -130,7 +132,10 @@ public class Event implements Serializable {
     public void changeRoomID(int roomID){
         this.roomID = roomID;
     }
-
+    /**
+     * Returns the capacity of the event
+     * @return the capacity of the event
+     */
     public int getCapacity() {
         return capacity;
     }
