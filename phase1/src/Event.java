@@ -52,6 +52,10 @@ public class Event implements Serializable {
         return startTime;
     }
 
+    /**
+     * Change the start time to the given time.
+     * @param time that will be set as start time
+     */
     public void setStartTime(LocalDateTime time)
     {
         startTime = time;
@@ -63,6 +67,11 @@ public class Event implements Serializable {
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
+    /**
+     * Change the end time to the given time.
+     * @param time taht will be set as end time
+     */
     public void setEndTime(LocalDateTime time)
     {
         endTime = time;

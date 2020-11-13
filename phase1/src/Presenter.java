@@ -22,7 +22,7 @@ public class Presenter {
     }
 
     public static void viewContacts(ArrayList<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm){
-        System.out.println("Here is people you can sent messages to: ");
+        System.out.println("Here is people you can send messages to: ");
         String divider = "------------------------";
         for (Integer userId : contactList) {
             if (am.idInList(userId))

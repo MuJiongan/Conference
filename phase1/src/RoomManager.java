@@ -105,6 +105,12 @@ public class RoomManager implements Serializable {
         }
     }
 
+    /**
+     * Return a new room with given features
+     * @param name of new room
+     * @param capacity of new room
+     * @return a new room with given features
+     */
     public Room createRoom(String name, int capacity){
         return new Room(capacity, name, rooms.size() + 1);
     }
@@ -154,6 +160,10 @@ public class RoomManager implements Serializable {
         output.close();
     }
 
+    /**
+     * Return a list of all rooms
+     * @return a list of all rooms
+     */
     public ArrayList<Room> getRooms() {
         return rooms;
     }

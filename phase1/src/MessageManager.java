@@ -54,7 +54,13 @@ public class MessageManager implements Serializable{
         return actualmessage.getContent();
     }
 
-
+    /**
+     * Return a new message with given features
+     * @param content of new message
+     * @param senderID of new message
+     * @param receiverID of new message
+     * @return a new message with given features
+     */
     public Message createMessage(String content, int senderID, int receiverID){
         return new Message(senderID, receiverID, content, messages.size() + 1);
     }
@@ -68,10 +74,14 @@ public class MessageManager implements Serializable{
         return message.getMessageID();
     }
 
-    public int getSenderIDByMessId(Integer messageid){
-        return getMessageById(messageid).getSenderID();
+    /**
+     * return the sender ID by the given message id
+     * @param messageId
+     * @return the sender ID by the given message id
+     */
+    public int getSenderIDByMessId(Integer messageId){
+        return getMessageById(messageId).getSenderID();
     }
-
     /**
      * Read the MessageManager object that was stored in a .ser file
      * @param path String representing the file path
