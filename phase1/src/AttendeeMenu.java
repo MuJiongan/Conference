@@ -56,7 +56,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 if (!getSpeakerManager().getContactList(speaker).contains(userID)){
                 getSpeakerManager().addToContactsList(speaker, userID);}
             }
-
+            Presenter.print("Successfully signed up!");
             return true;
         }
     }
@@ -163,15 +163,17 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 if (input.equals("1")) {
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewAllEvents().size()) {
+                    int index = Integer.parseInt(input2);
+                    while (hasEvent(index)) {
                         Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
+                        index = Integer.parseInt(input2);
                     }
                     signUp(index);
-                    Presenter.print("Successfully signed up!");
+
                 }
+                Presenter.print("1. Sign up for event\n2. Go back to the main menu");
+                input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");
@@ -189,15 +191,16 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 if (input.equals("1")) {
                     Presenter.print("Please enter an event number: ");
                     String input2 = br.readLine();
-                    int index = Integer.parseInt(input2) - 1;
-                    while (index <= 0 || index >= this.viewMyEvents().size()) {
+                    int index = Integer.parseInt(input2);
+                    while (!hasMyEvent(index)) {
                         Presenter.print("Please enter a valid option: ");
                         input2 = br.readLine();
-                        index = Integer.parseInt(input2) - 1;
+                        index = Integer.parseInt(input2);
                     }
                     cancelEnrollment(index);
-                    Presenter.print("Enrolment canelled!");
                 }
+                Presenter.print("1. Cancel Event\n2. Go back to the main menu");
+                input = br.readLine();
             }
         } catch (IOException e) {
             Presenter.print("Please enter a valid option: ");

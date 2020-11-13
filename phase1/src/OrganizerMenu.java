@@ -260,8 +260,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return the Event object we created
      */
     public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
-        Event event = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
-        return event;
+        return getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
     }
 
     public boolean haveEnoughCapacity(int roomID, int capacity){
@@ -336,7 +335,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     String input2 = br.readLine();
                     int index = Integer.parseInt(input2);
                     signUp(index);
-                    Presenter.print("Successfully signed up!");
                 }
                 else if (input.equals("2"))
                 {

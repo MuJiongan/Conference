@@ -91,11 +91,11 @@ public abstract class UserMenu {
     }
 
     public ArrayList<Integer> viewMyContactList(){
-        return user.getContactList();
+        return currentManager.getContactList(user);
     }
 
     public boolean hasContact(int friendID){
-        return user.getContactList().contains(friendID);
+        return currentManager.getContactList(user).contains(friendID);
     }
 
     public boolean hasEvent(int eventID){
@@ -103,7 +103,7 @@ public abstract class UserMenu {
     }
 
     public boolean hasMyEvent(int eventID){
-        return user.getEventsAttend().contains(eventID);
+        return currentManager.getEventList(user).contains(eventID);
     }
 
     public void readAllMessage(int friendID) {
