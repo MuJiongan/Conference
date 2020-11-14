@@ -22,7 +22,7 @@ public class Presenter {
     }
 
     public static void viewContacts(ArrayList<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm){
-        System.out.println("Here is people you can send messages to: ");
+        System.out.println("Here are people you can send messages to: ");
         String divider = "------------------------";
         for (Integer userId : contactList) {
             if (am.idInList(userId))
@@ -45,7 +45,7 @@ public class Presenter {
         public static void viewChat (int receiverID, HashMap<Integer, ArrayList<Integer>> messageIDList,MessageManager mm,
                                      AttendeeManager am, OrganizerManager om, SpeakerManager sm){
             String divider = "------------------------";
-            System.out.println("Here is your chat history:");
+            System.out.println("Here are your chat history:");
             if (messageIDList.get(receiverID) == null)
             {
                 System.out.println("No chat history");
@@ -81,7 +81,7 @@ public class Presenter {
         String heading3 = "Vacancy";
         String heading4 = "Room";
 
-        System.out.println("Here is your scheduled events:");
+        System.out.println("Here are your scheduled events:");
         System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event : eventsTheyAttended) {
             int roomID = em.getRoomID(event);
@@ -100,7 +100,7 @@ public class Presenter {
         String heading3 = "Vacancy";
         String heading4 = "Room";
 
-        System.out.println("Here is all the scheduled events:");
+        System.out.println("Here are all the scheduled events:");
         System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event : allEventsInSystem) {
             int roomID = em.getRoomID(event);
@@ -128,7 +128,7 @@ public class Presenter {
     public static void printRooms(ArrayList<Room> rooms, RoomManager rm) {
         String heading = "Room's name";
 
-        System.out.println("Here is all rooms available");
+        System.out.println("Here are all rooms available");
         System.out.println(" ");
         System.out.printf("%-4s %n", heading);
         for (Room room : rooms) {
