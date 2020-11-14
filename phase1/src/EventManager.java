@@ -11,29 +11,49 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Returns the shallow copy of all events in a list
-     * @return the shallow copy of all events in a list
+     * Return the start time of the given event
+     * @param event that will be held
+     * @return the start time of the given event
      */
     public LocalDateTime getStartTime(Event event)
     {
         return event.getStartTime();
     }
 
+    /**
+     * Change the start time of the event to the given time
+     * @param event which start time will be changed
+     * @param time that will be set as start time
+     */
     public void setStartTime(Event event, LocalDateTime time)
     {
         event.setStartTime(time);
     }
 
+    /**
+     * Return the end time of the given event
+     * @param event that will be held
+     * @return the end time of the given event
+     */
     public LocalDateTime getEndTime(Event event)
     {
        return event.getEndTime();
     }
 
+    /**
+     * Change the end time of the event to the given time
+     * @param event which end time will be changed
+     * @param time that will be set as end time
+     */
     public void setEndTime(Event event, LocalDateTime time)
     {
         event.setEndTime(time);
     }
 
+    /**
+     * Returns the shallow copy of all events in a list
+     * @return the shallow copy of all events in a list
+     */
     public ArrayList<Event> getEvents() {
         return (ArrayList<Event>) events.clone();
     }
@@ -232,23 +252,53 @@ public class EventManager implements Serializable{
         output.writeObject(this);
         output.close();
     }
+
+    /**
+     * Return a list of all attendees of the given event
+     * @param event that attendees will attend
+     * @return a list of all attendees of the given Event
+     */
     public ArrayList<Integer> getUserIDs(Event event){
         return  event.getUserIDs();
 
     }
 
+    /**
+     * Return a list of all speakers of the given event
+     * @param event that speakers will speak
+     * @return a list of all speakers of the given Event
+     */
     public ArrayList<Integer> getSpeakerIDs(Event event){
         return  event.getSpeakerIDs();
     }
 
+    /**
+     * Return the capacity of the room that holds the given event
+     * @param event that will be held
+     * @return the capacity of the room that holds the given Event
+     */
     public int getCapacity(Event event){
         return event.getCapacity();
     }
 
+    /**
+     * Return the ID of the room that holds the given event
+     * @param event that will be held
+     * @return Return the ID of the room that holds the given Event
+     */
     public int getRoomID(Event event){
         return event.getRoomID();
     }
 
+    /**
+     * Return a new event with given features
+     * @param startTime of new event
+     * @param endTime of new event
+     * @param roomID of new event
+     * @param name of new event
+     * @param capacity of new event
+     * @return a new event will given features
+     */
     public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
         return new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1);
     }

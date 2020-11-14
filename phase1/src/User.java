@@ -67,6 +67,10 @@ public abstract class User implements Serializable {
         return name;
     }
 
+    /**
+     * change name to the given new name
+     * @param newName of the user
+     */
     public void setName(String newName) {
         this.name = newName;
     }
@@ -79,6 +83,10 @@ public abstract class User implements Serializable {
         return userName;
     }
 
+    /**
+     * change the username to the given new username
+     * @param userName of the user
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -91,6 +99,10 @@ public abstract class User implements Serializable {
         return passWord;
     }
 
+    /**
+     * change the password to the given new password
+     * @param passWord of the user
+     */
     public void setPassWord(String passWord) {
         this.passWord = passWord;
     }

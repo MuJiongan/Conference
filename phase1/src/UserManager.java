@@ -8,6 +8,8 @@ public abstract class UserManager implements Serializable{
      * The list of all attendees
      */
     private ArrayList<User> users;
+
+
     public UserManager()
     {
         users = new ArrayList<>();
@@ -158,19 +160,40 @@ public abstract class UserManager implements Serializable{
         return user.getMessages();
     }
 
+    /**
+     * check whether a user in the user lists
+     * @param userID of the user
+     * @return true if the user lists has this user with given user ID
+     */
     public boolean idInList(int userID){
         return users.contains(getUserByID(userID));
     }
 
+    /**
+     * add the user to the user's contact list with its ID
+     * @param user who will add a user to contact list
+     * @param newID of user
+     */
     public void addToContactsList(User user, int newID)
     {
         user.addToContactsList(newID);
     }
 
+    /**
+     * change the user's name to the given name
+     * @param user who will change name
+     * @param name of user
+     */
     public void setName(User user, String name)
     {
         user.userSetName(name);
     }
+
+    /**
+     * return a list of users' IDs that in the user's contact list
+     * @param user
+     * @return a list of users' IDs that in the user's contact list
+     */
     public ArrayList<Integer> getContactList(User user){
         return user.getContactList();
     }

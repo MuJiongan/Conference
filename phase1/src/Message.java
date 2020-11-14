@@ -34,7 +34,8 @@ public class Message implements Serializable {
      *   Create a new Message object given
      *   @param _senderID of the message,
      *   @param _receiverID of the message,
-     *   @param _content of the message.
+     *   @param _content of the message,
+     *   @param messageID of the message.
      */
     public Message(int _senderID, int _receiverID, String _content, int messageID){
         this.senderID = _senderID;
@@ -45,46 +46,47 @@ public class Message implements Serializable {
     }
 
     /**
-     * Getter:
-     *    Returns the senderID of message
+     * Return the sender ID of the message
+     * @return the sender ID of the message
      */
     public int getSenderID(){
         return senderID;
     }
 
     /**
-     * Getter:
-     *    Returns the receiverID of message
+     * Return the receiver ID of the message
+     * @return the receiver ID of the message
      */
     public int getReceiverID(){
         return receiverID;
     }
 
     /**
-     * Getter:
-     *    Returns the content of message
+     * Return the content of the message
+     * @return the content of the message
      */
     public String getContent(){
         return content;
     }
 
     /**
-     * Getter:
-     *    Returns the messageID of message
+     * Return the ID of the message
+     * @return the ID of the message
      */
     public int getMessageID() {
         return messageID;
     }
 
     /**
-     * Getter:
-     *    Returns the unread condition of message
+     * Return the condition of the message
+     * @return the condition of the message
      */
     public boolean getMessageCondition(){
         return unread;
     }
+
     /**
-     * Change the condition of message
+     * Change the read condition of the message to true
      */
     public void changeMessageCondition(){
         unread = true;
