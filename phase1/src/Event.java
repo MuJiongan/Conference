@@ -148,5 +148,14 @@ public class Event implements Serializable {
     public int getCapacity() {
         return capacity;
     }
+    /**
+     * @return the the name of the room that hold this event
+     */
+    public String getRoomName(){return this.name;}
+    /**
+     * @return the number of attendees in this event
+     */
+    public int getNumOfAttendee(){return userIDs.size();}
+
 }
 
