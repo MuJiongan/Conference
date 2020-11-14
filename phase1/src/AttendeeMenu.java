@@ -28,22 +28,55 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
             LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
             LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
-            if ((newStartTime.isAfter(startTime) && newStartTime.isBefore(endTime) && newEndTime.isBefore(endTime)&& newEndTime.isAfter(startTime)) || vacancy == 0){
+            if (!checkTime(startTime, endTime, newStartTime, newEndTime)|| vacancy == 0){
+
                 return false;
             }
         }
         return true;
     }
 
+
+    private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime, LocalDateTime newEndTime){
+        // endTime is between the newStartTime and newEndTime
+        // return true if the endtime is in between
+        boolean condition1 = (!endTime.isAfter(newEndTime))&&(!endTime.isBefore(newStartTime));
+
+        boolean condition2 = (!startTime.isAfter(newEndTime))&&(!startTime.isBefore(newStartTime));
+        boolean condition3 = (!newEndTime.isAfter(endTime))&&(!newEndTime.isBefore(startTime));
+        boolean condition4 = (!newStartTime.isAfter(endTime))&&(!newStartTime.isBefore(startTime));
+
+
+
+        // if one of the conditions fails, return false
+        if (condition1 || condition2 || condition3 || condition4){
+            return false;
+        }
+        return true;
+    }
+
+
     public boolean signUp(int eventID){
         if (getEventManager().getEventByID(eventID) == null){
             Presenter.print("event doesn't exist");
             return false;
         }
+        Event event1 = getEventManager().getEventByID(eventID);
         if (getUser().getEventsAttend().contains(eventID)){
             Presenter.print("You already signed up for this event.");
             return false;
-        }else{
+        }
+
+        if (getEventManager().getCapacity(event1) - getEventManager().getUserIDs(event1).size() <= 0){
+            Presenter.print("The event is already full.");
+            return false;
+        }
+        if (!canSignUp(event1)){
+            Presenter.print("You already signed up for an event at that time.");
+            return false;
+
+        }
+            else{
             getUser().addEvent(eventID);
             getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
             // add the attendee to the speaker's contact list
