@@ -78,16 +78,16 @@ public class Presenter {
         String divider = "------------------------";
         String heading1 = "Events";
         String heading2 = "Time";
-        String heading3 = "Vacancy";
+        String heading3 = "Number of Attendees";
         String heading4 = "Room";
 
         System.out.println("Here are your scheduled events:");
-        System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
+        System.out.printf("%-15s %-15s %43s %11s %n", heading1, heading2, heading3, heading4);
         for (Event event : eventsTheyAttended) {
             int roomID = em.getRoomID(event);
             Room room = rm.getRoomByID(roomID);
-            System.out.printf("%-15s %-15s %-15s %-15s %n", em.getIDByEvent(event) + "." + em.getName(event), em.getStartTime(event) + " "
-                    + em.getEndTime(event) + " ", em.getVacancy(event) + " ", rm.getRoomName(room));
+            System.out.printf("%-15s %-10s %10s %20s %n", em.getIDByEvent(event) + "." + em.getName(event), em.getStartTime(event) + " "
+                    + em.getEndTime(event) + " ", em.getNumOfAttendee(event), rm.getRoomName(room));
         }
         System.out.println(divider);
     }
