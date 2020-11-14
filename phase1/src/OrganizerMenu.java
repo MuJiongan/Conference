@@ -24,7 +24,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     @Override
     public boolean sendMessage(int receiverID, String messageContent) {
         if (super.sendMessage(receiverID, messageContent)){
-            Integer organizerID = getOrganizerManager().getIDByUser(getUser());
+            int organizerID = getOrganizerManager().getIDByUser(getUser());
             // If this receiver is a speaker, add the organizer to the speaker's contact list
             if (getSpeakerManager().idInList(receiverID)){
                 User speaker = getSpeakerManager().getUserByID(receiverID);
@@ -51,7 +51,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Enter new Rooms into the System
-     * @return true if room successfully enter
      */
     public void enterRoom(String name, int capacity){
         Room newRoom = getRoomManager().createRoom(name, capacity);
@@ -91,27 +90,27 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
 
     }
-    /**
-     * Schedule Speaker to an existing Event
-     * @param speaker the Speaker to be scheduled
-     * @param event the Event that the Speaker scheduled for
-     * @return true if and only if time and room are both available and
-     *                             speakerID could be successfully added to the existing Event
-     */
-    public boolean scheduleSpeakerToEvent(Speaker speaker, Event event){
-        if(availableAtTime(speaker, event.getStartTime(), event.getEndTime())
-                && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
-                && getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            getSpeakerManager().addEventID(event.getEventID(), speaker);
-            // initialize the speaker's contact list
-            for(Integer userIDInEvent: getEventManager().getUserIDs(event)){
-                if (!getSpeakerManager().getContactList(speaker).contains(userIDInEvent)){
-                getSpeakerManager().addToContactsList(speaker, userIDInEvent);}
-            }
-            return true;
-        }
-        return false;
-    }
+//    /**
+//     * Schedule Speaker to an existing Event
+//     * @param speaker the Speaker to be scheduled
+//     * @param event the Event that the Speaker scheduled for
+//     * @return true if and only if time and room are both available and
+//     *                             speakerID could be successfully added to the existing Event
+//     */
+//    public boolean scheduleSpeakerToEvent(Speaker speaker, Event event){
+//        if(availableAtTime(speaker, event.getStartTime(), event.getEndTime())
+//                && availableInRoom(speaker, event.getRoomID(), event.getStartTime(), event.getEndTime())
+//                && getEventManager().addSpeakerID(speaker.getUserId(), event)){
+//            getSpeakerManager().addEventID(event.getEventID(), speaker);
+//            // initialize the speaker's contact list
+//            for(Integer userIDInEvent: getEventManager().getUserIDs(event)){
+//                if (!getSpeakerManager().getContactList(speaker).contains(userIDInEvent)){
+//                getSpeakerManager().addToContactsList(speaker, userIDInEvent);}
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
     /**
      * Schedule Speaker to a new Event
      * @param speakerID the Speaker who is to be scheduled

@@ -84,7 +84,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(event);
             for (Integer speakerID: speakerIDs){
                 User speaker = getSpeakerManager().getUserByID(speakerID);
-                Integer userID = getCurrentManager().getIDByUser(getUser());
+                int userID = getCurrentManager().getIDByUser(getUser());
                 // Check if the attendee is already in speaker's contact list
                 if (!getSpeakerManager().getContactList(speaker).contains(userID)){
                 getSpeakerManager().addToContactsList(speaker, userID);}
@@ -118,14 +118,14 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 getMessageManager().addMessage(message);
                 // Add the attendee to speaker's contact list (if doesn't exist)
                 User speaker = getSpeakerManager().getUserByID(receiverID);
-                Integer userID = getCurrentManager().getIDByUser(getUser());
+                int userID = getCurrentManager().getIDByUser(getUser());
                 if (!getSpeakerManager().getContactList(speaker).contains(userID)){
                     getSpeakerManager().addToContactsList(speaker, userID);
                 }
 
             }
             if (!canSend){
-                Presenter.print("Receiver ID doesn't exist");
+                Presenter.print("Receiver ID doesn't exist or you cannot message them");
                 return false;
             }
             else{

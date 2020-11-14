@@ -7,9 +7,7 @@ import java.util.logging.Level;
  * Use Case class that will manage how the Room objects are updated during run-time
  */
 public class RoomManager implements Serializable {
-    /**
-     * Stores all the instances of room in the conference
-     */
+
     private ArrayList<Room> rooms;
 
     /**
