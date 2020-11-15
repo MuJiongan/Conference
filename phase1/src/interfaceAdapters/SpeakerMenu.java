@@ -1,8 +1,6 @@
 package interfaceAdapters;
 
-import entities.Event;
-import entities.Message;
-import entities.User;
+import entities.*;
 import useCases.*;
 
 import java.io.BufferedReader;
@@ -136,7 +134,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.viewMyEvents(viewMyEvents(), getEventManager(), getRoomManager());
-        System.out.println("1. entities.Message all attendees in one event \n2. Go back to the main menu");
+        System.out.println("1. Message all attendees in one event \n2. Go back to the main menu");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
@@ -159,7 +157,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                         Presenter.print("Please enter a valid option: ");
                     }
                 }
-                System.out.println("1. entities.Message all attendees in one event\n2. Go back to the main menu");
+                System.out.println("1. Message all attendees in one event\n2. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
@@ -208,7 +206,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
                 , getOrganizerManager(), getSpeakerManager());
-        Presenter.print("1. Send entities.Message \n2. Go Back to Contacts List");
+        Presenter.print("1. Send Message \n2. Go Back to Contacts List");
         try{
             String input = br.readLine();
             while (!input.equals("2")){
@@ -220,7 +218,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
                 }
                 Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
                         , getOrganizerManager(), getSpeakerManager());
-                Presenter.print("1. Send entities.Message \n2. Go Back to Contacts List");
+                Presenter.print("1. Send Message \n2. Go Back to Contacts List");
                 input = br.readLine();
             }
         } catch (IOException e) {
