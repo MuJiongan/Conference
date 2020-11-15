@@ -1,4 +1,6 @@
+import entities.Message;
 import org.junit.Test;
+import useCases.MessageManager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

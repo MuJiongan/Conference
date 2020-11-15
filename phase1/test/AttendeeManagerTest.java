@@ -1,5 +1,8 @@
+import entities.Attendee;
+import entities.User;
 import org.junit.Assert;
 import org.junit.Test;
+import useCases.AttendeeManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +38,7 @@ public class AttendeeManagerTest {
         Assert.assertEquals("Wrong 3rd element", a3, users.get(2));
 
 
-        // Test getnameById  // Id must be valid?
+        // Test getNameById  // Id must be valid?
         Assert.assertSame("gets incorrect name", "Steve", am.getnameById(1));
         Assert.assertSame("gets incorrect name", "Mike", am.getnameById(2));
         Assert.assertSame("gets incorrect name", "Crystal", am.getnameById(3));

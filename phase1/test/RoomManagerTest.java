@@ -1,4 +1,6 @@
+import entities.Room;
 import org.junit.Test;
+import useCases.RoomManager;
 
 import static org.junit.Assert.*;
 
