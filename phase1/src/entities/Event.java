@@ -20,12 +20,12 @@ public class Event implements Serializable {
 
     /**
      * Create a new event object with the given startTime, endTime, roomID, name
-     * @param startTime of the event
-     * @param endTime  the event
-     * @param roomID of the event
-     * @param name of the event
-     * @param capacity of the event
-     * @param eventID of the event
+     * @param startTime of this event
+     * @param endTime of this event
+     * @param roomID of this event
+     * @param name of this event
+     * @param capacity of this event
+     * @param eventID of this event
      */
     public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int eventID){
         this.startTime = startTime;

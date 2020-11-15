@@ -24,7 +24,7 @@ public class Room implements Serializable {
 
     /**
      * Create a new entities.Room object with the given capacity
-     * @param capacity maximum capcity of the room
+     * @param capacity maximum capacity of this room
      * @param name name of the room
      * @param roomID roomID of the room
      */

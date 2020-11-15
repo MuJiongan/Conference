@@ -34,10 +34,10 @@ public class Message implements Serializable {
     /**
      * Constructor:
      *   Create a new entities.Message object given
-     *   @param _senderID of the message,
-     *   @param _receiverID of the message,
-     *   @param _content of the message,
-     *   @param messageID of the message.
+     *   @param _senderID of this message,
+     *   @param _receiverID of this message,
+     *   @param _content of this message,
+     *   @param messageID of this message.
      */
     public Message(int _senderID, int _receiverID, String _content, int messageID){
         this.senderID = _senderID;

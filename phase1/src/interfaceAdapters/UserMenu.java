@@ -10,40 +10,40 @@ import java.util.ArrayList;
 public abstract class UserMenu {
 
     /**
-     * Stores the AttendeeManager
+     * Store the AttendeeManager
      */
     private AttendeeManager am;
     /**
-     * Stores the OrganizerManager
+     * Store the OrganizerManager
      */
     private OrganizerManager om;
     /**
-     * Stores the SpeakerManager
+     * Store the SpeakerManager
      */
     private SpeakerManager sm;
     /**
-     * Stores the RoomManager
+     * Store the RoomManager
      */
     private RoomManager rm;
     /**
-     * Stores the EventManager
+     * Store the EventManager
      */
     private EventManager em;
     /**
-     * Stores the MessageManager
+     * Store the MessageManager
      */
     private MessageManager mm;
     /**
-     * Stores the current user
+     * Store the current user
      */
     private User user;
     /**
-     * Stores the current Manager of the current user
+     * Store the current Manager of the current user
      */
     private UserManager currentManager;
 
     /**
-     * Constructs an instance of UserMenu based on given information
+     * Construct an instance of UserMenu based on given information
      * @param am the AttendeeManager
      * @param om the OrganizerManager
      * @param sm the SpeakerManager
@@ -76,7 +76,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Adds the given message to the receiver given the receiverID
+     * Add the given message to the receiver given the receiverID
      * @param receiverID ID of the user who receives the message
      * @param message the message content
      * @return true iff the message is successfully sent
@@ -90,35 +90,35 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns the current user
+     * Return the current user
      */
     public User getUser() {
         return user;
     }
 
     /**
-     * Returns EventManager
+     * Return EventManager
      */
     public EventManager getEventManager() {
         return em;
     }
 
     /**
-     * Returns MessageManager
+     * Return MessageManager
      */
     public MessageManager getMessageManager() {
         return mm;
     }
 
     /**
-     * Returns RoomManager
+     * Return RoomManager
      */
     public RoomManager getRoomManager() {
         return rm;
     }
 
     /**
-     * Returns AttendeeManager
+     * Return AttendeeManager
      */
     public AttendeeManager getAttendeeManager()
     {
@@ -126,7 +126,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns OrganizerManager
+     * Return OrganizerManager
      */
     public OrganizerManager getOrganizerManager()
     {
@@ -134,7 +134,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns SpeakerManager
+     * Return SpeakerManager
      */
     public SpeakerManager getSpeakerManager()
     {
@@ -142,14 +142,14 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns currentManager
+     * Return currentManager
      */
     public UserManager getCurrentManager() {
         return currentManager;
     }
 
     /**
-     * Returns list of all Events the user is going to attend
+     * Return list of all Events the user is going to attend
      * @return list of all Events the user is going to attend
      */
     public ArrayList<Event> viewMyEvents() {
@@ -161,7 +161,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns whether the given friend's ID is in the contact list of the current user
+     * Return whether the given friend's ID is in the contact list of the current user
      * @param friendID ID of the user that is going to be checked
      * @return true iff the given friend's ID is in the contact list of the current user
      */
@@ -170,7 +170,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns whether the given event's ID is in the list of all events
+     * Return whether the given event's ID is in the list of all events
      * @param eventID ID of the event that is going to be checked
      * @return true iff the given event's ID is in the list of all events
      */
@@ -179,7 +179,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns whether the given event's ID is in the event list of the current user
+     * Return whether the given event's ID is in the event list of the current user
      * @param eventID ID of the event that is going to be checked
      * @return true iff the given event's ID is in the event list of the current user
      */
@@ -202,7 +202,7 @@ public abstract class UserMenu {
     }
 
     /**
-     * Returns the next ID that is going to be assigned to the new User created
+     * Return the next ID that is going to be assigned to the new User created
      * @return the next ID that is going to be assigned to the new User created
      */
     public int getNewID(){

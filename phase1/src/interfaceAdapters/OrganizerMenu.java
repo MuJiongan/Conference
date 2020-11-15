@@ -11,10 +11,28 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
-    public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
+    /**
+     * Create an instance of interfaceAdapters.OrganizerMenu with the given Managers
+     * @param am the instance of <code>AttendeeManager</code> in the conference
+     * @param om the instance of <code>OrganizerManager</code> in the conference
+     * @param sm the instance of <code>SpeakerManager</code> in the conference
+     * @param rm the instance of <code>RoomManager</code> in the conference
+     * @param em the instance of <code>EventManager</code> in the conference
+     * @param mm the instance of <code>MessageManager</code> in the conference
+     * @param user a instance of user object that simulate the user on the keyboard
+     */
+    public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em,
+                         MessageManager mm, User user){
         super(am, om, sm, rm, em, mm, user);
     }
 
+    /**
+     * send Message with the given content to all
+     * @param current current is a <code>AttendeeManager</code> if the organizer on the keyboard choose to message
+     *                all attendees , and is a <code>SpeakerManager</code> if the organizer on the keyboard choose
+     *                to message all speakers
+     * @param content the given content of message the organizer on the keyboard wanted to send
+     */
     public void messageAll(UserManager current, String content)
     {
         for (User user: current.getUsers()){
@@ -23,8 +41,14 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     }
 
-
-    // Need to override because when an organizer sends a message, we might add that organizer to the receiver's contact list
+    /**
+     * return true if message with the given content is sent successfully, and update the information.
+     * @param receiverID the id of user that attendee on the keyboard wanted to send message to
+     * @param messageContent the content of message that attendee on the keyboard wanted to send
+     * @return return true if message with the given content is sent successfully
+     */
+    // Need to override because when an organizer sends a message, we might add that organizer to the receiver's
+    // contact list
     @Override
     public boolean sendMessage(int receiverID, String messageContent) {
         if (super.sendMessage(receiverID, messageContent)){
@@ -37,7 +61,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 if (!getSpeakerManager().getContactList(speaker).contains(organizerID)){
                 getSpeakerManager().addToContactsList(speaker, organizerID);}
             }
-            // If this receiver is a attendee, add the organizer to the attendee's contact list
+            // If this receiver is an attendee, add the organizer to the attendee's contact list
             else if (getAttendeeManager().idInList(receiverID)){
                 User attendee = getAttendeeManager().getUserByID(receiverID);
 
@@ -51,6 +75,12 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         else{
             return false;
         }
+//        updated information:
+//        1. add the given message to the receiver given the receiverID
+//        2. If this receiver is a speaker, add the organizer to the speaker's contact list (if not added already)
+//           If this receiver is an attendee, add the organizer to the attendee's contact list (if not added already)
+//           If this receiver is an organizer, do nothing
+//
     }
 
     /**
@@ -199,7 +229,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param newEndTime end time of 2nd pair of time
      * @return true if and only if no conflict occur
      */
-    private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime, LocalDateTime newEndTime){
+    private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime,
+                              LocalDateTime newEndTime){
         // endTime is between the newStartTime and newEndTime
         // return true if the endtime is in between
         boolean condition1 = (!endTime.isAfter(newEndTime))&&(!endTime.isBefore(newStartTime));
@@ -207,7 +238,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         boolean condition2 = (!startTime.isAfter(newEndTime))&&(!startTime.isBefore(newStartTime));
         boolean condition3 = (!newEndTime.isAfter(endTime))&&(!newEndTime.isBefore(startTime));
         boolean condition4 = (!newStartTime.isAfter(endTime))&&(!newStartTime.isBefore(startTime));
-
 
 
         // if one of the conditions fails, return false
@@ -287,7 +317,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     }
 */
 
-
+    /**
+     * run the organizer main menu
+     * @return null
+     */
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -302,7 +335,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     Presenter.viewMyEvents(viewMyEvents(), getEventManager(), getRoomManager());
                     runViewMyEvents();
                 } else if (input.equals("3")) {
-                    Presenter.viewContacts(getOrganizerManager().getContactList(getUser()), getAttendeeManager(), getOrganizerManager(), getSpeakerManager());
+                    Presenter.viewContacts(getOrganizerManager().getContactList(getUser()), getAttendeeManager(),
+                            getOrganizerManager(), getSpeakerManager());
                     runViewContacts();
                 } else if (input.equals("4")) {
                     runManageAccount();
@@ -325,6 +359,10 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         Presenter.print("See you again soon");
         return null;
     }
+
+    /**
+     * run View All Events submenu of the organizer main menu
+     */
     @Override
     public void runViewAllEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -379,6 +417,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("Please format your time properly!");
         }
     }
+    /**
+     * run Create new Account submenu of the organizer main menu
+     */
     public void runCreateAccounts()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -411,6 +452,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("Please enter an integer value for the ID!!");
         }
     }
+    /**
+     * run Add New Room submenu of the organizer main menu
+     */
     public void runAddRoom()
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -429,10 +473,14 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         }
 
     }
+    /**
+     * run View Contact List submenu of the organizer main menu
+     */
     @Override
     public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n4. Go back to the main menu");
+        Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n" +
+                "4. Go back to the main menu");
         try {
             String input = br.readLine();
             while (!input.equals("4")) {
@@ -454,7 +502,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                 else{
                     Presenter.print("Please enter a valid option!");
                 }
-                Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n4. Go back to the main menu");
+                Presenter.print("1. View chat history\n2. Message All Attendees\n3. Message All Speakers\n" +
+                        "4. Go back to the main menu");
                 input = br.readLine();
             }
         } catch (IOException e) {
