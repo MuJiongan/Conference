@@ -1,16 +1,14 @@
-import java.io.IOException;
-
-import java.util.ArrayList;
+import interfaceAdapters.ConferenceSystem;
 
 public class Main
 {
     public static void main(String[] args){
-//        Organizer o = new Organizer("Jonathan", "chenjo14", "12345678");
-//        Speaker s = new Speaker("Steve", "ste123", "steven");
-//        Attendee a = new Attendee("Michael", "GOAT", "Jordan11");
-//        OrganizerManager om = new OrganizerManager();
-//        SpeakerManager sm = new SpeakerManager();
-//        AttendeeManager am = new AttendeeManager();
+//        entities.Organizer o = new entities.Organizer("Jonathan", "chenjo14", "12345678");
+//        entities.Speaker s = new entities.Speaker("Steve", "ste123", "steven");
+//        entities.Attendee a = new entities.Attendee("Michael", "GOAT", "Jordan11");
+//        useCases.OrganizerManager om = new useCases.OrganizerManager();
+//        useCases.SpeakerManager sm = new useCases.SpeakerManager();
+//        useCases.AttendeeManager am = new useCases.AttendeeManager();
 //        om.addUser(o);
 //        sm.addUser(s);
 //        am.addUser(a);
@@ -24,7 +22,7 @@ public class Main
 //        }
 
         ConferenceSystem c = new ConferenceSystem();
-        // c.createOrganizerAccount("Max", "Lonzo", "12345678");
+        //c.createOrganizerAccount("Max", "Lonzo", "12345678");
         c.run();
     }
 }

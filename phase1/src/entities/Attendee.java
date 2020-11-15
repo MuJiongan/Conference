@@ -1,3 +1,4 @@
+package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 public class Attendee extends User implements Serializable {
     /**
-     * Create an instance of Attendee
+     * Create an instance of entities.Attendee
      */
     public Attendee(String name, String username, String password, int userID){
         super(name, username, password, userID);

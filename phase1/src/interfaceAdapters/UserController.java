@@ -1,3 +1,7 @@
+package interfaceAdapters;
+
+import entities.User;
+
 /**
  * Interface to represent all controllers that user will interact with
  */

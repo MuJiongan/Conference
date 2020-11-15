@@ -1,3 +1,5 @@
+package entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
@@ -15,13 +17,13 @@ public class Room implements Serializable {
      */
     private ArrayList<Integer> eventsScheduled;
     /**
-     * Stores the id of the Room
+     * Stores the id of the entities.Room
      */
     private int roomID;
     private String name;
 
     /**
-     * Create a new Room object with the given capacity
+     * Create a new entities.Room object with the given capacity
      * @param capacity maximum capcity of the room
      * @param name name of the room
      * @param roomID roomID of the room
@@ -52,7 +54,7 @@ public class Room implements Serializable {
 
     /**
      * Adds an event ID to the eventsScheduled list
-     * @param eventID ID of an event to be scheduled in the Room
+     * @param eventID ID of an event to be scheduled in the entities.Room
      */
     public void addEventID(int eventID)
     {
@@ -60,7 +62,7 @@ public class Room implements Serializable {
     }
     /**
      * Removes an event ID to the eventsScheduled list
-     * @param eventID ID of an event to be removed from the schedule for Room
+     * @param eventID ID of an event to be removed from the schedule for entities.Room
      */
     public void removeEventID(int eventID)
     {

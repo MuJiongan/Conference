@@ -1,3 +1,8 @@
+package interfaceAdapters;
+
+import entities.*;
+import useCases.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,7 +42,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     public boolean signUp(int eventID){
         if (getEventManager().getEventByID(eventID) == null){
-            Presenter.print("event doesn't exist");
+            Presenter.print("Event doesn't exist");
             return false;
         }
         if (getUser().getEventsAttend().contains(eventID)){

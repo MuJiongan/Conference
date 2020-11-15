@@ -1,3 +1,8 @@
+package useCases;
+
+import entities.Event;
+import entities.Room;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -91,8 +96,8 @@ public class EventManager implements Serializable{
     }
     /**
      * return the vacancy given the event object
-     * @param event the given Event object
-     * @return the vacancy corresponding to the Event object
+     * @param event the given entities.Event object
+     * @return the vacancy corresponding to the entities.Event object
      */
     public int getVacancy(Event event){
         return event.getCapacity() - event.getUserIDs().size();
@@ -100,8 +105,8 @@ public class EventManager implements Serializable{
 
     /**
      * return the event ID given the event object
-     * @param event the given Event object
-     * @return the event ID corresponding to the Event object
+     * @param event the given entities.Event object
+     * @return the event ID corresponding to the entities.Event object
      */
     public int getIDByEvent(Event event){
         return event.getEventID();
@@ -110,7 +115,7 @@ public class EventManager implements Serializable{
 
     /**
      * add a userID to the list of all attendees in the event
-     * @param userID ID of Attendee to be added
+     * @param userID ID of entities.Attendee to be added
      * @param event in which event the attendee is being added
      * @return true if and only if the attendee is successfully added to the list
      */
@@ -127,7 +132,7 @@ public class EventManager implements Serializable{
 
     /**
      * add a speakerID to the list of all speakers in the event
-     * @param speakerID the ID of Speaker that Event to be added
+     * @param speakerID the ID of entities.Speaker that entities.Event to be added
      * @param event in which event the speaker is being added
      * @return true if and only if the speaker is successfully added to the list
      */
@@ -146,10 +151,10 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Remove an Attendee's ID from the list of all attendees of the event
-     * @param userID ID of Attendee to be removed
-     * @param event in which event the Attendee is being removed
-     * @return true if and only if the Attendee is successfully removed
+     * Remove an entities.Attendee's ID from the list of all attendees of the event
+     * @param userID ID of entities.Attendee to be removed
+     * @param event in which event the entities.Attendee is being removed
+     * @return true if and only if the entities.Attendee is successfully removed
      */
     public boolean removeUserID(int userID, Event event) {
         boolean exists = false;
@@ -170,10 +175,10 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Remove a Speaker's ID from the list of all Speaker of the event
-     * @param speakerID ID of Speaker to be removed
-     * @param event in which event the Speaker is being removed
-     * @return true if and only if the Speaker is successfully removed
+     * Remove a entities.Speaker's ID from the list of all entities.Speaker of the event
+     * @param speakerID ID of entities.Speaker to be removed
+     * @param event in which event the entities.Speaker is being removed
+     * @return true if and only if the entities.Speaker is successfully removed
      */
     public boolean removeSpeakerID(int speakerID, Event event) {
         boolean exists = false;
@@ -195,7 +200,7 @@ public class EventManager implements Serializable{
 
     /**
      * change the room ID to a new ID of a given event
-     * @param room new Room
+     * @param room new entities.Room
      * @param event in which event the roomID is being changed
      */
     public void changeRoomID(Room room, Event event){
@@ -205,10 +210,10 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Read the EventManager object that was stored in a .ser file
+     * Read the useCases.EventManager object that was stored in a .ser file
      * @param path String representing the file path
-     * @return EventManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if EventManager object is not found
+     * @return useCases.EventManager object read from .ser file
+     * @throws ClassNotFoundException is thrown if useCases.EventManager object is not found
      */
     public EventManager readFromFile (String path) throws ClassNotFoundException {
 
@@ -229,8 +234,8 @@ public class EventManager implements Serializable{
 
     /**
      * return the event name given the event object
-     * @param event the given Event object
-     * @return the event name corresponding to the Event object
+     * @param event the given entities.Event object
+     * @return the event name corresponding to the entities.Event object
      */
     public String getName (Event event){
         return event.getName();
@@ -238,7 +243,7 @@ public class EventManager implements Serializable{
 
 
     /**
-     * Write the EventManager object to a .ser file to store once program exists
+     * Write the useCases.EventManager object to a .ser file to store once program exists
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
@@ -248,7 +253,7 @@ public class EventManager implements Serializable{
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
-        // serialize the EventManager
+        // serialize the useCases.EventManager
         output.writeObject(this);
         output.close();
     }
@@ -256,7 +261,7 @@ public class EventManager implements Serializable{
     /**
      * Return a list of all attendees of the given event
      * @param event that attendees will attend
-     * @return a list of all attendees of the given Event
+     * @return a list of all attendees of the given entities.Event
      */
     public ArrayList<Integer> getUserIDs(Event event){
         return  event.getUserIDs();
@@ -266,7 +271,7 @@ public class EventManager implements Serializable{
     /**
      * Return a list of all speakers of the given event
      * @param event that speakers will speak
-     * @return a list of all speakers of the given Event
+     * @return a list of all speakers of the given entities.Event
      */
     public ArrayList<Integer> getSpeakerIDs(Event event){
         return  event.getSpeakerIDs();
@@ -275,7 +280,7 @@ public class EventManager implements Serializable{
     /**
      * Return the capacity of the room that holds the given event
      * @param event that will be held
-     * @return the capacity of the room that holds the given Event
+     * @return the capacity of the room that holds the given entities.Event
      */
     public int getCapacity(Event event){
         return event.getCapacity();
@@ -284,7 +289,7 @@ public class EventManager implements Serializable{
     /**
      * Return the ID of the room that holds the given event
      * @param event that will be held
-     * @return Return the ID of the room that holds the given Event
+     * @return Return the ID of the room that holds the given entities.Event
      */
     public int getRoomID(Event event){
         return event.getRoomID();

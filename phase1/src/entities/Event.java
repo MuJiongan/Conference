@@ -1,3 +1,5 @@
+package entities;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -85,21 +87,21 @@ public class Event implements Serializable {
     }
     /**
      * Adds an speaker ID to the speakerIDs list
-     * @param speakerID to be added in the Event
+     * @param speakerID to be added in the entities.Event
      */
     public void addSpeakerID(int speakerID) {
         speakerIDs.add(speakerID);
     }
     /**
      * Adds an user ID to the userIDs list
-     * @param userID to be added in the Event
+     * @param userID to be added in the entities.Event
      */
     public void addUserID(int userID) {
         userIDs.add(userID);
     }
     /**
      * removes an user ID from the userIDs list
-     * @param userID to be removed in the Event
+     * @param userID to be removed in the entities.Event
      */
     public void removeUserID(int userID) {
         Integer userId = userID;
@@ -128,7 +130,7 @@ public class Event implements Serializable {
     }
     /**
      * removes an speaker ID from the speakerIDs list
-     * @param speakerID to be removed in the Event
+     * @param speakerID to be removed in the entities.Event
      */
     public void removeSpeakerID(int speakerID) {
         Integer speakerId = speakerID;

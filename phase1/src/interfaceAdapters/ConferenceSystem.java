@@ -1,5 +1,10 @@
+package interfaceAdapters;
+
+import entities.User;
+import interfaceAdapters.*;
+import useCases.*;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class ConferenceSystem implements Serializable {
     private AttendeeManager am;
@@ -48,7 +53,6 @@ public class ConferenceSystem implements Serializable {
     public void run()
     {
         UserController current = new LogInSystem(am, om, sm);
-        System.out.println(om.getUsers().size() + am.getUsers().size() + sm.getUsers().size());
         boolean iterate = true;
         while (iterate) {
             User new_user = current.run();

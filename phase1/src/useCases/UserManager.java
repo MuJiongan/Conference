@@ -1,5 +1,8 @@
+package useCases;
+
+import entities.User;
+
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,7 +40,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return the userID given the user object
-     * @param user the given User object
+     * @param user the given entities.User object
      * @return the userID corresponding to the user object
      */
     public int getIDByUser(User user){
@@ -45,7 +48,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * add an eventID to the list of all events the user is going to attend
-     * @param user the given User object
+     * @param user the given entities.User object
      * @param eventID ID of the event the user is going to add
      * @custom.precondition
      *       MAKE_SURE_EVENT_VACANCY_IS_GREATER_THAN_ZERO
@@ -71,7 +74,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * remove an eventID from the list of all events the user is going to cancel
-     * @param user the given User object
+     * @param user the given entities.User object
      * @param eventID ID of the event the user is going to cancel
      * @return true if and only if the user is successfully removed from the list
      */
@@ -91,7 +94,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * add a messageID to the messages hashmap for user
-     * @param user the given User object
+     * @param user the given entities.User object
      * @param messageID ID of the message the user is sending
      * @param otherID of the receiver of the message
      * @custom.precondition
@@ -102,14 +105,14 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return a list of all events the user is going to attend
-     * @param user the given User object
+     * @param user the given entities.User object
      * @return a list of all events the user is going to attend
      */
     public ArrayList<Integer> getEventList(User user){
         return user.getEventsAttend();
     }
     /**
-     * return a User object if the User has the correct password, username, and type and return null otherwise
+     * return a entities.User object if the entities.User has the correct password, username, and type and return null otherwise
      * @param username the username given by the user
      * @param password the password given by the user
      * @custom.precondition
@@ -136,7 +139,7 @@ public abstract class UserManager implements Serializable{
     }
 
     /**
-     * return the User object given the user ID, null if not found
+     * return the entities.User object given the user ID, null if not found
      * @param userID the given attendeeID
      * @return the userID object corresponding to the ID, null if not found
      */
@@ -152,7 +155,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return the HashMap Messages given the userID
-     * @Precondition user object has to be valid(in one of the UserManager lists)
+     * @Precondition user object has to be valid(in one of the useCases.UserManager lists)
      * @param user object of which user to access
      * @return the HashMap Messages
      */

@@ -1,3 +1,7 @@
+package interfaceAdapters;
+
+import useCases.*;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -105,7 +109,7 @@ public class ReadWrite implements Serializable {
         }
         catch (IOException e)
         {
-            System.out.println("Couldn't save AttendeeManager");
+            System.out.println("Couldn't save useCases.AttendeeManager");
         }
     }
     public void saveOrganizers(String path)
@@ -115,7 +119,7 @@ public class ReadWrite implements Serializable {
         }
         catch (IOException e)
         {
-            System.out.println("Couldn't save OrganizerManager");
+            System.out.println("Couldn't save useCases.OrganizerManager");
         }
     }
     public void saveSpeakers(String path)
@@ -125,7 +129,7 @@ public class ReadWrite implements Serializable {
         }
         catch (IOException e)
         {
-            System.out.println("Couldn't save SpeakerManager");
+            System.out.println("Couldn't save useCases.SpeakerManager");
         }
     }
     public void saveEvent (String path)

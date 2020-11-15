@@ -1,3 +1,10 @@
+package interfaceAdapters;
+
+import entities.Event;
+import entities.Room;
+import entities.User;
+import useCases.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,3 +1,5 @@
+package entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +38,9 @@ public abstract class User implements Serializable {
 
     /**
      * Constructs an instance of Student based on Strings of information
-     * @param name User's real name
-     * @param userName User's username
-     * @param passWord User's password
+     * @param name entities.User's real name
+     * @param userName entities.User's username
+     * @param passWord entities.User's password
      */
     public User(String name, String userName, String passWord, int userID) {
 

@@ -1,3 +1,13 @@
+package interfaceAdapters;
+
+import entities.Attendee;
+import entities.User;
+import interfaceAdapters.UserController;
+import interfaceAdapters.UserPropertiesIterator;
+import useCases.AttendeeManager;
+import useCases.OrganizerManager;
+import useCases.SpeakerManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

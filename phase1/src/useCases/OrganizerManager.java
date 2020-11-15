@@ -1,3 +1,7 @@
+package useCases;
+
+import entities.Organizer;
+
 import java.io.*;
 
 public class OrganizerManager extends UserManager implements Serializable{
@@ -8,9 +12,9 @@ public class OrganizerManager extends UserManager implements Serializable{
     }
     /**
      * creates a new attendee object and returns it
-     * @param name User's real name
-     * @param username User's username
-     * @param password User's password
+     * @param name entities.User's real name
+     * @param username entities.User's username
+     * @param password entities.User's password
      * @return the user object that we created
      */
 
@@ -19,10 +23,10 @@ public class OrganizerManager extends UserManager implements Serializable{
     }
 
     /**
-     * Read the UserManager object that was stored in a .ser file
+     * Read the useCases.UserManager object that was stored in a .ser file
      * @param path String representing the file path
-     * @return UserManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if UserManager object is not found
+     * @return useCases.UserManager object read from .ser file
+     * @throws ClassNotFoundException is thrown if useCases.UserManager object is not found
      */
     public OrganizerManager readFromFile (String path) throws ClassNotFoundException {
 
@@ -40,7 +44,7 @@ public class OrganizerManager extends UserManager implements Serializable{
         }
     }
     /**
-     * Write the UserManager object to a .ser file to store once program exists
+     * Write the useCases.UserManager object to a .ser file to store once program exists
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
@@ -50,7 +54,7 @@ public class OrganizerManager extends UserManager implements Serializable{
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
-        // serialize the UserManager
+        // serialize the useCases.UserManager
         output.writeObject(this);
         output.close();
     }

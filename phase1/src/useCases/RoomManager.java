@@ -1,17 +1,20 @@
+package useCases;
+
+import entities.Room;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 
 /**
- * Use Case class that will manage how the Room objects are updated during run-time
+ * Use Case class that will manage how the entities.Room objects are updated during run-time
  */
 public class RoomManager implements Serializable {
 
     private ArrayList<Room> rooms;
 
     /**
-     * Create a new RoomManager object
+     * Create a new useCases.RoomManager object
      */
     public RoomManager()
     {
@@ -21,7 +24,7 @@ public class RoomManager implements Serializable {
     /**
      * Returns the corresponding room with id. If no room has that id, return null.
      * @param id ID of room we want
-     * @return Room with corresponding id. If none exists, return null
+     * @return entities.Room with corresponding id. If none exists, return null
      */
     public Room getRoomByID(int id)
     {
@@ -37,9 +40,9 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Returns the id of the Room corresponding to the Room object parameter
+     * Returns the id of the entities.Room corresponding to the entities.Room object parameter
      * @param room The room that we want to get corresponding ID of
-     * @return ID of corresponding Room, -1 if Room not found
+     * @return ID of corresponding entities.Room, -1 if entities.Room not found
      */
     public int getIDbyRoom(Room room)
     {
@@ -54,8 +57,8 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Add a new Room to the list of all Room in the conference
-     * @param room Room to add to list
+     * Add a new entities.Room to the list of all entities.Room in the conference
+     * @param room entities.Room to add to list
      * @return True if room was succesfully added, false otherwise
      */
     public boolean addRoom(Room room)
@@ -69,9 +72,9 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Get the capacity of a certain Room r
-     * @param r Room's capacity we want
-     * @return the capacity of Room r
+     * Get the capacity of a certain entities.Room r
+     * @param r entities.Room's capacity we want
+     * @return the capacity of entities.Room r
      */
     public int getCapacity(Room r)
     {
@@ -79,9 +82,9 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Return the list of event ID's for a certain Room r
-     * @param r Room's event ID's we want
-     * @return list of event ID's for Room r
+     * Return the list of event ID's for a certain entities.Room r
+     * @param r entities.Room's event ID's we want
+     * @return list of event ID's for entities.Room r
      */
     public ArrayList<Integer> getSchedule(Room r)
     {
@@ -90,9 +93,9 @@ public class RoomManager implements Serializable {
 
 
     /**
-     * Schedules an event in Room r, assumes that event is valid for that specific room
+     * Schedules an event in entities.Room r, assumes that event is valid for that specific room
      * @param r Represents the room where event will happen
-     * @param event Represents the event ID of Event we want to schedule
+     * @param event Represents the event ID of entities.Event we want to schedule
      */
     public void scheduleEvent (Room r, int event)
     {
@@ -114,17 +117,17 @@ public class RoomManager implements Serializable {
     }
     /**
      * Get the room name
-     * @param room Room
-     * @return the name of Room room
+     * @param room entities.Room
+     * @return the name of entities.Room room
      */
     public String getRoomName(Room room){
         return room.getName();
     }
     /**
-     * Read the RoomManager object that was stored in a .ser file
+     * Read the useCases.RoomManager object that was stored in a .ser file
      * @param path String representing the file path
-     * @return RoomManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if RoomManager object is not found
+     * @return useCases.RoomManager object read from .ser file
+     * @throws ClassNotFoundException is thrown if useCases.RoomManager object is not found
      */
     public RoomManager readFromFile (String path) throws ClassNotFoundException {
 
@@ -143,7 +146,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Write the RoomManager object to a .ser file to store once program exists
+     * Write the useCases.RoomManager object to a .ser file to store once program exists
      * @param filePath file to write to
      * @throws IOException is thrown if file we want to write to does not exist
      */
@@ -153,7 +156,7 @@ public class RoomManager implements Serializable {
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
-        // serialize the RoomManager
+        // serialize the useCases.RoomManager
         output.writeObject(this);
         output.close();
     }

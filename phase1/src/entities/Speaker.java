@@ -1,3 +1,5 @@
+package entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
@@ -8,7 +10,7 @@ public class Speaker extends User implements Serializable {
 
 
     /**
-     * Create an instance of Organizer
+     * Create an instance of entities.Organizer
      */
     public Speaker(String name, String username, String password, int userID){
         super(name, username, password, userID);

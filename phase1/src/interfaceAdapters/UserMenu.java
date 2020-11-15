@@ -1,5 +1,11 @@
+package interfaceAdapters;
+
+import entities.Event;
+import entities.Message;
+import entities.User;
+import useCases.*;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class UserMenu {
     private AttendeeManager am;
