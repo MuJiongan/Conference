@@ -96,7 +96,7 @@ public abstract class UserManager implements Serializable{
      * add a messageID to the messages hashmap for user
      * @param user the given entities.User object
      * @param messageID ID of the message the user is sending
-     * @param otherID of the receiver of the message
+     * @param otherID the other user's ID the user is chatting to
      * @custom.precondition
      * receiverID and messageID have to be valid
      */

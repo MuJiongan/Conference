@@ -13,10 +13,25 @@ import java.util.ArrayList;
 
 public class SpeakerMenu extends UserMenu implements UserController{
 
-
+    /**
+     * Constructs an instance of SpeakerMenu based on given information
+     * @param am the AttendeeManager
+     * @param om the OrganizerManager
+     * @param sm the SpeakerManager
+     * @param rm the RoomManager
+     * @param em the EventManager
+     * @param mm the MessageManager
+     * @param user the current user
+     */
     public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         super(am, om, sm, rm, em, mm, user);
     }
+
+    /**
+     * Returns whether the current user can send message to the other user given by ID
+     * @param receiverID ID of the other user who is the receiver of the message
+     * @return true iff the current user can send message to the other user given by ID
+     */
     private boolean canSend(int receiverID)
     {
         ArrayList<Integer> talks = this.getSpeakerManager().getEventList(this.getUser());
@@ -32,6 +47,12 @@ public class SpeakerMenu extends UserMenu implements UserController{
         return false;
     }
 
+    /**
+     * Adds the message to the messages hashmaps of both the receiver and the sender, returns true iff successful
+     * @param receiverID ID of the other user the current user is sending message to
+     * @param messageContent content of the message
+     * @return true iff the message is sent successfully
+     */
     public boolean sendMessage(int receiverID, String messageContent)
     {
         if (canSend(receiverID))
@@ -58,15 +79,26 @@ public class SpeakerMenu extends UserMenu implements UserController{
             return false;
         }
     }
+
+    /**
+     * Adds the message to the messages hashmaps of both all the receivers in the given event and the sender
+     * @param eventID ID of the event the user is sending all attendees message to
+     * @param content content of the message
+     */
     public void messageAll(int eventID, String content)
     {
         Event event = getEventManager().getEventByID(eventID);
         for (int userID: getEventManager().getUserIDs(event))
         {
             sendMessage(userID, content);
+            Presenter.print("Messages sent");
         }
     }
 
+    /**
+     * Runs the main speaker menu
+     * @return null
+     */
     @Override
     public User run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -98,6 +130,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
         return null;
     }
 
+    /**
+     * Runs the view my events menu
+     */
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.viewMyEvents(viewMyEvents(), getEventManager(), getRoomManager());
@@ -132,6 +167,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
         }
     }
 
+    /**
+     * Runs the view contacts menu
+     */
     public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.print("1. View chat history \n2. Go back to the main menu");
@@ -163,6 +201,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
         }
     }
 
+    /**
+     * Runs view chat
+     */
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.viewChat(receiverID, getAttendeeManager().getMessages(getUser()), getMessageManager(), getAttendeeManager()
@@ -187,6 +228,9 @@ public class SpeakerMenu extends UserMenu implements UserController{
         }
     }
 
+    /**
+     * Runs the manage account menu
+     */
     public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Presenter.print("Current name: " + this.getUser().getName());

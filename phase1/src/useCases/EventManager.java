@@ -294,7 +294,14 @@ public class EventManager implements Serializable{
     public int getRoomID(Event event){
         return event.getRoomID();
     }
-
+    /**
+     * Return the the number of attendees in the given event
+     * @param event the we want to know the number of attendees
+     * @return Return the number of attendees in the given event
+     */
+    public int getNumOfAttendee(Event event){
+        return event.getNumOfAttendee();
+    }
     /**
      * Return a new event with given features
      * @param startTime of new event
