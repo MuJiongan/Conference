@@ -41,6 +41,7 @@ public abstract class User implements Serializable {
      * @param name entities.User's real name
      * @param userName entities.User's username
      * @param passWord entities.User's password
+     * @param userID entities.User's userID
      */
     public User(String name, String userName, String passWord, int userID) {
 
@@ -174,7 +175,6 @@ public abstract class User implements Serializable {
     /**
      * Add the userid to the contactList of this user
      * @param userID the id of the user that this user can message to and receive messages from
-     * @
      */
     public void addToContactsList(int userID)
     {

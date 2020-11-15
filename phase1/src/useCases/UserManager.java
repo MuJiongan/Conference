@@ -194,7 +194,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * return a list of users' IDs that in the user's contact list
-     * @param user
+     * @param user user whose contactList is returned
      * @return a list of users' IDs that in the user's contact list
      */
     public ArrayList<Integer> getContactList(User user){

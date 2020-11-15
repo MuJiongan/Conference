@@ -85,6 +85,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Enter new Rooms into the System
+     * @param name name of the room wanted to create
+     * @param capacity capacity of the room wanted to create
      */
     public void enterRoom(String name, int capacity){
         Room newRoom = getRoomManager().createRoom(name, capacity);
@@ -96,6 +98,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Create new Speaker account
+     * @param name name of the speaker wanted to create
+     * @param username username of the speaker wanted to create
+     * @param password password of the speaker wanted to create
      * @return true if new Speaker account successfully created
      */
     public boolean createSpeaker(String name, String username, String password) {
@@ -152,6 +157,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param endTime the LocalDateTime of end time of Event
      * @param roomID ID of room that this Event is scheduled in
      * @param capacity maximum number of attendees allowed in this Event
+     * @param name event's name
      * @return true if speakerID successfully added to the new Event
      */
     public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
@@ -289,6 +295,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param endTime the LocalDateTime of end time of Event
      * @param roomID ID of room that this Event is scheduled in
      * @param capacity maximum number of attendees allowed in this Event
+     * @param name event's name
      * @return the Event object we created
      */
     public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){

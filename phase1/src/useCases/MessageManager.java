@@ -80,7 +80,7 @@ public class MessageManager implements Serializable{
 
     /**
      * return the sender ID by the given message id
-     * @param messageId
+     * @param messageId the message ID that want to know the sender id of
      * @return the sender ID by the given message id
      */
     public int getSenderIDByMessId(Integer messageId){
@@ -126,6 +126,7 @@ public class MessageManager implements Serializable{
 
     /**
      * Change the condition of message
+     * @param messageID the message ID needed to change
      */
     public void changeMessageCondition(int messageID){
         this.getMessageById(messageID).changeMessageCondition();

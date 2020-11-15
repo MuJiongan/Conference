@@ -201,6 +201,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
 
     /**
      * Runs view chat
+     * @param receiverID the id of receiver
      */
     public void runViewChat(int receiverID) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -91,6 +91,7 @@ public abstract class UserMenu {
 
     /**
      * Return the current user
+     * @return the current user
      */
     public User getUser() {
         return user;
@@ -98,6 +99,7 @@ public abstract class UserMenu {
 
     /**
      * Return EventManager
+     * @return the <code>EventManager</code> in the conference
      */
     public EventManager getEventManager() {
         return em;
@@ -105,6 +107,7 @@ public abstract class UserMenu {
 
     /**
      * Return MessageManager
+     * @return the <code>MessageManager</code> in the conference
      */
     public MessageManager getMessageManager() {
         return mm;
@@ -112,6 +115,7 @@ public abstract class UserMenu {
 
     /**
      * Return RoomManager
+     * @return the <code>RoomManager</code> in the conference
      */
     public RoomManager getRoomManager() {
         return rm;
@@ -119,6 +123,7 @@ public abstract class UserMenu {
 
     /**
      * Return AttendeeManager
+     *  @return the <code>AttendeeManager</code> in the conference
      */
     public AttendeeManager getAttendeeManager()
     {
@@ -127,6 +132,7 @@ public abstract class UserMenu {
 
     /**
      * Return OrganizerManager
+     * @return the <code>OrganizerManager</code> in the conference
      */
     public OrganizerManager getOrganizerManager()
     {
@@ -135,6 +141,7 @@ public abstract class UserMenu {
 
     /**
      * Return SpeakerManager
+     * @return the <code>SpeakerManager</code> in the conference
      */
     public SpeakerManager getSpeakerManager()
     {
@@ -143,6 +150,9 @@ public abstract class UserMenu {
 
     /**
      * Return currentManager
+     * @return return the <code>AttendeeManager</code> in the conference if the user on the keyboard is an attendee,
+     * return the <code>OrganizerManager</code> in the conference if the user on the keyboard is an organizer,
+     * return the <code>AttendeeManager</code> in the conference if the user on the keyboard is an attendee,
      */
     public UserManager getCurrentManager() {
         return currentManager;
