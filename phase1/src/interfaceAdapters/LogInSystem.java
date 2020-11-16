@@ -14,16 +14,38 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LogInSystem implements UserController {
+
+    /**
+     * Store the AttendeeManager
+     */
     private AttendeeManager am;
+    /**
+     * Store the OrganizerManager
+     */
     private OrganizerManager om;
+    /**
+     * Store the SpeakerManager
+     */
     private SpeakerManager sm;
 
+    /**
+     * Construct an instance of LogInSystem
+     * @param am the AttendeeManager of the LogInSystem
+     * @param om the OrganizerManager of the LogInSystem
+     * @param sm the SpeakerManager of the LogInSystem
+     */
     public LogInSystem(AttendeeManager am, OrganizerManager om, SpeakerManager sm)
     {
         this.am = am;
         this.om = om;
         this.sm = sm;
     }
+
+    /**
+     * Initializes the contacts list of the given new Attendee and add the given new Attendee to the contacts list of
+     * other users if they are allowed to contact him.
+     * @param newAttendee the Attendee whose contacts list we want to initialize
+     */
     public void initializeAttendeeContactsList(Attendee newAttendee){
         for (User attendee: am.getUsers()){
             // Add every attendee to this new attendee's contact list
@@ -49,6 +71,10 @@ public class LogInSystem implements UserController {
         // (check if the attendee is already is the speaker's contact list)
     }
 
+    /**
+     * Runs the login menu. Print out error message if the input is not a valid option.
+     * @return the current user if the logged in user exists or the new User just created, or null otherwise
+     */
     @Override
     public User run()
     {
@@ -112,6 +138,11 @@ public class LogInSystem implements UserController {
             return null;
         }
     }
+
+    /**
+     * Return the next ID that is going to be assigned to the new User created
+     * @return the next ID that is going to be assigned to the new User created
+     */
     public int getNewID(){
         int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
         return size + 1;
