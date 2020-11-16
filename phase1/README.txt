@@ -10,12 +10,24 @@ There are two main options in the main menu. Login with an existing account or C
 
 ===== Organizer Responsiblities =====
 1. Enter Room
-	- Menu option 6 and follow prompts to create a new room in the system
+    - Menu option 6 and follow prompts to create a new room in the system
 2. Create Speaker Accounts
-	- Menu option 5 and follow prompts to create new Speaker Accounts
-3. Schedule Events 
-	- Menu option 1 to view all events. In the sub-menu, pick option 2 and follow prompts
+    - Menu option 5 and follow prompts to create new Speaker Accounts
+3. Schedule Events (make sure you have a room entered already and a speaker account created)
+    - Menu option 1 to view all events. In the sub-menu, pick option 2 and follow prompts
+4. Messaging other Users (Individually)
+    - Menu option 3. In sub-menu pick option 1 (view chat history) and enter a valid userID. From there its option 1 to send message
+5. Message All Attendees/Speakers
+    - Menu option 3. In sub-menu pick option2/3
+
+===== Attendee Responsiblities =====
+1. View events
+	- Menu option 1
+2. Sign up
+	- Menu option 1 and go to sub-menu option 1
+3. Cancel Events
+	- Menu option 2 and go to sub-menu option 1
 4. Messaging other Users (Individually)
 	- Menu option 3. In sub-menu pick option 1 (view chat history) and enter a valid userID. From there its option 1 to send message
-5. Message All Attendees/Speakers
-	- Menu option 3. In sub-menu pick option2/3
+5. Receive messages
+    - Menu option 3 and go to sub-menu option 1 and enter a valid userID
