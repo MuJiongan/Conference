@@ -407,8 +407,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
                     Presenter.print("Enter the speaker ID for this event");
 
                     int speakerID = Integer.parseInt(br.readLine());
-
-                    scheduleSpeakerToEvent(speakerID, startTime, endTime, roomID, name, capacity);
+                    if(startTime.isBefore(endTime)){
+                    scheduleSpeakerToEvent(speakerID, startTime, endTime, roomID, name, capacity);}
+                    else{
+                        Presenter.print("The start time of your event is after or equal to the end time!!");
+                    }
                 }
                 Presenter.print("1. Sign up for event\n2. Schedule an event\n3. Go back to the main menu");
                 input = br.readLine();
