@@ -19,7 +19,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param rm the instance of <code>RoomManager</code> in the conference
      * @param em the instance of <code>EventManager</code> in the conference
      * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param user a instance of user object that simulate the user on the keyboard
+     * @param user a instance of <code>User</code> that simulate the user on the keyboard
      */
     public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em,
                          MessageManager mm, User user){
