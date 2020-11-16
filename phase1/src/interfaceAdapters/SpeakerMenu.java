@@ -94,7 +94,8 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
 
     /**
-     * Runs the main speaker menu
+     * Runs the main speaker menu. Print out error message if the input is not a valid option. Print out greetings
+     * message when the user logs out.
      * @return null
      */
     @Override
@@ -129,7 +130,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
 
     /**
-     * Runs the view my events menu
+     * Runs the view my events menu. Print out error message if the input is not a valid option.
      */
     public void runViewMyEvents() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -166,7 +167,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
 
     /**
-     * Runs the view contacts menu
+     * Runs the view contacts menu. Print out error message if the input is not a valid option.
      */
     public void runViewContacts() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -200,7 +201,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
 
     /**
-     * Runs view chat
+     * Runs view chat. Print out error message if the input is not a valid option.
      * @param receiverID the id of receiver
      */
     public void runViewChat(int receiverID) {
@@ -228,7 +229,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
     }
 
     /**
-     * Runs the manage account menu
+     * Runs the manage account menu. Print out error message if the input is not a valid option.
      */
     public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

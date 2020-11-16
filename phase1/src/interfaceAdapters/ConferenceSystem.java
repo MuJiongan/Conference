@@ -7,15 +7,40 @@ import useCases.*;
 import java.io.Serializable;
 
 public class ConferenceSystem implements Serializable {
+
+    /**
+     * Store the AttendeeManager
+     */
     private AttendeeManager am;
+    /**
+     * Store the Organizer Manager
+     */
     private OrganizerManager om;
+    /**
+     * Store the SpeakerManager
+     */
     private SpeakerManager sm;
+    /**
+     * Store the RoomManager
+     */
     private RoomManager rm;
+    /**
+     * Store the EventManager
+     */
     private EventManager em;
+    /**
+     * Store the MessageManager
+     */
     private MessageManager mm;
+    /**
+     * Store the gateway
+     */
     private ReadWrite gateway;
 
 
+    /**
+     * Construct an instance of ConferenceSystem
+     */
     public ConferenceSystem(){
         gateway = new ReadWrite();
         am = gateway.readAttendee("phase1/src/attendeemanager.ser");
@@ -27,6 +52,15 @@ public class ConferenceSystem implements Serializable {
         gateway.setManagers(am, om, sm, em, rm, mm);
     }
 
+    /**
+     * Returns a new created instance of Organizer with updated contact list containing all existing attendees and
+     * speakers
+     * @param name name of the organizer
+     * @param username username of the organizer
+     * @param password password of the organizer
+     * @return a new created instance of Organizer with updated contact list containing all existing attendees and
+     * speakers
+     */
     // This method also handles the contact list
     public User createOrganizerAccount(String name, String username, String password){
         User organizer = om.createOrganizer(name, username, password, getNewID());
@@ -45,11 +79,20 @@ public class ConferenceSystem implements Serializable {
         return organizer;
 
     }
+
+    /**
+     * Return the next ID that is going to be assigned to the new User created
+     * @return the next ID that is going to be assigned to the new User created
+     */
     public int getNewID(){
         int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
         return size + 1;
     }
 
+    /**
+     * Runs the main speaker menu. When the user is logging in the system, check the specific type of user, and
+     * direct to corresponding menu. Print error message if the account cannot be found.
+     */
     public void run()
     {
         UserController current = new LogInSystem(am, om, sm);
