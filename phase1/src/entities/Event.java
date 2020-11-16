@@ -72,7 +72,7 @@ public class Event implements Serializable {
 
     /**
      * Change the end time to the given time.
-     * @param time taht will be set as end time
+     * @param time that will be set as end time
      */
     public void setEndTime(LocalDateTime time)
     {

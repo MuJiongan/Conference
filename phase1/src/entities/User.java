@@ -37,7 +37,7 @@ public abstract class User implements Serializable {
     private ArrayList<Integer> eventsAttend;
 
     /**
-     * Constructs an instance of Student based on Strings of information
+     * Constructs an instance of Student based on the given name, userName, password and userID
      * @param name entities.User's real name
      * @param userName entities.User's username
      * @param passWord entities.User's password
