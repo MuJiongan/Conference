@@ -18,16 +18,34 @@ There are two main options in the main menu. Login with an existing account or C
 4. Messaging other Users (Individually)
     - Menu option 3. In sub-menu pick option 1 (view chat history) and enter a valid userID. From there its option 1 to send message
 5. Message All Attendees/Speakers
-    - Menu option 3. In sub-menu pick option2/3
+    - Menu option 3. In sub-menu pick option 2/3
+6. Organizer's also can do all things Attendees can do. Look at the Attendee Responsibilties section for a detailed breakdown.
 
 ===== Attendee Responsiblities =====
-1. View events
+1. View All Events
 	- Menu option 1
-2. Sign up
+2. View Events Signed Up
+	- Menu option 2
+3. Sign Up
 	- Menu option 1 and go to sub-menu option 1
-3. Cancel Events
+4. Cancel Registration
 	- Menu option 2 and go to sub-menu option 1
-4. Messaging other Users (Individually)
+5. Messaging other Users (Speakers & Attendees)
 	- Menu option 3. In sub-menu pick option 1 (view chat history) and enter a valid userID. From there its option 1 to send message
-5. Receive messages
+6. View Messages
     - Menu option 3 and go to sub-menu option 1 and enter a valid userID
+
+===== Speaker Responsiblities =====
+1. View Events to Talk at
+	- Menu option 1
+2. Message all Attendees
+	- Menu option 1 and go to sub-menu option 1 and follow prompts
+4. Cancel Events
+	- Menu option 2 and go to sub-menu option 1
+5. Messaging other Users (Attendees)
+	- Menu option 3. In sub-menu pick option 1 (view chat history) and enter a valid userID. From there its option 1 to send message
+6. View Messages
+    - Menu option 3 and go to sub-menu option 1 and enter a valid userID
+
+===== Logging Out =====
+For each each User menu, the last option will be to log out of the program. To ensure information is saved properly, please log out every time you wish to close the program.
