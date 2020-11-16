@@ -80,7 +80,6 @@ public abstract class UserMenu {
      * @param receiverID ID of the user who receives the message
      * @param message the message content
      * @return true iff the message is successfully sent
-     * @custom.precondition receiverID has to be valid. Check before sending the message.
      */
     public boolean sendMessage(int receiverID, Message message){
         currentManager.addMessageID(mm.getIdByMessage(message), user, receiverID);

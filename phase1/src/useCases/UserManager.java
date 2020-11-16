@@ -50,8 +50,6 @@ public abstract class UserManager implements Serializable{
      * add an eventID to the list of all events the user is going to attend
      * @param user the given entities.User object
      * @param eventID ID of the event the user is going to add
-     * @custom.precondition
-     *       MAKE_SURE_EVENT_VACANCY_IS_GREATER_THAN_ZERO
      * @return true if and only if the user is successfully added to the list
      */
     public boolean addEventID(int eventID, User user){
@@ -97,8 +95,6 @@ public abstract class UserManager implements Serializable{
      * @param user the given entities.User object
      * @param messageID ID of the message the user is sending
      * @param otherID the other user's ID the user is chatting to
-     * @custom.precondition
-     * receiverID and messageID have to be valid
      */
     public void addMessageID(int messageID, User user, int otherID){
         user.addMessage(otherID, messageID);
@@ -115,8 +111,6 @@ public abstract class UserManager implements Serializable{
      * return a entities.User object if the entities.User has the correct password, username, and type and return null otherwise
      * @param username the username given by the user
      * @param password the password given by the user
-     * @custom.precondition
-     * userType.toLowerCase().equals("attendee") || userType.toLowerCase().equals("speaker") || userType.toLowerCase().equals("organizer")
      * @return the user if it has the correct password, username and type and null otherwise
      */
     public User validate(String username, String password){
@@ -155,7 +149,6 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return the HashMap Messages given the userID
-     * @Precondition user object has to be valid(in one of the useCases.UserManager lists)
      * @param user object of which user to access
      * @return the HashMap Messages
      */
