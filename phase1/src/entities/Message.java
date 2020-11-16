@@ -7,33 +7,15 @@ import java.util.ArrayList;
  * Represents the messages for the conference.
  */
 public class Message implements Serializable {
-
-    /**
-     * Stores the entities.User id of sender
-     */
     private int senderID;
-
-    /**
-     * Stores the entities.User id of receiver
-     */
     private int receiverID;
-
-    /**
-     * Stores the message content
-     */
     private String content;
-    /**
-     * Stores the id of the message
-     */
     private int messageID;
-    /**
-     * Stores the condition of whether the message is read by receiver
-     */
     private boolean unread;
 
     /**
      * Constructor:
-     *   Create a new entities.Message object given
+     *   Create a new Message object given
      *   @param _senderID of this message,
      *   @param _receiverID of this message,
      *   @param _content of this message,

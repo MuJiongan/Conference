@@ -6,42 +6,20 @@ import java.util.HashMap;
 
 
 public abstract class User implements Serializable {
-
-    /**
-     * Stores the userID of the user
-     */
     private int userID;
-    /**
-     * Stores the name of the user
-     */
     private String name;
-    /**
-     * Stores the user name of the user
-     */
     private String userName;
-    /**
-     * Stores the password of the user
-     */
     private String passWord;
-    /**
-     * Stores a HashMap with key of the receiver's ID and value of message ID sent by this user
-     */
     private HashMap<Integer, ArrayList<Integer>> message;
-    /**
-     * Stores a HashMap with key of the sender's ID and value of message ID
-     */
     private ArrayList<Integer> contactList;
-    /**
-     * Stores a list of event IDs the user is going to attend
-     */
     private ArrayList<Integer> eventsAttend;
 
     /**
      * Constructs an instance of Student based on the given name, userName, password and userID
-     * @param name entities.User's real name
-     * @param userName entities.User's username
-     * @param passWord entities.User's password
-     * @param userID entities.User's userID
+     * @param name User's real name
+     * @param userName User's username
+     * @param passWord User's password
+     * @param userID User's userID
      */
     public User(String name, String userName, String passWord, int userID) {
 
@@ -117,8 +95,6 @@ public abstract class User implements Serializable {
     public HashMap<Integer, ArrayList<Integer>> getMessages() {
         return (HashMap<Integer, ArrayList<Integer>>) message.clone();
     }
-
-
     /**
      * Add a message ID to the user's hashmap
      * @param userID receiver ID

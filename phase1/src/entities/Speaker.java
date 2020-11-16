@@ -7,10 +7,8 @@ import java.util.ArrayList;
  */
 
 public class Speaker extends User implements Serializable {
-
-
     /**
-     * Create an instance of entities.Organizer of the given name, username, password and userID
+     * Create an instance of Organizer of the given name, username, password and userID
      * @param name name of this Speaker
      * @param username username of this Speaker
      * @param password password of this Speaker

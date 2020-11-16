@@ -31,6 +31,7 @@ public class ReadWrite implements Serializable {
     }
 
     /**
+     * Read stored information and load the stored AttendeeManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>AttendeeManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>AttendeeManager</code> updated based on the given file
@@ -48,6 +49,7 @@ public class ReadWrite implements Serializable {
     }
 
     /**
+     * Read stored information and load the stored OrganizerManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>OrganizerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>OrganizerManager</code> updated based on the given file
@@ -65,6 +67,7 @@ public class ReadWrite implements Serializable {
     }
 
     /**
+     * Read stored information and load the stored SpeakerManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>SpeakerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>SpeakerManager</code> updated based on the given file
@@ -81,6 +84,7 @@ public class ReadWrite implements Serializable {
         }
     }
     /**
+     * Read stored information and load the stored RoomManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>RoomManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>RoomManager</code> updated based on the given file
@@ -97,6 +101,7 @@ public class ReadWrite implements Serializable {
         }
     }
     /**
+     * Read stored information and load the stored EventManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>EventManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>EventManager</code> updated based on the given file
@@ -113,6 +118,7 @@ public class ReadWrite implements Serializable {
         }
     }
     /**
+     * Read stored information and load the stored MessageManager
      * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
      *             <code>MessageManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>MessageManager</code> updated based on the given file

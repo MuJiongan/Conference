@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Organizer extends Attendee implements Serializable {
     /**
-     * Create an instance of entities.Organizer with the given name, username, password and userID
+     * Create an instance of Organizer with the given name, username, password and userID
      * @param name name of this Organizer
      * @param username username of this Organizer
      * @param password password of this Organizer

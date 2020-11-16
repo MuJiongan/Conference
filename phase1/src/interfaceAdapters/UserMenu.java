@@ -43,7 +43,7 @@ public abstract class UserMenu {
     private UserManager currentManager;
 
     /**
-     * Construct an instance of interfaceAdapters.UserMenu with the given Managers
+     * Construct an instance of UserMenu with the given Managers
      * @param am the instance of <code>AttendeeManager</code> in the conference
      * @param om the instance of <code>OrganizerManager</code> in the conference
      * @param sm the instance of <code>SpeakerManager</code> in the conference

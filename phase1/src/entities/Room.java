@@ -8,22 +8,13 @@ import java.util.ArrayList;
  *
  */
 public class Room implements Serializable {
-    /**
-     * The maximum number of people in the room at one time
-     */
     private int capacity;
-    /**
-     * Stores the events that will occur in the room
-     */
     private ArrayList<Integer> eventsScheduled;
-    /**
-     * Stores the id of the entities.Room
-     */
     private int roomID;
     private String name;
 
     /**
-     * Create a new entities.Room object with the given capacity
+     * Create a new Room object with the given capacity
      * @param capacity maximum capacity of this room
      * @param name name of the room
      * @param roomID roomID of the room
@@ -54,7 +45,7 @@ public class Room implements Serializable {
 
     /**
      * Adds an event ID to the eventsScheduled list
-     * @param eventID ID of an event to be scheduled in the entities.Room
+     * @param eventID ID of an event to be scheduled in the Room
      */
     public void addEventID(int eventID)
     {
@@ -62,7 +53,7 @@ public class Room implements Serializable {
     }
     /**
      * Removes an event ID to the eventsScheduled list
-     * @param eventID ID of an event to be removed from the schedule for entities.Room
+     * @param eventID ID of an event to be removed from the schedule for Room
      */
     public void removeEventID(int eventID)
     {

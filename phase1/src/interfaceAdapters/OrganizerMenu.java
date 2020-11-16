@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
     /**
-     * Create an instance of interfaceAdapters.OrganizerMenu with the given Managers
+     * Create an instance of OrganizerMenu with the given Managers
      * @param am the instance of <code>AttendeeManager</code> in the conference
      * @param om the instance of <code>OrganizerManager</code> in the conference
      * @param sm the instance of <code>SpeakerManager</code> in the conference

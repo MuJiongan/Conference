@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class AttendeeMenu extends UserMenu implements UserController{
 
     /**
-     * Create an instance of interfaceAdapters.AttendeeMenu with the given Managers
+     * Create an instance of AttendeeMenu with the given Managers
      * @param am the instance of <code>AttendeeManager</code> in the conference
      * @param om the instance of <code>OrganizerManager</code> in the conference
      * @param sm the instance of <code>SpeakerManager</code> in the conference
@@ -43,7 +43,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     /**
-     * return true if user can sign up and false otherwise
+     * Return true if user can sign up and false otherwise
      * @param event event that the user on the keyboard want to sign up now
      * @return return true if there is a vacancy in the give event and the event wanted to sign up now doesn't conflict
      * with the given registered event
@@ -69,7 +69,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     /**
-     * return ture if the event want to sign up now doesn't conflict with the given registered event and false otherwise
+     * Return ture if the event want to sign up now doesn't conflict with the given registered event and false otherwise
      * @param startTime start time of a given event that the user has already signed up
      * @param endTime end time of a given event that the user has already signed up
      * @param newStartTime start time of event that the user want to sign up now
@@ -226,7 +226,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * return an ArrayList of all events in the conference
      * @return return an ArrayList of all events in the conference
      */
-
     public ArrayList<Event> viewAllEvents()
     {
         return getEventManager().getEvents();
@@ -336,7 +335,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter an integer value for the ID!!");
         }
     }
-
     /**
      * run View Contact List submenu of the main menu
      */
@@ -360,7 +358,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter an integer value for the ID");
         }
     }
-
     /**
      * run View chat history submenu of View Contact List option
      * @param receiverID the id of a user in the system that the attendee on the keyboard choose to see the chat history
@@ -387,7 +384,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter a valid option");
         }
     }
-
     /**
      * run Manage Account submenu of the main menu
      */

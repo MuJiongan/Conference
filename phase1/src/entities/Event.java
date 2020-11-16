@@ -93,14 +93,14 @@ public class Event implements Serializable {
         speakerIDs.add(speakerID);
     }
     /**
-     * Adds an user ID to the userIDs list
+     * Adds an user ID to the userIDs (Attendees) list
      * @param userID to be added in the entities.Event
      */
     public void addUserID(int userID) {
         userIDs.add(userID);
     }
     /**
-     * removes an user ID from the userIDs list
+     * removes an user ID from the userIDs (Attendees) list
      * @param userID to be removed in the entities.Event
      */
     public void removeUserID(int userID) {
