@@ -43,14 +43,14 @@ public abstract class UserMenu {
     private UserManager currentManager;
 
     /**
-     * Construct an instance of UserMenu based on given information
-     * @param am the AttendeeManager
-     * @param om the OrganizerManager
-     * @param sm the SpeakerManager
-     * @param rm the RoomManager
-     * @param em the EventManager
-     * @param mm the MessageManager
-     * @param user the current user
+     * Construct an instance of interfaceAdapters.AttendeeMenu with the given Managers
+     * @param am the instance of <code>AttendeeManager</code> in the conference
+     * @param om the instance of <code>OrganizerManager</code> in the conference
+     * @param sm the instance of <code>SpeakerManager</code> in the conference
+     * @param rm the instance of <code>RoomManager</code> in the conference
+     * @param em the instance of <code>EventManager</code> in the conference
+     * @param mm the instance of <code>MessageManager</code> in the conference
+     * @param user a instance of user object that simulate the user on the keyboard
      */
     public UserMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
         this.am = am;

@@ -16,6 +16,9 @@ public class ReadWrite implements Serializable {
     private EventManager events;
     private MessageManager messages;
 
+    /**
+     * Construct an instance of ReadWrite with newly created Managers
+     */
     public ReadWrite()
     {
 
@@ -26,6 +29,12 @@ public class ReadWrite implements Serializable {
         events = new EventManager();
         messages = new MessageManager();
     }
+
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>AttendeeManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>AttendeeManager</code> updated based on the given file
+     */
     public AttendeeManager readAttendee(String path)
     {
         try
@@ -37,6 +46,12 @@ public class ReadWrite implements Serializable {
             return attendees;
          }
     }
+
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>OrganizerManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>OrganizerManager</code> updated based on the given file
+     */
     public OrganizerManager readOrganizer(String path)
     {
         try
@@ -48,6 +63,12 @@ public class ReadWrite implements Serializable {
             return organizers;
         }
     }
+
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>SpeakerManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>SpeakerManager</code> updated based on the given file
+     */
     public SpeakerManager readSpeaker(String path)
     {
         try
@@ -59,6 +80,11 @@ public class ReadWrite implements Serializable {
             return speakers;
         }
     }
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>RoomManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>RoomManager</code> updated based on the given file
+     */
     public RoomManager readRoom(String path)
     {
         try
@@ -70,6 +96,11 @@ public class ReadWrite implements Serializable {
             return rooms;
         }
     }
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>EventManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>EventManager</code> updated based on the given file
+     */
     public EventManager readEvent(String path)
     {
         try
@@ -81,6 +112,11 @@ public class ReadWrite implements Serializable {
             return events;
         }
     }
+    /**
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>MessageManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>MessageManager</code> updated based on the given file
+     */
     public MessageManager readMessage(String path)
     {
         try
@@ -92,6 +128,16 @@ public class ReadWrite implements Serializable {
             return messages;
         }
     }
+
+    /**
+     * set Managers of this ReadWrite to the given Managers
+     * @param am the given instance of <code>AttendeeManager</code>
+     * @param om the given instance of <code>OrganizerManager</code>
+     * @param sm the given instance of <code>SpeakerManager</code>
+     * @param em the given instance of <code>EventManager</code>
+     * @param rm the given instance of <code>RoomManager</code>
+     * @param mm the given instance of <code>MessageManager</code>
+     */
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, EventManager em, RoomManager rm, MessageManager mm)
     {
         attendees = am;
@@ -101,7 +147,11 @@ public class ReadWrite implements Serializable {
         rooms = rm;
         messages = mm;
     }
-    //methods to write to file
+
+    /**
+     * store the <code>AttendeeManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
+     */
     public void saveAttendees(String path)
     {
         try{
@@ -112,6 +162,10 @@ public class ReadWrite implements Serializable {
             System.out.println("Couldn't save useCases.AttendeeManager");
         }
     }
+    /**
+     * store the <code>OrganizerManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>OrganizerManager</code>
+     */
     public void saveOrganizers(String path)
     {
         try{
@@ -122,6 +176,10 @@ public class ReadWrite implements Serializable {
             System.out.println("Couldn't save useCases.OrganizerManager");
         }
     }
+    /**
+     * store the <code>SpeakerManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>SpeakerManager</code>
+     */
     public void saveSpeakers(String path)
     {
         try{
@@ -132,6 +190,10 @@ public class ReadWrite implements Serializable {
             System.out.println("Couldn't save useCases.SpeakerManager");
         }
     }
+    /**
+     * store the <code>EventManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>EventManager</code>
+     */
     public void saveEvent (String path)
     {
         try{
@@ -142,7 +204,10 @@ public class ReadWrite implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * store the <code>RoomManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>RoomManager</code>
+     */
     public void saveRoom (String path) {
         try{
             rooms.saveToFile(path);
@@ -152,7 +217,10 @@ public class ReadWrite implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * store the <code>MessageManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>MessageManager</code>
+     */
     public void saveMessage (String path)
     {
         try{
@@ -163,6 +231,9 @@ public class ReadWrite implements Serializable {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * store all Managers in the conference to their corresponding ser file
+     */
     public void saveAll(){
         saveAttendees("phase1/src/attendeemanager.ser");
         saveOrganizers("phase1/src/organizermanager.ser");
