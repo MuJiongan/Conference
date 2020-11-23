@@ -182,7 +182,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("The speaker is not available at the time");
             return false;
         }
-        if (!availableInRoom(speaker, roomID, startTime, endTime)){
+        if (!availableInRoom(roomID, startTime, endTime)){
 
             Presenter.print("The room you entered is occupied at the time");
             return false;
@@ -206,8 +206,48 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         return true;
 
     }
+    /**
+     * Assign Speaker to an existing Event
+     * @param speakerID the Speaker who is to be scheduled
+     * @param eventID the eventID of which event
+     * @return true if speakerID successfully added to the existing Event
+     */
+    public boolean assignSpeaker(int speakerID, int eventID){
+        // check if the event ID exists
+        Event event = getEventManager().getEventByID(eventID);
+        if (event == null){
+            Presenter.print("Event ID doesn't exist!");
+            return false;
+        }
+        // check if the speaker ID exists
+        User speaker = getSpeakerManager().getUserByID(speakerID);
+        if (speaker == null){
+            Presenter.print("Speaker doesn't exist!");
+            return false;
+        }
+        LocalDateTime startTime = getEventManager().getStartTime(event);
+        LocalDateTime endTime = getEventManager().getEndTime(event);
 
+        // check if the speaker is available at the time
+        if (!availableAtTime(speaker, startTime, endTime)){
+            Presenter.print("The speaker is not available at the time");
+            return false;
+        }
+        // check if the speaker is already in the event
+        if (!getEventManager().addSpeakerID(speaker.getUserId(), event)){
+            Presenter.print("You already added this speaker!");
+            return false;
+        }
+        // update the speaker's and the attendees' contact list
+        for (Integer userID: getEventManager().getUserIDs(event)){
+            // check if the speaker is already in their contact list
+            updateSpeakerContactList(userID, speakerID);
+        }
 
+        getSpeakerManager().addEventID(event.getEventID(), speaker);
+        Presenter.print("Speaker assigned");
+        return true;
+    }
     /**
      * Check whether a Speaker is available to be scheduled at specific time (avoiding double-booking a speaker)
      * @param speaker the Speaker who is to be scheduled
@@ -224,6 +264,51 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             return false;
         }
         return true;
+    }
+    private boolean updateSpeakerContactList(int userID, int speakerID){
+        if (getAttendeeManager().idInList(userID)){
+            User user = getAttendeeManager().getUserByID(userID);
+            ArrayList<Integer> contacts = getAttendeeManager().getContactList(user);
+            // speaker already in their contact list
+            if (!contacts.contains(speakerID)){
+                // speaker not in contact list, add it now
+                getAttendeeManager().addToContactsList(user, speakerID);
+            }
+
+
+            // add the userID to speaker
+            User speaker = getSpeakerManager().getUserByID(speakerID);
+            ArrayList<Integer> speakerContacts = getSpeakerManager().getContactList(speaker);
+            // userID not in speaker Contacts, good! now we add the userID
+            if (!speakerContacts.contains(userID)){
+                getSpeakerManager().addToContactsList(speaker, userID);
+
+            }
+            return true;
+            }
+
+        if (getOrganizerManager().idInList(userID)){
+            User user = getOrganizerManager().getUserByID(userID);
+            ArrayList<Integer> contacts = getOrganizerManager().getContactList(user);
+            // speaker already in their contact list
+            if (!contacts.contains(speakerID)){
+                // speaker not in contact list, add it now
+                getOrganizerManager().addToContactsList(user, speakerID);
+            }
+
+
+            // add the userID to speaker
+            User speaker = getSpeakerManager().getUserByID(speakerID);
+            ArrayList<Integer> speakerContacts = getSpeakerManager().getContactList(speaker);
+            // userID not in speaker Contacts, good! now we add the userID
+            if (!speakerContacts.contains(userID)){
+                getSpeakerManager().addToContactsList(speaker, userID);
+
+            }
+            return true;
+        }
+        // TODO: loop through the VIPusermanager
+        return false;
     }
 
 
@@ -256,13 +341,12 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
     /**
      * Check whether a Speaker is available to be scheduled in specific room (avoiding double-booking a room)
-     * @param speaker the Speaker who is to be scheduled
      * @param roomID ID of room that this Event is scheduled in
      * @param startTime start time of event
      * @param endTime end time of event
      * @return true if Speaker is available to speak in specific room
      */
-    public boolean availableInRoom(User speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
+    public boolean availableInRoom(int roomID, LocalDateTime startTime, LocalDateTime endTime){
         ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for(Integer eventID : events) {
             Event event = getEventManager().getEventByID(eventID);
