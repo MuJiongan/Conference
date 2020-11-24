@@ -152,7 +152,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 //    }
     /**
      * Schedule Speaker to a new Event
-     * @param speakerID the Speaker who is to be scheduled
      * @param startTime the LocalDateTime of start time of Event
      * @param endTime the LocalDateTime of end time of Event
      * @param roomID ID of room that this Event is scheduled in
@@ -160,38 +159,28 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param name event's name
      * @return true if speakerID successfully added to the new Event
      */
-    public boolean scheduleSpeakerToEvent(int speakerID, LocalDateTime startTime, LocalDateTime endTime,
+    public boolean scheduleEvent(LocalDateTime startTime, LocalDateTime endTime,
                                           int roomID, String name, int capacity){
-        User speaker = getSpeakerManager().getUserByID(speakerID);
+
         Room room = getRoomManager().getRoomByID(roomID);
         if (room == null){
             Presenter.print("RoomID doesn't exist.");
             return false;
         }
-        if (speaker == null){
-            Presenter.print("Speaker ID doesn't exist.");
-            return false;
-        }
+
         if (!haveEnoughCapacity(roomID, capacity)){
             Presenter.print("Room doesn't have enough capacity.");
             return false;
         }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
 
-        if (!availableAtTime(speaker, startTime, endTime)){
-            Presenter.print("The speaker is not available at the time");
-            return false;
-        }
+
         if (!availableInRoom(roomID, startTime, endTime)){
 
             Presenter.print("The room you entered is occupied at the time");
             return false;
         }
-        if (!getEventManager().addSpeakerID(speaker.getUserId(), event)){
-            Presenter.print("You can't add this speaker. The event already has a speaker");
-            return false;
 
-        }
 
         if (event == null) {
             Presenter.print("Event is not valid!");
@@ -199,8 +188,6 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
 
         }
         getEventManager().addEvent(event);
-        getSpeakerManager().addEventID(event.getEventID(), speaker);
-
         getRoomManager().scheduleEvent(room, getEventManager().getIDByEvent(event));
         Presenter.print("New Event Scheduled");
         return true;
