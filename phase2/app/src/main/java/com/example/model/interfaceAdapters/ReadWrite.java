@@ -153,6 +153,12 @@ public class ReadWrite implements Serializable {
         rooms = rm;
         messages = mm;
     }
+    public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm)
+    {
+        attendees = am;
+        organizers = om;
+        speakers = sm;
+    }
 
     /**
      * store the <code>AttendeeManager</code> in the conference to the given file
