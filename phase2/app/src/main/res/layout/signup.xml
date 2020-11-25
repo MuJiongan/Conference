@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.conference.SignUp">
+    <TextView
+            android:text="Name"
+            android:layout_marginTop="60dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/nameText"/>
+    <EditText
+            android:id="@+id/nameinput"
+            android:layout_below="@+id/nameText"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:inputType="text"/>
+    <TextView
+            android:text="Username"
+            android:layout_below="@+id/nameinput"
+            android:layout_marginTop="30dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/UsernameText"/>
+    <EditText
+            android:id="@+id/Usernameinput"
+            android:layout_below="@+id/UsernameText"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:inputType="text"/>
+    <TextView
+            android:text="Password"
+            android:textSize="30dp"
+            android:layout_below="@+id/Usernameinput"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/passwordText"/>
+    <EditText
+            android:id="@+id/passwordinput"
+            android:layout_below="@+id/passwordText"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:inputType="text"/>
+    <Button
+            android:text="Create account"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/passwordinput"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/createaccount"/>
+
+
+
+</RelativeLayout>
