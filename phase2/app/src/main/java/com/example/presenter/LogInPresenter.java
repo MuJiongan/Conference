@@ -24,7 +24,7 @@ public class LogInPresenter {
     public LogInPresenter(View view) {
         gateway = new ReadWrite();
         am = gateway.readAttendee("attendeemanager.ser");
-        om = gateway.readOrganizer("rganizermanager.ser");
+        om = gateway.readOrganizer("organizermanager.ser");
         sm = gateway.readSpeaker("speakermanager.ser");
         om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1));
         gateway.setManagers(am, om, sm);

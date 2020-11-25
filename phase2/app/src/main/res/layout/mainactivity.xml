@@ -8,7 +8,7 @@
         tools:context="com.example.conference.MainActivity">
     <TextView
             android:text="Username"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:textSize="30dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
@@ -17,11 +17,16 @@
     <EditText
             android:id="@+id/Usernameinput"
             android:layout_below="@+id/UsernameText"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_centerHorizontal="true"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:hint="Username"
+            android:paddingLeft="8dp"
+            android:background="@drawable/textinputborder"
+
+    />
     <TextView
             android:text="Password"
             android:textSize="30dp"
@@ -34,11 +39,16 @@
     <EditText
             android:id="@+id/passwordinput"
             android:layout_below="@+id/passwordText"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="31dp"
+            android:layout_width="270dp"
             android:layout_centerHorizontal="true"
-            android:inputType="text"/>
+            android:height="30dp"
+            android:hint="Password"
+            android:paddingLeft="9dp"
+            android:inputType="textPassword"
+            android:background="@drawable/textinputborder"
+    />
     <Button
             android:text="Log in"
             android:layout_width="wrap_content"
@@ -46,6 +56,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:onClick="onClick"
+            android:bottomRightRadius="10dp"
+            android:bottomLeftRadius="10dp"
+            android:topLeftRadius="10dp"
+            android:topRightRadius="10dp"
             android:layout_height="wrap_content" android:id="@+id/login"/>
 
     <Button
@@ -53,8 +67,12 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/login"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/signup"/>
+            android:bottomRightRadius="10dp"
+            android:bottomLeftRadius="10dp"
+            android:topLeftRadius="10dp"
+            android:topRightRadius="10dp"
+            android:layout_height="wrap_content" android:id="@+id/signup" android:background="#00D498"/>
 
 </RelativeLayout>
