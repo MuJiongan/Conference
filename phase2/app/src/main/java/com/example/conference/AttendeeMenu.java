@@ -6,12 +6,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class AttendeeMenu extends Activity implements View.OnClickListener{
+
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendeemenu);
+       // EditText view = findViewById(R.id.viewAllEvents);
+       // String string = view.getText().toString();
+
+
+
 
     }
     @Override
@@ -36,6 +44,11 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
                 Toast.makeText(this, "These are all my Contacts", Toast.LENGTH_SHORT).show();
                 Intent myIntent4 = new Intent(v.getContext(), viewContactListActivity.class);
                 startActivityForResult(myIntent4, 0);
+                break;
+            case R.id.social:
+                Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
+                Intent myIntent5 = new Intent(v.getContext(), viewContactListActivity.class);
+                startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:
                 Toast.makeText(this, "See you!", Toast.LENGTH_SHORT).show();
