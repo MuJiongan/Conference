@@ -39,6 +39,10 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
                 break;
             case R.id.exit:
                 Toast.makeText(this, "See you!", Toast.LENGTH_SHORT).show();
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory( Intent.CATEGORY_HOME );
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
                 break;
 
 
