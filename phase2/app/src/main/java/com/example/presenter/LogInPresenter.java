@@ -1,7 +1,5 @@
 package com.example.presenter;
 
-import android.content.Context;
-import com.example.conference.MainActivity;
 import com.example.model.entities.User;
 import com.example.model.interfaceAdapters.ReadWrite;
 import com.example.model.useCases.*;
