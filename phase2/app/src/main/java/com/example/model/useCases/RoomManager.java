@@ -61,8 +61,9 @@ public class RoomManager implements Serializable {
      * @param room entities.Room to add to list
      * @return True if room was succesfully added, false otherwise
      */
-    public boolean addRoom(Room room)
+    public boolean addRoom(int roomID)
     {
+        Room room = getRoomByID(roomID);
         if (!rooms.contains(room))
         {
             rooms.add(room);
@@ -76,9 +77,10 @@ public class RoomManager implements Serializable {
      * @param r entities.Room's capacity we want
      * @return the capacity of entities.Room r
      */
-    public int getCapacity(Room r)
+    public int getCapacity(int roomID)
     {
-        return r.getCapacity();
+        Room room = getRoomByID(roomID);
+        return room.getCapacity();
     }
 
     /**
@@ -86,9 +88,10 @@ public class RoomManager implements Serializable {
      * @param r entities.Room's event ID's we want
      * @return list of event ID's for entities.Room r
      */
-    public ArrayList<Integer> getSchedule(Room r)
+    public ArrayList<Integer> getSchedule(int roomID)
     {
-        return r.getEventsScheduled();
+        Room room = getRoomByID(roomID);
+        return room.getEventsScheduled();
     }
 
 
@@ -97,8 +100,9 @@ public class RoomManager implements Serializable {
      * @param r Represents the room where event will happen
      * @param event Represents the event ID of entities.Event we want to schedule
      */
-    public void scheduleEvent (Room r, int event)
+    public void scheduleEvent (int roomID, int event)
     {
+        Room r = getRoomByID(roomID);
         ArrayList<Integer> eventCopy = r.getEventsScheduled();
         if (!eventCopy.contains(event))
         {
@@ -117,10 +121,11 @@ public class RoomManager implements Serializable {
     }
     /**
      * Get the room name
-     * @param room entities.Room
+     * @param room .Room
      * @return the name of entities.Room room
      */
-    public String getRoomName(Room room){
+    public String getRoomName(int roomID){
+        Room room = getRoomByID(roomID);
         return room.getName();
     }
     /**

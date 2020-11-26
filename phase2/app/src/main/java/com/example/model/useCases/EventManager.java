@@ -20,8 +20,9 @@ public class EventManager implements Serializable{
      * @param event that will be held
      * @return the start time of the given event
      */
-    public LocalDateTime getStartTime(Event event)
+    public LocalDateTime getStartTime(int eventID)
     {
+        Event event = getEventByID(eventID);
         return event.getStartTime();
     }
 
@@ -30,8 +31,9 @@ public class EventManager implements Serializable{
      * @param event which start time will be changed
      * @param time that will be set as start time
      */
-    public void setStartTime(Event event, LocalDateTime time)
+    public void setStartTime(int eventID, LocalDateTime time)
     {
+        Event event = getEventByID(eventID);
         event.setStartTime(time);
     }
 
@@ -40,9 +42,10 @@ public class EventManager implements Serializable{
      * @param event that will be held
      * @return the end time of the given event
      */
-    public LocalDateTime getEndTime(Event event)
+    public LocalDateTime getEndTime(int eventID)
     {
-       return event.getEndTime();
+        Event event = getEventByID(eventID);
+        return event.getEndTime();
     }
 
     /**
@@ -50,8 +53,9 @@ public class EventManager implements Serializable{
      * @param event which end time will be changed
      * @param time that will be set as end time
      */
-    public void setEndTime(Event event, LocalDateTime time)
+    public void setEndTime(int eventID, LocalDateTime time)
     {
+        Event event = getEventByID(eventID);
         event.setEndTime(time);
     }
 
@@ -69,7 +73,8 @@ public class EventManager implements Serializable{
      * @param event event to be added
      * @return true if and only if the event is successfully added to the event list
      */
-    public boolean addEvent(Event event){
+    public boolean addEvent(int eventID){
+        Event event = getEventByID(eventID);
         for (Event value : events) {
             if (event == value) {
                 return false;
@@ -90,7 +95,6 @@ public class EventManager implements Serializable{
             if (event.getEventID() == eventID){
                 return event;
             }
-
         }
         return null;
     }
@@ -99,7 +103,8 @@ public class EventManager implements Serializable{
      * @param event the given entities.Event object
      * @return the vacancy corresponding to the entities.Event object
      */
-    public int getVacancy(Event event){
+    public int getVacancy(int eventID){
+        Event event = getEventByID(eventID);
         return event.getCapacity() - event.getUserIDs().size();
     }
 
@@ -119,7 +124,8 @@ public class EventManager implements Serializable{
      * @param event in which event the attendee is being added
      * @return true if and only if the attendee is successfully added to the list
      */
-    public boolean addUserID(int userID, Event event){
+    public boolean addUserID(int userID, int eventID){
+        Event event = getEventByID(eventID);
         for (int i = 0; i<event.getUserIDs().size(); i++){
             if (userID == event.getUserIDs().get(i)){
                 return false;
@@ -136,7 +142,8 @@ public class EventManager implements Serializable{
      * @param event in which event the speaker is being added
      * @return true if and only if the speaker is successfully added to the list
      */
-    public boolean addSpeakerID(int speakerID, Event event){
+    public boolean addSpeakerID(int speakerID, int eventID){
+        Event event = getEventByID(eventID);
         for (int i = 0; i<event.getSpeakerIDs().size(); i++){
             if (speakerID == event.getSpeakerIDs().get(i)){
                 return false;
@@ -156,8 +163,9 @@ public class EventManager implements Serializable{
      * @param event in which event the entities.Attendee is being removed
      * @return true if and only if the entities.Attendee is successfully removed
      */
-    public boolean removeUserID(int userID, Event event) {
+    public boolean removeUserID(int userID, int eventID) {
         boolean exists = false;
+        Event event = getEventByID(eventID);
         for (int i = 0; i < event.getUserIDs().size(); i++) {
             if (userID == event.getUserIDs().get(i)) {
                 exists = true;
@@ -180,7 +188,8 @@ public class EventManager implements Serializable{
      * @param event in which event the entities.Speaker is being removed
      * @return true if and only if the entities.Speaker is successfully removed
      */
-    public boolean removeSpeakerID(int speakerID, Event event) {
+    public boolean removeSpeakerID(int speakerID, int eventID) {
+        Event event = getEventByID(eventID);
         boolean exists = false;
         for (int i = 0; i < event.getSpeakerIDs().size(); i++) {
             if (speakerID == event.getSpeakerIDs().get(i)) {
@@ -203,8 +212,8 @@ public class EventManager implements Serializable{
      * @param room new entities.Room
      * @param event in which event the roomID is being changed
      */
-    public void changeRoomID(Room room, Event event){
-        int roomID = room.getRoomID();
+    public void changeRoomID(int roomID, int eventID){
+        Event event = getEventByID(eventID);
         event.changeRoomID(roomID);
     }
 
@@ -237,7 +246,8 @@ public class EventManager implements Serializable{
      * @param event the given entities.Event object
      * @return the event name corresponding to the entities.Event object
      */
-    public String getName (Event event){
+    public String getName (int eventID){
+        Event event = getEventByID(eventID);
         return event.getName();
     }
 
@@ -263,7 +273,8 @@ public class EventManager implements Serializable{
      * @param event that attendees will attend
      * @return a list of all attendees of the given entities.Event
      */
-    public ArrayList<Integer> getUserIDs(Event event){
+    public ArrayList<Integer> getUserIDs(int eventID){
+        Event event = getEventByID(eventID);
         return  event.getUserIDs();
 
     }
@@ -273,7 +284,8 @@ public class EventManager implements Serializable{
      * @param event that speakers will speak
      * @return a list of all speakers of the given entities.Event
      */
-    public ArrayList<Integer> getSpeakerIDs(Event event){
+    public ArrayList<Integer> getSpeakerIDs(int eventID){
+        Event event = getEventByID(eventID);
         return  event.getSpeakerIDs();
     }
 
@@ -282,7 +294,8 @@ public class EventManager implements Serializable{
      * @param event that will be held
      * @return the capacity of the room that holds the given entities.Event
      */
-    public int getCapacity(Event event){
+    public int getCapacity(int eventID){
+        Event event = getEventByID(eventID);
         return event.getCapacity();
     }
 
@@ -291,7 +304,8 @@ public class EventManager implements Serializable{
      * @param event that will be held
      * @return Return the ID of the room that holds the given entities.Event
      */
-    public int getRoomID(Event event){
+    public int getRoomID(int eventID){
+        Event event = getEventByID(eventID);
         return event.getRoomID();
     }
     /**
@@ -299,7 +313,8 @@ public class EventManager implements Serializable{
      * @param event the we want to know the number of attendees
      * @return Return the number of attendees in the given event
      */
-    public int getNumOfAttendee(Event event){
+    public int getNumOfAttendee(int eventID){
+        Event event = getEventByID(eventID);
         return event.getNumOfAttendee();
     }
     /**

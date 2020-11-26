@@ -26,10 +26,11 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * add a user to list of users
-     * @param user to be added
+     * @param userID the ID of the user to be added
      * @return true if and only if the user is successfully added to the list
      */
-    public boolean addUser(User user){
+    public boolean addUser(int userID){
+        User user = getUserByID(userID);
         for (User person: users){
             if(person == user){
                 return false;
@@ -48,11 +49,12 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * add an eventID to the list of all events the user is going to attend
-     * @param user the given entities.User object
+     * @param userID the given User object
      * @param eventID ID of the event the user is going to add
      * @return true if and only if the user is successfully added to the list
      */
-    public boolean addEventID(int eventID, User user){
+    public boolean addEventID(int eventID, int userID){
+        User user = getUserByID(userID);
         for (int i = 0; i<user.getEventsAttend().size(); i++){
             if (eventID == user.getEventsAttend().get(i)){
                 return false;
@@ -76,7 +78,8 @@ public abstract class UserManager implements Serializable{
      * @param eventID ID of the event the user is going to cancel
      * @return true if and only if the user is successfully removed from the list
      */
-    public boolean removeEventID(int eventID, User user) {
+    public boolean removeEventID(int eventID, int userID) {
+        User user = getUserByID(userID);
         boolean exists = false;
         for (int i = 0; i < user.getEventsAttend().size(); i++) {
             if (eventID == user.getEventsAttend().get(i)) {
@@ -96,7 +99,8 @@ public abstract class UserManager implements Serializable{
      * @param messageID ID of the message the user is sending
      * @param otherID the other user's ID the user is chatting to
      */
-    public void addMessageID(int messageID, User user, int otherID){
+    public void addMessageID(int messageID, int userID, int otherID){
+        User user = getUserByID(userID);
         user.addMessage(otherID, messageID);
     }
     /**
@@ -104,7 +108,8 @@ public abstract class UserManager implements Serializable{
      * @param user the given entities.User object
      * @return a list of all events the user is going to attend
      */
-    public ArrayList<Integer> getEventList(User user){
+    public ArrayList<Integer> getEventList(int userID){
+        User user = getUserByID(userID);
         return user.getEventsAttend();
     }
     /**
@@ -152,7 +157,8 @@ public abstract class UserManager implements Serializable{
      * @param user object of which user to access
      * @return the HashMap Messages
      */
-    public HashMap<Integer, ArrayList<Integer>> getMessages(User user){
+    public HashMap<Integer, ArrayList<Integer>> getMessages(int userID){
+        User user = getUserByID(userID);
         return user.getMessages();
     }
 
@@ -170,8 +176,9 @@ public abstract class UserManager implements Serializable{
      * @param user who will add a user to contact list
      * @param newID of user
      */
-    public void addToContactsList(User user, int newID)
+    public void addToContactsList(int userID, int newID)
     {
+        User user = getUserByID(userID);
         user.addToContactsList(newID);
     }
 
@@ -180,8 +187,9 @@ public abstract class UserManager implements Serializable{
      * @param user who will change name
      * @param name of user
      */
-    public void setName(User user, String name)
+    public void setName(int userID, String name)
     {
+        User user = getUserByID(userID);
         user.userSetName(name);
     }
 
@@ -190,7 +198,8 @@ public abstract class UserManager implements Serializable{
      * @param user user whose contactList is returned
      * @return a list of users' IDs that in the user's contact list
      */
-    public ArrayList<Integer> getContactList(User user){
+    public ArrayList<Integer> getContactList(int userID){
+        User user = getUserByID(userID);
         return user.getContactList();
     }
 

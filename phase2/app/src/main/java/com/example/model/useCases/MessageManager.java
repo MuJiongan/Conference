@@ -25,7 +25,8 @@ public class MessageManager implements Serializable{
      * @param message message to be added
      * @return true if and only if the message is successfully added to the message list
      */
-    public boolean addMessage(Message message){
+    public boolean addMessage(int messageID){
+        Message message = getMessageById(messageID);
         for (Message content: messages){
             if(content == message){
                 return false;
@@ -83,7 +84,7 @@ public class MessageManager implements Serializable{
      * @param messageId the message ID that want to know the sender id of
      * @return the sender ID by the given message id
      */
-    public int getSenderIDByMessId(Integer messageId){
+    public int getSenderIDByMessId(int messageId){
         return getMessageById(messageId).getSenderID();
     }
     /**

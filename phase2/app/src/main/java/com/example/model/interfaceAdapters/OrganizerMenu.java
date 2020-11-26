@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class OrganizerMenu extends AttendeeMenu implements UserController{
     /**
      * Create an instance of OrganizerMenu with the given Managers
@@ -181,7 +180,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         }
         Event event = createEvent(startTime, endTime, roomID, name, capacity);
 
-        if (!availableAtTime(speaker, startTime, endTime)){
+        if (!availableAtTime(speaker, startTime, endTime)){ //sm.availale at time (speakerID, starttime, endtime)
             Presenter.print("The speaker is not available at the time");
             return false;
         }
