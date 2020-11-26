@@ -1,31 +1,32 @@
 package com.example.presenter;
 
+import android.content.Context;
+import com.example.conference.MainActivity;
 import com.example.model.entities.User;
 import com.example.model.interfaceAdapters.ReadWrite;
 import com.example.model.useCases.*;
 
 public class LogInPresenter {
-    /**
-     * Store the AttendeeManager
-     */
     private AttendeeManager am;
-    /**
-     * Store the Organizer Manager
-     */
     private OrganizerManager om;
-    /**
-     * Store the SpeakerManager
-     */
     private SpeakerManager sm;
+    private RoomManager rm;
+    private EventManager em;
+    private MessageManager mm;
+    private ReadWrite gateway;
     //VIP Manager private variable
 
-    private ReadWrite gateway;
 
     public LogInPresenter(View view) {
         gateway = new ReadWrite();
-        am = gateway.readAttendee("attendeemanager.ser");
-        om = gateway.readOrganizer("rganizermanager.ser");
-        sm = gateway.readSpeaker("speakermanager.ser");
+        //https://stackoverflow.com/questions/14768191/how-do-i-read-the-file-content-from-the-internal-storage-android-app
+        am = gateway.readAttendee("src/main/java/com/example/model/useCases/attendeemanager.ser");
+        om = gateway.readOrganizer("src/main/java/com/example/model/useCases/organizermanager.ser");
+        sm = gateway.readSpeaker("src/main/java/com/example/model/useCases/speakermanager.ser");
+        rm = gateway.readRoom("src/main/java/com/example/model/useCases/roommanager.ser");
+        em = gateway.readEvent("src/main/java/com/example/model/useCases/eventanager.ser");
+        mm = gateway.readMessage("src/main/java/com/example/model/useCases/messagemanager.ser");
+
         om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1));
         gateway.setManagers(am, om, sm);
 
@@ -50,6 +51,7 @@ public class LogInPresenter {
         }
         return false;
     }
+
     public interface View {
         void pushMessage(String info);
     }

@@ -42,7 +42,7 @@ public class ConferenceSystem implements Serializable {
      */
     public ConferenceSystem(){
         gateway = new ReadWrite();
-        am = gateway.readAttendee("phase1/src/attendeemanager.ser");
+        //am = gateway.readAttendee("phase1/src/attendeemanager.ser");
         om = gateway.readOrganizer("phase1/src/organizermanager.ser");
         sm = gateway.readSpeaker("phase1/src/speakermanager.ser");
         rm = gateway.readRoom("phase1/src/roommanager.ser");

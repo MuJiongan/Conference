@@ -185,7 +185,7 @@ public class ReadWrite implements Serializable {
         }
         catch (IOException e)
         {
-            System.out.println("Couldn't save useCases.OrganizerManager");
+            System.out.println("Couldn't save OrganizerManager");
         }
     }
     /**

@@ -1,13 +1,20 @@
 package com.example.conference;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.model.interfaceAdapters.ReadWrite;
+import com.example.model.useCases.AttendeeManager;
 import com.example.presenter.LogInPresenter;
 import com.example.presenter.LogInPresenter;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class MainActivity extends AppCompatActivity implements LogInPresenter.View,View.OnClickListener{
 
@@ -17,11 +24,8 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
-
+        Context context = this;
         presenter = new LogInPresenter(this);
-
-        pushMessage("Files read");
-
     }
     
 

@@ -41,6 +41,7 @@ public class AttendeeManager extends UserManager implements Serializable{
             input.close();
             return am;
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             return new AttendeeManager();
         }
     }
