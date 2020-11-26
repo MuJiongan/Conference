@@ -11,7 +11,7 @@ import com.example.presenter.LogInPresenter;
 
 import java.io.Serializable;
 
-public class SignUp extends Activity implements View.OnClickListener, LogInPresenter.View{
+public class SignUp extends Activity implements View.OnClickListener, LogInPresenter.View, Serializable{
     private LogInPresenter presenter;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.createaccount:
-
+                //Get user inputted string
                 EditText name = findViewById(R.id.nameinput);
                 String nameString = name.getText().toString();
                 EditText username = findViewById(R.id.Usernameinput);
@@ -39,22 +39,12 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
 
                 if (presenter.createAttendeeAccount(nameString, usernameString, passwordString)){
                     Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+                    Intent myIntent = new Intent(SignUp.this, MainActivity.class);
                     myIntent.putExtra("presenter", presenter);
-                    startActivityForResult(myIntent, 0);
-//                    setResult(3, myIntent);
-//                    finish();
-
-
-
-
-
+                    setResult(3, myIntent);
+                    finish();
                 }
                 break;
-
-
-
         }
     }
-
 }

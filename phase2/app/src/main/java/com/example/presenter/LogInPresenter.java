@@ -39,6 +39,10 @@ public class LogInPresenter implements Serializable {
 
     }
 
+    public void setView(View view) {
+        this.view = view;
+    }
+
     public boolean validate(String username, String password)
     {
         User user =  am.validate(username, password);
