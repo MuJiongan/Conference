@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.conference.AttendeeMenu">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.conference.OrganizerMenu">
 
 
     <TextView
             android:text="WELCOME!"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/welcome"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/viewAllEvents"/>
 
@@ -34,9 +34,18 @@
             android:layout_height="wrap_content" android:id="@+id/viewMyEvents"/>
 
     <Button
-            android:text="View Contact List"
+            android:text="Create An Account"
             android:layout_width="wrap_content"
             android:layout_below="@+id/viewMyEvents"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/organizerCreateAccount"/>
+
+    <Button
+            android:text="View Contact List"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/organizerCreateAccount"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:onClick="onClick"

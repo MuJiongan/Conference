@@ -1,5 +1,3 @@
-
-
 package com.example.conference;
 
 import android.app.Activity;
@@ -9,14 +7,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AttendeeMenu extends Activity implements View.OnClickListener{
+public class SpeakerMenu extends Activity implements View.OnClickListener{
 
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.attendeemenu);
-       // EditText view = findViewById(R.id.viewAllEvents);
-       // String string = view.getText().toString();
+        setContentView(R.layout.speakermenu);
+        // EditText view = findViewById(R.id.viewAllEvents);
+        // String string = view.getText().toString();
 
 
 
@@ -25,11 +23,6 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.viewAllEvents:
-                Toast.makeText(this, "These are all your events", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(v.getContext(), seeAllEventsActivity.class);
-                startActivityForResult(myIntent, 0);
-                break;
             case R.id.viewMyEvents:
                 Toast.makeText(this, "These are all my events", Toast.LENGTH_SHORT).show();
                 Intent myIntent2 = new Intent(v.getContext(), seeMyEventsActivity.class);
@@ -48,7 +41,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
             case R.id.social:
                 Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), viewContactListActivity.class);
-                // TODO CHANGE THIS TO SOCIAL
+                //TODO change this to social
                 startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:
