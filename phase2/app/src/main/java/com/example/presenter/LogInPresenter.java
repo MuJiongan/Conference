@@ -1,5 +1,8 @@
 package com.example.presenter;
 
+import com.example.conference.AttendeeMenu;
+import com.example.conference.OrganizerMenu;
+import com.example.conference.SpeakerMenu;
 import com.example.model.entities.Attendee;
 import com.example.model.entities.User;
 import com.example.model.interfaceAdapters.LogInSystem;
@@ -43,24 +46,29 @@ public class LogInPresenter implements Serializable {
         this.view = view;
     }
 
-    public boolean validate(String username, String password)
+    public boolean validate(UserManager um, String username, String password)
+    {
+        User user =  um.validate(username, password);
+        return !(user == null);
+    }
+    public Object validate1(String username, String password)
     {
         User user =  am.validate(username, password);
         if (!(user == null))
         {
-            return true;
+            return AttendeeMenu.class;
         }
         user = om.validate(username, password);
         if (!(user == null))
         {
-            return true;
+            return OrganizerMenu.class;
         }
         user = sm.validate(username, password);
         if (!(user == null))
         {
-            return true;
+            return SpeakerMenu.class;
         }
-        return false;
+        return null;
     }
 
     /**

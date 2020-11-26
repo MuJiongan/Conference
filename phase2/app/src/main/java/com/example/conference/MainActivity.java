@@ -41,16 +41,30 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
 //                if ( getIntent().getSerializableExtra("presenter") != null) {
 //                    presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
 //                }
-                String username = username1.getText().toString();
-                String password = password1.getText().toString();
-                boolean successful = presenter.validate(username, password);
-                if (successful)
-                {
-                    Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
-
-                    Intent myIntent = new Intent(v.getContext(), AttendeeMenu.class);
-                    startActivityForResult(myIntent, 0);
-                }
+                    String username = username1.getText().toString();
+                    String password = password1.getText().toString();
+                    Object obj = presenter.validate1(username, password);
+                    if (obj!= null)
+                    {
+                        Toast.makeText(this, "Login successfully!!", Toast.LENGTH_SHORT).show();
+                        Intent myIntent = new Intent(v.getContext(), (Class<?>) obj);
+                        startActivity(myIntent);
+                    }
+//                boolean successful = presenter.validate(presenter.getAm(), username, password);
+//                if (successful)
+//                {
+//                    Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
+//
+//                    Intent myIntent = new Intent(v.getContext(), AttendeeMenu.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
+//                successful = presenter.validate(presenter.getOm(), username, password);
+//                if (successful)
+//                {
+//                    Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
+//                    Intent myIntent = new Intent(v.getContext(), OrganizerMenu.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
                 else
                 {
                     Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
