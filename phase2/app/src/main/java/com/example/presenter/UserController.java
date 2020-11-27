@@ -75,11 +75,11 @@ public class UserController {
     /**
      * Add the given message to the receiver given the receiverID
      * @param receiverID ID of the user who receives the message
-     * @param message the message content
+     * @param messageID the messageID
      * @return true iff the message is successfully sent
      */
-    public boolean sendMessage(int receiverID, Message message){
-        currentManager.addMessageID(mm.getIdByMessage(message), userID, receiverID);
+    public boolean sendMessage(int receiverID, int messageID){
+        currentManager.addMessageID(messageID, userID, receiverID);
         //um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
         // Remember to add recevied message in sendMessage extension
         return true;
@@ -212,5 +212,9 @@ public class UserController {
     public int getNewID(){
         int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size();
         return size + 1;
+    }
+
+    public void setName(String name){
+        getCurrentManager().setName(getUser(), name);
     }
 }

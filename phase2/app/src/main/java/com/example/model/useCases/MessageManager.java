@@ -66,8 +66,11 @@ public class MessageManager implements Serializable{
      * @param receiverID of new message
      * @return a new message with given features
      */
-    public Message createMessage(String content, int senderID, int receiverID){
-        return new Message(senderID, receiverID, content, messages.size() + 1);
+    public int createMessage(String content, int senderID, int receiverID){
+        Message message = new Message(senderID, receiverID, content, messages.size() + 1);
+        int messageID = message.getMessageID();
+        this.addMessage(messageID);
+        return messageID;
     }
 
     /**

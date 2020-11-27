@@ -36,7 +36,6 @@ public class LogInPresenter implements Serializable {
         rm = gateway.readRoom("src/main/java/com/example/model/useCases/roommanager.ser");
         em = gateway.readEvent("src/main/java/com/example/model/useCases/eventanager.ser");
         mm = gateway.readMessage("src/main/java/com/example/model/useCases/messagemanager.ser");
-
         om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1));
         gateway.setManagers(am, om, sm);
 
