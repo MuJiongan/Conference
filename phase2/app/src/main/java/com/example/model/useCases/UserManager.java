@@ -6,6 +6,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class UserManager implements Serializable{
     /**
@@ -22,8 +23,20 @@ public abstract class UserManager implements Serializable{
      * Returns the shallow copy of all users in the list
      * @return the shallow copy of all users in a list
      */
-    public ArrayList<User> getUsers(){
+    public List<User> getUsers(){
         return (ArrayList<User>) users.clone();
+    }
+    /**
+     * Returns the id's of the users
+     * @return a list of the id's of all the users
+     */
+    public List<Integer> getUserIDs(){
+        List<Integer> allIDs = new ArrayList<>();
+        for (User user: getUsers())
+        {
+            allIDs.add(user.getUserId());
+        }
+        return allIDs;
     }
     /**
      * add a user to list of users
@@ -40,6 +53,7 @@ public abstract class UserManager implements Serializable{
         users.add(user);
         return true;
     }
+
     /**
      * return the userID given the user object
      * @param user the given entities.User object
@@ -117,15 +131,15 @@ public abstract class UserManager implements Serializable{
      * return a entities.User object if the entities.User has the correct password, username, and type and return null otherwise
      * @param username the username given by the user
      * @param password the password given by the user
-     * @return the user if it has the correct password, username and type and null otherwise
+     * @return the userID if it has the correct password, username and type and -100 otherwise
      */
-    public User validate(String username, String password){
+    public int validate(String username, String password){
         for (User user: users){
             if (user.getUserName().equals(username) && user.getPassWord().equals(password)){
-                return user;
+                return getIDByUser(user);
             }
         }
-        return null;
+        return -100;
     }
 
     public boolean hasUserName(String username)

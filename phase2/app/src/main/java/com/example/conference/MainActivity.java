@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
 //                }
                     String username = username1.getText().toString();
                     String password = password1.getText().toString();
-                    Object obj = presenter.validate1(username, password);
+                    Object obj = presenter.validate(username, password);
                     if (obj!= null)
                     {
                         Toast.makeText(this, "Login successfully!!", Toast.LENGTH_SHORT).show();

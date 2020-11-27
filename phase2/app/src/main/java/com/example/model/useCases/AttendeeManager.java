@@ -1,6 +1,7 @@
 package com.example.model.useCases;
 
 import com.example.model.entities.Attendee;
+import com.example.model.entities.User;
 
 import java.io.*;
 
@@ -9,18 +10,6 @@ public class AttendeeManager extends UserManager implements Serializable{
     public AttendeeManager()
     {
         super();
-    }
-    /**
-     * creates a new attendee object and returns it
-     * @param name entities.User's real name
-     * @param username entities.User's username
-     * @param password entities.User's password
-     * @param userID entities.User's ID
-     * @return the user object that we created
-     */
-
-    public Attendee createAttendee(String name, String username, String password, int userID){
-        return new Attendee(name, username, password, userID);
     }
 
     /**
@@ -59,5 +48,25 @@ public class AttendeeManager extends UserManager implements Serializable{
         // serialize the useCases.UserManager
         output.writeObject(this);
         output.close();
+    }
+    /**
+     * create a new user and add user to list
+     * @param name
+     * @param userName
+     * @param password
+     * @param ID
+     * @return true if and only if the user is successfully added to the list
+     */
+    public boolean createAttendee(String name, String userName, String password, int ID)
+    {
+        User user = new Attendee(name, userName, password, ID);
+        if (addUser(user.getUserId()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

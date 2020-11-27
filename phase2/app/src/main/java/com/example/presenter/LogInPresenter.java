@@ -36,7 +36,7 @@ public class LogInPresenter implements Serializable {
         rm = gateway.readRoom("src/main/java/com/example/model/useCases/roommanager.ser");
         em = gateway.readEvent("src/main/java/com/example/model/useCases/eventanager.ser");
         mm = gateway.readMessage("src/main/java/com/example/model/useCases/messagemanager.ser");
-        om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1));
+        om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1).getUserId());
         gateway.setManagers(am, om, sm);
 
     }
@@ -45,25 +45,20 @@ public class LogInPresenter implements Serializable {
         this.view = view;
     }
 
-    public boolean validate(UserManager um, String username, String password)
+    public Object validate(String username, String password)
     {
-        User user =  um.validate(username, password);
-        return !(user == null);
-    }
-    public Object validate1(String username, String password)
-    {
-        User user =  am.validate(username, password);
-        if (!(user == null))
+        int user =  am.validate(username, password);
+        if (!(user == -100))
         {
             return AttendeeMenu.class;
         }
         user = om.validate(username, password);
-        if (!(user == null))
+        if (!(user == -100))
         {
             return OrganizerMenu.class;
         }
         user = sm.validate(username, password);
-        if (!(user == null))
+        if (!(user == -100))
         {
             return SpeakerMenu.class;
         }
@@ -73,24 +68,24 @@ public class LogInPresenter implements Serializable {
     /**
      * Initializes the contacts list of the given new Attendee and add the given new Attendee to the contacts list of
      * other users if they are allowed to contact him.
-     * @param newAttendee the Attendee whose contacts list we want to initialize
+     * @param userID the Attendee whose contacts list we want to initialize
      */
-    public void initializeAttendeeContactsList(Attendee newAttendee){
-        for (User attendee: am.getUsers()){
+    public void initializeAttendeeContactsList(int userID){
+
+        for (int attendee: am.getUserIDs()){
             // Add every attendee to this new attendee's contact list
-            am.addToContactsList(newAttendee, am.getIDByUser(attendee));
+            am.addToContactsList(userID, attendee);
             // Add this new attendee's to every attendee's contact list
-            am.addToContactsList(attendee, am.getIDByUser(newAttendee));
+            am.addToContactsList(attendee, userID);
 
         }
-        for (User speaker: sm.getUsers()){
-
+        for (int speaker: sm.getUserIDs()){
             // Add every speaker to this new attendee's contact list
-            am.addToContactsList(newAttendee, sm.getIDByUser(speaker));
+            am.addToContactsList(userID, speaker);
         }
-        for (User organizer: om.getUsers()){
+        for (int organizer: om.getUserIDs()){
             // Add this new attendee to each organizer's contact list
-            om.addToContactsList(organizer, am.getIDByUser(newAttendee));
+            om.addToContactsList(organizer, userID);
         }
 
     }
@@ -105,10 +100,14 @@ public class LogInPresenter implements Serializable {
             view.pushMessage("Username already exists. Please enter another one!");
             return false;
         }
-        Attendee newAccount = am.createAttendee(name, userName, password, getNewID());
-        initializeAttendeeContactsList(newAccount);
-        am.addUser(newAccount);
-        return true;
+        int newID = getNewID();
+        boolean created = am.createAttendee(name, userName, password, newID);
+        if (created)
+        {
+            initializeAttendeeContactsList(newID);
+            return true;
+        }
+        return false;
     }
 
     public int getNewID(){
