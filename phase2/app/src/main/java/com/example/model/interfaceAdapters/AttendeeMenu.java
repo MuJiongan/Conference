@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AttendeeMenu extends UserMenu implements UserController{
 
@@ -158,7 +159,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * otherwise
      */
     // receiverID has to be in the user's contact list
-    //TODO
     public boolean sendMessage(int receiverID, String messageContent){
             boolean canSend = false;
             Message message = getMessageManager().createMessage(messageContent, this.getUser(), receiverID);
@@ -226,9 +226,17 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * return an ArrayList of all events in the conference
      * @return return an ArrayList of all events in the conference
      */
-    public ArrayList<Event> viewAllEvents()
+    public String viewAllEvents()
     {
-        return getEventManager().getEvents();
+        List<Integer> eventIDs = getEventManager().getEvents();
+        String output ="";
+        for (int ID: eventIDs)
+        {
+            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+            +"\n";
+        }
+        return output;
     }
 
     /**

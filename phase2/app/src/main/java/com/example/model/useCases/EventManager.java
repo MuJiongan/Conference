@@ -6,6 +6,7 @@ import com.example.model.entities.Room;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventManager implements Serializable{
 
@@ -60,11 +61,17 @@ public class EventManager implements Serializable{
     }
 
     /**
-     * Returns the shallow copy of all events in a list
-     * @return the shallow copy of all events in a list
+     * Returns the string representation of all the events
+     * @return the string representation of all the events
      */
-    public ArrayList<Event> getEvents() {
-        return (ArrayList<Event>) events.clone();
+    public List<Integer> getEvents() {
+        List<Integer> eventIDs = new ArrayList<>();
+        for (Event e: events)
+        {
+            eventIDs.add(getIDByEvent(e));
+        }
+        return (List<Integer>) ((ArrayList<Integer>) eventIDs).clone();
+
     }
 
 

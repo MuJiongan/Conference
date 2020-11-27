@@ -3,6 +3,7 @@ package com.example.model.useCases;
 import com.example.model.entities.User;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -202,5 +203,6 @@ public abstract class UserManager implements Serializable{
         User user = getUserByID(userID);
         return user.getContactList();
     }
+
 
 }
