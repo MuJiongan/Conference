@@ -8,8 +8,10 @@ import com.example.model.useCases.*;
 import java.util.ArrayList;
 
 public class SpeakerController extends UserController{
-    public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
+    private View view;
+    public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
         super(am, om, sm, rm, em, mm, userID);
+        this.view = view;
     }
 
 
@@ -72,8 +74,12 @@ public class SpeakerController extends UserController{
         for (int userID: getEventManager().getUserIDs(eventID))
         {
             sendMessage(userID, content);
-            Presenter.print("Messages sent");
+            view.pushMessage("Messages sent");
         }
+    }
+
+    public interface View {
+        void pushMessage(String info);
     }
 
 
