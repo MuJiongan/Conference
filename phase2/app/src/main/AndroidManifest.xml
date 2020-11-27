@@ -24,6 +24,7 @@
         <activity android:name="com.example.conference.viewContactListActivity"/>
         <activity android:name="com.example.conference.manageMyAccountActivity"/>
         <activity android:name="com.example.conference.OrganizerMenu"/>
+        <activity android:name="com.example.conference.SpeakerMenu"/>
     </application>
 
 </manifest>
