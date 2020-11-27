@@ -40,8 +40,7 @@ public class SpeakerMenu extends Activity implements View.OnClickListener{
                 break;
             case R.id.social:
                 Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
-                Intent myIntent5 = new Intent(v.getContext(), viewContactListActivity.class);
-                //TODO change this to social
+                Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
                 startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:

@@ -74,7 +74,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * remove an eventID from the list of all events the user is going to cancel
-     * @param user the given entities.User object
+     * @param userID the given entities.User object
      * @param eventID ID of the event the user is going to cancel
      * @return true if and only if the user is successfully removed from the list
      */
@@ -95,7 +95,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * add a messageID to the messages hashmap for user
-     * @param user the given entities.User object
+     * @param userID the given entities.User object
      * @param messageID ID of the message the user is sending
      * @param otherID the other user's ID the user is chatting to
      */
@@ -105,7 +105,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return a list of all events the user is going to attend
-     * @param user the given entities.User object
+     * @param userID the given entities.User object
      * @return a list of all events the user is going to attend
      */
     public ArrayList<Integer> getEventList(int userID){
@@ -154,7 +154,7 @@ public abstract class UserManager implements Serializable{
     }
     /**
      * return the HashMap Messages given the userID
-     * @param user object of which user to access
+     * @param userID object of which user to access
      * @return the HashMap Messages
      */
     public HashMap<Integer, ArrayList<Integer>> getMessages(int userID){
@@ -173,7 +173,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * add the user to the user's contact list with its ID
-     * @param user who will add a user to contact list
+     * @param userID who will add a user to contact list
      * @param newID of user
      */
     public void addToContactsList(int userID, int newID)
@@ -184,7 +184,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * change the user's name to the given name
-     * @param user who will change name
+     * @param userID who will change name
      * @param name of user
      */
     public void setName(int userID, String name)
@@ -195,7 +195,7 @@ public abstract class UserManager implements Serializable{
 
     /**
      * return a list of users' IDs that in the user's contact list
-     * @param user user whose contactList is returned
+     * @param userID user whose contactList is returned
      * @return a list of users' IDs that in the user's contact list
      */
     public ArrayList<Integer> getContactList(int userID){

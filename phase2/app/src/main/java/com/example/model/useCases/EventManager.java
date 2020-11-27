@@ -17,7 +17,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return the start time of the given event
-     * @param event that will be held
+     * @param eventID that will be held
      * @return the start time of the given event
      */
     public LocalDateTime getStartTime(int eventID)
@@ -28,7 +28,7 @@ public class EventManager implements Serializable{
 
     /**
      * Change the start time of the event to the given time
-     * @param event which start time will be changed
+     * @param eventID which start time will be changed
      * @param time that will be set as start time
      */
     public void setStartTime(int eventID, LocalDateTime time)
@@ -39,7 +39,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return the end time of the given event
-     * @param event that will be held
+     * @param eventID that will be held
      * @return the end time of the given event
      */
     public LocalDateTime getEndTime(int eventID)
@@ -50,7 +50,7 @@ public class EventManager implements Serializable{
 
     /**
      * Change the end time of the event to the given time
-     * @param event which end time will be changed
+     * @param eventID which end time will be changed
      * @param time that will be set as end time
      */
     public void setEndTime(int eventID, LocalDateTime time)
@@ -121,7 +121,7 @@ public class EventManager implements Serializable{
     /**
      * add a userID to the list of all attendees in the event
      * @param userID ID of entities.Attendee to be added
-     * @param event in which event the attendee is being added
+     * @param eventID in which event the attendee is being added
      * @return true if and only if the attendee is successfully added to the list
      */
     public boolean addUserID(int userID, int eventID){
@@ -139,7 +139,7 @@ public class EventManager implements Serializable{
     /**
      * add a speakerID to the list of all speakers in the event
      * @param speakerID the ID of entities.Speaker that entities.Event to be added
-     * @param event in which event the speaker is being added
+     * @param eventID in which event the speaker is being added
      * @return true if and only if the speaker is successfully added to the list
      */
     public boolean addSpeakerID(int speakerID, int eventID){
@@ -160,7 +160,7 @@ public class EventManager implements Serializable{
     /**
      * Remove an entities.Attendee's ID from the list of all attendees of the event
      * @param userID ID of entities.Attendee to be removed
-     * @param event in which event the entities.Attendee is being removed
+     * @param eventID in which event the entities.Attendee is being removed
      * @return true if and only if the entities.Attendee is successfully removed
      */
     public boolean removeUserID(int userID, int eventID) {
@@ -209,8 +209,8 @@ public class EventManager implements Serializable{
 
     /**
      * change the room ID to a new ID of a given event
-     * @param room new entities.Room
-     * @param event in which event the roomID is being changed
+     * @param roomID new entities.Room
+     * @param eventID in which event the roomID is being changed
      */
     public void changeRoomID(int roomID, int eventID){
         Event event = getEventByID(eventID);
@@ -270,7 +270,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return a list of all attendees of the given event
-     * @param event that attendees will attend
+     * @param eventID that attendees will attend
      * @return a list of all attendees of the given entities.Event
      */
     public ArrayList<Integer> getUserIDs(int eventID){
@@ -281,7 +281,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return a list of all speakers of the given event
-     * @param event that speakers will speak
+     * @param eventID that speakers will speak
      * @return a list of all speakers of the given entities.Event
      */
     public ArrayList<Integer> getSpeakerIDs(int eventID){
@@ -291,7 +291,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return the capacity of the room that holds the given event
-     * @param event that will be held
+     * @param eventID that will be held
      * @return the capacity of the room that holds the given entities.Event
      */
     public int getCapacity(int eventID){
@@ -301,7 +301,7 @@ public class EventManager implements Serializable{
 
     /**
      * Return the ID of the room that holds the given event
-     * @param event that will be held
+     * @param eventID that will be held
      * @return Return the ID of the room that holds the given entities.Event
      */
     public int getRoomID(int eventID){
@@ -310,7 +310,7 @@ public class EventManager implements Serializable{
     }
     /**
      * Return the the number of attendees in the given event
-     * @param event the we want to know the number of attendees
+     * @param eventID the we want to know the number of attendees
      * @return Return the number of attendees in the given event
      */
     public int getNumOfAttendee(int eventID){

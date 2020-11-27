@@ -41,7 +41,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Returns the id of the entities.Room corresponding to the entities.Room object parameter
-     * @param room The room that we want to get corresponding ID of
+     * @param roomID The room that we want to get corresponding ID of
      * @return ID of corresponding entities.Room, -1 if entities.Room not found
      */
     public int getIDbyRoom(Room room)
@@ -58,7 +58,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Add a new entities.Room to the list of all entities.Room in the conference
-     * @param room entities.Room to add to list
+     * @param roomID entities.Room to add to list
      * @return True if room was succesfully added, false otherwise
      */
     public boolean addRoom(int roomID)
@@ -74,7 +74,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Get the capacity of a certain entities.Room r
-     * @param r entities.Room's capacity we want
+     * @param roomID entities.Room's capacity we want
      * @return the capacity of entities.Room r
      */
     public int getCapacity(int roomID)
@@ -85,7 +85,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Return the list of event ID's for a certain entities.Room r
-     * @param r entities.Room's event ID's we want
+     * @param roomID entities.Room's event ID's we want
      * @return list of event ID's for entities.Room r
      */
     public ArrayList<Integer> getSchedule(int roomID)
@@ -97,7 +97,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Schedules an event in entities.Room r, assumes that event is valid for that specific room
-     * @param r Represents the room where event will happen
+     * @param roomID Represents the room where event will happen
      * @param event Represents the event ID of entities.Event we want to schedule
      */
     public void scheduleEvent (int roomID, int event)
@@ -121,7 +121,7 @@ public class RoomManager implements Serializable {
     }
     /**
      * Get the room name
-     * @param room .Room
+     * @param roomID .Room
      * @return the name of entities.Room room
      */
     public String getRoomName(int roomID){

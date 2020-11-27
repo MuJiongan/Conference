@@ -22,7 +22,7 @@ public class MessageManager implements Serializable{
 
     /**
      * add a new entities.Message to messages
-     * @param message message to be added
+     * @param messageID message to be added
      * @return true if and only if the message is successfully added to the message list
      */
     public boolean addMessage(int messageID){

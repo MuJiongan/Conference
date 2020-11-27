@@ -36,7 +36,7 @@ public abstract class UserMenu {
     /**
      * Store the current user
      */
-    private User user;
+    private int userID;
     /**
      * Store the current Manager of the current user
      */
@@ -50,22 +50,22 @@ public abstract class UserMenu {
      * @param rm the instance of <code>RoomManager</code> in the conference
      * @param em the instance of <code>EventManager</code> in the conference
      * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param user a instance of <code>User</code> that simulate the user on the keyboard
+     * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public UserMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
+    public UserMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
         this.am = am;
         this.om = om;
         this.sm = sm;
         this.rm = rm;
         this.em = em;
         this.mm = mm;
-        this.user = user;
+        this.userID = userID;
 
-        if (this.am.getUsers().contains(this.user))
+        if (this.am.idInList(this.userID))
         {
            currentManager = this.am;
         }
-        else if (this.om.getUsers().contains((this.user)))
+        else if (this.om.idInList((this.userID)))
         {
            currentManager = this.om;
         }
@@ -82,18 +82,18 @@ public abstract class UserMenu {
      * @return true iff the message is successfully sent
      */
     public boolean sendMessage(int receiverID, Message message){
-        currentManager.addMessageID(mm.getIdByMessage(message), user, receiverID);
+        currentManager.addMessageID(mm.getIdByMessage(message), userID, receiverID);
         //um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
         // Remember to add recevied message in sendMessage extension
         return true;
     }
 
     /**
-     * Return the current user
-     * @return the current user
+     * Return the current userID
+     * @return the current userID
      */
-    public User getUser() {
-        return user;
+    public int getUser() {
+        return userID;
     }
 
     /**
@@ -158,15 +158,12 @@ public abstract class UserMenu {
     }
 
     /**
-     * Return list of all Events the user is going to attend
-     * @return list of all Events the user is going to attend
+     * Return list of all EventIDs the user is going to attend
+     * @return list of all EventIDs the user is going to attend
      */
-    public ArrayList<Event> viewMyEvents() {
-        ArrayList<Event> eventsTheyAttended = new ArrayList<>();
-        for (Integer eventID : getUser().getEventsAttend()) {
-            eventsTheyAttended.add(getEventManager().getEventByID(eventID));
-        }
-        return eventsTheyAttended;
+    public ArrayList<Integer> viewMyEvents() {
+        return getCurrentManager().getEventList(getUser());
+
     }
 
     /**
@@ -175,7 +172,7 @@ public abstract class UserMenu {
      * @return true iff the given friend's ID is in the contact list of the current user
      */
     public boolean hasContact(int friendID){
-        return currentManager.getContactList(user).contains(friendID);
+        return currentManager.getContactList(userID).contains(friendID);
     }
 
     /**
@@ -193,7 +190,7 @@ public abstract class UserMenu {
      * @return true iff the given event's ID is in the event list of the current user
      */
     public boolean hasMyEvent(int eventID){
-        return currentManager.getEventList(user).contains(eventID);
+        return currentManager.getEventList(userID).contains(eventID);
     }
 
     /**
@@ -201,7 +198,8 @@ public abstract class UserMenu {
      * @param friendID ID of the friend that the current user is chatting to
      */
     public void readAllMessage(int friendID) {
-        for(Integer messageID:getUser().getMessages().get(friendID)){
+        // TODO: How to handle this null-pointer exception
+        for(Integer messageID:getCurrentManager().getMessages(userID).get(friendID)){
             Message message = getMessageManager().getMessageById(messageID);
             if(message.getSenderID() == friendID){
                 getMessageManager().changeMessageCondition(messageID);

@@ -34,8 +34,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener{
                 startActivityForResult(myIntent2, 0);
                 break;
             case R.id.createaccount:
-                Intent accountIntent = new Intent(v.getContext(), seeMyEventsActivity.class);
-                //TODO Change this to social
+                Intent accountIntent = new Intent(v.getContext(), SocialNetworking.class);
                 startActivityForResult(accountIntent, 0);
                 break;
             case R.id.manage:
@@ -50,8 +49,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener{
                 break;
             case R.id.social:
                 Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
-                Intent myIntent5 = new Intent(v.getContext(), viewContactListActivity.class);
-                // TODO social
+                Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
                 startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:

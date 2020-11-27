@@ -19,10 +19,10 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * @param rm the instance of <code>RoomManager</code> in the conference
      * @param em the instance of <code>EventManager</code> in the conference
      * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param user a instance of <code>User</code> that simulate the user on the keyboard
+     * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
-        super(am, om, sm, rm, em, mm, user);
+    public AttendeeMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
+        super(am, om, sm, rm, em, mm, userID);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     public ArrayList<Event> eventsTheyCanSignUpFor(){
         ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
         for (Event event: getEventManager().getEvents()){
-            if (canSignUp(event)){
+            if (canSignUp(eventID)){
                 eventsTheyCanSignUpFor.add(event);
             }
         }
@@ -44,21 +44,21 @@ public class AttendeeMenu extends UserMenu implements UserController{
 
     /**
      * Return true if user can sign up and false otherwise
-     * @param event event that the user on the keyboard want to sign up now
+     * @param eventID event that the user on the keyboard want to sign up now
      * @return return true if there is a vacancy in the give event and the event wanted to sign up now doesn't conflict
      * with the given registered event
      */
 
-    private boolean canSignUp(Event event){
-        LocalDateTime startTime = getEventManager().getStartTime(event);
-        LocalDateTime endTime = getEventManager().getEndTime(event);
-        int vacancy = getEventManager().getCapacity(event) - getEventManager().getSpeakerIDs(event).size()
-                - getEventManager().getUserIDs(event).size();
+    private boolean canSignUp(int eventID){
+        LocalDateTime startTime = getEventManager().getStartTime(eventID);
+        LocalDateTime endTime = getEventManager().getEndTime(eventID);
+        int vacancy = getEventManager().getCapacity(eventID) - getEventManager().getSpeakerIDs(eventID).size()
+                - getEventManager().getUserIDs(eventID).size();
         // the event capacity - number of speakers - number of attendees
         for (Integer eventToSignUpFor: getCurrentManager().getEventList(getUser())){
-            Event actualEventToSignUpFor = getEventManager().getEventByID(eventToSignUpFor);
-            LocalDateTime newStartTime = getEventManager().getStartTime(actualEventToSignUpFor);
-            LocalDateTime newEndTime = getEventManager().getEndTime(actualEventToSignUpFor);
+
+            LocalDateTime newStartTime = getEventManager().getStartTime(eventToSignUpFor);
+            LocalDateTime newEndTime = getEventManager().getEndTime(eventToSignUpFor);
             // get startime and endtime of a specific event that user has already signed up
             if (!checkTime(startTime, endTime, newStartTime, newEndTime)|| vacancy == 0){
 
@@ -117,33 +117,32 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Event doesn't exist");
             return false;
         }
-        Event event1 = getEventManager().getEventByID(eventID);
-        if (getUser().getEventsAttend().contains(eventID)){
+        if (getCurrentManager().getEventList(getUser()).contains(eventID)){
             Presenter.print("You already signed up for this event.");
             return false;
         }
 
-        if (getEventManager().getCapacity(event1) - getEventManager().getUserIDs(event1).size() <= 0){
+        if (getEventManager().getCapacity(eventID) - getEventManager().getUserIDs(eventID).size() <= 0){
             Presenter.print("The event is already full.");
             return false;
         }
-        if (!canSignUp(event1)){
+        if (!canSignUp(eventID)){
             Presenter.print("You already signed up for an event at that time.");
             return false;
 
         }
             else{
-            getUser().addEvent(eventID);
-            getEventManager().addUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+            getCurrentManager().addEventID(getUser(), eventID);
+            getEventManager().addUserID(getUser(), eventID);
             // add the attendee to the speaker's contact list
             Event event = getEventManager().getEventByID(eventID);
-            ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(event);
+            ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
             for (Integer speakerID: speakerIDs){
-                User speaker = getSpeakerManager().getUserByID(speakerID);
-                int userID = getCurrentManager().getIDByUser(getUser());
+
+
                 // Check if the attendee is already in speaker's contact list
-                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
-                getSpeakerManager().addToContactsList(speaker, userID);}
+                if (!getSpeakerManager().getContactList(speakerID).contains(getUser())){
+                getSpeakerManager().addToContactsList(speakerID, getUser());}
             }
             Presenter.print("Successfully signed up!");
             return true;
@@ -159,15 +158,16 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * otherwise
      */
     // receiverID has to be in the user's contact list
+    //TODO
     public boolean sendMessage(int receiverID, String messageContent){
             boolean canSend = false;
-            Message message = getMessageManager().createMessage(messageContent, this.getUser().getUserId(), receiverID);
+            Message message = getMessageManager().createMessage(messageContent, this.getUser(), receiverID);
 
             if (getAttendeeManager().idInList(receiverID)) {
                 canSend = true;
                 getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
                 getAttendeeManager().addMessageID(message.getMessageID(), getAttendeeManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
-                getMessageManager().addMessage(message);
+                getMessageManager().addMessage(messageID);
             }
 //            else if (getOrganizerManager().idInList(receiverID))
 //            {
@@ -211,9 +211,9 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * @return return true if the given event is canceled successfully, and false if fails.
      */
     public boolean cancelEnrollment(int eventID){
-        if (getUser().getEventsAttend().contains(eventID)||getEventManager().getEventByID(eventID) != null) {
-            getUser().removeEvent(eventID);
-            getEventManager().removeUserID(getUser().getUserId(), getEventManager().getEventByID(eventID));
+        if (getCurrentManager().getEventList(getUser()).contains(eventID)||getEventManager().getEventByID(eventID) != null) {
+            getCurrentManager().removeEventID(getUser(), eventID);
+            getEventManager().removeUserID(getUser(), getEventManager().getEventByID(eventID));
             Presenter.print("Cancellation successful!");
             return true;
         }else{
@@ -389,7 +389,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
      */
     public void runManageAccount() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Presenter.print("Current name: " + this.getUser().getName());
+        Presenter.print("Current name: " + getCurrentManager().getnameById(getUser()));
         Presenter.print("1. Change my name \n2. Go back to the main menu");
         try{
             String input = br.readLine();
@@ -399,7 +399,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
                     String input2 = br.readLine();
                     getAttendeeManager().setName(getUser(), input2);
                 }
-                Presenter.print("Current name: " + this.getUser().getName());
+                Presenter.print("Current name: " + getCurrentManager().getnameById(getUser()));
                 Presenter.print("1. Change my name \n2. Go back to the main menu");
                 input = br.readLine();
             }
