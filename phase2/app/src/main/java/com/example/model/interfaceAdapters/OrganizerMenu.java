@@ -323,6 +323,54 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         getEventManager().setCapacity(eventID, capacity);
     }
 
+    /**
+     * Cancel Event
+     *  - Remove the EventID from all User signed up for the Event
+     *  - Remove all the UserID from the Event
+     * @param eventID id of Event to be cancelled
+     */
+    public void cancelEvent(int eventID){
+        removeEventFromUser(eventID);
+        removeUserFromEvent(eventID);
+    }
+
+    /**
+     * Remove the ID of Event which will be cancelled from Users attending the Event
+     * @param eventID the id of Event to be cancelled
+     * @return true if and only if the EventID is successfully removed from list of all Users
+     */
+    public boolean removeEventFromUser(int eventID){
+        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        boolean removeAttendee;
+        boolean removeSpeaker;
+        boolean removeOrganizer;
+        for (Integer userID : userIDs) {
+            getEventManager().removeUserID(userID, eventID);
+            removeAttendee = getAttendeeManager().removeEventID(eventID, userID);
+            removeSpeaker = getSpeakerManager().removeEventID(eventID, userID);
+            removeOrganizer = getOrganizerManager().removeEventID(eventID, userID);
+            if(!removeAttendee && !removeSpeaker && !removeOrganizer){ //userID not valid
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Remove all Users who signed up for the event from the list
+     * @param eventID the id of Event to be cancelled
+     * @return true if and only if all UserIDs are successfully removed from the list
+     */
+    public boolean removeUserFromEvent(int eventID){
+        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        for(Integer userID: userIDs){
+            if(!getEventManager().removeUserID(userID, eventID)){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * run the organizer main menu
