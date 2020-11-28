@@ -322,6 +322,16 @@ public class EventManager implements Serializable{
     }
 
     /**
+     * Change the capacity of the room that holds the given event
+     * @param eventID that will be held
+     * @param capacity the new capacity of the room that hold the given Event
+     */
+    public void setCapacity(int eventID, int capacity){
+        Event event = getEventByID(eventID);
+        event.setCapacity(capacity);
+    }
+
+    /**
      * Return the ID of the room that holds the given event
      * @param eventID that will be held
      * @return Return the ID of the room that holds the given entities.Event
