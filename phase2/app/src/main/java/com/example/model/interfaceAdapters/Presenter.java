@@ -119,10 +119,10 @@ public class Presenter {
         System.out.println("Here are your scheduled events:");
         System.out.printf("%-15s %-15s %43s %11s %n", heading1, heading2, heading3, heading4);
         for (Event event : eventsTheyAttended) {
-            int roomID = em.getRoomID(event);
+            int roomID = em.getRoomID(event.getEventID());
             Room room = rm.getRoomByID(roomID);
-            System.out.printf("%-15s %-10s %10s %20s %n", em.getIDByEvent(event) + "." + em.getName(event), em.getStartTime(event) + " "
-                    + em.getEndTime(event) + " ", em.getNumOfAttendee(event), rm.getRoomName(room));
+            System.out.printf("%-15s %-10s %10s %20s %n", em.getIDByEvent(event) + "." + em.getName(event.getEventID()), em.getStartTime(event.getEventID()) + " "
+                    + em.getEndTime(event.getEventID()) + " ", em.getNumOfAttendee(event.getEventID()), rm.getRoomName(room.getRoomID()));
         }
         System.out.println(divider);
     }
@@ -144,10 +144,10 @@ public class Presenter {
         System.out.println("Here are all the scheduled events:");
         System.out.printf("%-15s %-35s %-15s %-15s %n", heading1, heading2, heading3, heading4);
         for (Event event : allEventsInSystem) {
-            int roomID = em.getRoomID(event);
+            int roomID = em.getRoomID(event.getEventID());
             Room room = rm.getRoomByID(roomID);
-            System.out.printf("%-15s %-15s %-15s %-15s %n", em.getIDByEvent(event) + "." + em.getName(event), em.getStartTime(event) + " "
-                    + em.getEndTime(event) + " ", em.getVacancy(event) + " ", rm.getRoomName(room));
+            System.out.printf("%-15s %-15s %-15s %-15s %n", em.getIDByEvent(event) + "." + em.getName(event.getEventID()), em.getStartTime(event.getEventID()) + " "
+                    + em.getEndTime(event.getEventID()) + " ", em.getVacancy(event.getEventID()) + " ", rm.getRoomName(room.getRoomID()));
         }
         System.out.println(divider);
     }
@@ -182,7 +182,7 @@ public class Presenter {
         System.out.println(" ");
         System.out.printf("%-4s %n", heading);
         for (Room room : rooms) {
-            System.out.println(rm.getIDbyRoom(room) + "." + rm.getRoomName(room));
+            System.out.println(rm.getIDbyRoom(room) + "." + rm.getRoomName(room.getRoomID()));
 
         }
     }

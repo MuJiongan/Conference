@@ -35,9 +35,9 @@ public class AttendeeMenu extends UserMenu implements UserController{
      */
     public ArrayList<Event> eventsTheyCanSignUpFor(){
         ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
-        for (Event event: getEventManager().getEvents()){
+        for (int eventID: getEventManager().getEvents()){
             if (canSignUp(eventID)){
-                eventsTheyCanSignUpFor.add(event);
+                eventsTheyCanSignUpFor.add(getEventManager().getEventByID(eventID));
             }
         }
         return eventsTheyCanSignUpFor;
@@ -161,12 +161,12 @@ public class AttendeeMenu extends UserMenu implements UserController{
     // receiverID has to be in the user's contact list
     public boolean sendMessage(int receiverID, String messageContent){
             boolean canSend = false;
-            Message message = getMessageManager().createMessage(messageContent, this.getUser(), receiverID);
+            int messageID = getMessageManager().createMessage(messageContent, this.getUser(), receiverID);
 
             if (getAttendeeManager().idInList(receiverID)) {
                 canSend = true;
-                getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
-                getAttendeeManager().addMessageID(message.getMessageID(), getAttendeeManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
+                getAttendeeManager().addMessageID(messageID, getUser(), receiverID);
+                getAttendeeManager().addMessageID(messageID, getAttendeeManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
                 getMessageManager().addMessage(messageID);
             }
 //            else if (getOrganizerManager().idInList(receiverID))
@@ -177,14 +177,13 @@ public class AttendeeMenu extends UserMenu implements UserController{
 //            } Attendees cant message organizers
             else if (getSpeakerManager().idInList(receiverID)){
                 canSend = true;
-                getAttendeeManager().addMessageID(message.getMessageID(), getUser(), receiverID);
-                getSpeakerManager().addMessageID(message.getMessageID(), getSpeakerManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
-                getMessageManager().addMessage(message);
+                getAttendeeManager().addMessageID(messageID, getUser(), receiverID);
+                getSpeakerManager().addMessageID(messageID, getSpeakerManager().getUserByID(receiverID), getAttendeeManager().getIDByUser(getUser()));
+                getMessageManager().addMessage(messageID);
                 // Add the attendee to speaker's contact list (if doesn't exist)
-                User speaker = getSpeakerManager().getUserByID(receiverID);
-                int userID = getCurrentManager().getIDByUser(getUser());
-                if (!getSpeakerManager().getContactList(speaker).contains(userID)){
-                    getSpeakerManager().addToContactsList(speaker, userID);
+                int userID = getUser();
+                if (!getSpeakerManager().getContactList(receiverID).contains(userID)){
+                    getSpeakerManager().addToContactsList(receiverID, userID);
                 }
 
             }
@@ -194,7 +193,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             }
             else{
                 Presenter.print("Messages sent");
-                getMessageManager().addMessage(message);
+                getMessageManager().addMessage(messageID);
                 return true;
             }
 //          information updated:
@@ -213,7 +212,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
     public boolean cancelEnrollment(int eventID){
         if (getCurrentManager().getEventList(getUser()).contains(eventID)||getEventManager().getEventByID(eventID) != null) {
             getCurrentManager().removeEventID(getUser(), eventID);
-            getEventManager().removeUserID(getUser(), getEventManager().getEventByID(eventID));
+            getEventManager().removeUserID(getUser(), eventID);
             Presenter.print("Cancellation successful!");
             return true;
         }else{

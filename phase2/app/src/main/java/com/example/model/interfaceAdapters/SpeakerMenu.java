@@ -19,10 +19,10 @@ public class SpeakerMenu extends UserMenu implements UserController{
      * @param rm the instance of <code>RoomManager</code> in the conference
      * @param em the instance of <code>EventManager</code> in the conference
      * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param user a instance of <code>User</code> that simulate the user on the keyboard
+     * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, User user){
-        super(am, om, sm, rm, em, mm, user);
+    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
+        super(am, om, sm, rm, em, mm, userID);
     }
 
     /**
@@ -35,8 +35,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
         ArrayList<Integer> talks = this.getSpeakerManager().getEventList(this.getUser());
         for (int x: talks)
         {
-            Event talk = this.getEventManager().getEventByID(x);
-            ArrayList<Integer> people = this.getEventManager().getUserIDs(talk);
+            ArrayList<Integer> people = this.getEventManager().getUserIDs(x);
             if (people.contains(receiverID))
             {
                 return true;
@@ -55,19 +54,19 @@ public class SpeakerMenu extends UserMenu implements UserController{
     {
         if (canSend(receiverID))
         {
-            Message message = getMessageManager().createMessage(messageContent, this.getUser().getUserId(), receiverID);
-            getMessageManager().addMessage(message);
+            int messageID = getMessageManager().createMessage(messageContent, this.getUser(), receiverID);
+            getMessageManager().addMessage(messageID);
             //Add message to receiver's hashmap
             if (getAttendeeManager().idInList(receiverID)) {
-                getAttendeeManager().addMessageID(message.getMessageID(),getAttendeeManager().getUserByID(receiverID), getSpeakerManager().getIDByUser(getUser()));
+                getAttendeeManager().addMessageID(messageID,receiverID, getUser());
             }
             else if (getOrganizerManager().idInList(receiverID))
             {
-                getOrganizerManager().addMessageID(message.getMessageID(),getOrganizerManager().getUserByID(receiverID), getSpeakerManager().getIDByUser(getUser()));
+                getOrganizerManager().addMessageID(messageID,receiverID, getUser());
             }
             //add message to this user's hashmap
-            super.sendMessage(receiverID, message);
-            getMessageManager().addMessage(message);
+            super.sendMessage(receiverID, getMessageManager().getMessageById(messageID));
+            getMessageManager().addMessage(messageID);
             Presenter.print("Messages sent");
             return true;
         }
@@ -85,8 +84,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
      */
     public void messageAll(int eventID, String content)
     {
-        Event event = getEventManager().getEventByID(eventID);
-        for (int userID: getEventManager().getUserIDs(event))
+        for (int userID: getEventManager().getUserIDs(eventID))
         {
             sendMessage(userID, content);
             Presenter.print("Messages sent");

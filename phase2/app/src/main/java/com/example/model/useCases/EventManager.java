@@ -91,6 +91,21 @@ public class EventManager implements Serializable{
         return true;
     }
 
+    /**
+     * remove an event to events
+     * @param eventID event to be removed
+     * @return true if and only if the event is successfully removed to the event list
+     */
+    public boolean removeEvent(int eventID){
+        Event event = getEventByID(eventID);
+        for (Event value : events) {
+            if (event == value) {
+                events.remove(event);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * return the event object given the event ID
@@ -107,7 +122,7 @@ public class EventManager implements Serializable{
     }
     /**
      * return the vacancy given the event object
-     * @param event the given entities.Event object
+     * @param eventID the given entities.Event object
      * @return the vacancy corresponding to the entities.Event object
      */
     public int getVacancy(int eventID){
@@ -192,7 +207,7 @@ public class EventManager implements Serializable{
     /**
      * Remove a entities.Speaker's ID from the list of all entities.Speaker of the event
      * @param speakerID ID of entities.Speaker to be removed
-     * @param event in which event the entities.Speaker is being removed
+     * @param eventID in which event the entities.Speaker is being removed
      * @return true if and only if the entities.Speaker is successfully removed
      */
     public boolean removeSpeakerID(int speakerID, int eventID) {
@@ -250,7 +265,7 @@ public class EventManager implements Serializable{
 
     /**
      * return the event name given the event object
-     * @param event the given entities.Event object
+     * @param eventID the given entities.Event object
      * @return the event name corresponding to the entities.Event object
      */
     public String getName (int eventID){

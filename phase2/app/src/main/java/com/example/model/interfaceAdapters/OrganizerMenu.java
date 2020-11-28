@@ -21,11 +21,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param rm the instance of <code>RoomManager</code> in the conference
      * @param em the instance of <code>EventManager</code> in the conference
      * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param user a instance of <code>User</code> that simulate the user on the keyboard
+     * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
     public OrganizerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em,
-                         MessageManager mm, User user){
-        super(am, om, sm, rm, em, mm, user);
+                         MessageManager mm, int userID){
+        super(am, om, sm, rm, em, mm, userID);
     }
 
     /**
@@ -54,22 +54,20 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     @Override
     public boolean sendMessage(int receiverID, String messageContent) {
         if (super.sendMessage(receiverID, messageContent)){
-            int organizerID = getOrganizerManager().getIDByUser(getUser());
+            int organizerID = getUser();
             // If this receiver is a speaker, add the organizer to the speaker's contact list
             if (getSpeakerManager().idInList(receiverID)){
-                User speaker = getSpeakerManager().getUserByID(receiverID);
 
                 // Check if the organizer already exists in the speaker's contact list
-                if (!getSpeakerManager().getContactList(speaker).contains(organizerID)){
-                getSpeakerManager().addToContactsList(speaker, organizerID);}
+                if (!getSpeakerManager().getContactList(receiverID).contains(organizerID)){
+                getSpeakerManager().addToContactsList(receiverID, organizerID);}
             }
             // If this receiver is an attendee, add the organizer to the attendee's contact list
             else if (getAttendeeManager().idInList(receiverID)){
-                User attendee = getAttendeeManager().getUserByID(receiverID);
 
                 // Check if the organizer already exists in the speaker's contact list
-                if (!getAttendeeManager().getContactList(attendee).contains(organizerID)){
-                    getAttendeeManager().addToContactsList(attendee, organizerID);}
+                if (!getAttendeeManager().getContactList(receiverID).contains(organizerID)){
+                    getAttendeeManager().addToContactsList(receiverID, organizerID);}
             }
             // Don't know about the organizer. I assumed organizers aren't allowed to message each other
             return true;
@@ -91,8 +89,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param capacity capacity of the room wanted to create
      */
     public void enterRoom(String name, int capacity){
-        Room newRoom = getRoomManager().createRoom(name, capacity);
-        getRoomManager().addRoom(newRoom);
+        getRoomManager().createRoom(name, capacity);
         Presenter.print("Room Succesfully added");
         //Maybe we need to check duplicate names
     }
@@ -115,11 +112,11 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         if (added){
             // Add the speaker to the attendee's contact list
             for (User attendee: getAttendeeManager().getUsers()){
-                getAttendeeManager().addToContactsList(attendee, speakerID);
+                getAttendeeManager().addToContactsList(getAttendeeManager().getIDByUser(attendee), speakerID);
             }
             // Add the speaker to the organizer's contact list
             for (User organizer: getOrganizerManager().getUsers()){
-                getOrganizerManager().addToContactsList(organizer, speakerID);
+                getOrganizerManager().addToContactsList(getOrganizerManager().getIDByUser(organizer), speakerID);
             }
             Presenter.print("Speaker successfully created");
             return true;
@@ -178,32 +175,28 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             Presenter.print("Room doesn't have enough capacity.");
             return false;
         }
-        Event event = createEvent(startTime, endTime, roomID, name, capacity);
+        int eventID = createEvent(startTime, endTime, roomID, name, capacity);
 
         if (!availableAtTime(speaker, startTime, endTime)){ //sm.availale at time (speakerID, starttime, endtime)
+            getEventManager().removeEvent(eventID);
             Presenter.print("The speaker is not available at the time");
             return false;
         }
         if (!availableInRoom(speaker, roomID, startTime, endTime)){
-
+            getEventManager().removeEvent(eventID);
             Presenter.print("The room you entered is occupied at the time");
             return false;
         }
-        if (!getEventManager().addSpeakerID(speaker.getUserId(), event)){
+        if (!getEventManager().addSpeakerID(speakerID, eventID)){
+            getEventManager().removeEvent(eventID);
             Presenter.print("You can't add this speaker. The event already has a speaker");
             return false;
 
         }
 
-        if (event == null) {
-            Presenter.print("Event is not valid!");
-            return false;
+        getSpeakerManager().addEventID(eventID, speakerID);
 
-        }
-        getEventManager().addEvent(event);
-        getSpeakerManager().addEventID(event.getEventID(), speaker);
-
-        getRoomManager().scheduleEvent(room, getEventManager().getIDByEvent(event));
+        getRoomManager().scheduleEvent(roomID, eventID);
         Presenter.print("New Event Scheduled");
         return true;
 
@@ -218,10 +211,9 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if Speaker is available to speak at specific time
      */
     public boolean availableAtTime(User speaker, LocalDateTime startTime, LocalDateTime endTime){
-        for(Integer eventID : getSpeakerManager().getEventList(speaker)){
-            Event event = getEventManager().getEventByID(eventID);
-            LocalDateTime existingStartTime = getEventManager().getStartTime(event);
-            LocalDateTime existingEndTime = getEventManager().getEndTime(event);
+        for(Integer eventID : getSpeakerManager().getEventList(speaker.getUserId())){
+            LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
+            LocalDateTime existingEndTime = getEventManager().getEndTime(eventID);
             if(!checkTime(startTime, endTime, existingStartTime, existingEndTime))
             return false;
         }
@@ -268,9 +260,8 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
     public boolean availableInRoom(User speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
         ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for(Integer eventID : events) {
-            Event event = getEventManager().getEventByID(eventID);
-            LocalDateTime existingStartTime = getEventManager().getStartTime(event);
-            LocalDateTime existingEndTime = getEventManager().getEndTime(event);
+            LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
+            LocalDateTime existingEndTime = getEventManager().getEndTime(eventID);
             if(!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;
         }
         return true;
@@ -301,7 +292,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @param name event's name
      * @return the Event object we created
      */
-    public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
+    public int createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
         return getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
     }
 
