@@ -217,6 +217,33 @@ public abstract class UserMenu {
         return size + 1;
     }
 
+//    /**
+//     * Return whether there is unread message in the chat history between the current user and the
+//     * friend
+//     * @param userID ID of the event that is going to be checked
+//     * @return true iff there's unread message in the chat history between the current user and the
+//     * friend
+//     */
+//    public boolean hasUnreadMessage(int userID, int friendID){
+//        ArrayList<Integer> messages = getCurrentManager().getMessages(userID).get(friendID);
+//        for (int messageID: messages){
+//            if (!getMessageManager().getMessageById(messageID).getMessageCondition()){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
+    /**
+     * Delete the given message from the receiver given the receiverID
+     * @param messageID the message id
+     * @return true iff the message is successfully deleted
+     */
+    public boolean deleteMessage(int receiverID, int messageID){
+        return currentManager.deleteMessage(userID, receiverID, messageID);
+    }
 
+    public void markAsUnread(int messageID){
+        getMessageManager().markAsUnread(messageID);
+    }
 }

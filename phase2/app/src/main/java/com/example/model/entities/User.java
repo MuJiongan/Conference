@@ -13,6 +13,7 @@ public class User implements Serializable {
     private HashMap<Integer, ArrayList<Integer>> message;
     private ArrayList<Integer> contactList;
     private ArrayList<Integer> eventsAttend;
+    private ArrayList<Integer> archivedMessages;
 
     /**
      * Constructs an instance of Student based on the given name, userName, password and userID
@@ -30,6 +31,7 @@ public class User implements Serializable {
         this.message = new HashMap<>();
         this.contactList = new ArrayList<>();
         this.eventsAttend = new ArrayList<>();
+        this.archivedMessages = new ArrayList<>();
     }
 
     /**
@@ -109,6 +111,21 @@ public class User implements Serializable {
 
     }
     /**
+     * Delete a message ID from the user's hashmap
+     * @param userID receiver ID
+     * @param messageID message ID
+     */
+    public boolean deleteMessage(int userID, int messageID) {
+        if(!message.containsKey(userID)){
+            return false;
+        }
+        if(!message.get(userID).contains(messageID)){
+            return false;
+        }
+        this.message.get(userID).remove(messageID);
+        return true;
+    }
+    /**
      * Returns the shallow copy of contactList of the user
      * @return shallow copy of contactList of the user
      */
@@ -163,5 +180,20 @@ public class User implements Serializable {
     public void userSetName(String name)
     {
         this.name = name;
+    }
+
+    /**
+     * Add a message ID to the user's archived messages list
+     * @param messageID message ID
+     */
+    public boolean addArchivedMessage(int messageID){
+        if(!message.containsKey(userID)){
+            return false;
+        }
+        if(!message.get(userID).contains(messageID)){
+            return false;
+        }
+        this.archivedMessages.add(messageID);
+        return true;
     }
 }

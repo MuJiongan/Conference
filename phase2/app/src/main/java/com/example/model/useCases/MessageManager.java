@@ -136,4 +136,11 @@ public class MessageManager implements Serializable{
         this.getMessageById(messageID).changeMessageCondition();
     }
 
+    /**
+     * Change the read condition of the message to false
+     * @param messageID the message ID needed to change
+     */
+    public void markAsUnread(int messageID){
+        this.getMessageById(messageID).markAsUnread();
+    }
 }

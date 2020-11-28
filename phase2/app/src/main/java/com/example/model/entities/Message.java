@@ -75,4 +75,11 @@ public class Message implements Serializable {
     public void changeMessageCondition(){
         unread = true;
     }
+
+    /**
+     * Change the read condition of the message to false
+     */
+    public void markAsUnread(){
+        unread = false;
+    }
 }
