@@ -46,6 +46,7 @@ public class Event implements Serializable {
     public int getRoomID() {
         return roomID;
     }
+
     /**
      * Returns the startTime of the event
      * @return the startTime of the event
@@ -62,6 +63,7 @@ public class Event implements Serializable {
     {
         startTime = time;
     }
+
     /**
      * Returns the endTime of the event
      * @return the endTime of the event
@@ -78,6 +80,7 @@ public class Event implements Serializable {
     {
         endTime = time;
     }
+
     /**
      * Returns the name of the event
      * @return the name of the event
@@ -85,6 +88,7 @@ public class Event implements Serializable {
     public String getName() {
         return name;
     }
+
     /**
      * Adds an speaker ID to the speakerIDs list
      * @param speakerID to be added in the entities.Event
@@ -92,6 +96,7 @@ public class Event implements Serializable {
     public void addSpeakerID(int speakerID) {
         speakerIDs.add(speakerID);
     }
+
     /**
      * Adds an user ID to the userIDs (Attendees) list
      * @param userID to be added in the entities.Event
@@ -99,6 +104,7 @@ public class Event implements Serializable {
     public void addUserID(int userID) {
         userIDs.add(userID);
     }
+
     /**
      * removes an user ID from the userIDs (Attendees) list
      * @param userID to be removed in the entities.Event
@@ -114,6 +120,7 @@ public class Event implements Serializable {
     public ArrayList<Integer> getUserIDs() {
         return (ArrayList<Integer>) userIDs.clone();
     }
+
     /**
      * Returns the shallow copy of SpeakerIDs of the event
      * @return the SpeakerIDs of the event
@@ -121,6 +128,7 @@ public class Event implements Serializable {
     public ArrayList<Integer> getSpeakerIDs() {
         return (ArrayList<Integer>) speakerIDs.clone();
     }
+
     /**
      * Returns the eventID of the event
      * @return the eventID of the event
@@ -128,6 +136,7 @@ public class Event implements Serializable {
     public int getEventID() {
         return eventID;
     }
+
     /**
      * removes an speaker ID from the speakerIDs list
      * @param speakerID to be removed in the entities.Event
@@ -136,6 +145,7 @@ public class Event implements Serializable {
         Integer speakerId = speakerID;
         speakerIDs.remove(speakerId);
     }
+
     /**
      * change the room ID of the event
      * @param roomID new roomID
@@ -143,6 +153,7 @@ public class Event implements Serializable {
     public void changeRoomID(int roomID){
         this.roomID = roomID;
     }
+
     /**
      * Returns the capacity of the event
      * @return the capacity of the event
@@ -150,10 +161,20 @@ public class Event implements Serializable {
     public int getCapacity() {
         return capacity;
     }
+
+    /**
+     * Change the capacity of the event
+     * @param capacity the new capacity of the event
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     /**
      * @return the the name of the room that hold this event
      */
     public String getRoomName(){return this.name;}
+
     /**
      * @return the number of attendees in this event
      */
