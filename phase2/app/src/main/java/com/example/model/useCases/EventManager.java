@@ -80,8 +80,8 @@ public class EventManager implements Serializable{
      * @param event event to be added
      * @return true if and only if the event is successfully added to the event list
      */
-    public boolean addEvent(int eventID){
-        Event event = getEventByID(eventID);
+    public boolean addEvent(Event event){
+        ;
         for (Event value : events) {
             if (event == value) {
                 return false;
@@ -333,8 +333,20 @@ public class EventManager implements Serializable{
      * @param capacity of new event
      * @return a new event will given features
      */
-    public Event createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
-        return new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1);
+    public int createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
+        Event event = new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1);
+        int id = event.getEventID();
+        addEvent(event);
+        return id;
+    }
+
+    /**
+     * check whether a event in the event list
+     * @param eventID of the user
+     * @return true if the event list has this event with given event ID
+     */
+    public boolean idInList(int eventID){
+        return events.contains(getEventByID(eventID));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.model.useCases;
 
+import com.example.model.entities.Attendee;
 import com.example.model.entities.User;
 
 import java.io.*;
@@ -38,13 +39,14 @@ public abstract class UserManager implements Serializable{
         }
         return allIDs;
     }
+
     /**
      * add a user to list of users
-     * @param userID the ID of the user to be added
+     * @param user the ID of the user to be added
      * @return true if and only if the user is successfully added to the list
      */
-    public boolean addUser(int userID){
-        User user = getUserByID(userID);
+    public boolean addUser(User user){
+
         for (User person: users){
             if(person == user){
                 return false;
@@ -218,5 +220,25 @@ public abstract class UserManager implements Serializable{
         return user.getContactList();
     }
 
+    /**
+     * return the ID of the user that just got created
+     * @param name user's name
+     * @param userName user's username
+     * @param password user's password
+     * @param ID user's id
+     * @return a list of users' IDs that in the user's contact list
+     */
+    public boolean createUser(String name, String userName, String password, int ID)
+    {
+        User user = new User(name, userName, password, ID);
+        if (addUser(user))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }

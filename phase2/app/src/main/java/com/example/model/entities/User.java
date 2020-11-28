@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
     private int userID;
     private String name;
     private String userName;

@@ -49,24 +49,5 @@ public class AttendeeManager extends UserManager implements Serializable{
         output.writeObject(this);
         output.close();
     }
-    /**
-     * create a new user and add user to list
-     * @param name
-     * @param userName
-     * @param password
-     * @param ID
-     * @return true if and only if the user is successfully added to the list
-     */
-    public boolean createAttendee(String name, String userName, String password, int ID)
-    {
-        User user = new Attendee(name, userName, password, ID);
-        if (addUser(user.getUserId()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+
 }

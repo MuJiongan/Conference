@@ -12,17 +12,7 @@ public class SpeakerManager extends UserManager implements Serializable{
     }
 
 
-    /**
-     * Creates a new entities.Speaker object and returns it
-     * @param name entities.User's real name
-     * @param username entities.User's username
-     * @param password entities.User's password
-     * @param userID entities.User's userID
-     * @return the user object that we created
-     */
-    public Speaker createSpeaker(String name, String username, String password, int userID){
-        return new Speaker(name, username, password, userID);
-    }
+
 
 
     /**

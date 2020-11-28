@@ -10,18 +10,6 @@ public class OrganizerManager extends UserManager implements Serializable{
     {
         super();
     }
-    /**
-     * creates a new attendee object and returns it
-     * @param name entities.User's real name
-     * @param username entities.User's username
-     * @param password entities.User's password
-     * @param userID entities.User's userID
-     * @return the user object that we created
-     */
-
-    public Organizer createOrganizer(String name, String username, String password, int userID){
-        return new Organizer(name, username, password, userID);
-    }
 
     /**
      * Read the useCases.UserManager object that was stored in a .ser file

@@ -41,7 +41,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Returns the id of the entities.Room corresponding to the entities.Room object parameter
-     * @param roomID The room that we want to get corresponding ID of
+     * @param room The room that we want to get corresponding ID of
      * @return ID of corresponding entities.Room, -1 if entities.Room not found
      */
     public int getIDbyRoom(Room room)
@@ -54,6 +54,14 @@ public class RoomManager implements Serializable {
             }
         }
         return -1;
+    }
+    /**
+     * check whether a room in the rooms list
+     * @param roomID of the user
+     * @return true if the room list has this room with given room ID
+     */
+    public boolean idInList(int roomID){
+        return rooms.contains(getRoomByID(roomID));
     }
 
     /**
@@ -116,8 +124,10 @@ public class RoomManager implements Serializable {
      * @param capacity of new room
      * @return a new room with given features
      */
-    public Room createRoom(String name, int capacity){
-        return new Room(capacity, name, rooms.size() + 1);
+    public int createRoom(String name, int capacity){
+        Room room = new Room(capacity, name, rooms.size() + 1);
+        addRoom(room.getRoomID());
+        return room.getRoomID();
     }
     /**
      * Get the room name
