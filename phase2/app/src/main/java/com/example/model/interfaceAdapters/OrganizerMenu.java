@@ -314,6 +314,15 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         getEventManager().changeRoomID(roomID, eventID);
     }
 
+    /**
+     * Change the Capacity of Event
+     * @param eventID the id of Event to be rescheduled
+     * @param capacity the new capacity of the Event
+     */
+    public void changeCapacity(int eventID, int capacity){
+        getEventManager().setCapacity(eventID, capacity);
+    }
+
 
     /**
      * run the organizer main menu
