@@ -300,23 +300,20 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
         int roomCapacity = getRoomManager().getRoomByID(roomID).getCapacity();
         return roomCapacity >= capacity;
     }
-/*
-    * remove Speakers, Attendees, Organizers from Event
-    * remove Event from list
 
-    public boolean cancelEvents(Event event){
-        ArrayList<Integer> Speakers = event.getSpeakerIDs();
-        for(Integer speakerID: Speakers) {
-            Speaker speaker = (Speaker) getSpeakerManager().getUserByID(speakerID);
-            getSpeakerManager().removeEventID(event.getEventID(), speaker);
-        }
-        return true;
+    /**
+     * Reschedule an Event with given startTime, endTime and roomID
+     * @param eventID the id of Event to be rescheduled
+     * @param startTime new start time that the event will be rescheduled at
+     * @param endTime new end time that the event will be rescheduled at
+     * @param roomID id of new room that the event will be rescheduled in
+     */
+    public void rescheduleEvent(int eventID, LocalDateTime startTime, LocalDateTime endTime, int roomID){
+        getEventManager().setStartTime(eventID, startTime);
+        getEventManager().setEndTime(eventID, endTime);
+        getEventManager().changeRoomID(roomID, eventID);
     }
 
-
-    public boolean rescheduleEvents(){
-    }
-*/
 
     /**
      * run the organizer main menu
