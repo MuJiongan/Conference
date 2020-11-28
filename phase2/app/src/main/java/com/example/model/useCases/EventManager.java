@@ -74,6 +74,18 @@ public class EventManager implements Serializable{
 
     }
 
+    /**
+     * Return the string representation of all the events in the conference
+     * @return the string representation of all the events in the conference
+     */
+    public List<String> getAllEvents(){
+        List<String> eventNames = new ArrayList<>();
+        for (Event e: events){
+            eventNames.add(e.toString()[0]);
+        }
+        return eventNames;
+    }
+
 
     /**
      * add an event to events
