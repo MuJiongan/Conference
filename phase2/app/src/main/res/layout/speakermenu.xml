@@ -42,18 +42,11 @@
             android:layout_marginTop="40dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/manage"/>
-    <Button
-            android:text="Social Networking"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/manage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/social"/>
+
     <Button
             android:text="Exit"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/social"
+            android:layout_below="@+id/manage"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:onClick="onClick"
