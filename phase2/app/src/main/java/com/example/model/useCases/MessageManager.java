@@ -90,6 +90,16 @@ public class MessageManager implements Serializable{
     public int getSenderIDByMessId(int messageId){
         return getMessageById(messageId).getSenderID();
     }
+
+    /**
+     * return the receiver ID by the given message id
+     * @param messageId the message ID that want to know the sender id of
+     * @return the receiver ID by the given message id
+     */
+    public int getReceiverIDByMessId(int messageId){
+        return getMessageById(messageId).getReceiverID();
+    }
+    
     /**
      * Read the useCases.MessageManager object that was stored in a .ser file
      * @param path String representing the file path
@@ -142,5 +152,14 @@ public class MessageManager implements Serializable{
      */
     public void markAsUnread(int messageID){
         this.getMessageById(messageID).markAsUnread();
+    }
+
+    /**
+     * Return the message condition by the given messageID
+     * @param messageID the message ID
+     * @return the message condition by the given messageID
+     */
+    public boolean getConditionByID(int messageID){
+        return this.getMessageById(messageID).getMessageCondition();
     }
 }

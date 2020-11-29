@@ -254,9 +254,10 @@ public abstract class UserManager implements Serializable{
     /**
      * Add a message ID to the user's archived messages list
      * @param userID the given entities.User object
+     * @param friendID friendID to whom the user is sending message to
      * @param messageID message ID
      */
-    public boolean addArchivedMessage(int userID, int messageID){
-        return getUserByID(userID).addArchivedMessage(messageID);
+    public boolean addArchivedMessage(int userID, int friendID, int messageID){
+        return getUserByID(userID).addArchivedMessage(friendID, messageID);
     }
 }

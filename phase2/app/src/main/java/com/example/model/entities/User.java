@@ -111,18 +111,20 @@ public class User implements Serializable {
 
     }
     /**
-     * Delete a message ID from the user's hashmap
-     * @param userID receiver ID
+     * Delete a message ID from the user's hashmap iff the message exists in the user's message
+     * hashmap
+     * @param friendID receiver ID
      * @param messageID message ID
+     * @return true iff the message is successfully deleted
      */
-    public boolean deleteMessage(int userID, int messageID) {
-        if(!message.containsKey(userID)){
+    public boolean deleteMessage(int friendID, int messageID) {
+        if(!message.containsKey(friendID)){
             return false;
         }
-        if(!message.get(userID).contains(messageID)){
+        if(!message.get(friendID).contains(messageID)){
             return false;
         }
-        this.message.get(userID).remove(messageID);
+        this.message.get(friendID).remove(messageID);
         return true;
     }
     /**
@@ -183,14 +185,17 @@ public class User implements Serializable {
     }
 
     /**
-     * Add a message ID to the user's archived messages list
+     * Add a message ID to the user's archived messages list iff the message exists in the user's
+     * message hashmap
+     * @param friendID friend ID
      * @param messageID message ID
+     * @return true iff the message is successfully archived
      */
-    public boolean addArchivedMessage(int messageID){
-        if(!message.containsKey(userID)){
+    public boolean addArchivedMessage(int friendID, int messageID){
+        if(!message.containsKey(friendID)){
             return false;
         }
-        if(!message.get(userID).contains(messageID)){
+        if(!message.get(friendID).contains(messageID)){
             return false;
         }
         this.archivedMessages.add(messageID);

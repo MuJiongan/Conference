@@ -1,10 +1,11 @@
 package com.example.presenter;
 
 import android.os.Build;
-import android.view.View;
+
+
 import androidx.annotation.RequiresApi;
 import com.example.model.entities.Event;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class AttendeeController extends UserController{
 
-    private View view;
+
     /**
      * Create an instance of AttendeeController with the given Managers
      * @param am the instance of <code>AttendeeManager</code> in the conference
@@ -26,8 +27,8 @@ public class AttendeeController extends UserController{
      */
     public AttendeeController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view)
     {
-        super(am, om, sm, rm, em, mm, userID);
-        this.view = view;
+        super(am, om, sm, rm, em, mm, userID, view);
+
     }
 
     /**
@@ -42,15 +43,15 @@ public class AttendeeController extends UserController{
      @RequiresApi(api = Build.VERSION_CODES.O)
      public boolean signUp(int eventID) {
          if (getEventManager().getEventByID(eventID) == null){
-             view.pushMessage("That Event does not exist!");
+             getView().pushMessage("That Event does not exist!");
              return false;
          }
          if (getCurrentManager().getEventList(getUser()).contains(eventID)){
-             view.pushMessage("You already signed up for this event.");
+             getView().pushMessage("You already signed up for this event.");
              return false;
          }
          if (getEventManager().getCapacity(eventID) - getEventManager().getUserIDs(eventID).size() <= 0){
-             view.pushMessage("The event is already full.");
+             getView().pushMessage("The event is already full.");
              return false;
          }
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -72,7 +73,7 @@ public class AttendeeController extends UserController{
 //
 //                     }
                  }
-                 view.pushMessage("Successfully signed up!");
+                 getView().pushMessage("Successfully signed up!");
                  return true;
              }
          }
@@ -118,13 +119,13 @@ public class AttendeeController extends UserController{
              {
                  getCurrentManager().getEventList(getUser()).remove(eventID);
                  getEventManager().getUserIDs(eventID).remove(getUser());
-                 view.pushMessage("Cancellation Successful");
+                 getView().pushMessage("Cancellation Successful");
                  return true;
              }
-             view.pushMessage("Enter an event you have signed up for!");
+             getView().pushMessage("Enter an event you have signed up for!");
              return false;
          }
-         view.pushMessage("Enter a valid event ID");
+         getView().pushMessage("Enter a valid event ID");
          return false;
      }
 
@@ -146,7 +147,7 @@ public class AttendeeController extends UserController{
             super.sendMessage(receiverID, messageID);
             //add message to message manager
             getMessageManager().addMessage(messageID);
-            view.pushMessage("Message Sent");
+            getView().pushMessage("Message Sent");
             return true;
         }
         else if (getSpeakerManager().idInList(receiverID))
@@ -154,24 +155,52 @@ public class AttendeeController extends UserController{
             getSpeakerManager().addMessageID(messageID, receiverID, getUser());
             super.sendMessage(receiverID, messageID);
             getMessageManager().addMessage(messageID);
-            view.pushMessage("Message Sent");
+            getView().pushMessage("Message Sent");
             return true;
         }
         return false;
     }
 
-    public String viewAllEvents()
-    {
-        List<Integer> eventIDs = getEventManager().getEvents();
-        String output ="";
-        for (int ID: eventIDs)
-        {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    +"\n";
-        }
-        return output;
+//    public List<String> viewAllEvents()
+//    {
+//        List<Integer> eventIDs = getEventManager().getEvents();
+//        String output ="";
+//        for (int ID: eventIDs)
+//        {
+//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+//                    +"\n";
+//        }
+//        return output;
+//    }
+
+    /**
+     * Return the string representation of all the events in the conference
+     * @return a list of string represetation of all non-Vip events  in the conference in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     */
+    public List<String> viewAllEvents(){
+        List<String> allStringRep = getEventManager().getAllEvents();
+        return allStringRep;}
+
+    public String getType(){
+        return "AttendeeController";
     }
+
+
+//    public String viewAllEvents()
+//    {
+//        List<Integer> eventIDs = getEventManager().getEvents();
+//        String output ="";
+//        for (int ID: eventIDs)
+//        {
+//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+//                    +"\n";
+//        }
+//        return output;
+//    }
+
 
     public interface View {
         void pushMessage(String info);

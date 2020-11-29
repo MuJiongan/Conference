@@ -1,8 +1,12 @@
 package com.example.model.entities;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents an event in the conference.
  */
@@ -180,5 +184,14 @@ public class Event implements Serializable {
      */
     public int getNumOfAttendee(){return userIDs.size();}
 
+    /**
+     * Return a string contains information about this event
+     * @return return a string contains the name, capacity of this event and the room id that this event holds
+     */
+    @NonNull
+    @Override
+    public String toString() {
+        return eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + getRoomName();
+    }
 }
 

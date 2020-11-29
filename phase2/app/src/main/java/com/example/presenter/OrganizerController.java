@@ -7,13 +7,14 @@ import com.example.model.entities.Event;
 import com.example.model.entities.Room;
 import com.example.model.entities.Speaker;
 import com.example.model.entities.User;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class OrganizerController extends AttendeeController {
+public class OrganizerController extends AttendeeController implements Serializable {
     public OrganizerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view)
     {
         super(am, om, sm, rm, em, mm, userID, view);
@@ -82,7 +83,7 @@ public class OrganizerController extends AttendeeController {
      */
     public void enterRoom(String name, int capacity){
         int newRoomID = getRoomManager().createRoom(name, capacity);
-        Presenter.print("Room Succesfully added");
+        getView().pushMessage("Room Succesfully added");
         //Maybe we need to check duplicate names
     }
     /**
@@ -100,9 +101,6 @@ public class OrganizerController extends AttendeeController {
         if (!successful){
             return false;
         }
-
-
-
         // Add the speaker to the attendee's contact list
         for (int attendeeID: getAttendeeManager().getUserIDs()){
             getAttendeeManager().addToContactsList(attendeeID, speakerID);
@@ -111,12 +109,8 @@ public class OrganizerController extends AttendeeController {
         for (int organizerID: getOrganizerManager().getUserIDs()){
             getOrganizerManager().addToContactsList(organizerID, speakerID);
         }
-        Presenter.print("Speaker successfully created");
+        getView().pushMessage("Speaker successfully created");
         return true;
-
-
-
-
     }
 
     /**
@@ -134,12 +128,12 @@ public class OrganizerController extends AttendeeController {
 
 
         if (!getRoomManager().idInList(roomID)){
-            Presenter.print("RoomID doesn't exist.");
+            getView().pushMessage("RoomID doesn't exist.");
             return false;
         }
 
         if (!haveEnoughCapacity(roomID, capacity)){
-            Presenter.print("Room doesn't have enough capacity.");
+            getView().pushMessage("Room doesn't have enough capacity.");
             return false;
         }
 
@@ -147,7 +141,7 @@ public class OrganizerController extends AttendeeController {
 
         if (!availableInRoom(roomID, startTime, endTime)){
 
-            Presenter.print("The room you entered is occupied at the time");
+            getView().pushMessage("The room you entered is occupied at the time");
             return false;
         }
 
@@ -155,7 +149,7 @@ public class OrganizerController extends AttendeeController {
 
         int eventID = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
         getRoomManager().scheduleEvent(roomID, eventID);
-        Presenter.print("New Event Scheduled");
+        getView().pushMessage("New Event Scheduled");
         return true;
 
     }
@@ -170,13 +164,13 @@ public class OrganizerController extends AttendeeController {
         // check if the event ID exists
 
         if (getEventManager().idInList(eventID)){
-            Presenter.print("Event ID doesn't exist!");
+            getView().pushMessage("Event ID doesn't exist!");
             return false;
         }
         // check if the speaker ID exists
 
         if (getSpeakerManager().idInList(speakerID)){
-            Presenter.print("Speaker doesn't exist!");
+            getView().pushMessage("Speaker doesn't exist!");
             return false;
         }
         LocalDateTime startTime = getEventManager().getStartTime(eventID);
@@ -184,12 +178,12 @@ public class OrganizerController extends AttendeeController {
 
         // check if the speaker is available at the time
         if (!availableAtTime(speakerID, startTime, endTime)){
-            Presenter.print("The speaker is not available at the time");
+            getView().pushMessage("The speaker is not available at the time");
             return false;
         }
         // check if the speaker is already in the event
         if (!getEventManager().addSpeakerID(speakerID, eventID)){
-            Presenter.print("You already added this speaker!");
+            getView().pushMessage("You already added this speaker!");
             return false;
         }
         // update the speaker's and the attendees' contact list
@@ -199,7 +193,7 @@ public class OrganizerController extends AttendeeController {
         }
 
         getSpeakerManager().addEventID(eventID, speakerID);
-        Presenter.print("Speaker assigned");
+        getView().pushMessage("Speaker assigned");
         return true;
     }
     /**
@@ -318,6 +312,11 @@ public class OrganizerController extends AttendeeController {
         int roomCapacity = getRoomManager().getCapacity(roomID);
         return roomCapacity >= capacity;
     }
+
+    public String getType(){
+        return "OrganizerController";
+    }
+
 
 
 

@@ -6,15 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.model.interfaceAdapters.ReadWrite;
+import com.example.presenter.LogInPresenter;
+import com.example.presenter.OrganizerController;
+import com.example.presenter.UserController;
 
-public class OrganizerMenu extends Activity implements View.OnClickListener{
+import java.io.Serializable;
 
+public class OrganizerMenu extends Activity implements View.OnClickListener, UserController.View, Serializable {
+    private OrganizerController controller;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizermenu);
-        // EditText view = findViewById(R.id.viewAllEvents);
-        // String string = view.getText().toString();
+        LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
+        controller = new OrganizerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
+                presenter.getMm(),presenter.getUserID(),this);
 
 
 
@@ -53,14 +60,20 @@ public class OrganizerMenu extends Activity implements View.OnClickListener{
                 startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:
-                Toast.makeText(this, "See you!", Toast.LENGTH_SHORT).show();
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory( Intent.CATEGORY_HOME );
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
-                break;
-
-
+                //Serialize objects
+                ReadWrite gateway = new ReadWrite();
+                gateway.saveAttendees(getApplicationContext(), controller.getAttendeeManager());
+                gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
+                //Send information back to main activity
+                Intent myIntent6 = new Intent(OrganizerMenu.this, MainActivity.class);
+                myIntent6.putExtra("controller", controller);
+                setResult(2, myIntent6);
+                finish();
         }
+    }
+
+    @Override
+    public void pushMessage(String info) {
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 }
