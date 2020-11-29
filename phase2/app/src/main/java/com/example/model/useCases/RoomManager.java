@@ -129,6 +129,16 @@ public class RoomManager implements Serializable {
         addRoom(room.getRoomID());
         return room.getRoomID();
     }
+
+    /**
+     * Remove the Event from Room list
+     * @param roomID id of room where the Event held
+     * @param eventID id of Event to be removed
+     */
+    public void removeEventID(int roomID, int eventID){
+        getRoomByID(roomID).removeEventID(eventID);
+    }
+
     /**
      * Get the room name
      * @param roomID .Room

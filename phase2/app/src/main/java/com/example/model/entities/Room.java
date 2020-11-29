@@ -52,7 +52,7 @@ public class Room implements Serializable {
         eventsScheduled.add(eventID);
     }
     /**
-     * Removes an event ID to the eventsScheduled list
+     * Removes an event ID from the eventsScheduled list
      * @param eventID ID of an event to be removed from the schedule for Room
      */
     public void removeEventID(int eventID)
