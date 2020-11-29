@@ -8,32 +8,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.model.entities.User;
+import com.example.model.interfaceAdapters.ReadWrite;
+import com.example.presenter.AttendeeController;
 import com.example.presenter.LogInPresenter;
+import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 
-public class AttendeeMenu extends Activity implements View.OnClickListener, UserController.View {
+import java.io.Serializable;
 
-
+public class AttendeeMenu extends Activity implements View.OnClickListener, UserController.View, Serializable {
+    private AttendeeController controller;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendeemenu);
-       // EditText view = findViewById(R.id.viewAllEvents);
-       // String string = view.getText().toString();
-
-
-
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 1){
-            if (resultCode == 3){
-                UserController currentController = (UserController) data.getSerializableExtra("cc");
-                currentController.setView(this);
-                Toast.makeText(this, "Great job", Toast.LENGTH_SHORT).show();
-            }
-        }
+        LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
+        controller = new OrganizerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
+                presenter.getMm(),presenter.getUserID(),this);
     }
     @Override
     public void onClick(View v) {
@@ -64,16 +54,24 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                 startActivityForResult(myIntent5, 0);
                 break;
             case R.id.exit:
-                Toast.makeText(this, "See you!", Toast.LENGTH_SHORT).show();
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory( Intent.CATEGORY_HOME );
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
-                break;
+                //Serialize objects
+                ReadWrite gateway = new ReadWrite();
+                if (controller.getAttendeeManager().getUserIDs().size() != 0)
+                {
+                    gateway.saveAttendees(getApplicationContext(), controller.getAttendeeManager());
+                }
+                if (controller.getOrganizerManager().getUserIDs().size()!= 0)
+                {
+                    gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
+                }
+                //Send information back to main activity
+                Intent myIntent6 = new Intent(AttendeeMenu.this, MainActivity.class);
+                myIntent6.putExtra("controller", controller);
+                setResult(2, myIntent6);
+                finish();
 
 
         }
-
     }
 
     @Override

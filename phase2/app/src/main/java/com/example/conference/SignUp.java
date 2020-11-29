@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.model.interfaceAdapters.ReadWrite;
 import com.example.model.useCases.OrganizerManager;
 import com.example.presenter.LogInPresenter;
 
@@ -38,13 +39,22 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
                 String passwordString = password.getText().toString();
 
                 if (presenter.createAttendeeAccount(nameString, usernameString, passwordString)){
+                    //Serialize objects
+                    ReadWrite gateway = new ReadWrite();
+                    if (presenter.getAm().getUserIDs().size() != 0)
+                    {
+                        gateway.saveAttendees(getApplicationContext(), presenter.getAm());
+                    }
+                    if (presenter.getOm().getUserIDs().size()!= 0)
+                    {
+                        gateway.saveOrganizers(getApplicationContext(), presenter.getOm());
+                    }
                     Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(SignUp.this, MainActivity.class);
                     myIntent.putExtra("presenter", presenter);
                     setResult(3, myIntent);
                     finish();
                 }
-                break;
         }
     }
 }

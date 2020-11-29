@@ -201,8 +201,4 @@ public class AttendeeController extends UserController{
 //        return output;
 //    }
 
-
-    public interface View {
-        void pushMessage(String info);
-    }
 }

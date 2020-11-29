@@ -37,7 +37,7 @@ public class LogInPresenter implements Serializable {
         rm = gateway.readRoom(context);
         em = gateway.readEvent(context);
         mm = gateway.readMessage(context);
-      //  om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
+        //om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
         this.userID = 0;
 
     }

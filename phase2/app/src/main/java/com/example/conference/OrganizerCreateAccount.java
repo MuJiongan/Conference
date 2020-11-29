@@ -8,11 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.example.model.useCases.OrganizerManager;
 import com.example.presenter.LogInPresenter;
+import com.example.presenter.OrganizerController;
+import com.example.presenter.UserController;
 
 import java.io.Serializable;
 
 public class OrganizerCreateAccount extends Activity implements View.OnClickListener, LogInPresenter.View, Serializable{
     private LogInPresenter presenter;
+    private OrganizerController controller;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
@@ -36,10 +39,12 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
         String passwordString = password.getText().toString();
         switch (v.getId()){
             case R.id.createaccount:
-
                 break;
             case R.id.createattendee:
                 break;
+            case R.id.createspeaker:
+                //controller.createSpeaker();
+
 
 
 
