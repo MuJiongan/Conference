@@ -7,7 +7,7 @@ import com.example.model.entities.Event;
 import com.example.model.entities.Room;
 import com.example.model.entities.Speaker;
 import com.example.model.entities.User;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
 import java.time.LocalDateTime;
@@ -318,6 +318,11 @@ public class OrganizerController extends AttendeeController {
         int roomCapacity = getRoomManager().getCapacity(roomID);
         return roomCapacity >= capacity;
     }
+
+    public String getType(){
+        return "OrganizerController";
+    }
+
 
 
 
