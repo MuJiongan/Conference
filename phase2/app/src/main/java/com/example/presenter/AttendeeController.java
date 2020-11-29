@@ -5,15 +5,14 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 import com.example.model.entities.Event;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttendeeController extends UserController implements Serializable {
+public class AttendeeController extends UserController{
 
 
     /**
@@ -180,26 +179,30 @@ public class AttendeeController extends UserController implements Serializable {
      * @return a list of string represetation of all non-Vip events  in the conference in the format:
      * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
      */
-//    public List<String> viewAllEvents() {
-//        List<String> allStringRep = getEventManager().getAllEvents();
-//        return allStringRep;
-//    }
+    public List<String> viewAllEvents(){
+        List<String> allStringRep = getEventManager().getAllEvents();
+        return allStringRep;}
+
     public String getType(){
         return "AttendeeController";
     }
 
 
-    public String viewAllEvents()
-    {
-        List<Integer> eventIDs = getEventManager().getEvents();
-        String output ="";
-        for (int ID: eventIDs)
-        {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    +"\n";
-        }
-        return output;
-    }
+//    public String viewAllEvents()
+//    {
+//        List<Integer> eventIDs = getEventManager().getEvents();
+//        String output ="";
+//        for (int ID: eventIDs)
+//        {
+//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+//                    +"\n";
+//        }
+//        return output;
+//    }
 
+
+    public interface View {
+        void pushMessage(String info);
+    }
 }

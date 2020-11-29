@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.model.entities.User;
+import com.example.presenter.LogInPresenter;
+import com.example.presenter.UserController;
 
-public class AttendeeMenu extends Activity implements View.OnClickListener{
+public class AttendeeMenu extends Activity implements View.OnClickListener, UserController.View {
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -21,6 +24,16 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
 
 
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 1){
+            if (resultCode == 3){
+                UserController currentController = (UserController) data.getSerializableExtra("cc");
+                currentController.setView(this);
+                Toast.makeText(this, "Great job", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
     @Override
     public void onClick(View v) {
@@ -60,5 +73,11 @@ public class AttendeeMenu extends Activity implements View.OnClickListener{
 
 
         }
+
+    }
+
+    @Override
+    public void pushMessage(String info) {
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 }

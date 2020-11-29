@@ -2,7 +2,7 @@ package com.example.presenter;
 
 import com.example.model.entities.Event;
 import com.example.model.entities.Message;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
 import java.io.Serializable;

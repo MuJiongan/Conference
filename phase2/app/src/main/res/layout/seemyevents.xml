@@ -15,6 +15,25 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/welcome"/>
+    <Button
+            android:text="cancel"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/welcome"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/cancel"/>
+
+
+    <Button
+            android:text="back"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/cancel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/back"/>
+
 
 
 </RelativeLayout>
