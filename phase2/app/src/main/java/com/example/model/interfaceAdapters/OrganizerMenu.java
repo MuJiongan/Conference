@@ -327,11 +327,15 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * Cancel Event
      *  - Remove the EventID from all User signed up for the Event
      *  - Remove all the UserID from the Event
+     *  - Remove the EventID from Room that the Event held
+     *  - Remove EventID from the list events
      * @param eventID id of Event to be cancelled
      */
     public void cancelEvent(int eventID){
         removeEventFromUser(eventID);
         removeUserFromEvent(eventID);
+        removeEventFromRoom(eventID);
+        getEventManager().removeEvent(eventID);
     }
 
     /**
@@ -369,6 +373,15 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
             }
         }
         return true;
+    }
+
+    /**
+     * Remove Event from Room
+     * @param eventID id of the Event held
+     */
+    public void removeEventFromRoom(int eventID){
+        int roomID = getEventManager().getRoomID(eventID);
+        getRoomManager().removeEventID(roomID, eventID);
     }
 
 
