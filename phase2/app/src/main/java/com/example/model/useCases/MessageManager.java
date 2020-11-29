@@ -90,6 +90,16 @@ public class MessageManager implements Serializable{
     public int getSenderIDByMessId(int messageId){
         return getMessageById(messageId).getSenderID();
     }
+
+    /**
+     * return the receiver ID by the given message id
+     * @param messageId the message ID that want to know the sender id of
+     * @return the receiver ID by the given message id
+     */
+    public int getReceiverIDByMessId(int messageId){
+        return getMessageById(messageId).getReceiverID();
+    }
+    
     /**
      * Read the useCases.MessageManager object that was stored in a .ser file
      * @param path String representing the file path

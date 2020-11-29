@@ -237,5 +237,45 @@ public class UserController implements Serializable{
         void pushMessage(String info);
     }
 
+    /**
+     * Delete the given message from the message hashmap of the user. Return true iff the message 
+     * is successfully deleted
+     * @param messageID the message id
+     * @return true iff the message is successfully deleted
+     */
+    public boolean deleteMessage(int messageID){
+        int friendID = getMessageManager().getSenderIDByMessId(messageID);
+        if (getMessageManager().getSenderIDByMessId(messageID)==userID){
+            friendID = getMessageManager().getReceiverIDByMessId(messageID);
+        }
+        return currentManager.deleteMessage(userID, friendID, messageID);
+    }
 
+    /**
+     * Archive the given message to the archived message list of the user. Return true iff the 
+     * message is successfully archived
+     * @param messageID the message id
+     * @return true iff the message is successfully archived
+     */
+    public boolean archiveMessage(int messageID){
+        int friendID = getMessageManager().getSenderIDByMessId(messageID);
+        if (getMessageManager().getSenderIDByMessId(messageID)==userID){
+            friendID = getMessageManager().getReceiverIDByMessId(messageID);
+        }
+        return currentManager.addArchivedMessage(userID, friendID, messageID);
+    }
+
+    /**
+     * Mark the given message as unread to the receiver, who is the current user. Return true iff 
+     * the message is successfully marked
+     * @param messageID the message id
+     * @return true iff the message is successfully marked
+     */
+    public boolean markAsUnread(int messageID){
+        if (getMessageManager().getSenderIDByMessId(messageID)==userID){
+            return false;
+        }
+        getMessageManager().markAsUnread(messageID);
+        return true;
+    }
 }
