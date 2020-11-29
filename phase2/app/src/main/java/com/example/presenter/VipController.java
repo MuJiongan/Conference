@@ -39,12 +39,17 @@ public class VipController extends AttendeeController {
      */
     public VipManager getVipManager(){return vipm;}
 
-//    @Override
-//    public List<String> viewAllEvents()
-//    {
-//        List<String> mergedList = getEventManager().getAllEvents();
-//        mergedList.addAll(vipEventM.getAllEvents());
-//        return mergedList;
-//    }
+    /**
+     * Return the string representation of all the events in the conference
+     * @return a list of string represetation of all non-Vip  and Vip events  in the conference in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     */
+    @Override
+    public List<String> viewAllEvents()
+    {
+        List<String> mergedList = getEventManager().getAllEvents();
+        mergedList.addAll(vipEventM.getAllEvents());
+        return mergedList;
+    }
 }
 

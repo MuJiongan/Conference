@@ -184,10 +184,14 @@ public class Event implements Serializable {
      */
     public int getNumOfAttendee(){return userIDs.size();}
 
+    /**
+     * Return a string contains information about this event
+     * @return return a string contains the name, capacity of this event and the room id that this event holds
+     */
     @NonNull
     @Override
     public String toString() {
-        return name + roomID + capacity;
+        return eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + getRoomName();
     }
 }
 

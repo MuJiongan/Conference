@@ -6,6 +6,7 @@ import com.example.model.entities.Room;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EventManager implements Serializable{
@@ -74,17 +75,18 @@ public class EventManager implements Serializable{
 
     }
 
-//    /**
-//     * Return the string representation of all the events in the conference
-//     * @return the string representation of all the events in the conference
-//     */
-//    public List<String> getAllEvents(){
-//        List<String> eventNames = new ArrayList<>();
-//        for (Event e: events){
-//            eventNames.add(e.toString()[0]);
-//        }
-//        return eventNames;
-//    }
+    /**
+     * Return the string representation of all events stored in the EventManager
+     * @return a list of string representation of all events stored in the EventManager in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     */
+    public List<String> getAllEvents(){
+        List<String> allEvents = new ArrayList<>();
+        for (Event event: events){
+            allEvents.add(event.toString());
+        }
+        return allEvents;
+    }
 
 
     /**
