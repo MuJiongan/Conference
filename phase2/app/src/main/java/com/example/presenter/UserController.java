@@ -5,6 +5,7 @@ import com.example.model.useCases.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserController implements Serializable{
     /**
@@ -164,6 +165,73 @@ public class UserController implements Serializable{
     public ArrayList<Integer> viewMyEvents() {
         return getCurrentManager().getEventList(getUser());
 
+    }
+
+    public String getUserName(int userID){
+        if (getAttendeeManager().idInList(userID)){
+            return getAttendeeManager().getnameById(userID);
+        }
+        if (getOrganizerManager().idInList(userID)){
+            return getOrganizerManager().getnameById(userID);
+        }
+        if(getSpeakerManager().idInList(userID)){
+            return getSpeakerManager().getnameById(userID);
+        }
+        return "This is not an valid ID.";
+    }
+
+    /**
+     * Return HashMap of contactList that key is condition of contacts and value is the list of
+     * string representation of contacts that satisfied the condition
+     * @return HashMap of contactList that key is condition of contacts and value is the list of
+     * string representation of contacts that satisfied the condition in the format:
+     * friendID + "\t" + username
+     */
+    public HashMap<String, ArrayList<String>> viewContactList(){
+        //create a new HashMap that key is the condition of contacts and values are the empty list.
+        HashMap<String, ArrayList<String>> contactList = new HashMap<>();
+        ArrayList<String> readList = new ArrayList<>();
+        ArrayList<String> unreadList = new ArrayList<>();
+        contactList.put("read", readList);
+        contactList.put("unread", unreadList);
+        //get the contactList of user
+        ArrayList<Integer> contact = getCurrentManager().getContactList(userID);
+        //get the message HashMap of user
+        HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
+        //add the string representation of contacts to the final HashMap
+        for(int friendID:contact){
+            ArrayList<Integer> messageList = allMessage.get(friendID);
+            //check whether there are unread message and add the contact to the corresponding list
+            for(int messageID: messageList){
+                if(!getMessageManager().getConditionByID(messageID)){
+                    contactList.get("unread").add(friendID +"\t"+ getUserName(friendID));
+                }
+            }
+            contactList.get("read").add(friendID +"\t"+ getUserName(friendID));
+        }
+        return contactList;
+    }
+
+
+    /**
+     * Return list of strings representation of all messages in the chat history with the friendID,
+     * content and the condition of the message
+     * @return list of strings representation of all messages in the chat history in the format:
+     * friendID + ":\t" + content + "\t" + condition(when the condition is unread)
+     */
+    public ArrayList<String> viewChatHistory(int friendID){
+         ArrayList<String> chatHistory = new ArrayList<String>();
+         // get the chat history between user and given friend
+         ArrayList<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
+         for(Integer messageID: messageIDList){
+             Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
+             //if the sender of message is friend and the condition of this message is unread, add the unread mark at the end of this message
+             if(!getMessageManager().getConditionByID(messageID)&& sendID == friendID){
+                 chatHistory.add(getUserName(sendID)+":\t"+getMessageManager().getMescontentById(messageID)+"\t(unread)");
+             }
+             chatHistory.add(getUserName(sendID)+":\t"+getMessageManager().getMescontentById(messageID));
+         }
+         return chatHistory;
     }
 
     /**

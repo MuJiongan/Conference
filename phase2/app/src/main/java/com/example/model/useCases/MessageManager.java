@@ -153,4 +153,13 @@ public class MessageManager implements Serializable{
     public void markAsUnread(int messageID){
         this.getMessageById(messageID).markAsUnread();
     }
+
+    /**
+     * Return the message condition by the given messageID
+     * @param messageID the message ID
+     * @return the message condition by the given messageID
+     */
+    public boolean getConditionByID(int messageID){
+        return this.getMessageById(messageID).getMessageCondition();
+    }
 }
