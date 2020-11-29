@@ -2,11 +2,13 @@ package com.example.presenter;
 
 import com.example.conference.AttendeeMenu;
 import com.example.conference.OrganizerMenu;
+
 import com.example.conference.SpeakerMenu;
 import com.example.model.entities.Attendee;
 import com.example.model.entities.User;
 import com.example.model.interfaceAdapters.LogInSystem;
 import com.example.model.interfaceAdapters.ReadWrite;
+
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
@@ -22,6 +24,7 @@ public class LogInPresenter implements Serializable {
     private EventManager em;
     private MessageManager mm;
     private ReadWrite gateway;
+    private int userID;
     //VIP Manager private variable
 
 
@@ -36,7 +39,7 @@ public class LogInPresenter implements Serializable {
         rm = gateway.readRoom("src/main/java/com/example/model/useCases/roommanager.ser");
         em = gateway.readEvent("src/main/java/com/example/model/useCases/eventanager.ser");
         mm = gateway.readMessage("src/main/java/com/example/model/useCases/messagemanager.ser");
-        om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1).getUserId());
+        // om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1).getUserId());
         gateway.setManagers(am, om, sm);
 
     }
@@ -48,18 +51,22 @@ public class LogInPresenter implements Serializable {
     public Object validate(String username, String password)
     {
         int user =  am.validate(username, password);
+
         if (!(user == -100))
         {
+            this.userID = user;
             return AttendeeMenu.class;
         }
         user = om.validate(username, password);
         if (!(user == -100))
         {
+            this.userID = user;
             return OrganizerMenu.class;
         }
         user = sm.validate(username, password);
         if (!(user == -100))
         {
+            this.userID = user;
             return SpeakerMenu.class;
         }
         return null;
@@ -101,7 +108,7 @@ public class LogInPresenter implements Serializable {
             return false;
         }
         int newID = getNewID();
-        boolean created = am.createAttendee(name, userName, password, newID);
+        boolean created = am.createUser(name, userName, password, newID);
         if (created)
         {
             initializeAttendeeContactsList(newID);
@@ -130,5 +137,21 @@ public class LogInPresenter implements Serializable {
 
     public OrganizerManager getOm() {
         return om;
+    }
+
+    public RoomManager getRm() {
+        return rm;
+    }
+
+    public MessageManager getMm() {
+        return mm;
+    }
+
+    public EventManager getEm() {
+        return em;
+    }
+
+    public int getUserID() {
+        return userID;
     }
 }

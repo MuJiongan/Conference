@@ -5,13 +5,14 @@ import com.example.model.entities.Message;
 import com.example.model.interfaceAdapters.Presenter;
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SpeakerController extends UserController{
-    private View view;
+
     public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
-        super(am, om, sm, rm, em, mm, userID);
-        this.view = view;
+        super(am, om, sm, rm, em, mm, userID, view);
+
     }
 
 
@@ -53,12 +54,12 @@ public class SpeakerController extends UserController{
             //add message to this user's hashmap
             super.sendMessage(receiverID, messageID);
 
-            Presenter.print("Messages sent");
+            getView().pushMessage("Messages sent");
             return true;
         }
         else
         {
-            System.out.println("Receiver ID doesn't exist or you cannot message them");
+            getView().pushMessage("Receiver ID doesn't exist or you cannot message them");
             return false;
         }
     }
@@ -74,13 +75,15 @@ public class SpeakerController extends UserController{
         for (int userID: getEventManager().getUserIDs(eventID))
         {
             sendMessage(userID, content);
-            view.pushMessage("Messages sent");
+            getView().pushMessage("Messages sent");
         }
     }
 
-    public interface View {
-        void pushMessage(String info);
+    public String getType(){
+        return "SpeakerController";
     }
+
+
 
 
 }

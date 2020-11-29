@@ -1,11 +1,13 @@
 package com.example.presenter;
 
+import android.view.View;
 import com.example.model.entities.Message;
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserController {
+public class UserController implements Serializable{
     /**
      * Store the AttendeeManager
      */
@@ -38,6 +40,7 @@ public class UserController {
      * Store the current Manager of the current user
      */
     private UserManager currentManager;
+    private View view;
 
     /**
      * Construct an instance of UserMenu with the given Managers
@@ -49,7 +52,7 @@ public class UserController {
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
+    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
         this.am = am;
         this.om = om;
         this.sm = sm;
@@ -57,6 +60,7 @@ public class UserController {
         this.em = em;
         this.mm = mm;
         this.userID = userID;
+        this.view = view;
 
         if (this.am.idInList(this.userID))
         {
@@ -213,8 +217,25 @@ public class UserController {
         int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size();
         return size + 1;
     }
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    public View getView() {
+        return view;
+    }
 
     public void setName(String name){
         getCurrentManager().setName(getUser(), name);
     }
+    public String getType(){
+        return "UserController";
+    }
+
+
+    public interface View {
+        void pushMessage(String info);
+    }
+
+
 }
