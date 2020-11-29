@@ -2,13 +2,13 @@ package com.example.presenter;
 
 import com.example.model.entities.Event;
 import com.example.model.entities.Message;
-import com.example.model.interfaceAdapters.Presenter;
+
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SpeakerController extends UserController{
+public class SpeakerController extends UserController implements Serializable{
 
     public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
         super(am, om, sm, rm, em, mm, userID, view);

@@ -73,7 +73,7 @@ public class AttendeeController extends UserController{
 //
 //                     }
                  }
-                 view.pushMessage("Successfully signed up!");
+                 getView().pushMessage("Successfully signed up!");
                  return true;
              }
          }
@@ -181,24 +181,25 @@ public class AttendeeController extends UserController{
      */
     public List<String> viewAllEvents(){
         List<String> allStringRep = getEventManager().getAllEvents();
-        return allStringRep;
+        return allStringRep;}
+
     public String getType(){
         return "AttendeeController";
     }
 
 
-    public String viewAllEvents()
-    {
-        List<Integer> eventIDs = getEventManager().getEvents();
-        String output ="";
-        for (int ID: eventIDs)
-        {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    +"\n";
-        }
-        return output;
-    }
+//    public String viewAllEvents()
+//    {
+//        List<Integer> eventIDs = getEventManager().getEvents();
+//        String output ="";
+//        for (int ID: eventIDs)
+//        {
+//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+//                    +"\n";
+//        }
+//        return output;
+//    }
 
 
     public interface View {

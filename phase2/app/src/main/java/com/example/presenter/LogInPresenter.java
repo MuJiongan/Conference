@@ -1,14 +1,12 @@
 package com.example.presenter;
 
+import android.content.Context;
 import com.example.conference.AttendeeMenu;
 import com.example.conference.OrganizerMenu;
-
 import com.example.conference.SpeakerMenu;
-import com.example.model.entities.Attendee;
-import com.example.model.entities.User;
+import com.example.model.entities.*;
 import com.example.model.interfaceAdapters.LogInSystem;
 import com.example.model.interfaceAdapters.ReadWrite;
-
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
@@ -30,17 +28,17 @@ public class LogInPresenter implements Serializable {
 
     private View view;
 
-    public LogInPresenter(View view) {
+    public LogInPresenter(View view, Context context) {
         gateway = new ReadWrite();
         //https://stackoverflow.com/questions/14768191/how-do-i-read-the-file-content-from-the-internal-storage-android-app
-        am = gateway.readAttendee("src/main/java/com/example/model/useCases/attendeemanager.ser");
-        om = gateway.readOrganizer("src/main/java/com/example/model/useCases/organizermanager.ser");
-        sm = gateway.readSpeaker("src/main/java/com/example/model/useCases/speakermanager.ser");
-        rm = gateway.readRoom("src/main/java/com/example/model/useCases/roommanager.ser");
-        em = gateway.readEvent("src/main/java/com/example/model/useCases/eventanager.ser");
-        mm = gateway.readMessage("src/main/java/com/example/model/useCases/messagemanager.ser");
-        // om.addUser(om.createOrganizer("Jonathan", "chenjo14", "12345678", 1).getUserId());
-        gateway.setManagers(am, om, sm);
+        am = gateway.readAttendee(context);
+        om = gateway.readOrganizer(context);
+        sm = gateway.readSpeaker(context);
+        rm = gateway.readRoom(context);
+        em = gateway.readEvent(context);
+        mm = gateway.readMessage(context);
+      //  om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
+        this.userID = 0;
 
     }
 
@@ -51,7 +49,6 @@ public class LogInPresenter implements Serializable {
     public Object validate(String username, String password)
     {
         int user =  am.validate(username, password);
-
         if (!(user == -100))
         {
             this.userID = user;
@@ -119,7 +116,7 @@ public class LogInPresenter implements Serializable {
 
     public int getNewID(){
         int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
-        //TODO add VIP MANAGER
+        //TODO: add VIP MANAGER
         return size + 1;
     }
 
@@ -143,15 +140,25 @@ public class LogInPresenter implements Serializable {
         return rm;
     }
 
-    public MessageManager getMm() {
-        return mm;
-    }
-
     public EventManager getEm() {
         return em;
     }
-
+    public MessageManager getMm()
+    {
+        return mm;
+    }
     public int getUserID() {
         return userID;
+    }
+
+    public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
+                            EventManager em, MessageManager mm)
+    {
+        this.am = am;
+        this.om = om;
+        this.sm = sm;
+        this.rm = rm;
+        this.em = em;
+        this.mm = mm;
     }
 }
