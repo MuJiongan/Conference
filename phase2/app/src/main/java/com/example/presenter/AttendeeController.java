@@ -5,14 +5,15 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 import com.example.model.entities.Event;
-
+import com.example.model.interfaceAdapters.Presenter;
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttendeeController extends UserController{
+public class AttendeeController extends UserController implements Serializable {
 
 
     /**
@@ -73,7 +74,7 @@ public class AttendeeController extends UserController{
 //
 //                     }
                  }
-                 view.pushMessage("Successfully signed up!");
+                 getView().pushMessage("Successfully signed up!");
                  return true;
              }
          }
@@ -179,9 +180,10 @@ public class AttendeeController extends UserController{
      * @return a list of string represetation of all non-Vip events  in the conference in the format:
      * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
      */
-    public List<String> viewAllEvents(){
-        List<String> allStringRep = getEventManager().getAllEvents();
-        return allStringRep;
+//    public List<String> viewAllEvents() {
+//        List<String> allStringRep = getEventManager().getAllEvents();
+//        return allStringRep;
+//    }
     public String getType(){
         return "AttendeeController";
     }
@@ -200,8 +202,4 @@ public class AttendeeController extends UserController{
         return output;
     }
 
-
-    public interface View {
-        void pushMessage(String info);
-    }
 }

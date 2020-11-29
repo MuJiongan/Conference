@@ -1,6 +1,5 @@
 package com.example.presenter;
 
-import android.view.View;
 import com.example.model.entities.Message;
 import com.example.model.useCases.*;
 

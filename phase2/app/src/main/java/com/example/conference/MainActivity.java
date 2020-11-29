@@ -1,16 +1,26 @@
 package com.example.conference;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.telecom.GatewayInfo;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.conference.SpeakerMenu;
+import com.example.model.entities.Attendee;
+import com.example.model.interfaceAdapters.ReadWrite;
+import com.example.model.useCases.AttendeeManager;
 import com.example.presenter.LogInPresenter;
 import com.example.presenter.LogInPresenter;
+import com.example.presenter.UserController;
 
-import java.io.Serializable;
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LogInPresenter.View,View.OnClickListener, Serializable {
 
@@ -29,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
         signUp = findViewById(R.id.signup);
         username1 = findViewById(R.id.Usernameinput);
         password1 = findViewById(R.id.passwordinput);
-        presenter = new LogInPresenter(this);
+        presenter = new LogInPresenter(this, getApplicationContext());
         pushMessage("Files read");
     }
 
@@ -38,37 +48,20 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login:
-//                if ( getIntent().getSerializableExtra("presenter") != null) {
-//                    presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
-//                }
-                    String username = username1.getText().toString();
-                    String password = password1.getText().toString();
-                    Object obj = presenter.validate(username, password);
-                    if (obj!= null)
+                String username = username1.getText().toString();
+                String password = password1.getText().toString();
+                Object obj = presenter.validate(username, password);
+                if (obj!= null)
                     {
                         Toast.makeText(this, "Login successfully!!", Toast.LENGTH_SHORT).show();
                         Intent myIntent = new Intent(v.getContext(), (Class<?>) obj);
-                        startActivity(myIntent);
+                        myIntent.putExtra("presenter", presenter);
+                        startActivityForResult(myIntent, 2);
                     }
-//                boolean successful = presenter.validate(presenter.getAm(), username, password);
-//                if (successful)
-//                {
-//                    Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
-//
-//                    Intent myIntent = new Intent(v.getContext(), AttendeeMenu.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
-//                successful = presenter.validate(presenter.getOm(), username, password);
-//                if (successful)
-//                {
-//                    Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
-//                    Intent myIntent = new Intent(v.getContext(), OrganizerMenu.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
                 else
-                {
-                    Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-                }
+                    {
+                        Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    }
                 break;
             case R.id.signup:
                 Intent myIntent2 = new Intent(v.getContext(), SignUp.class);
@@ -84,6 +77,14 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
                 presenter = (LogInPresenter) data.getSerializableExtra("presenter");
                 presenter.setView(this);
                 Toast.makeText(this, "Great job", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == 2)
+        {
+            if (resultCode == 2)
+            {
+                UserController controller = (UserController) data.getSerializableExtra("controller");
+                presenter.setView(this);
             }
         }
     }

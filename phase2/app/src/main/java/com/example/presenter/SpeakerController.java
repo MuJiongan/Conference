@@ -8,7 +8,7 @@ import com.example.model.useCases.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SpeakerController extends UserController{
+public class SpeakerController extends UserController implements Serializable{
 
     public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
         super(am, om, sm, rm, em, mm, userID, view);
