@@ -119,7 +119,7 @@ public class LogInPresenter implements Serializable {
 
     public int getNewID(){
         int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
-        //TODO add VIP MANAGER
+        //TODO: add VIP MANAGER
         return size + 1;
     }
 
