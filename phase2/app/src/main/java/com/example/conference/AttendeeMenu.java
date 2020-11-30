@@ -23,7 +23,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
         setContentView(R.layout.attendeemenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
         controller = new AttendeeController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
-                presenter.getMm(),presenter.getUserID(),this, presenter.getVipManager());
+                presenter.getMm(),presenter.getUserID(),this);
     }
     @Override
     public void onClick(View v) {
