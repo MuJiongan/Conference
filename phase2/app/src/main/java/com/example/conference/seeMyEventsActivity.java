@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.presenter.AttendeeController;
 import com.example.presenter.SpeakerController;
 import com.example.presenter.UserController;
 
@@ -24,9 +25,10 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
         currentController.setView(this);
         TextView myEvents = findViewById(R.id.welcome);
         ArrayList<Integer> myEventsString = currentController.viewMyEvents();
+        String text = currentController.viewMyEvents();
+        myEvents.setText(text);
+        //TODO: Make viewMyEvents return a string;
 
-        myEvents.setText("");
-        //TODO: Add the text after we implement getEventsString;
 
     }
 
@@ -56,6 +58,22 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
 
 
                 break;
+            case R.id.cancel:
+                EditText eventToCancel = findViewById(R.id.eventID);
+                String eventIDString = eventToCancel.getText().toString();
+                try{int index = Integer.parseInt(eventIDString);
+
+                    AttendeeController controller = (AttendeeController) currentController;
+                    if(controller.cancelEnrollment(index)){
+                        Toast.makeText(this, "Cancelled successfully", Toast.LENGTH_SHORT).show();
+                    };
+
+
+                }catch(NumberFormatException n){
+                    pushMessage("Please enter a valid eventID");
+                }
+
+
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){
                     Intent myIntent = new Intent(this, SpeakerMenu.class);

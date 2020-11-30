@@ -56,7 +56,8 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/back">
+            android:layout_below="@id/back"
+            android:layout_marginTop="20dp">
 
         <TextView
                 android:text=""

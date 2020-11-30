@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.UserController;
 
@@ -14,17 +16,31 @@ public class manageMyAccountActivity extends Activity implements View.OnClickLis
         setContentView(R.layout.managemyaccount);
         currentController = (UserController) getIntent().getSerializableExtra("cc");
         currentController.setView(this);
+        setName();
+
 
     }
 
-
+    public void setName(){
+        String curName = currentController.getUserName(currentController.getUser());
+        TextView currentNameTextView = findViewById(R.id.currentName);
+        currentNameTextView.setText("Your current name is: " + curName);
+    }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.submit:
-               // TODO
+                EditText name = findViewById(R.id.changeNameInput);
+                String nameString = name.getText().toString();
+                if (!nameString.equals("")){
+                    currentController.setName(nameString);
+                }
+                else{
+                    pushMessage("Your name can't be empty!");
+                }
+
                 break;
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){

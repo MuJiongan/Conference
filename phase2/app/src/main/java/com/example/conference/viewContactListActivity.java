@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.UserController;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class viewContactListActivity extends Activity implements UserController.View, View.OnClickListener {
     private UserController currentController;
@@ -14,7 +19,24 @@ public class viewContactListActivity extends Activity implements UserController.
         setContentView(R.layout.viewcontactlist);
         currentController = (UserController) getIntent().getSerializableExtra("cc");
         currentController.setView(this);
+        displayContactList();
 
+    }
+
+    public void displayContactList(){
+        String message = "UNREAD" + "\n";
+        HashMap<String, ArrayList<String>> messageMap = currentController.viewContactList();
+        for (String s: messageMap.get("unread")){
+            message = message + s + "\n";
+
+        }
+        message = message + "READ" + "\n";
+        for (String s: messageMap.get("read")){
+            message = message + s + "\n";
+
+        }
+        TextView allContacts = findViewById(R.id.allContacts);
+        allContacts.setText(message);
     }
 
 
@@ -22,7 +44,9 @@ public class viewContactListActivity extends Activity implements UserController.
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.viewHistory:
-                // TODO
+                EditText userID = findViewById(R.id.userIDInput);
+                String userIDString = userID.getText().toString();
+                // TODO: PASS THE USERID TO THE NEW ACTIVITY AND ALSO START THE NEW ACTIVITY
                 break;
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){
