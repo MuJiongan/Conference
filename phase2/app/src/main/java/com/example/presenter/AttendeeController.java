@@ -67,7 +67,7 @@ public class AttendeeController extends UserController{
                      if (!getSpeakerManager().getContactList(speakerID).contains(getUser())){
                          //add attendee to speaker's contact list
                          getSpeakerManager().addToContactsList(speakerID, getUser());}
-//                     TODO: May not nead this
+//                     TODO: May not need this
 //                     if (!getCurrentManager().getContactList(getUser()).contains(speakerID))
 //                     {
 //

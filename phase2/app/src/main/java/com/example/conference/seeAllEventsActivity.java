@@ -12,6 +12,8 @@ import com.example.presenter.UserController;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 
 public class  seeAllEventsActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private AttendeeController controller;
@@ -20,15 +22,49 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.seeallevents);
         controller = (AttendeeController) getIntent().getSerializableExtra("controller");
         controller.setView(this);
-        TextView allevents = findViewById(R.id.allEvents);
-        allevents.setText(controller.viewAllEvents());
+        setAllEventsText();
 
     }
-
+    public void setAllEventsText()
+    {
+        TextView allevents = findViewById(R.id.allEvents);
+        allevents.setText(controller.viewAllEvents());
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.:
+            case R.id.signup:
+                EditText event = findViewById(R.id.eventIDinput);
+                try {
+                    int eventID = parseInt(event.getText().toString());
+                    controller.signUp(eventID);
+                }
+                catch(NumberFormatException n){
+                    pushMessage("Please enter a valid eventID");
+                }
+            case R.id.back:
+                Intent myIntent = new Intent(this, AttendeeMenu.class);
+                myIntent.putExtra("cc", controller);
+                setResult(3, myIntent);
+                finish();
+////                if (controller.getType().equals("VIPController")){
+////                    Intent myIntent = new Intent(this, SpeakerMenu.class);
+////                    myIntent.putExtra("cc", currentController);
+////                    setResult(3, myIntent);
+////                    finish();
+////                }
+//                 if (controller.getType().equals("OrganizerController")){
+//                    Intent myIntent = new Intent(this, OrganizerMenu.class);
+//                    myIntent.putExtra("cc", controller);
+//                    setResult(3, myIntent);
+//                    finish();
+//                }
+////                else if (controller.getType().equals("AttendeeController")){
+//                    Intent myIntent = new Intent(this, AttendeeMenu.class);
+//                    myIntent.putExtra("cc", controller);
+//                    setResult(3, myIntent);
+//                    finish();
+//                }
 
         }
 

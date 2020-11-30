@@ -345,4 +345,14 @@ public class UserController implements Serializable{
         getMessageManager().markAsUnread(messageID);
         return true;
     }
+    public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
+                            EventManager em, MessageManager mm)
+    {
+        this.am = am;
+        this.om = om;
+        this.sm = sm;
+        this.rm = rm;
+        this.em = em;
+        this.mm = mm;
+    }
 }

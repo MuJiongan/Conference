@@ -67,11 +67,20 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                 myIntent6.putExtra("controller", controller);
                 setResult(2, myIntent6);
                 finish();
-
-
-
         }
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 3){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager());
+                controller.setView(this);
+            }
+        }
+    }
+
 
     @Override
     public void pushMessage(String info) {
