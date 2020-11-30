@@ -2,10 +2,10 @@ package com.example.presenter;
 
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class VipController extends AttendeeController {
-
+public class VipController extends AttendeeController implements Serializable {
 
     /**
      * Create an instance of AttendeeController with the given Managers
@@ -19,13 +19,10 @@ public class VipController extends AttendeeController {
      * @param userID is the ID value of user currently in program
      * @param view
      */
-    public VipController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em,
-                         MessageManager mm, int userID, View view, VipManager vipm, VipEventManager vipEventM) {
-        super(am, om, sm, rm, em, mm, userID, view, vipm, vipEventM);
-
+    public VipController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, VipManager vipm,
+                         VipEventManager vipe, int userID, View view){
+        super(am, om, sm, rm, em, mm, vipm, vipe, userID, view);
     }
-
-
 
     /**
      * Return the string representation of all the events in the conference
@@ -40,11 +37,5 @@ public class VipController extends AttendeeController {
 //        mergedList.addAll(vipEventM.getAllEvents());
 //        return mergedList;
 //    }
-
-
-    @Override
-    public String getType() {
-        return "VIPController";
-    }
 }
 

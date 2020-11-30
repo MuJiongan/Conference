@@ -16,11 +16,10 @@ import java.util.ArrayList;
 
 public class OrganizerController extends AttendeeController implements Serializable {
 
-
     public OrganizerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
-                               EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM) {
-        super(am, om, sm, rm, em, mm, userID, view, vm, vipEventM);
-
+                               EventManager em, MessageManager mm, VipManager vipm,
+                               VipEventManager vipe, int userID, View view) {
+        super(am, om, sm, rm, em, mm,  vipm, vipe, userID, view);
     }
 
     /**
@@ -35,48 +34,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         for (User user : current.getUsers()) {
             sendMessage(current.getIDByUser(user), content);
         }
-
-    }
-    /**
-     * return true if message with the given content is sent successfully, and update the information.
-     * @param receiverID     the id of user that attendee on the keyboard wanted to send message to
-     * @param messageContent the content of message that attendee on the keyboard wanted to send
-     * @return return true if message with the given content is sent successfully
-     */
-    // Need to override because when an organizer sends a message, we might add that organizer to the receiver's
-    // contact list
-    @Override
-    public boolean sendMessage(int receiverID, String messageContent) {
-        if (super.sendMessage(receiverID, messageContent)) {
-            int organizerID = getUser();
-            // If this receiver is a speaker, add the organizer to the speaker's contact list
-            if (getSpeakerManager().idInList(receiverID)) {
-
-
-                // Check if the organizer already exists in the speaker's contact list
-                if (!getSpeakerManager().getContactList(receiverID).contains(organizerID)) {
-                    getSpeakerManager().addToContactsList(receiverID, organizerID);}
-            }
-            // If this receiver is an attendee, add the organizer to the attendee's contact list
-            else if (getAttendeeManager().idInList(receiverID)) {
-
-
-                // Check if the organizer already exists in the speaker's contact list
-                if (!getAttendeeManager().getContactList(receiverID).contains(organizerID)) {
-                    getAttendeeManager().addToContactsList(receiverID, organizerID);}
-            }
-            // Don't know about the organizer. I assumed organizers aren't allowed to message each other
-            return true;
-        }
-        else{
-            return false;
-        }
-//        updated information:
-//        1. add the given message to the receiver given the receiverID
-//        2. If this receiver is a speaker, add the organizer to the speaker's contact list (if not added already)
-//           If this receiver is an attendee, add the organizer to the attendee's contact list (if not added already)
-//           If this receiver is an organizer, do nothing
-//
+        getView().pushMessage("Messages sent");
     }
 
     /**
@@ -104,14 +62,6 @@ public class OrganizerController extends AttendeeController implements Serializa
         if (!successful) {
             return false;
         }
-        // Add the speaker to the attendee's contact list
-        for (int attendeeID : getAttendeeManager().getUserIDs()) {
-            getAttendeeManager().addToContactsList(attendeeID, speakerID);
-        }
-        // Add the speaker to the organizer's contact list
-        for (int organizerID : getOrganizerManager().getUserIDs()) {
-            getOrganizerManager().addToContactsList(organizerID, speakerID);
-        }
         getView().pushMessage("Speaker successfully created");
         return true;
     }
@@ -129,32 +79,22 @@ public class OrganizerController extends AttendeeController implements Serializa
     public boolean scheduleEvent(LocalDateTime startTime, LocalDateTime endTime,
                                  int roomID, String name, int capacity) {
 
-
         if (!getRoomManager().idInList(roomID)) {
             getView().pushMessage("RoomID doesn't exist.");
             return false;
         }
-
         if (!haveEnoughCapacity(roomID, capacity)) {
             getView().pushMessage("Room doesn't have enough capacity.");
             return false;
         }
-
-
-
         if (!availableInRoom(roomID, startTime, endTime)) {
-
             getView().pushMessage("The room you entered is occupied at the time");
             return false;
         }
-
-
-
         int eventID = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
         getRoomManager().scheduleEvent(roomID, eventID);
         getView().pushMessage("New Event Scheduled");
         return true;
-
     }
     /**
      * Assign Speaker to an existing Event
@@ -165,20 +105,17 @@ public class OrganizerController extends AttendeeController implements Serializa
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean assignSpeaker(int speakerID, int eventID) {
         // check if the event ID exists
-
         if (getEventManager().idInList(eventID)) {
             getView().pushMessage("Event ID doesn't exist!");
             return false;
         }
         // check if the speaker ID exists
-
         if (getSpeakerManager().idInList(speakerID)) {
             getView().pushMessage("Speaker doesn't exist!");
             return false;
         }
         LocalDateTime startTime = getEventManager().getStartTime(eventID);
         LocalDateTime endTime = getEventManager().getEndTime(eventID);
-
         // check if the speaker is available at the time
         if (!availableAtTime(speakerID, startTime, endTime)) {
             getView().pushMessage("The speaker is not available at the time");
@@ -189,12 +126,6 @@ public class OrganizerController extends AttendeeController implements Serializa
             getView().pushMessage("You already added this speaker!");
             return false;
         }
-        // update the speaker's and the attendees' contact list
-        for (Integer userID : getEventManager().getUserIDs(eventID)) {
-            // check if the speaker is already in their contact list
-            updateSpeakerContactList(userID, speakerID);
-        }
-
         getSpeakerManager().addEventID(eventID, speakerID);
         getView().pushMessage("Speaker assigned");
         return true;
@@ -216,51 +147,6 @@ public class OrganizerController extends AttendeeController implements Serializa
                 return false;
         }
         return true;
-    }
-    private boolean updateSpeakerContactList(int userID, int speakerID) {
-        if (getAttendeeManager().idInList(userID)) {
-
-            ArrayList<Integer> contacts = getAttendeeManager().getContactList(userID);
-            // speaker already in their contact list
-            if (!contacts.contains(speakerID)) {
-                // speaker not in contact list, add it now
-                getAttendeeManager().addToContactsList(userID, speakerID);
-            }
-
-
-            // add the userID to speaker
-            User speaker = getSpeakerManager().getUserByID(speakerID);
-            ArrayList<Integer> speakerContacts = getSpeakerManager().getContactList(speakerID);
-            // userID not in speaker Contacts, good! now we add the userID
-            if (!speakerContacts.contains(userID)) {
-                getSpeakerManager().addToContactsList(speakerID, userID);
-
-            }
-            return true;
-        }
-
-        if (getOrganizerManager().idInList(userID)) {
-
-            ArrayList<Integer> contacts = getOrganizerManager().getContactList(userID);
-            // speaker already in their contact list
-            if (!contacts.contains(speakerID)) {
-                // speaker not in contact list, add it now
-                getOrganizerManager().addToContactsList(userID, speakerID);
-            }
-
-
-            // add the userID to speaker
-
-            ArrayList<Integer> speakerContacts = getSpeakerManager().getContactList(speakerID);
-            // userID not in speaker Contacts, good! now we add the userID
-            if (!speakerContacts.contains(userID)) {
-                getSpeakerManager().addToContactsList(speakerID, userID);
-
-            }
-            return true;
-        }
-        // TODO: loop through the VIP usermanager
-        return false;
     }
 
 
@@ -320,9 +206,6 @@ public class OrganizerController extends AttendeeController implements Serializa
         return "OrganizerController";
     }
 
-
-
-
     /**
      * Return true if and only if an give type of User is successfully created
      * @param name     name of the user
@@ -341,7 +224,7 @@ public class OrganizerController extends AttendeeController implements Serializa
             case "Attendee":
                 return getAttendeeManager().createUser(name, username, password, getNewID());
             case "Vip":
-                return getVIPManager().createUser(name, username, password, getNewID());
+                return getVipManager().createUser(name, username, password, getNewID());
         }
         return false;
     }

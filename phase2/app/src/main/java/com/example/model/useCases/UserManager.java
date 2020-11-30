@@ -189,17 +189,6 @@ public abstract class UserManager implements Serializable{
     }
 
     /**
-     * add the user to the user's contact list with its ID
-     * @param userID who will add a user to contact list
-     * @param newID of user
-     */
-    public void addToContactsList(int userID, int newID)
-    {
-        User user = getUserByID(userID);
-        user.addToContactsList(newID);
-    }
-
-    /**
      * change the user's name to the given name
      * @param userID who will change name
      * @param name of user
@@ -208,16 +197,6 @@ public abstract class UserManager implements Serializable{
     {
         User user = getUserByID(userID);
         user.userSetName(name);
-    }
-
-    /**
-     * return a list of users' IDs that in the user's contact list
-     * @param userID user whose contactList is returned
-     * @return a list of users' IDs that in the user's contact list
-     */
-    public ArrayList<Integer> getContactList(int userID){
-        User user = getUserByID(userID);
-        return user.getContactList();
     }
 
     /**

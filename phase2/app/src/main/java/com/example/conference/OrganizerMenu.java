@@ -21,7 +21,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
         setContentView(R.layout.organizermenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
         controller = new OrganizerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
-                presenter.getMm(),presenter.getUserID(),this, presenter.getVipManager(), presenter.getVipEvent());
+                presenter.getMm(),presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(),this);
 
 
 
@@ -61,13 +61,14 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
                 break;
             case R.id.exit:
                 //Serialize objects
-                ReadWrite gateway = new ReadWrite();
-                gateway.saveAttendees(getApplicationContext(),controller.getAttendeeManager());
-                gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
-                gateway.saveSpeakers(getApplicationContext(), controller.getSpeakerManager());
-                gateway.saveEvent(getApplicationContext(), controller.getEventManager());
-                gateway.saveMessage(getApplicationContext(), controller.getMessageManager());
-                gateway.saveRoom(getApplicationContext(), controller.getRoomManager());
+                ReadWrite.saveAttendees(getApplicationContext(),controller.getAttendeeManager());
+                ReadWrite.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
+                ReadWrite.saveSpeakers(getApplicationContext(), controller.getSpeakerManager());
+                ReadWrite.saveEvent(getApplicationContext(), controller.getEventManager());
+                ReadWrite.saveMessage(getApplicationContext(), controller.getMessageManager());
+                ReadWrite.saveRoom(getApplicationContext(), controller.getRoomManager());
+                ReadWrite.saveVips(getApplicationContext(), controller.getVipManager());
+                ReadWrite.saveVipEventManager(getApplicationContext(), controller.getVipEventManager());
 
                 //Send information back to main activity
                 Intent myIntent6 = new Intent(OrganizerMenu.this, MainActivity.class);

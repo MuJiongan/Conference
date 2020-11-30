@@ -25,8 +25,8 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
         currentController.setView(this);
         TextView myEvents = findViewById(R.id.welcome);
         ArrayList<Integer> myEventsString = currentController.viewMyEvents();
-        String text = currentController.viewMyEvents();
-        myEvents.setText(text);
+       // String text = currentController.viewMyEvents();
+       // myEvents.setText(text);
         //TODO: Make viewMyEvents return a string;
 
 

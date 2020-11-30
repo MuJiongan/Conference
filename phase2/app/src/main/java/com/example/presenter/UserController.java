@@ -4,42 +4,20 @@ import com.example.model.entities.Message;
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserController implements Serializable{
-    /**
-     * Store the AttendeeManager
-     */
+
     private AttendeeManager am;
-    /**
-     * Store the OrganizerManager
-     */
     private OrganizerManager om;
-    /**
-     * Store the SpeakerManager
-     */
     private SpeakerManager sm;
-    /**
-     * Store the RoomManager
-     */
     private RoomManager rm;
-    /**
-     * Store the EventManager
-     */
     private EventManager em;
-    /**
-     * Store the MessageManager
-     */
     private MessageManager mm;
-    /**
-     * Store the VipManager
-     */
-    private VipManager vm;
-    /**
-     * Store the current user
-     */
-    private VipEventManager vipEventM;
+    private VipManager vipm;
+    private VipEventManager vipe;
     private int userID;
     /**
      * Store the current Manager of the current user
@@ -57,17 +35,18 @@ public class UserController implements Serializable{
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM){
+    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, VipManager vipm,
+                          VipEventManager vipe, int userID, View view){
         this.am = am;
         this.om = om;
         this.sm = sm;
         this.rm = rm;
         this.em = em;
         this.mm = mm;
+        this.vipm = vipm;
+        this.vipe = vipe;
         this.userID = userID;
         this.view = view;
-        this.vm = vm;
-        this.vipEventM = vipEventM;
 
         if (this.am.idInList(this.userID))
         {
@@ -77,27 +56,61 @@ public class UserController implements Serializable{
         {
             currentManager = this.om;
         }
-        else if (this.sm.idInList(this.userID))
+        else
         {
             currentManager = this.sm;
-        }else{
-            currentManager = this.vm;
         }
     }
-
     /**
-     * Add the given message to the receiver given the receiverID
-     * @param receiverID ID of the user who receives the message
-     * @param messageID the messageID
-     * @return true iff the message is successfully sent
+     * Adds the message to the messages hashmaps of both the receiver and the sender, returns true iff successful
+     * @param receiverID ID of the other user the current user is sending message to
+     * @param messageContent content of the message
+     * @return true iff the message is sent successfully
      */
-    public boolean sendMessage(int receiverID, int messageID){
-        currentManager.addMessageID(messageID, userID, receiverID);
-        //um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
-        // Remember to add received message in sendMessage extension
-        return true;
+    public boolean sendMessage(int receiverID, String messageContent)
+    {
+        if (getAttendeeManager().idInList(receiverID))
+        {
+            int messageID = getMessageManager().createMessage( messageContent, getUser(), receiverID);
+            //add message to receiver's hashmap
+            getAttendeeManager().addMessageID(messageID, receiverID, userID);
+            //add message to current user's hashmap
+            currentManager.addMessageID(messageID, userID, receiverID);
+            getView().pushMessage("Message Sent");
+            return true;
+        }
+        else if (getOrganizerManager().idInList(receiverID))
+        {
+            int messageID = getMessageManager().createMessage( messageContent, getUser(), receiverID);
+            //add message to receiver's hashmap
+            getOrganizerManager().addMessageID(messageID, receiverID, userID);
+            //add message to current user's hashmap
+            currentManager.addMessageID(messageID, userID, receiverID);
+            getView().pushMessage("Message Sent");
+            return true;
+        }
+        else if (getSpeakerManager().idInList(receiverID))
+        {
+            int messageID = getMessageManager().createMessage( messageContent, getUser(), receiverID);
+            //add message to receiver's hashmap
+            getSpeakerManager().addMessageID(messageID, receiverID,userID);
+            //add message to current user's hashmap
+            currentManager.addMessageID(messageID, userID, receiverID);
+            getView().pushMessage("Message Sent");
+            return true;
+        }
+        else if (getVipManager().idInList(receiverID))
+        {
+            int messageID = getMessageManager().createMessage( messageContent, getUser(), receiverID);
+            //add message to receiver's hashmap
+            getVipManager().addMessageID(messageID, receiverID, getUser());
+            //add message to current user's hashmap
+            currentManager.addMessageID(messageID, userID, receiverID);
+            getView().pushMessage("Message Sent");
+            return true;
+        }
+        return false;
     }
-
 
     /**
      * Return the current userID
@@ -158,6 +171,14 @@ public class UserController implements Serializable{
         return sm;
     }
 
+    public VipManager getVipManager() {
+        return vipm;
+    }
+
+    public VipEventManager getVipEventManager() {
+        return vipe;
+    }
+
     /**
      * Return currentManager
      * @return return the <code>AttendeeManager</code> in the conference if the user on the keyboard is an attendee,
@@ -175,14 +196,6 @@ public class UserController implements Serializable{
     public ArrayList<Integer> viewMyEvents() {
         return getCurrentManager().getEventList(getUser());
 
-    }
-
-    public VipEventManager getVipEventM() {
-        return vipEventM;
-    }
-
-    public VipManager getVIPManager() {
-        return vm;
     }
 
     public String getUserName(int userID){
@@ -213,7 +226,9 @@ public class UserController implements Serializable{
         contactList.put("read", readList);
         contactList.put("unread", unreadList);
         //get the contactList of user
-        ArrayList<Integer> contact = getCurrentManager().getContactList(userID);
+        //TODO: Loop through all user managers to get contacts
+    //    ArrayList<Integer> contact = getCurrentManager().getContactList(userID);
+        ArrayList<Integer> contact = new ArrayList<>();
         //get the message HashMap of user
         HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
         //add the string representation of contacts to the final HashMap
@@ -250,15 +265,6 @@ public class UserController implements Serializable{
              chatHistory.add(getUserName(sendID)+":\t"+getMessageManager().getMescontentById(messageID));
          }
          return chatHistory;
-    }
-
-    /**
-     * Return whether the given friend's ID is in the contact list of the current user
-     * @param friendID ID of the user that is going to be checked
-     * @return true iff the given friend's ID is in the contact list of the current user
-     */
-    public boolean hasContact(int friendID){
-        return currentManager.getContactList(userID).contains(friendID);
     }
 
     /**
@@ -299,10 +305,10 @@ public class UserController implements Serializable{
      * @return the next ID that is going to be assigned to the new User created
      */
     public int getNewID(){
-        int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size();
+        int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size()
+                + getVipManager().getUsers().size();
         return size + 1;
     }
-
     public void setView(View view) {
         this.view = view;
     }
@@ -365,7 +371,7 @@ public class UserController implements Serializable{
         return true;
     }
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
-                            EventManager em, MessageManager mm)
+                            EventManager em, MessageManager mm, VipManager vipm, VipEventManager vipe)
     {
         this.am = am;
         this.om = om;
@@ -373,6 +379,7 @@ public class UserController implements Serializable{
         this.rm = rm;
         this.em = em;
         this.mm = mm;
+        this.vipm = vipm;
+        this.vipe = vipe;
     }
-    // TODO: might change?
 }

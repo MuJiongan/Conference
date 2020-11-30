@@ -11,7 +11,6 @@ public class User implements Serializable {
     private String userName;
     private String passWord;
     private HashMap<Integer, ArrayList<Integer>> message;
-    private ArrayList<Integer> contactList;
     private ArrayList<Integer> eventsAttend;
     private ArrayList<Integer> archivedMessages;
 
@@ -29,7 +28,6 @@ public class User implements Serializable {
         this.userName = userName;
         this.passWord = passWord;
         this.message = new HashMap<>();
-        this.contactList = new ArrayList<>();
         this.eventsAttend = new ArrayList<>();
         this.archivedMessages = new ArrayList<>();
     }
@@ -127,21 +125,6 @@ public class User implements Serializable {
         this.message.get(friendID).remove(messageID);
         return true;
     }
-    /**
-     * Returns the shallow copy of contactList of the user
-     * @return shallow copy of contactList of the user
-     */
-    public ArrayList<Integer> getContactList() {
-        return (ArrayList<Integer>) contactList.clone();
-    }
-
-    /**
-     * Add a contact's userID to the contactList of the user
-     * @param contactID to be added to the contactList of the user
-     */
-    public void addContact(int contactID) {
-        this.contactList.add(contactID);
-    }
 
     /**
      * Returns the shallow copy of eventsAttend list of the user
@@ -166,14 +149,6 @@ public class User implements Serializable {
     public void removeEvent(int eventID) {
         Integer eventId = eventID;
         this.eventsAttend.remove(eventId);
-    }
-    /**
-     * Add the userid to the contactList of this user
-     * @param userID the id of the user that this user can message to and receive messages from
-     */
-    public void addToContactsList(int userID)
-    {
-        contactList.add(userID);
     }
     /**
      * change the name of this user to the given name

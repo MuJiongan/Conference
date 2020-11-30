@@ -25,9 +25,10 @@ public class AttendeeController extends UserController{
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID is the ID value of user currently in program
      */
-    public AttendeeController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM)
+    public AttendeeController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, VipManager vipm,
+                              VipEventManager vipe, int userID, View view)
     {
-        super(am, om, sm, rm, em, mm, userID, view, vm, vipEventM);
+        super(am, om, sm, rm, em, mm, vipm, vipe, userID, view);
 
     }
 
@@ -60,19 +61,6 @@ public class AttendeeController extends UserController{
                  //sign Attendee up for the event
                  getCurrentManager().addEventID(getUser(), eventID);
                  getEventManager().addUserID(getUser(), eventID);
-                 //update relevant contact lists
-                 List<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
-                 for (int speakerID: speakerIDs){
-                     // Check if the attendee is already in speaker's contact list
-                     if (!getSpeakerManager().getContactList(speakerID).contains(getUser())){
-                         //add attendee to speaker's contact list
-                         getSpeakerManager().addToContactsList(speakerID, getUser());}
-//                     TODO: May not need this
-//                     if (!getCurrentManager().getContactList(getUser()).contains(speakerID))
-//                     {
-//
-//                     }
-                 }
                  getView().pushMessage("Successfully signed up!");
                  return true;
              }
@@ -82,7 +70,7 @@ public class AttendeeController extends UserController{
      @RequiresApi(api = Build.VERSION_CODES.O)
      private boolean isUserAvailable(LocalDateTime startTime, LocalDateTime endTime)
      {
-         for (int currentEvents: getCurrentManager().getContactList(getUser()))
+         for (int currentEvents: getCurrentManager().getEventList(getUser()))
          {
              LocalDateTime start = getEventManager().getStartTime(currentEvents);
              LocalDateTime end = getEventManager().getEndTime(currentEvents);
@@ -129,37 +117,6 @@ public class AttendeeController extends UserController{
          return false;
      }
 
-    /**
-     * Adds the message to the messages hashmaps of both the receiver and the sender, returns true iff successful
-     * @param receiverID ID of the other user the current user is sending message to
-     * @param messageContent content of the message
-     * @return true iff the message is sent successfully
-     */
-    //TODO Message VIP Users
-    public boolean sendMessage(int receiverID, String messageContent)
-    {
-        int messageID = getMessageManager().createMessage( messageContent, getUser(), receiverID);
-        if (getAttendeeManager().idInList(receiverID))
-        {
-            //add message to receiver's hashmap
-            getAttendeeManager().addMessageID(messageID, receiverID, getUser());
-            //add message to current user's hashmap
-            super.sendMessage(receiverID, messageID);
-            //add message to message manager
-            getMessageManager().addMessage(messageID);
-            getView().pushMessage("Message Sent");
-            return true;
-        }
-        else if (getSpeakerManager().idInList(receiverID))
-        {
-            getSpeakerManager().addMessageID(messageID, receiverID, getUser());
-            super.sendMessage(receiverID, messageID);
-            getMessageManager().addMessage(messageID);
-            getView().pushMessage("Message Sent");
-            return true;
-        }
-        return false;
-    }
 
     public String viewAllEvents()
     {
@@ -180,7 +137,7 @@ public class AttendeeController extends UserController{
 
 //    /**
 //     * Return the string representation of all the events in the conference
-//     * @return a list of string representation of all non-Vip events  in the conference in the format:
+//     * @return a list of string represetation of all non-Vip events  in the conference in the format:
 //     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
 //     */
 //    public List<String> viewAllEvents(){

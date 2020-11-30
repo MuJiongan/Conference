@@ -23,7 +23,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
         setContentView(R.layout.attendeemenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
         controller = new AttendeeController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
-                presenter.getMm(),presenter.getUserID(),this, presenter.getVipManager(), presenter.getVipEvent());
+                presenter.getMm(),presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(),this);
     }
     @Override
     public void onClick(View v) {
@@ -62,6 +62,8 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                 ReadWrite.saveEvent(getApplicationContext(), controller.getEventManager());
                 ReadWrite.saveMessage(getApplicationContext(), controller.getMessageManager());
                 ReadWrite.saveRoom(getApplicationContext(), controller.getRoomManager());
+                ReadWrite.saveVips(getApplicationContext(), controller.getVipManager());
+                ReadWrite.saveVipEventManager(getApplicationContext(), controller.getVipEventManager());
                 //Send information back to main activity
                 Intent myIntent6 = new Intent(AttendeeMenu.this, MainActivity.class);
                 myIntent6.putExtra("controller", controller);
@@ -75,7 +77,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager());
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
                 controller.setView(this);
             }
         }

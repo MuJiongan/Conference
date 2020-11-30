@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
             {
                 UserController controller = (UserController) data.getSerializableExtra("controller");
                 presenter.setManagers(controller.getAttendeeManager(), controller.getOrganizerManager(), controller.getSpeakerManager(),
-                        controller.getRoomManager(), controller.getEventManager(), controller.getMessageManager());
+                        controller.getRoomManager(), controller.getEventManager(), controller.getMessageManager(), controller.getVipManager(),
+                        controller.getVipEventManager());
                 presenter.setView(this);
             }
         }
