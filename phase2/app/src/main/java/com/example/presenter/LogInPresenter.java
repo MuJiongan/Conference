@@ -22,6 +22,8 @@ public class LogInPresenter implements Serializable {
     private EventManager em;
     private MessageManager mm;
     private int userID;
+    private VipManager vipM;
+    private VipEventManager vipEvent;
     //VIP Manager private variable
 
 
@@ -35,6 +37,8 @@ public class LogInPresenter implements Serializable {
         rm = ReadWrite.readRoom(context);
         em = ReadWrite.readEvent(context);
         mm = ReadWrite.readMessage(context);
+        vipM = ReadWrite.readVipManager(context);
+        vipEvent = ReadWrite.readVipEventManager(context);
         om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
         this.userID = 0;
 
@@ -67,30 +71,30 @@ public class LogInPresenter implements Serializable {
         return null;
     }
 
-    /**
-     * Initializes the contacts list of the given new Attendee and add the given new Attendee to the contacts list of
-     * other users if they are allowed to contact him.
-     * @param userID the Attendee whose contacts list we want to initialize
-     */
-    public void initializeAttendeeContactsList(int userID){
-
-        for (int attendee: am.getUserIDs()){
-            // Add every attendee to this new attendee's contact list
-            am.addToContactsList(userID, attendee);
-            // Add this new attendee's to every attendee's contact list
-            am.addToContactsList(attendee, userID);
-
-        }
-        for (int speaker: sm.getUserIDs()){
-            // Add every speaker to this new attendee's contact list
-            am.addToContactsList(userID, speaker);
-        }
-        for (int organizer: om.getUserIDs()){
-            // Add this new attendee to each organizer's contact list
-            om.addToContactsList(organizer, userID);
-        }
-
-    }
+//    /**
+//     * Initializes the contacts list of the given new Attendee and add the given new Attendee to the contacts list of
+//     * other users if they are allowed to contact him.
+//     * @param userID the Attendee whose contacts list we want to initialize
+//     */
+//    public void initializeAttendeeContactsList(int userID){
+//
+//        for (int attendee: am.getUserIDs()){
+//            // Add every attendee to this new attendee's contact list
+//            am.addToContactsList(userID, attendee);
+//            // Add this new attendee's to every attendee's contact list
+//            am.addToContactsList(attendee, userID);
+//
+//        }
+//        for (int speaker: sm.getUserIDs()){
+//            // Add every speaker to this new attendee's contact list
+//            am.addToContactsList(userID, speaker);
+//        }
+//        for (int organizer: om.getUserIDs()){
+//            // Add this new attendee to each organizer's contact list
+//            om.addToContactsList(organizer, userID);
+//        }
+//
+//    }
     public boolean createAttendeeAccount(String name, String userName, String password){
         // can't be empty
         if (name.equals("") || userName.equals("") || password.equals("")){
@@ -147,6 +151,9 @@ public class LogInPresenter implements Serializable {
     }
     public int getUserID() {
         return userID;
+    }
+    public VipManager getVipManager(){
+        return vipM;
     }
 
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,

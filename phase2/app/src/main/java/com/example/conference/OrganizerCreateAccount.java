@@ -48,6 +48,7 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                 controller.createUser(nameString, usernameString,passwordString, "Speaker");
             case R.id.createvip:
                 controller.createUser(nameString,usernameString,passwordString, "Vip");
+                // TODO: push message is not created successfully, and check the implementation of createUser
 
 
 

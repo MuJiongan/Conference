@@ -35,8 +35,14 @@ public class ConferenceSystem implements Serializable {
      * Store the gateway
      */
     private ReadWrite gateway;
-
-
+    /**
+     * Store the VipEventManager
+     */
+    private VipEventManager vipEventM;
+    /**
+     * Store the VipManager
+     */
+    private VipManager vipM;
     /**
      * Construct an instance of ConferenceSystem
      */
@@ -48,6 +54,8 @@ public class ConferenceSystem implements Serializable {
         rm = gateway.readRoom("phase1/src/roommanager.ser");
         em = gateway.readEvent("phase1/src/eventmanager.ser");
         mm = gateway.readMessage("phase1/src/messagemanager.ser");
+        vipEventM = gateway.readVipEventManager("phase1/src/vipeventmanager.ser");
+        vipM = gateway.readVipManager("phase1/src/vipmanager.ser");
         gateway.setManagers(am, om, sm, em, rm, mm);
     }
 

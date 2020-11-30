@@ -154,7 +154,89 @@ public class ReadWrite implements Serializable {
             return new MessageManager();
         }
     }
+    /**
+     * Read stored information and load the stored VipEventManager
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>VipEventManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>VipEventManager</code> updated based on the given file
+     */
+    public static VipEventManager readVipEventManager(Context context)
+    {
+        try {
+            InputStream fis = context.openFileInput("vipeventmanager.ser");
+            InputStream buffer = new BufferedInputStream(fis);
+            ObjectInput input = new ObjectInputStream(buffer);
+            VipEventManager vipM = (VipEventManager) input.readObject();
+            input.close();
+            return vipM;
+        } catch (FileNotFoundException e) {
+            return new VipEventManager();
+        } catch (IOException e) {
+            return new VipEventManager();
+        } catch (ClassNotFoundException e) {
+            return new VipEventManager();
+        }
+    }
+    /**
+     * Read stored information and load the stored VipManager
+     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     *             <code>VipManager</code> by the end of the last running if the main method is ran
+     * @return return the instance of <code>VipManager</code> updated based on the given file
+     */
+    public static VipManager readVipManager(Context context)
+    {
+        try {
+            InputStream fis = context.openFileInput("vipmanager.ser");
+            InputStream buffer = new BufferedInputStream(fis);
+            ObjectInput input = new ObjectInputStream(buffer);
+            VipManager vipM = (VipManager) input.readObject();
+            input.close();
+            return vipM;
+        } catch (FileNotFoundException e) {
+            return new VipManager();
+        } catch (IOException e) {
+            return new VipManager();
+        } catch (ClassNotFoundException e) {
+            return new VipManager();
+        }
+    }
 
+    /**
+     * store the <code>VipManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
+     */
+    public static void saveVips(Context context, VipManager vipM)
+    {
+        try {
+            OutputStream file = context.openFileOutput("vipmanager.ser", Context.MODE_PRIVATE);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+            output.writeObject(vipM);
+            output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * store the <code>VipEventManager</code> in the conference to the given file
+     * @param path filepath of the ser. file to store the <code>VipEventManager</code>
+     */
+    public static void saveVipEventManager(Context context, VipEventManager vipEventM)
+    {
+        try {
+            OutputStream file = context.openFileOutput("vipeventmanager.ser", Context.MODE_PRIVATE);
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
+            output.writeObject(vipEventM);
+            output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * store the <code>AttendeeManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
