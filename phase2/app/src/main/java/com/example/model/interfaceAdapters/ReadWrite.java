@@ -235,7 +235,7 @@ public class ReadWrite implements Serializable {
      */
     public static void saveRoom (Context context, RoomManager rm) {
         try {
-            OutputStream file = context.openFileOutput("attendeemanager.ser", Context.MODE_PRIVATE);
+            OutputStream file = context.openFileOutput("roommanager.ser", Context.MODE_PRIVATE);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
             output.writeObject(rm);
@@ -253,7 +253,7 @@ public class ReadWrite implements Serializable {
     public static void saveMessage (Context context, MessageManager mm)
     {
         try {
-            OutputStream file = context.openFileOutput("attendeemanager.ser", Context.MODE_PRIVATE);
+            OutputStream file = context.openFileOutput("messagemanager.ser", Context.MODE_PRIVATE);
             OutputStream buffer = new BufferedOutputStream(file);
             ObjectOutput output = new ObjectOutputStream(buffer);
             output.writeObject(mm);

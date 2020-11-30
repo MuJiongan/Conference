@@ -62,14 +62,12 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
             case R.id.exit:
                 //Serialize objects
                 ReadWrite gateway = new ReadWrite();
-                if (controller.getAttendeeManager().getUserIDs().size() != 0)
-                {
-                    gateway.saveAttendees(getApplicationContext(), controller.getAttendeeManager());
-                }
-                if (controller.getOrganizerManager().getUserIDs().size()!= 0)
-                {
-                    gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
-                }
+                gateway.saveAttendees(getApplicationContext(),controller.getAttendeeManager());
+                gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
+                gateway.saveSpeakers(getApplicationContext(), controller.getSpeakerManager());
+                gateway.saveEvent(getApplicationContext(), controller.getEventManager());
+                gateway.saveMessage(getApplicationContext(), controller.getMessageManager());
+                gateway.saveRoom(getApplicationContext(), controller.getRoomManager());
 
                 //Send information back to main activity
                 Intent myIntent6 = new Intent(OrganizerMenu.this, MainActivity.class);

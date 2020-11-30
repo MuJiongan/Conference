@@ -21,7 +21,6 @@ public class LogInPresenter implements Serializable {
     private RoomManager rm;
     private EventManager em;
     private MessageManager mm;
-    private ReadWrite gateway;
     private int userID;
     //VIP Manager private variable
 
@@ -29,15 +28,14 @@ public class LogInPresenter implements Serializable {
     private View view;
 
     public LogInPresenter(View view, Context context) {
-        gateway = new ReadWrite();
         //https://stackoverflow.com/questions/14768191/how-do-i-read-the-file-content-from-the-internal-storage-android-app
-        am = gateway.readAttendee(context);
-        om = gateway.readOrganizer(context);
-        sm = gateway.readSpeaker(context);
-        rm = gateway.readRoom(context);
-        em = gateway.readEvent(context);
-        mm = gateway.readMessage(context);
-        //om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
+        am = ReadWrite.readAttendee(context);
+        om = ReadWrite.readOrganizer(context);
+        sm = ReadWrite.readSpeaker(context);
+        rm = ReadWrite.readRoom(context);
+        em = ReadWrite.readEvent(context);
+        mm = ReadWrite.readMessage(context);
+        om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
         this.userID = 0;
 
     }

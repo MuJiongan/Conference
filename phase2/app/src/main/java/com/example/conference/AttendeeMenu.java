@@ -31,39 +31,36 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             case R.id.viewAllEvents:
                 Toast.makeText(this, "These are all your events", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(v.getContext(), seeAllEventsActivity.class);
-                startActivityForResult(myIntent, 0);
+                startActivityForResult(myIntent, 3);
                 break;
             case R.id.viewMyEvents:
                 Toast.makeText(this, "These are all my events", Toast.LENGTH_SHORT).show();
                 Intent myIntent2 = new Intent(v.getContext(), seeMyEventsActivity.class);
-                startActivityForResult(myIntent2, 0);
+                startActivityForResult(myIntent2, 4);
                 break;
             case R.id.manage:
                 Toast.makeText(this, "Manage my account", Toast.LENGTH_SHORT).show();
                 Intent myIntent3 = new Intent(v.getContext(), manageMyAccountActivity.class);
-                startActivityForResult(myIntent3, 0);
+                startActivityForResult(myIntent3, 5);
                 break;
             case R.id.viewContactList:
                 Toast.makeText(this, "These are all my Contacts", Toast.LENGTH_SHORT).show();
                 Intent myIntent4 = new Intent(v.getContext(), viewContactListActivity.class);
-                startActivityForResult(myIntent4, 0);
+                startActivityForResult(myIntent4, 6);
                 break;
             case R.id.social:
                 Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
-                startActivityForResult(myIntent5, 0);
+                startActivityForResult(myIntent5, 7);
                 break;
             case R.id.exit:
                 //Serialize objects
-                ReadWrite gateway = new ReadWrite();
-                if (controller.getAttendeeManager().getUserIDs().size() != 0)
-                {
-                    gateway.saveAttendees(getApplicationContext(), controller.getAttendeeManager());
-                }
-                if (controller.getOrganizerManager().getUserIDs().size()!= 0)
-                {
-                    gateway.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
-                }
+                ReadWrite.saveAttendees(getApplicationContext(),controller.getAttendeeManager());
+                ReadWrite.saveOrganizers(getApplicationContext(), controller.getOrganizerManager());
+                ReadWrite.saveSpeakers(getApplicationContext(), controller.getSpeakerManager());
+                ReadWrite.saveEvent(getApplicationContext(), controller.getEventManager());
+                ReadWrite.saveMessage(getApplicationContext(), controller.getMessageManager());
+                ReadWrite.saveRoom(getApplicationContext(), controller.getRoomManager());
                 //Send information back to main activity
                 Intent myIntent6 = new Intent(AttendeeMenu.this, MainActivity.class);
                 myIntent6.putExtra("controller", controller);

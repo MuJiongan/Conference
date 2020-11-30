@@ -40,21 +40,23 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
 
                 if (presenter.createAttendeeAccount(nameString, usernameString, passwordString)){
                     //Serialize objects
-                    ReadWrite gateway = new ReadWrite();
-                    if (presenter.getAm().getUserIDs().size() != 0)
-                    {
-                        gateway.saveAttendees(getApplicationContext(), presenter.getAm());
-                    }
-                    if (presenter.getOm().getUserIDs().size()!= 0)
-                    {
-                        gateway.saveOrganizers(getApplicationContext(), presenter.getOm());
-                    }
+                    ReadWrite.saveAttendees(getApplicationContext(), presenter.getAm());
+                    ReadWrite.saveOrganizers(getApplicationContext(), presenter.getOm());
+                    ReadWrite.saveSpeakers(getApplicationContext(), presenter.getSm());
+                    ReadWrite.saveEvent(getApplicationContext(), presenter.getEm());
+                    ReadWrite.saveMessage(getApplicationContext(), presenter.getMm());
+                    ReadWrite.saveRoom(getApplicationContext(), presenter.getRm());
                     Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(SignUp.this, MainActivity.class);
                     myIntent.putExtra("presenter", presenter);
                     setResult(3, myIntent);
                     finish();
                 }
+            case R.id.back:
+                Intent myIntent = new Intent(SignUp.this, MainActivity.class);
+                myIntent.putExtra("presenter", presenter);
+                setResult(3, myIntent);
+                finish();
         }
     }
 }
