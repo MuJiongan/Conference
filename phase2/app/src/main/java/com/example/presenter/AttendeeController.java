@@ -161,44 +161,36 @@ public class AttendeeController extends UserController{
         return false;
     }
 
-//    public List<String> viewAllEvents()
-//    {
-//        List<Integer> eventIDs = getEventManager().getEvents();
-//        String output ="";
-//        for (int ID: eventIDs)
-//        {
-//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-//                    +"\n";
-//        }
-//        return output;
-//    }
+    public String viewAllEvents()
+    {
+        List<Integer> eventIDs = getEventManager().getEvents();
+        if (eventIDs.size() == 0)
+        {
+            return "There are no current events at the moment! Check again soon";
+        }
+        String output ="";
+        for (int ID: eventIDs)
+        {
+            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+                    +"\n";
+        }
+        return output;
+    }
 
-    /**
-     * Return the string representation of all the events in the conference
-     * @return a list of string represetation of all non-Vip events  in the conference in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
-     */
-    public List<String> viewAllEvents(){
-        List<String> allStringRep = getEventManager().getAllEvents();
-        return allStringRep;}
+//    /**
+//     * Return the string representation of all the events in the conference
+//     * @return a list of string represetation of all non-Vip events  in the conference in the format:
+//     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+//     */
+//    public List<String> viewAllEvents(){
+//        List<String> allStringRep = getEventManager().getAllEvents();
+//        return allStringRep;}
 
     public String getType(){
         return "AttendeeController";
     }
 
 
-//    public String viewAllEvents()
-//    {
-//        List<Integer> eventIDs = getEventManager().getEvents();
-//        String output ="";
-//        for (int ID: eventIDs)
-//        {
-//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-//                    +"\n";
-//        }
-//        return output;
-//    }
 
 }

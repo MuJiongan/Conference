@@ -54,8 +54,7 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
                 }
             case R.id.back:
                 Intent myIntent = new Intent(SignUp.this, MainActivity.class);
-                myIntent.putExtra("presenter", presenter);
-                setResult(3, myIntent);
+                setResult(4, myIntent);
                 finish();
         }
     }

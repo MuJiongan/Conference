@@ -10,14 +10,12 @@
 
     <TextView
             android:text="HERE ARE ALL EVENTS"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/welcome"/>
-
-
-
+            android:layout_height="wrap_content"
+            android:id="@+id/welcome"/>
     <Button
             android:text="sign up"
             android:layout_width="wrap_content"
@@ -25,8 +23,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/signup"/>
-
+            android:layout_height="wrap_content"
+            android:id="@+id/signup"/>
 
     <Button
             android:text="back"
@@ -36,5 +34,19 @@
             android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/back">
+
+        <TextView
+                android:text=""
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/allEvents"/>
+    </ScrollView>
 
 </RelativeLayout>

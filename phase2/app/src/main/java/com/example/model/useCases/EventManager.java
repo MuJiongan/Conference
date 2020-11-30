@@ -76,20 +76,6 @@ public class EventManager implements Serializable{
     }
 
     /**
-     * Return the string representation of all events stored in the EventManager
-     * @return a list of string representation of all events stored in the EventManager in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
-     */
-    public List<String> getAllEvents(){
-        List<String> allEvents = new ArrayList<>();
-        for (Event event: events){
-            allEvents.add(event.toString());
-        }
-        return allEvents;
-    }
-
-
-    /**
      * add an event to events
      * @param event event to be added
      * @return true if and only if the event is successfully added to the event list

@@ -31,6 +31,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             case R.id.viewAllEvents:
                 Toast.makeText(this, "These are all your events", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(v.getContext(), seeAllEventsActivity.class);
+                myIntent.putExtra("controller", controller);
                 startActivityForResult(myIntent, 3);
                 break;
             case R.id.viewMyEvents:

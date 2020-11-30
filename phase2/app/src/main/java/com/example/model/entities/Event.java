@@ -24,14 +24,15 @@ public class Event implements Serializable {
 
     /**
      * Create a new event object with the given startTime, endTime, roomID, name
+     *
      * @param startTime of this event
-     * @param endTime of this event
-     * @param roomID of this event
-     * @param name of this event
-     * @param capacity of this event
-     * @param eventID of this event
+     * @param endTime   of this event
+     * @param roomID    of this event
+     * @param name      of this event
+     * @param capacity  of this event
+     * @param eventID   of this event
      */
-    public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int eventID){
+    public Event(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int eventID) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomID = roomID;
@@ -45,6 +46,7 @@ public class Event implements Serializable {
 
     /**
      * Returns the roomID of the event
+     *
      * @return the roomID of the event
      */
     public int getRoomID() {
@@ -53,6 +55,7 @@ public class Event implements Serializable {
 
     /**
      * Returns the startTime of the event
+     *
      * @return the startTime of the event
      */
     public LocalDateTime getStartTime() {
@@ -61,15 +64,16 @@ public class Event implements Serializable {
 
     /**
      * Change the start time to the given time.
+     *
      * @param time that will be set as start time
      */
-    public void setStartTime(LocalDateTime time)
-    {
+    public void setStartTime(LocalDateTime time) {
         startTime = time;
     }
 
     /**
      * Returns the endTime of the event
+     *
      * @return the endTime of the event
      */
     public LocalDateTime getEndTime() {
@@ -78,15 +82,16 @@ public class Event implements Serializable {
 
     /**
      * Change the end time to the given time.
+     *
      * @param time that will be set as end time
      */
-    public void setEndTime(LocalDateTime time)
-    {
+    public void setEndTime(LocalDateTime time) {
         endTime = time;
     }
 
     /**
      * Returns the name of the event
+     *
      * @return the name of the event
      */
     public String getName() {
@@ -95,6 +100,7 @@ public class Event implements Serializable {
 
     /**
      * Adds an speaker ID to the speakerIDs list
+     *
      * @param speakerID to be added in the entities.Event
      */
     public void addSpeakerID(int speakerID) {
@@ -103,6 +109,7 @@ public class Event implements Serializable {
 
     /**
      * Adds an user ID to the userIDs (Attendees) list
+     *
      * @param userID to be added in the entities.Event
      */
     public void addUserID(int userID) {
@@ -111,14 +118,17 @@ public class Event implements Serializable {
 
     /**
      * removes an user ID from the userIDs (Attendees) list
+     *
      * @param userID to be removed in the entities.Event
      */
     public void removeUserID(int userID) {
         Integer userId = userID;
         userIDs.remove(userId);
     }
+
     /**
      * Returns the shallow copy of UserIDs of the event
+     *
      * @return the UserIDs of the event
      */
     public ArrayList<Integer> getUserIDs() {
@@ -127,6 +137,7 @@ public class Event implements Serializable {
 
     /**
      * Returns the shallow copy of SpeakerIDs of the event
+     *
      * @return the SpeakerIDs of the event
      */
     public ArrayList<Integer> getSpeakerIDs() {
@@ -135,6 +146,7 @@ public class Event implements Serializable {
 
     /**
      * Returns the eventID of the event
+     *
      * @return the eventID of the event
      */
     public int getEventID() {
@@ -143,6 +155,7 @@ public class Event implements Serializable {
 
     /**
      * removes an speaker ID from the speakerIDs list
+     *
      * @param speakerID to be removed in the entities.Event
      */
     public void removeSpeakerID(int speakerID) {
@@ -152,14 +165,16 @@ public class Event implements Serializable {
 
     /**
      * change the room ID of the event
+     *
      * @param roomID new roomID
      */
-    public void changeRoomID(int roomID){
+    public void changeRoomID(int roomID) {
         this.roomID = roomID;
     }
 
     /**
      * Returns the capacity of the event
+     *
      * @return the capacity of the event
      */
     public int getCapacity() {
@@ -168,6 +183,7 @@ public class Event implements Serializable {
 
     /**
      * Change the capacity of the event
+     *
      * @param capacity the new capacity of the event
      */
     public void setCapacity(int capacity) {
@@ -175,23 +191,12 @@ public class Event implements Serializable {
     }
 
     /**
-     * @return the the name of the room that hold this event
-     */
-    public String getRoomName(){return this.name;}
-
-    /**
      * @return the number of attendees in this event
      */
-    public int getNumOfAttendee(){return userIDs.size();}
-
-    /**
-     * Return a string contains information about this event
-     * @return return a string contains the name, capacity of this event and the room id that this event holds
-     */
-    @NonNull
-    @Override
-    public String toString() {
-        return eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + getRoomName();
+    public int getNumOfAttendee() {
+        return userIDs.size();
     }
 }
+
+
 
