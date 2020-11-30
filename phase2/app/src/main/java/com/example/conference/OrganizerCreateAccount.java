@@ -38,12 +38,16 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
         EditText password = findViewById(R.id.passwordinput);
         String passwordString = password.getText().toString();
         switch (v.getId()){
-            case R.id.createaccount:
-                break;
             case R.id.createattendee:
+                controller.createUser(nameString,usernameString,passwordString,"Attendee");
+                break;
+            case R.id.createOrganizeraccount:
+                controller.createUser(nameString,usernameString,passwordString, "Organizer");
                 break;
             case R.id.createspeaker:
-                //controller.createSpeaker();
+                controller.createUser(nameString, usernameString,passwordString, "Speaker");
+            case R.id.createvip:
+                controller.createUser(nameString,usernameString,passwordString, "Vip");
 
 
 
