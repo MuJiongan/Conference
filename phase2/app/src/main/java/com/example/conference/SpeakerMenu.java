@@ -17,7 +17,7 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
         setContentView(R.layout.speakermenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
 
-        sc = new SpeakerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(), presenter.getMm(), presenter.getUserID(), this);
+        sc = new SpeakerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(), presenter.getMm(), presenter.getUserID(), this, presenter.getVipManager(), presenter.getVipEvent());
 
 
     }

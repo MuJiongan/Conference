@@ -33,8 +33,13 @@ public class UserController implements Serializable{
      */
     private MessageManager mm;
     /**
+     * Store the VipManager
+     */
+    private VipManager vm;
+    /**
      * Store the current user
      */
+    private VipEventManager vipEventM;
     private int userID;
     /**
      * Store the current Manager of the current user
@@ -52,7 +57,7 @@ public class UserController implements Serializable{
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
+    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM){
         this.am = am;
         this.om = om;
         this.sm = sm;
@@ -61,6 +66,8 @@ public class UserController implements Serializable{
         this.mm = mm;
         this.userID = userID;
         this.view = view;
+        this.vm = vm;
+        this.vipEventM = vipEventM;
 
         if (this.am.idInList(this.userID))
         {
@@ -70,9 +77,11 @@ public class UserController implements Serializable{
         {
             currentManager = this.om;
         }
-        else
+        else if (this.sm.idInList(this.userID))
         {
             currentManager = this.sm;
+        }else{
+            currentManager = this.vm;
         }
     }
 
@@ -85,9 +94,10 @@ public class UserController implements Serializable{
     public boolean sendMessage(int receiverID, int messageID){
         currentManager.addMessageID(messageID, userID, receiverID);
         //um.addReceivedMessageID(mm.getIdByMessage(message), um.getUserByID(receiverID), um.getIDByUser(user));
-        // Remember to add recevied message in sendMessage extension
+        // Remember to add received message in sendMessage extension
         return true;
     }
+
 
     /**
      * Return the current userID
@@ -165,6 +175,14 @@ public class UserController implements Serializable{
     public ArrayList<Integer> viewMyEvents() {
         return getCurrentManager().getEventList(getUser());
 
+    }
+
+    public VipEventManager getVipEventM() {
+        return vipEventM;
+    }
+
+    public VipManager getVIPManager() {
+        return vm;
     }
 
     public String getUserName(int userID){
@@ -284,6 +302,7 @@ public class UserController implements Serializable{
         int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size();
         return size + 1;
     }
+
     public void setView(View view) {
         this.view = view;
     }
@@ -355,4 +374,5 @@ public class UserController implements Serializable{
         this.em = em;
         this.mm = mm;
     }
+    // TODO: might change?
 }

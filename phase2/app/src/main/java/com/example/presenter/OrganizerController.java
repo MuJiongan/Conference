@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrganizerController extends AttendeeController implements Serializable {
-    /**
-     * Store the VipManager in the conference
-     */
-    private VipManager vipm;
+
 
     public OrganizerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
-                               EventManager em, MessageManager mm, int userID, View view, VipManager vipm) {
-        super(am, om, sm, rm, em, mm, userID, view);
-        this.vipm = vipm;
+                               EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM) {
+        super(am, om, sm, rm, em, mm, userID, view, vm, vipEventM);
+
     }
 
     /**
@@ -344,7 +341,7 @@ public class OrganizerController extends AttendeeController implements Serializa
             case "Attendee":
                 return getAttendeeManager().createUser(name, username, password, getNewID());
             case "Vip":
-                return vipm.createUser(name, username, password, getNewID());
+                return getVIPManager().createUser(name, username, password, getNewID());
         }
         return false;
     }

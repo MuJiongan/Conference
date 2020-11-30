@@ -21,7 +21,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
         setContentView(R.layout.organizermenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
         controller = new OrganizerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
-                presenter.getMm(),presenter.getUserID(),this, presenter.getVipManager());
+                presenter.getMm(),presenter.getUserID(),this, presenter.getVipManager(), presenter.getVipEvent());
 
 
 

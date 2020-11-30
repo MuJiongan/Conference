@@ -93,7 +93,12 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                     setResult(3, myIntent);
                     finish();
                 }
-                //TODO Also do it for the VIPMenu
+                else if (currentController.getType().equals("VIPController")){
+                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
+                    myIntent3.putExtra("cc", currentController);
+                    setResult(3, myIntent3);
+                    finish();
+                }
 
 
         }

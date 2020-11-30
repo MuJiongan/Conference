@@ -44,8 +44,12 @@ public class SocialNetworking extends Activity implements UserController.View, V
                     setResult(3, myIntent3);
                     finish();
                 }
-                //TODO Also do it for the VIPMenu
-
+                else if (currentController.getType().equals("VIPController")){
+                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
+                    myIntent3.putExtra("cc", currentController);
+                    setResult(3, myIntent3);
+                    finish();
+                }
         }
     }
 

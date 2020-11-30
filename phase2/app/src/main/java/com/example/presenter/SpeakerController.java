@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class SpeakerController extends UserController implements Serializable{
 
-    public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view){
-        super(am, om, sm, rm, em, mm, userID, view);
+    public SpeakerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM){
+        super(am, om, sm, rm, em, mm, userID, view, vm, vipEventM);
 
     }
 

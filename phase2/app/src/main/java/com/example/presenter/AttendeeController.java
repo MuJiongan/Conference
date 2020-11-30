@@ -25,9 +25,9 @@ public class AttendeeController extends UserController{
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID is the ID value of user currently in program
      */
-    public AttendeeController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view)
+    public AttendeeController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID, View view, VipManager vm, VipEventManager vipEventM)
     {
-        super(am, om, sm, rm, em, mm, userID, view);
+        super(am, om, sm, rm, em, mm, userID, view, vm, vipEventM);
 
     }
 
@@ -180,7 +180,7 @@ public class AttendeeController extends UserController{
 
 //    /**
 //     * Return the string representation of all the events in the conference
-//     * @return a list of string represetation of all non-Vip events  in the conference in the format:
+//     * @return a list of string representation of all non-Vip events  in the conference in the format:
 //     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
 //     */
 //    public List<String> viewAllEvents(){

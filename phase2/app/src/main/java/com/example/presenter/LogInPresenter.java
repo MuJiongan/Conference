@@ -116,8 +116,7 @@ public class LogInPresenter implements Serializable {
     }
 
     public int getNewID(){
-        int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size();
-        //TODO: add VIP MANAGER
+        int size = am.getUsers().size() + om.getUsers().size() + sm.getUsers().size() + vipM.getUsers().size();
         return size + 1;
     }
 
@@ -153,6 +152,10 @@ public class LogInPresenter implements Serializable {
     }
     public VipManager getVipManager(){
         return vipM;
+    }
+
+    public VipEventManager getVipEvent() {
+        return vipEvent;
     }
 
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,

@@ -5,14 +5,7 @@ import com.example.model.useCases.*;
 import java.util.List;
 
 public class VipController extends AttendeeController {
-    /**
-     * Store the instance of VipManager in the conference
-     */
-    private VipManager vipm;
-    /**
-     * Store the instance of VipEventManager in the conference
-     */
-    private VipEventManager vipEventM;
+
 
     /**
      * Create an instance of AttendeeController with the given Managers
@@ -28,16 +21,11 @@ public class VipController extends AttendeeController {
      */
     public VipController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em,
                          MessageManager mm, int userID, View view, VipManager vipm, VipEventManager vipEventM) {
-        super(am, om, sm, rm, em, mm, userID, view);
-        this.vipm = vipm;
-        this.vipEventM = vipEventM;
+        super(am, om, sm, rm, em, mm, userID, view, vipm, vipEventM);
+
     }
 
-    /**
-     * Return the instance of VipManager in the conference
-     * @return the instance of VipManager in the conference
-     */
-    public VipManager getVipManager(){return vipm;}
+
 
     /**
      * Return the string representation of all the events in the conference
@@ -52,5 +40,11 @@ public class VipController extends AttendeeController {
 //        mergedList.addAll(vipEventM.getAllEvents());
 //        return mergedList;
 //    }
+
+
+    @Override
+    public String getType() {
+        return "VIPController";
+    }
 }
 
