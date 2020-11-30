@@ -11,19 +11,8 @@ import java.io.*;
  * Gateway class to read and write from files
  */
 public class ReadWrite implements Serializable {
-    private AttendeeManager attendees;
-    private OrganizerManager organizers;
-    private SpeakerManager speakers;
-    private RoomManager rooms;
-    private EventManager events;
-    private MessageManager messages;
 
-    /**
-     * Construct an instance of ReadWrite with newly created Managers
-     */
-    public ReadWrite()
-    {
-    }
+
 
     /**
      * Read stored information and load the stored AttendeeManager
@@ -31,7 +20,7 @@ public class ReadWrite implements Serializable {
      *             <code>AttendeeManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>AttendeeManager</code> updated based on the given file
      */
-    public AttendeeManager readAttendee(Context context)
+    public static AttendeeManager readAttendee(Context context)
     {
         try {
             InputStream fis = context.openFileInput("attendeemanager.ser");
@@ -55,7 +44,7 @@ public class ReadWrite implements Serializable {
      *             <code>OrganizerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>OrganizerManager</code> updated based on the given file
      */
-    public OrganizerManager readOrganizer(Context context)
+    public static OrganizerManager readOrganizer(Context context)
     {
         try {
             InputStream fis = context.openFileInput("organizermanager.ser");
@@ -79,7 +68,7 @@ public class ReadWrite implements Serializable {
      *             <code>SpeakerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>SpeakerManager</code> updated based on the given file
      */
-    public SpeakerManager readSpeaker(Context context)
+    public static SpeakerManager readSpeaker(Context context)
     {
         try {
             InputStream fis = context.openFileInput("speakermanager.ser");
@@ -102,7 +91,7 @@ public class ReadWrite implements Serializable {
      *             <code>RoomManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>RoomManager</code> updated based on the given file
      */
-    public RoomManager readRoom(Context context)
+    public static RoomManager readRoom(Context context)
     {
         try {
             InputStream fis = context.openFileInput("roommanager.ser");
@@ -125,7 +114,7 @@ public class ReadWrite implements Serializable {
      *             <code>EventManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>EventManager</code> updated based on the given file
      */
-    public EventManager readEvent(Context context)
+    public static EventManager readEvent(Context context)
     {
         try {
             InputStream fis = context.openFileInput("eventmanager.ser");
@@ -148,7 +137,7 @@ public class ReadWrite implements Serializable {
      *             <code>MessageManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>MessageManager</code> updated based on the given file
      */
-    public MessageManager readMessage(Context context)
+    public static MessageManager readMessage(Context context)
     {
         try {
             InputStream fis = context.openFileInput("messagemanager.ser");
@@ -170,7 +159,7 @@ public class ReadWrite implements Serializable {
      * store the <code>AttendeeManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
      */
-    public void saveAttendees(Context context, AttendeeManager am)
+    public static void saveAttendees(Context context, AttendeeManager am)
     {
         try {
             OutputStream file = context.openFileOutput("attendeemanager.ser", Context.MODE_PRIVATE);
@@ -188,7 +177,7 @@ public class ReadWrite implements Serializable {
      * store the <code>OrganizerManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>OrganizerManager</code>
      */
-    public void saveOrganizers(Context context, OrganizerManager om)
+    public static void saveOrganizers(Context context, OrganizerManager om)
     {
         try {
             OutputStream file = context.openFileOutput("organizermanager.ser", Context.MODE_PRIVATE);
@@ -206,7 +195,7 @@ public class ReadWrite implements Serializable {
      * store the <code>SpeakerManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>SpeakerManager</code>
      */
-    public void saveSpeakers(Context context, SpeakerManager sm)
+    public static void saveSpeakers(Context context, SpeakerManager sm)
     {
         try {
             OutputStream file = context.openFileOutput("speakermanager.ser", Context.MODE_PRIVATE);
@@ -224,7 +213,7 @@ public class ReadWrite implements Serializable {
      * store the <code>EventManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>EventManager</code>
      */
-    public void saveEvent (Context context, EventManager em)
+    public static void saveEvent (Context context, EventManager em)
     {
         try {
             OutputStream file = context.openFileOutput("eventmanager.ser", Context.MODE_PRIVATE);
@@ -244,7 +233,7 @@ public class ReadWrite implements Serializable {
      * store the <code>RoomManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>RoomManager</code>
      */
-    public void saveRoom (Context context, RoomManager rm) {
+    public static void saveRoom (Context context, RoomManager rm) {
         try {
             OutputStream file = context.openFileOutput("attendeemanager.ser", Context.MODE_PRIVATE);
             OutputStream buffer = new BufferedOutputStream(file);
@@ -261,7 +250,7 @@ public class ReadWrite implements Serializable {
      * store the <code>MessageManager</code> in the conference to the given file
      * @param path filepath of the ser. file to store the <code>MessageManager</code>
      */
-    public void saveMessage (Context context, MessageManager mm)
+    public static void saveMessage (Context context, MessageManager mm)
     {
         try {
             OutputStream file = context.openFileOutput("attendeemanager.ser", Context.MODE_PRIVATE);
