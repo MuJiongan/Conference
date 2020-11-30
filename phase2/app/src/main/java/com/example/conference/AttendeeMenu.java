@@ -68,6 +68,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                 finish();
 
 
+
         }
     }
 
