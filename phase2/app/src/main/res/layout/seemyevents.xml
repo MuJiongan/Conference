@@ -15,10 +15,24 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/welcome"/>
+
+    <EditText
+            android:id="@+id/eventID"
+            android:layout_below="@+id/welcome"
+            android:layout_marginTop="30dp"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter your event ID"
+            android:paddingLeft="8dp"
+            android:layout_height="50dp"
+            android:background="@drawable/textinputborder"
+            android:inputType="text"
+    />
+
     <Button
             android:text="cancel"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/welcome"
+            android:layout_below="@+id/eventID"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:onClick="onClick"

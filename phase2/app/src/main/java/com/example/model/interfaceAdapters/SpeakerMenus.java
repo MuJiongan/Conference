@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class SpeakerMenu extends UserMenu implements UserController{
+public class SpeakerMenus extends UserMenu implements UserController{
 
     /**
      * Construct an instance of SpeakerMenu with the given Managers
@@ -21,7 +21,7 @@ public class SpeakerMenu extends UserMenu implements UserController{
      * @param mm the instance of <code>MessageManager</code> in the conference
      * @param userID a instance of <code>User</code> that simulate the user on the keyboard
      */
-    public SpeakerMenu(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
+    public SpeakerMenus(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, int userID){
         super(am, om, sm, rm, em, mm, userID);
     }
 

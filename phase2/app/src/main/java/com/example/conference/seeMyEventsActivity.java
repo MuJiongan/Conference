@@ -40,7 +40,7 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                 EditText event = findViewById(R.id.eventMessage);
                 EditText message = findViewById(R.id.messageContent);
                 String eventID = event.getText().toString();
-                String messageContent = event.getText().toString();
+                String messageContent = message.getText().toString();
                 if (messageContent.equals("")){
                     pushMessage("Your message can't be empty");
                 }
