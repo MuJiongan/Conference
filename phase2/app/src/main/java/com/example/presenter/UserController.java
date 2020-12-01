@@ -239,9 +239,10 @@ public class UserController implements Serializable{
         contactList.put("read", readList);
         contactList.put("unread", unreadList);
         //get the contactList of user
-        //TODO: Loop through all user managers to get contacts
-    //    ArrayList<Integer> contact = getCurrentManager().getContactList(userID);
         ArrayList<Integer> contact = new ArrayList<>();
+        contact.addAll(getAttendeeManager().getUserIDs());
+        contact.addAll(getOrganizerManager().getUserIDs());
+        contact.addAll(getSpeakerManager().getUserIDs());
         //get the message HashMap of user
         HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
         //add the string representation of contacts to the final HashMap
