@@ -39,6 +39,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
                 break;
             case R.id.createaccount:
                 Intent accountIntent = new Intent(v.getContext(), SocialNetworking.class);
+                accountIntent.putExtra("cc", controller);
                 startActivityForResult(accountIntent, 3);
                 break;
             case R.id.manage:

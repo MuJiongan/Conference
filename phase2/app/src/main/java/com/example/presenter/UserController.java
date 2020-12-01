@@ -410,4 +410,21 @@ public class UserController implements Serializable{
         }
         return false;
     }
-}
+
+    public boolean hasUserName(String username){
+        if (am.hasUserName(username)){
+            return true;
+        }
+        if (om.hasUserName(username)){
+            return true;
+        }
+        if (sm.hasUserName(username)){
+            return true;
+        }
+        if (vipm.hasUserName(username)){
+            return true;
+        }
+        return false;
+    }
+    }
+

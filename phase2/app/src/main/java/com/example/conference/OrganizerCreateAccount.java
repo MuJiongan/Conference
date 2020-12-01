@@ -14,13 +14,12 @@ import com.example.presenter.UserController;
 import java.io.Serializable;
 
 public class OrganizerCreateAccount extends Activity implements View.OnClickListener, LogInPresenter.View, Serializable{
-    private LogInPresenter presenter;
+
     private OrganizerController controller;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
-        presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
-        presenter.setView(this);
+        setContentView(R.layout.organizercreateaccount);
+        controller = (OrganizerController) getIntent().getSerializableExtra("cc");
 
     }
     @Override
@@ -39,16 +38,38 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
         String passwordString = password.getText().toString();
         switch (v.getId()){
             case R.id.createattendee:
-                controller.createUser(nameString,usernameString,passwordString,"Attendee");
+                if (controller.hasUserName(usernameString)){
+                    pushMessage("Username already exists!");
+                }else{
+                    controller.createUser(nameString,usernameString,passwordString,"Attendee");
+                }
+
+
                 break;
             case R.id.createOrganizeraccount:
-                controller.createUser(nameString,usernameString,passwordString, "Organizer");
+                if (controller.hasUserName(usernameString)){
+                    pushMessage("Username already exists!");
+                }else{
+                controller.createUser(nameString,usernameString,passwordString, "Organizer");}
                 break;
             case R.id.createspeaker:
-                controller.createUser(nameString, usernameString,passwordString, "Speaker");
+                if (controller.hasUserName(usernameString)){
+                    pushMessage("Username already exists!");
+                }else{
+                controller.createUser(nameString, usernameString,passwordString, "Speaker");}
             case R.id.createvip:
-                controller.createUser(nameString,usernameString,passwordString, "Vip");
+                if (controller.hasUserName(usernameString)){
+                    pushMessage("Username already exists!");
+                }else{
+                controller.createUser(nameString,usernameString,passwordString, "Vip");}
                 // TODO: push message is not created successfully, and check the implementation of createUser
+
+            case R.id.back:
+
+                Intent myIntent2 = new Intent(this, OrganizerMenu.class);
+                myIntent2.putExtra("cc", controller);
+                setResult(3, myIntent2);
+                finish();
 
 
 
