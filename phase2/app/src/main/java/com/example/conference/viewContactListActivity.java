@@ -9,10 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.UserController;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class viewContactListActivity extends Activity implements UserController.View, View.OnClickListener {
+import static java.lang.Integer.parseInt;
+
+public class viewContactListActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -46,7 +49,22 @@ public class viewContactListActivity extends Activity implements UserController.
             case R.id.viewHistory:
                 EditText userID = findViewById(R.id.userIDInput);
                 String userIDString = userID.getText().toString();
-                // TODO: PASS THE USERID TO THE NEW ACTIVITY AND ALSO START THE NEW ACTIVITY
+                try {
+                    int userID1 = parseInt(userIDString);
+                    if (currentController.hasUserID(userID1)){
+                        Intent myIntent = new Intent(v.getContext(), messageActivity.class);
+                        myIntent.putExtra("cc", currentController);
+                        myIntent.putExtra("receiverID", userID1);
+                        startActivityForResult(myIntent, 3);
+                    }else{
+                        pushMessage("The userID you entered is not valid");
+                    }
+
+                }
+                catch(NumberFormatException n){
+                    pushMessage("Please enter a valid userID");
+                }
+
                 break;
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){

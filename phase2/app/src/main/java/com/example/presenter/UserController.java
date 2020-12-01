@@ -382,4 +382,19 @@ public class UserController implements Serializable{
         this.vipm = vipm;
         this.vipe = vipe;
     }
+    public boolean hasUserID(int userID){
+        if (am.idInList(userID)){
+            return true;
+        }
+        if (om.idInList(userID)){
+            return true;
+        }
+        if (sm.idInList(userID)){
+            return true;
+        }
+        if (vipm.idInList(userID)){
+            return true;
+        }
+        return false;
+    }
 }
