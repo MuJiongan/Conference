@@ -116,24 +116,42 @@ public class AttendeeController extends UserController {
          }
          getView().pushMessage("Enter a valid event ID");
          return false;
+     }/**
+     * Return the string representation of all the events in the conference
+     * @return a list of string representation of all events  in the given list in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     */
+     public String formatEvents(List<Integer> eventIDs){
+         String output ="";
+         for (int ID: eventIDs)
+         {
+             output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+                     + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+                     +"\n";
+         }
+         return output;
      }
-
-
-    public String viewAllEvents()
-    {
+    /**
+     * Return the string representation of all the events in the conference or a String message which informs user on the keyboard
+     * if there is no event in the conference yet
+     * @return return a list of string representation of all non-Vip events  in the conference in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     * or a String message which inform user on the keyboard if there is no event in the conference yet
+     */
+    public String viewAllEvents() {
         List<Integer> eventIDs = getEventManager().getEvents();
-        if (eventIDs.size() == 0)
-        {
+        if (eventIDs.size() == 0) {
             return "There are no current events at the moment! Check again soon";
         }
-        String output ="";
-        for (int ID: eventIDs)
-        {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    +"\n";
-        }
-        return output;
+
+//        String output ="";
+//        for (int ID: eventIDs)
+//        {
+//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+//                    +"\n";
+//        }
+        return formatEvents(eventIDs);
     }
 
 //    /**

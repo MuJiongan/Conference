@@ -28,17 +28,23 @@ public class VipController extends AttendeeController implements Serializable {
     }
 
     /**
-     * Return the string representation of all the events in the conference
-     * @return a list of string represetation of all non-Vip  and Vip events  in the conference in the format:
+     * Return the string representation of all the events in the conference or message that inform user on the keyboard
+     * if there is no event in the conference yet
+     * @return a list of string representation of all non-Vip  and Vip events  in the conference in the format:
      * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     * or message that inform user on the keyboard if there is no event in the conference yet
      */
-//    @Override
-  //  #TODO: Change from String representation
-//    public List<String> viewAllEvents()
-//    {
-//        List<String> mergedList = getEventManager().getAllEvents();
-//        mergedList.addAll(vipEventM.getAllEvents());
-//        return mergedList;
-//    }
+    @Override
+    // # TODO: Change from String representation
+    public String viewAllEvents()
+    {
+        List<Integer> nonVipEventIDs = getEventManager().getEvents();
+        List<Integer> allEventIDs = getVipEventManager().getEvents();
+        allEventIDs.addAll(nonVipEventIDs);
+        if (allEventIDs.size() == 0) {
+            return "There are no current events at the moment! Check again soon";
+        }
+        return formatEvents(allEventIDs);
+    }
 }
 
