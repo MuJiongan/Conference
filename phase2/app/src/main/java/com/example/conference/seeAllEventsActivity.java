@@ -30,9 +30,6 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
         {
             setContentView(R.layout.organizerseeallevents);
         }
-
-
-
         setAllEventsText();
 
     }
@@ -92,7 +89,7 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
         }
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 1){
+        if (requestCode == 10){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
