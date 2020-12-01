@@ -238,6 +238,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         getEventManager().setStartTime(eventID, startTime);
         getEventManager().setEndTime(eventID, endTime);
         getEventManager().changeRoomID(roomID, eventID);
+        //TODO: CHECK THE CONDITION
     }
 
     /**
@@ -263,6 +264,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         removeEventFromRoom(eventID);
         getEventManager().removeEvent(eventID);
     }
+    //TODO: THERE MIGHT BE A PROBLEM WITH GENERATING EVENT IDS
 
     /**
      * Remove the ID of Event which will be cancelled from Users attending the Event

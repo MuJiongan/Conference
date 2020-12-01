@@ -19,7 +19,7 @@
     <EditText
             android:id="@+id/eventID"
             android:layout_below="@+id/welcome"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
             android:hint="Enter your event ID"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/eventID"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/signup"/>
 
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/signup"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/cancel"/>
     <Button
@@ -50,23 +50,31 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/cancel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/schedule"/>
+    <Button
+            android:text="RESCHEDULE"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/schedule"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/reschedule"/>
 
     <Button
             android:text="back"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/schedule"
+            android:layout_below="@+id/reschedule"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/back"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
         <TextView
                 android:text=""
