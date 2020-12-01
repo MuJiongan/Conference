@@ -37,20 +37,23 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             case R.id.viewMyEvents:
                 Toast.makeText(this, "These are all my events", Toast.LENGTH_SHORT).show();
                 Intent myIntent2 = new Intent(v.getContext(), seeMyEventsActivity.class);
+                myIntent2.putExtra("controller", controller);
                 startActivityForResult(myIntent2, 4);
                 break;
             case R.id.manage:
                 Toast.makeText(this, "Manage my account", Toast.LENGTH_SHORT).show();
                 Intent myIntent3 = new Intent(v.getContext(), manageMyAccountActivity.class);
+                myIntent3.putExtra("controller", controller);
                 startActivityForResult(myIntent3, 5);
                 break;
             case R.id.viewContactList:
                 Toast.makeText(this, "These are all my Contacts", Toast.LENGTH_SHORT).show();
                 Intent myIntent4 = new Intent(v.getContext(), viewContactListActivity.class);
+                myIntent4.putExtra("controller", controller);
                 startActivityForResult(myIntent4, 6);
                 break;
             case R.id.social:
-                Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Network", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
                 startActivityForResult(myIntent5, 7);
                 break;
@@ -75,6 +78,36 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 3){
             if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        if (requestCode ==5)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        if (requestCode == 4)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        if (requestCode == 6)
+        {
+            if (resultCode == 3)
+            {
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
                         passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());

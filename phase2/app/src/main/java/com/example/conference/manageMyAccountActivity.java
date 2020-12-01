@@ -9,16 +9,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.UserController;
 
-public class manageMyAccountActivity extends Activity implements View.OnClickListener, UserController.View {
+import java.io.Serializable;
+
+public class manageMyAccountActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.managemyaccount);
-        currentController = (UserController) getIntent().getSerializableExtra("cc");
+        currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
         setName();
-
-
     }
 
     public void setName(){
@@ -36,6 +36,8 @@ public class manageMyAccountActivity extends Activity implements View.OnClickLis
                 String nameString = name.getText().toString();
                 if (!nameString.equals("")){
                     currentController.setName(nameString);
+                    setName();
+                    pushMessage("Succesfully changed your name");
                 }
                 else{
                     pushMessage("Your name can't be empty!");

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserController implements Serializable{
 
@@ -193,8 +194,20 @@ public class UserController implements Serializable{
      * Return list of all EventIDs the user is going to attend
      * @return list of all EventIDs the user is going to attend
      */
-    public ArrayList<Integer> viewMyEvents() {
-        return getCurrentManager().getEventList(getUser());
+    public String viewMyEvents() {
+        List<Integer> eventIDs = getEventManager().getEvents();
+        if (eventIDs.size() == 0)
+        {
+            return "You haven't signed up for any event yet!";
+        }
+        String output ="";
+        for (int ID: eventIDs)
+        {
+            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
+                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+                    +"\n";
+        }
+        return output;
 
     }
 

@@ -46,6 +46,8 @@ public class SignUp extends Activity implements View.OnClickListener, LogInPrese
                     ReadWrite.saveEvent(getApplicationContext(), presenter.getEm());
                     ReadWrite.saveMessage(getApplicationContext(), presenter.getMm());
                     ReadWrite.saveRoom(getApplicationContext(), presenter.getRm());
+                    ReadWrite.saveVips(getApplicationContext(), presenter.getVipManager());
+                    ReadWrite.saveVipEventManager(getApplicationContext(), presenter.getVipEvent());
                     Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(SignUp.this, MainActivity.class);
                     myIntent.putExtra("presenter", presenter);

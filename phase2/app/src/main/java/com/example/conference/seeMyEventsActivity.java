@@ -13,23 +13,20 @@ import com.example.presenter.AttendeeController;
 import com.example.presenter.SpeakerController;
 import com.example.presenter.UserController;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class seeMyEventsActivity extends Activity implements View.OnClickListener, UserController.View {
+public class seeMyEventsActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seemyevents);
-        currentController = (UserController) getIntent().getSerializableExtra("cc");
+        currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
         TextView myEvents = findViewById(R.id.welcome);
-        ArrayList<Integer> myEventsString = currentController.viewMyEvents();
-       // String text = currentController.viewMyEvents();
-       // myEvents.setText(text);
-        //TODO: Make viewMyEvents return a string;
-
-
+        String text = currentController.viewMyEvents();
+        myEvents.setText(text);
     }
 
 
@@ -46,29 +43,23 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                 if (messageContent.equals("")){
                     pushMessage("Your message can't be empty");
                 }
-                try{int index = Integer.parseInt(eventID);
-
+                try{
+                    int index = Integer.parseInt(eventID);
                     speakerController.messageAll(index, messageContent);
                     Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
-
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }
-
-
-
                 break;
             case R.id.cancel:
                 EditText eventToCancel = findViewById(R.id.eventID);
                 String eventIDString = eventToCancel.getText().toString();
-                try{int index = Integer.parseInt(eventIDString);
-
+                try{
+                    int index = Integer.parseInt(eventIDString);
                     AttendeeController controller = (AttendeeController) currentController;
                     if(controller.cancelEnrollment(index)){
                         Toast.makeText(this, "Cancelled successfully", Toast.LENGTH_SHORT).show();
-                    };
-
-
+                    }
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }

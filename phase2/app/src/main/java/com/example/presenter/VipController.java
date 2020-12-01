@@ -23,6 +23,9 @@ public class VipController extends AttendeeController implements Serializable {
                          VipEventManager vipe, int userID, View view){
         super(am, om, sm, rm, em, mm, vipm, vipe, userID, view);
     }
+    public String getType() {
+        return "VIPController";
+    }
 
     /**
      * Return the string representation of all the events in the conference

@@ -10,7 +10,7 @@
 
     <TextView
             android:text="HERE ARE ALL EVENTS"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -62,7 +62,20 @@
             android:layout_marginTop="40dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/back"
+            android:layout_marginTop="20dp">
 
+        <TextView
+                android:text=""
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/allEvents"/>
+    </ScrollView>
 
 
 </RelativeLayout>

@@ -8,11 +8,12 @@ import com.example.model.entities.Event;
 
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttendeeController extends UserController{
+public class AttendeeController extends UserController {
 
 
     /**

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.example.presenter.AttendeeController;
 import android.widget.Toast;
+import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,9 +20,19 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
     private AttendeeController controller;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.seeallevents);
         controller = (AttendeeController) getIntent().getSerializableExtra("controller");
         controller.setView(this);
+        if (controller.getType().equals("AttendeeController") || controller.getType().equals("VIPController"))
+        {
+            setContentView(R.layout.seeallevents);
+        }
+        else
+        {
+            setContentView(R.layout.organizerseeallevents);
+        }
+
+
+
         setAllEventsText();
 
     }
@@ -32,9 +43,9 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
+        EditText event = findViewById(R.id.eventIDinput);
         switch (v.getId()){
             case R.id.signup:
-                EditText event = findViewById(R.id.eventIDinput);
                 try {
                     int eventID = parseInt(event.getText().toString());
                     controller.signUp(eventID);
@@ -42,83 +53,54 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }
+                break;
+            case R.id.cancel:
+                try {
+                    int eventID = parseInt(event.getText().toString());
+                    //( (OrganizerController)controller).cancelEvent();
+                }
+                catch(NumberFormatException n){
+                    pushMessage("Please enter a valid eventID");
+                }
+                break;
+            case R.id.schedule:
+                Intent schedule = new Intent (this, OrganizerScheduleEvent.class);
+                schedule.putExtra("cc", controller);
+                startActivityForResult(schedule, 10);
+                break;
+
             case R.id.back:
-                Intent myIntent = new Intent(this, AttendeeMenu.class);
-                myIntent.putExtra("cc", controller);
-                setResult(3, myIntent);
-                finish();
-////                if (controller.getType().equals("VIPController")){
-////                    Intent myIntent = new Intent(this, SpeakerMenu.class);
-////                    myIntent.putExtra("cc", currentController);
-////                    setResult(3, myIntent);
-////                    finish();
-////                }
-//                 if (controller.getType().equals("OrganizerController")){
-//                    Intent myIntent = new Intent(this, OrganizerMenu.class);
-//                    myIntent.putExtra("cc", controller);
-//                    setResult(3, myIntent);
-//                    finish();
-//                }
-////                else if (controller.getType().equals("AttendeeController")){
-//                    Intent myIntent = new Intent(this, AttendeeMenu.class);
-//                    myIntent.putExtra("cc", controller);
-//                    setResult(3, myIntent);
-//                    finish();
-//                }
-
+                if (controller.getType().equals("VIPController")){
+                    Intent myIntent = new Intent(this, SpeakerMenu.class);
+                    myIntent.putExtra("cc", controller);
+                    setResult(3, myIntent);
+                    finish();
+                }
+                 if (controller.getType().equals("OrganizerController")){
+                    Intent myIntent = new Intent(this, OrganizerMenu.class);
+                    myIntent.putExtra("cc", controller);
+                    setResult(3, myIntent);
+                    finish();
+                }
+                else if (controller.getType().equals("AttendeeController")){
+                    Intent myIntent = new Intent(this, AttendeeMenu.class);
+                    myIntent.putExtra("cc", controller);
+                    setResult(3, myIntent);
+                    finish();
+                }
+                break;
         }
-
     }
-
-
-
-    public void displayEvents(ArrayList<Integer> eventIDs, ArrayList<String> eventNames, ArrayList<String> roomNames, ArrayList<String> time){
-
-        String heading1 = "Events";
-        String heading2 = "Time";
-        String heading3 = "Vacancy";
-        String heading4 = "Room";
-        String text = "Here are all the scheduled events:";
-        // TODO: Display the events using the same format we did in text user interface
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 1){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
     }
-
-
-//    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.signup:
-//                // TODO
-//                break;
-//            case R.id.back:
-//
-//                if (currentController.getType().equals("SpeakerController")){
-//                    Intent myIntent1 = new Intent(this, SpeakerMenu.class);
-//                    myIntent1.putExtra("cc", currentController);
-//                    setResult(3, myIntent1);
-//                    finish();
-//                }
-//                else if (currentController.getType().equals("OrganizerController")){
-//                    Intent myIntent2 = new Intent(this, OrganizerMenu.class);
-//                    myIntent2.putExtra("cc", currentController);
-//                    setResult(3, myIntent2);
-//                    finish();
-//                }
-//                else if (currentController.getType().equals("AttendeeController")){
-//                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
-//                    myIntent3.putExtra("cc", currentController);
-//                    setResult(3, myIntent3);
-//                    finish();
-//                }
-//                else if (currentController.getType().equals("VIPController")){
-//                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
-//                    myIntent3.putExtra("cc", currentController);
-//                    setResult(3, myIntent3);
-//                    finish();
-//                }
-//
-//        }
-//    }
-
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

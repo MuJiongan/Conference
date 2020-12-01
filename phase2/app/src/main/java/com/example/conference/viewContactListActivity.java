@@ -20,7 +20,7 @@ public class viewContactListActivity extends Activity implements UserController.
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewcontactlist);
-        currentController = (UserController) getIntent().getSerializableExtra("cc");
+        currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
         displayContactList();
 
