@@ -19,6 +19,7 @@
         <activity android:name="com.example.conference.AttendeeMenu"/>
         <activity android:name="com.example.conference.SignUp"/>
         <activity android:name="com.example.conference.seeAllEventsActivity"/>
+        <activity android:name="com.example.conference.messageActivity"/>
         <activity android:name="com.example.conference.seeMyEventsActivity"/>
         <activity android:name="com.example.conference.SocialNetworking"/>
         <activity android:name="com.example.conference.viewContactListActivity"/>
