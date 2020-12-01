@@ -1,6 +1,7 @@
 package com.example.presenter;
 
 import com.example.model.entities.Message;
+import com.example.model.entities.Organizer;
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
@@ -243,6 +244,7 @@ public class UserController implements Serializable{
         contact.addAll(getAttendeeManager().getUserIDs());
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getSpeakerManager().getUserIDs());
+        contact.addAll(getVipManager().getUserIDs());
         //get the message HashMap of user
         HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
         //add the string representation of contacts to the final HashMap
@@ -427,5 +429,57 @@ public class UserController implements Serializable{
         }
         return false;
     }
+
+    /**
+     * Return a hashmap of friend ids to number of common events.
+     * @return a hashmap of friend ids to number of common events, with key of the id of the friend
+     * and value of the number of common events the friend has as the current user
+     */
+    public HashMap<Integer, Integer> friendToNumOfCommonEvent(){
+        // create a new hash map
+        HashMap<Integer, Integer> friendToNumOfCommonEvent= new HashMap<>();
+        // get a list of all attendees, vip attendees, and organizers
+        ArrayList<Integer> contact = new ArrayList<>();
+        contact.addAll(getAttendeeManager().getUserIDs());
+        contact.addAll(getOrganizerManager().getUserIDs());
+        contact.addAll(getVipManager().getUserIDs());
+        // loop through all the events the current user has signed up for
+        for (Integer eventID: getCurrentManager().getEventList(userID)){
+            // loop through all contacts in the list
+            for (Integer friendID: contact){
+                // add 1 to the corresponding friend key in the hash map if the friend also has
+                // the event
+                ArrayList<Integer> friendEvents = getFriendEvents(friendID);
+                if (friendEvents.contains(eventID)){
+                    if (!friendToNumOfCommonEvent.containsKey(eventID)){
+                        friendToNumOfCommonEvent.put(friendID, 1);
+                    } else{
+                        int curr = friendToNumOfCommonEvent.get(friendID);
+                        friendToNumOfCommonEvent.put(friendID, curr + 1);
+                    }
+                }
+            }
+        }
+        return friendToNumOfCommonEvent;
     }
+
+    /**
+     * Return a list of events the friend is attending given the friend's id.
+     * @param friendID the friend id
+     * @return a list of events the friend is attending given the friend's id.
+     */
+    public ArrayList<Integer> getFriendEvents(int friendID){
+        if (getOrganizerManager().getUserIDs().contains(friendID)){
+            return getOrganizerManager().getEventList(friendID);
+        } else if (getAttendeeManager().getUserIDs().contains(friendID)){
+            return getAttendeeManager().getEventList(friendID);
+        } else if (getVipManager().getUserIDs().contains(friendID)){
+            return getVipManager().getEventList(friendID);
+        } else{
+            return getSpeakerManager().getEventList(friendID);
+        }
+    }
+}
+
+
 
