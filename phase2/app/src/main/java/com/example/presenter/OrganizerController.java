@@ -46,6 +46,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         int newRoomID = getRoomManager().createRoom(name, capacity);
         getView().pushMessage("Room Succesfully added");
         //Maybe we need to check duplicate names
+
     }
     /**
      * Create new Speaker account
@@ -96,6 +97,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         getView().pushMessage("New Event Scheduled");
         return true;
     }
+
     /**
      * Assign Speaker to an existing Event
      * @param speakerID the Speaker who is to be scheduled
@@ -130,6 +132,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         getView().pushMessage("Speaker assigned");
         return true;
     }
+
     /**
      * Check whether a Speaker is available to be scheduled at specific time (avoiding double-booking a speaker)
      * @param speakerID the Speaker who is to be scheduled
@@ -149,7 +152,6 @@ public class OrganizerController extends AttendeeController implements Serializa
         return true;
     }
 
-
     /**
      * Check whether event conflict with the given period of time
      * @param startTime    start time of 1st pair of time
@@ -162,13 +164,11 @@ public class OrganizerController extends AttendeeController implements Serializa
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime,
                               LocalDateTime newEndTime) {
         // endTime is between the newStartTime and newEndTime
-        // return true if the endtime is in between
+        // return true if the end time is in between
         boolean condition1 = (!endTime.isAfter(newEndTime)) && (!endTime.isBefore(newStartTime));
-
         boolean condition2 = (!startTime.isAfter(newEndTime)) && (!startTime.isBefore(newStartTime));
         boolean condition3 = (!newEndTime.isAfter(endTime)) && (!newEndTime.isBefore(startTime));
         boolean condition4 = (!newStartTime.isAfter(endTime)) && (!newStartTime.isBefore(startTime));
-
 
         // if one of the conditions fails, return false
         if (condition1 || condition2 || condition3 || condition4) {
@@ -176,7 +176,6 @@ public class OrganizerController extends AttendeeController implements Serializa
         }
         return true;
     }
-
 
     /**
      * Check whether a Speaker is available to be scheduled in specific room (avoiding double-booking a room)
@@ -213,7 +212,6 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param password password associated with the user
      * @return Return true if and only if an Attendee is successfully created.
      */
-
     public boolean createUser(String name, String username, String password, String type) {
         // invariant: type is one of "Organizer", "Speaker", "Attendee", "Vip"
         switch (type) {
@@ -228,6 +226,90 @@ public class OrganizerController extends AttendeeController implements Serializa
         }
         return false;
     }
+
+    /**
+     * Reschedule an Event with given startTime, endTime and roomID
+     * @param eventID the id of Event to be rescheduled
+     * @param startTime new start time that the event will be rescheduled at
+     * @param endTime new end time that the event will be rescheduled at
+     * @param roomID id of new room that the event will be rescheduled in
+     */
+    public void rescheduleEvent(int eventID, LocalDateTime startTime, LocalDateTime endTime, int roomID){
+        getEventManager().setStartTime(eventID, startTime);
+        getEventManager().setEndTime(eventID, endTime);
+        getEventManager().changeRoomID(roomID, eventID);
+    }
+
+    /**
+     * Change the Capacity of Event
+     * @param eventID the id of Event to be rescheduled
+     * @param capacity the new capacity of the Event
+     */
+    public void changeCapacity(int eventID, int capacity){
+        getEventManager().setCapacity(eventID, capacity);
+    }
+
+    /**
+     * Cancel Event
+     *  - Remove the EventID from all User signed up for the Event
+     *  - Remove all the UserID from the Event
+     *  - Remove the EventID from Room that the Event held
+     *  - Remove EventID from the list events
+     * @param eventID id of Event to be cancelled
+     */
+    public void cancelEvent(int eventID){
+        removeEventFromUser(eventID);
+        removeUserFromEvent(eventID);
+        removeEventFromRoom(eventID);
+        getEventManager().removeEvent(eventID);
+    }
+
+    /**
+     * Remove the ID of Event which will be cancelled from Users attending the Event
+     * @param eventID the id of Event to be cancelled
+     * @return true if and only if the EventID is successfully removed from list of all Users
+     */
+    public boolean removeEventFromUser(int eventID){
+        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        boolean removeAttendee;
+        boolean removeSpeaker;
+        boolean removeOrganizer;
+        for (Integer userID : userIDs) {
+            getEventManager().removeUserID(userID, eventID);
+            removeAttendee = getAttendeeManager().removeEventID(eventID, userID);
+            removeSpeaker = getSpeakerManager().removeEventID(eventID, userID);
+            removeOrganizer = getOrganizerManager().removeEventID(eventID, userID);
+            if(!removeAttendee && !removeSpeaker && !removeOrganizer){ //userID not valid
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Remove all Users who signed up for the event from the list
+     * @param eventID the id of Event to be cancelled
+     * @return true if and only if all UserIDs are successfully removed from the list
+     */
+    public boolean removeUserFromEvent(int eventID){
+        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        for(Integer userID: userIDs){
+            if(!getEventManager().removeUserID(userID, eventID)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Remove Event from Room
+     * @param eventID id of the Event held
+     */
+    public void removeEventFromRoom(int eventID){
+        int roomID = getEventManager().getRoomID(eventID);
+        getRoomManager().removeEventID(roomID, eventID);
+    }
+
 }
 
 
