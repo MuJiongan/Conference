@@ -186,6 +186,10 @@ public class UserController implements Serializable {
         return currentManager;
     }
 
+    public int getUserID(){
+        return userID;
+    }
+
     /**
      * Return list of all EventIDs the user is going to attend
      *
@@ -240,6 +244,8 @@ public class UserController implements Serializable {
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getSpeakerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
+        // remove the user himself
+        contact.remove(userID);
         //get the message HashMap of user
         HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
         //add the string representation of contacts to the final HashMap
@@ -247,14 +253,20 @@ public class UserController implements Serializable {
             ArrayList<Integer> messageList = allMessage.get(friendID);
             //check whether there are unread message and add the contact to the corresponding list
             if(messageList != null) {
+                boolean hasUnread = false;
                 for (int messageID : messageList) {
                     if (!getMessageManager().getConditionByID(messageID)) {
-                        contactList.get("unread").add(friendID + "\t" + getUserName(friendID));
+                        hasUnread = true;
                     }
                 }
+                if (hasUnread){
+                    contactList.get("unread").add(friendID + "\t" + getUserName(friendID));
+                } else {
+                    contactList.get("read").add(friendID + "\t" + getUserName(friendID));
+                }
+            } else {
                 contactList.get("read").add(friendID + "\t" + getUserName(friendID));
             }
-            contactList.get("read").add(friendID + "\t" + getUserName(friendID));
         }
         return contactList;
     }
@@ -453,6 +465,8 @@ public class UserController implements Serializable {
         contact.addAll(getAttendeeManager().getUserIDs());
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
+        // remove the user himself
+        contact.remove(userID);
         // loop through all the events the current user has signed up for
         for (Integer eventID : getCurrentManager().getEventList(userID)) {
             // loop through all contacts in the list

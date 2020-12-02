@@ -11,6 +11,7 @@ import com.example.model.useCases.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AttendeeController extends UserController {
@@ -158,6 +159,76 @@ public class AttendeeController extends UserController {
 
     public String getType(){
         return "AttendeeController";
+    }
+
+    /**
+     * Return a hashmap of friend ids to number of common events.
+     *
+     * @return a hashmap of friend ids to number of common events, with key of the id of the friend
+     * and value of the number of common events the friend has as the current user
+     */
+    public HashMap<Integer, Integer> friendToNumOfCommonEvent() {
+        // create a new hash map
+        HashMap<Integer, Integer> friendToNumOfCommonEvent = new HashMap<>();
+        // get a list of all attendees, vip attendees, and organizers
+        ArrayList<Integer> contact = new ArrayList<>();
+        contact.addAll(super.getAttendeeManager().getUserIDs());
+        contact.addAll(super.getOrganizerManager().getUserIDs());
+        contact.addAll(super.getVipManager().getUserIDs());
+        // remove the user himself
+        contact.remove(super.getUserID());
+        // loop through all the events the current user has signed up for
+        for (Integer eventID : super.getCurrentManager().getEventList(super.getUserID())) {
+            // loop through all contacts in the list
+            for (Integer friendID : contact) {
+                // add 1 to the corresponding friend key in the hash map if the friend also has
+                // the event
+                ArrayList<Integer> friendEvents = getFriendEvents(friendID);
+                if (friendEvents.contains(eventID)) {
+                    if (!friendToNumOfCommonEvent.containsKey(eventID)) {
+                        friendToNumOfCommonEvent.put(friendID, 1);
+                    } else {
+                        int curr = friendToNumOfCommonEvent.get(friendID);
+                        friendToNumOfCommonEvent.put(friendID, curr + 1);
+                    }
+                }
+            }
+        }
+        return friendToNumOfCommonEvent;
+    }
+
+    /**
+     * Return a list of events the friend is attending given the friend's id.
+     *
+     * @param friendID the friend id
+     * @return a list of events the friend is attending given the friend's id.
+     */
+    public ArrayList<Integer> getFriendEvents(int friendID) {
+        if (super.getOrganizerManager().getUserIDs().contains(friendID)) {
+            return super.getOrganizerManager().getEventList(friendID);
+        } else if (super.getAttendeeManager().getUserIDs().contains(friendID)) {
+            return super.getAttendeeManager().getEventList(friendID);
+        } else if (super.getVipManager().getUserIDs().contains(friendID)) {
+            return super.getVipManager().getEventList(friendID);
+        } else {
+            return super.getSpeakerManager().getEventList(friendID);
+        }
+    }
+
+    public HashMap<String, ArrayList<String>> viewRecommendedFriend() {
+        HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
+        HashMap<String, ArrayList<String>> viewRecommendedFriend = new HashMap<String, ArrayList<String>>();
+        for (Integer friendID : friendToNumOfCommonEvent.keySet()) {
+            String numberOfSameEvent = String.valueOf(friendToNumOfCommonEvent.get(friendID));
+            if (viewRecommendedFriend.containsKey(numberOfSameEvent)) {
+                viewRecommendedFriend.get(numberOfSameEvent).add(friendID + "\t" + super.getUserName(friendID));
+            } else {
+                ArrayList<String> friendList = new ArrayList<String>();
+                friendList.add(friendID + "\t" + super.getUserName(friendID));
+                viewRecommendedFriend.put(numberOfSameEvent, friendList);
+            }
+        }
+        return viewRecommendedFriend;
     }
 
 
