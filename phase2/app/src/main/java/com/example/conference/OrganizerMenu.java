@@ -38,7 +38,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
                 myIntent2.putExtra("controller", controller);
                 startActivityForResult(myIntent2, 2);
                 break;
-            case R.id.createaccount:
+            case R.id.organizerCreateAccount:
                 Intent accountIntent = new Intent(v.getContext(), OrganizerCreateAccount.class);
                 accountIntent.putExtra("cc", controller);
                 startActivityForResult(accountIntent, 3);
@@ -106,6 +106,22 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
             }
         }
         else if (requestCode ==4){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        else if (requestCode ==5){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        else if (requestCode ==6){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),

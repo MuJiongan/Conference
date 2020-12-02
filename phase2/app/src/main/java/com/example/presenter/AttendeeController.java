@@ -143,14 +143,6 @@ public class AttendeeController extends UserController {
         if (eventIDs.size() == 0) {
             return "There are no current events at the moment! Check again soon";
         }
-
-//        String output ="";
-//        for (int ID: eventIDs)
-//        {
-//            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-//                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-//                    +"\n";
-//        }
         return formatEvents(eventIDs);
     }
 

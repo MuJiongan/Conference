@@ -246,10 +246,13 @@ public class UserController implements Serializable {
         for (int friendID : contact) {
             ArrayList<Integer> messageList = allMessage.get(friendID);
             //check whether there are unread message and add the contact to the corresponding list
-            for (int messageID : messageList) {
-                if (!getMessageManager().getConditionByID(messageID)) {
-                    contactList.get("unread").add(friendID + "\t" + getUserName(friendID));
+            if(messageList != null) {
+                for (int messageID : messageList) {
+                    if (!getMessageManager().getConditionByID(messageID)) {
+                        contactList.get("unread").add(friendID + "\t" + getUserName(friendID));
+                    }
                 }
+                contactList.get("read").add(friendID + "\t" + getUserName(friendID));
             }
             contactList.get("read").add(friendID + "\t" + getUserName(friendID));
         }

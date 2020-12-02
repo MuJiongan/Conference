@@ -82,10 +82,6 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                 myIntent2.putExtra("cc", controller);
                 setResult(3, myIntent2);
                 finish();
-
-
-
-
         }
     }
 }
