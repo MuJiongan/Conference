@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.model.interfaceAdapters.ReadWrite;
 import com.example.presenter.LogInPresenter;
 import com.example.presenter.SpeakerController;
+import com.example.presenter.UserController;
 
 public class SpeakerMenu extends Activity implements View.OnClickListener, SpeakerController.View{
 
@@ -28,38 +30,87 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
             case R.id.viewMyEvents:
                 Toast.makeText(this, "These are all my events", Toast.LENGTH_SHORT).show();
                 Intent myIntent2 = new Intent(v.getContext(), seeMyEventsActivity.class);
-                myIntent2.putExtra("cc", sc);
-                startActivityForResult(myIntent2, 0);
+                myIntent2.putExtra("controller", sc);
+                startActivityForResult(myIntent2, 4);
                 break;
             case R.id.manage:
                 Toast.makeText(this, "Manage my account", Toast.LENGTH_SHORT).show();
                 Intent myIntent3 = new Intent(v.getContext(), manageMyAccountActivity.class);
-                myIntent3.putExtra("sc", sc);
-                startActivityForResult(myIntent3, 0);
+                myIntent3.putExtra("controller", sc);
+                startActivityForResult(myIntent3, 5);
                 break;
             case R.id.viewContactList:
                 Toast.makeText(this, "These are all my Contacts", Toast.LENGTH_SHORT).show();
                 Intent myIntent4 = new Intent(v.getContext(), viewContactListActivity.class);
-                myIntent4.putExtra("sc", sc);
-                startActivityForResult(myIntent4, 0);
+                myIntent4.putExtra("controller", sc);
+                startActivityForResult(myIntent4, 6);
                 break;
             case R.id.social:
                 Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
-                myIntent5.putExtra("sc", sc);
-                startActivityForResult(myIntent5, 0);
+                myIntent5.putExtra("controller", sc);
+                startActivityForResult(myIntent5, 7);
                 break;
             case R.id.exit:
-                Toast.makeText(this, "See you!", Toast.LENGTH_SHORT).show();
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory( Intent.CATEGORY_HOME );
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
-                break;
+                //Serialize objects
+                ReadWrite.saveAttendees(getApplicationContext(),sc.getAttendeeManager());
+                ReadWrite.saveOrganizers(getApplicationContext(), sc.getOrganizerManager());
+                ReadWrite.saveSpeakers(getApplicationContext(), sc.getSpeakerManager());
+                ReadWrite.saveEvent(getApplicationContext(), sc.getEventManager());
+                ReadWrite.saveMessage(getApplicationContext(), sc.getMessageManager());
+                ReadWrite.saveRoom(getApplicationContext(), sc.getRoomManager());
+                ReadWrite.saveVips(getApplicationContext(), sc.getVipManager());
+                ReadWrite.saveVipEventManager(getApplicationContext(), sc.getVipEventManager());
+                //Send information back to main activity
+                Intent myIntent6 = new Intent(SpeakerMenu.this, MainActivity.class);
+                myIntent6.putExtra("controller", sc);
+                setResult(2, myIntent6);
+                finish();
 
 
         }
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 3){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                sc.setView(this);
+            }
+        }
+        if (requestCode ==5)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                sc.setView(this);
+            }
+        }
+        if (requestCode == 4)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                sc.setView(this);
+            }
+        }
+        if (requestCode == 6)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                sc.setView(this);
+            }
+        }
+    }
+
 
     @Override
     public void pushMessage(String info) {

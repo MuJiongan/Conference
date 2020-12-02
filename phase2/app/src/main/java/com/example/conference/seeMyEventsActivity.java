@@ -21,9 +21,14 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.seemyevents);
+
+
         currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
+        if (currentController.getType().equals("SpeakerController")){
+            setContentView(R.layout.speakerseemyevents);
+        }else{
+        setContentView(R.layout.seemyevents);}
         TextView myEvents = findViewById(R.id.welcome);
         String text = currentController.viewMyEvents();
         myEvents.setText(text);
