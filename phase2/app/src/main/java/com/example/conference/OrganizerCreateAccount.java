@@ -45,6 +45,7 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                     pushMessage("Username already exists!");
                 }else{
                     controller.createUser(nameString,usernameString,passwordString,"Attendee");
+                    pushMessage("Account created successfully");
                 }
 
 
@@ -56,7 +57,8 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                 else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
-                controller.createUser(nameString,usernameString,passwordString, "Organizer");}
+                controller.createUser(nameString,usernameString,passwordString, "Organizer");
+                    pushMessage("Account created successfully");}
                 break;
             case R.id.createspeaker:
                 if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
@@ -65,7 +67,9 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                 else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
-                controller.createUser(nameString, usernameString,passwordString, "Speaker");}
+                controller.createUser(nameString, usernameString,passwordString, "Speaker");
+                    pushMessage("Account created successfully");}
+                break;
             case R.id.createvip:
                 if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
                     pushMessage("You can't leave any of the input field empty");
@@ -73,9 +77,10 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
                 else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
-                controller.createUser(nameString,usernameString,passwordString, "Vip");}
+                controller.createUser(nameString,usernameString,passwordString, "Vip");
+                    pushMessage("Account created successfully");}
                 // TODO: push message is not created successfully, and check the implementation of createUser
-
+                break;
             case R.id.back:
 
                 Intent myIntent2 = new Intent(this, OrganizerMenu.class);
