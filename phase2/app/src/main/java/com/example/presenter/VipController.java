@@ -1,5 +1,7 @@
 package com.example.presenter;
 
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import com.example.model.useCases.*;
 
 import java.io.Serializable;
@@ -46,5 +48,56 @@ public class VipController extends AttendeeController implements Serializable {
         }
         return formatEvents(allEventIDs);
     }
+
+    /**
+     * return true if signed up successfully, and false if not and update the attendee list in the
+     * given event and update the contact list of each speaker host the given event
+     * @param eventID the id of event that attendee on the keyboard want to sign up for
+     * 1. the given event is not in the conference
+     * 2. attendee on the keyboard has already signed up for the given event
+     * 3. there is no vacancy in the given event
+     * 4. the given event is conflicted with an event that the attendee on the keyboard signed up
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean signUp(int eventID) {
+        boolean successful1 = VIPSignUp(eventID);
+        if (successful1)
+        {
+            return true;
+        }
+        else
+        {
+            return super.signUp(eventID);
+        }
+
+    }
+    private boolean VIPSignUp(int eventID)
+    {
+        if (getVipEventManager().getEventByID(eventID) == null){
+            getView().pushMessage("That Event does not exist!");
+            return false;
+        }
+
+        if (getCurrentManager().getEventList(getUser()).contains(eventID)){
+            getView().pushMessage("You already signed up for this event.");
+            return false;
+        }
+        if (getVipEventManager().getCapacity(eventID) - getVipEventManager().getUserIDs(eventID).size() <= 0){
+            getView().pushMessage("The event is already full.");
+            return false;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (isUserAvailable(getEventManager().getStartTime(eventID), getVipEventManager().getEndTime(eventID)))
+            {
+                //sign Attendee up for the event
+                getCurrentManager().addEventID(getUser(), eventID);
+                getVipEventManager().addUserID(getUser(), eventID);
+                getView().pushMessage("Successfully signed up!");
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

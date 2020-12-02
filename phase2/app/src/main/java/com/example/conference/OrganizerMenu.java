@@ -58,7 +58,16 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
             case R.id.social:
                 Toast.makeText(this, "Networking", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
+                myIntent5.putExtra("controller", controller);
                 startActivityForResult(myIntent5, 6);
+
+                break;
+            case R.id.createRoom:
+                Toast.makeText(this, "create room", Toast.LENGTH_SHORT).show();
+                Intent myIntentCreate = new Intent(v.getContext(), CreateRoom.class);
+                myIntentCreate.putExtra("controller", controller);
+                startActivityForResult(myIntentCreate, 7);
+
                 break;
             case R.id.exit:
                 //Serialize objects
@@ -122,6 +131,14 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
             }
         }
         else if (requestCode ==6){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        else if (requestCode ==7){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),

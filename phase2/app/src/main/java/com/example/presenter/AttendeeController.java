@@ -48,6 +48,7 @@ public class AttendeeController extends UserController {
              getView().pushMessage("That Event does not exist!");
              return false;
          }
+
          if (getCurrentManager().getEventList(getUser()).contains(eventID)){
              getView().pushMessage("You already signed up for this event.");
              return false;
@@ -69,7 +70,7 @@ public class AttendeeController extends UserController {
          return false;
      }
      @RequiresApi(api = Build.VERSION_CODES.O)
-     private boolean isUserAvailable(LocalDateTime startTime, LocalDateTime endTime)
+     public boolean isUserAvailable(LocalDateTime startTime, LocalDateTime endTime)
      {
          for (int currentEvents: getCurrentManager().getEventList(getUser()))
          {

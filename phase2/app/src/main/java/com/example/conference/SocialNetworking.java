@@ -17,6 +17,9 @@ public class SocialNetworking extends Activity implements UserController.View, V
         currentController.setView(this);
     }
 
+    public void display(){
+
+    }
 
     @Override
     public void onClick(View v) {
