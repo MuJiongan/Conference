@@ -46,13 +46,14 @@
             android:layout_below="@+id/endTime"
             android:layout_marginTop="30dp"
             android:layout_width="300dp"
-            android:layout_centerHorizontal="true"
             android:hint="Enter your room ID here"
-            android:paddingLeft="8dp"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="18dp"
             android:layout_height="50dp"
             android:background="@drawable/textinputborder"
 
-    /> <EditText
+    />
+    <EditText
         android:id="@+id/capacity"
         android:layout_below="@+id/roomID"
         android:layout_marginTop="30dp"

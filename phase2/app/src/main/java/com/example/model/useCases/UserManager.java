@@ -98,17 +98,20 @@ public abstract class UserManager implements Serializable{
     public boolean removeEventID(int eventID, int userID) {
         User user = getUserByID(userID);
         boolean exists = false;
-        for (int i = 0; i < user.getEventsAttend().size(); i++) {
-            if (eventID == user.getEventsAttend().get(i)) {
-                exists = true;
+        if (user != null) {
+            for (int i = 0; i < user.getEventsAttend().size(); i++) {
+                if (eventID == user.getEventsAttend().get(i)) {
+                    exists = true;
+                }
+            }
+            if (!exists) {
+                return false;
+            } else {
+                user.removeEvent(eventID);
+                return true;
             }
         }
-        if (!exists) {
-            return false;
-        } else {
-            user.removeEvent(eventID);
-            return true;
-        }
+        return false;
     }
     /**
      * add a messageID to the messages hashmap for user

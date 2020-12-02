@@ -54,7 +54,7 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
             case R.id.cancel:
                 try {
                     int eventID = parseInt(event.getText().toString());
-                    //( (OrganizerController)controller).cancelEvent();
+                    ((OrganizerController)controller).cancelEvent(eventID);
                 }
                 catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");

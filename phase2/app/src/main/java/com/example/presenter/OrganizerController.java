@@ -259,11 +259,14 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param eventID id of Event to be cancelled
      */
     public void cancelEvent(int eventID){
-        removeEventFromUser(eventID);
-        removeUserFromEvent(eventID);
-        removeEventFromRoom(eventID);
-        getEventManager().removeEvent(eventID);
-        getEventManager().setNumOfCancelledEvents();
+        if (getEventManager().getEvents().contains(eventID)) {
+            removeEventFromUser(eventID);
+            removeEventFromRoom(eventID);
+            getEventManager().removeEvent(eventID);
+            getEventManager().setNumOfCancelledEvents();
+        }
+        getView().pushMessage("That event ID does not exist!");
+
     }
     
 
@@ -272,43 +275,51 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param eventID the id of Event to be cancelled
      * @return true if and only if the EventID is successfully removed from list of all Users
      */
-    public boolean removeEventFromUser(int eventID){
+    private boolean removeEventFromUser(int eventID){
+        //remove speakers
+        ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
+        for (int speaker: speakerIDs)
+        {
+            getSpeakerManager().removeEventID(eventID, speaker);
+        }
+        //remove attendees
         ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
         boolean removeAttendee;
         boolean removeSpeaker;
         boolean removeOrganizer;
+        boolean removeVIP;
         for (Integer userID : userIDs) {
             getEventManager().removeUserID(userID, eventID);
             removeAttendee = getAttendeeManager().removeEventID(eventID, userID);
-            removeSpeaker = getSpeakerManager().removeEventID(eventID, userID);
+            removeVIP =getVipManager().removeEventID(eventID, userID);
             removeOrganizer = getOrganizerManager().removeEventID(eventID, userID);
-            if(!removeAttendee && !removeSpeaker && !removeOrganizer){ //userID not valid
+            if(!removeAttendee && !removeVIP && !removeOrganizer){ //userID not valid
                 return false;
             }
         }
         return true;
     }
 
-    /**
-     * Remove all Users who signed up for the event from the list
-     * @param eventID the id of Event to be cancelled
-     * @return true if and only if all UserIDs are successfully removed from the list
-     */
-    public boolean removeUserFromEvent(int eventID){
-        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
-        for(Integer userID: userIDs){
-            if(!getEventManager().removeUserID(userID, eventID)){
-                return false;
-            }
-        }
-        return true;
-    }
+//    /**
+//     * Remove all Users who signed up for the event from the list
+//     * @param eventID the id of Event to be cancelled
+//     * @return true if and only if all UserIDs are successfully removed from the list
+//     */
+//    private boolean removeUserFromEvent(int eventID){
+//        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+//        for(Integer userID: userIDs){
+//            if(!getEventManager().removeUserID(userID, eventID)){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     /**
      * Remove Event from Room
      * @param eventID id of the Event held
      */
-    public void removeEventFromRoom(int eventID){
+    private void removeEventFromRoom(int eventID){
         int roomID = getEventManager().getRoomID(eventID);
         getRoomManager().removeEventID(roomID, eventID);
     }

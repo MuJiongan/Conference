@@ -17,7 +17,7 @@
             android:layout_height="wrap_content" android:id="@+id/welcome"/>
 
     <EditText
-            android:id="@+id/eventID"
+            android:id="@+id/eventIDinput"
             android:layout_below="@+id/welcome"
             android:layout_marginTop="10dp"
             android:layout_width="300dp"
@@ -31,7 +31,7 @@
     <Button
             android:text="Sign up"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/eventID"
+            android:layout_below="@+id/eventIDinput"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:onClick="onClick"
