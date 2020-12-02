@@ -38,7 +38,7 @@ public class LogInPresenter implements Serializable {
         mm = ReadWrite.readMessage(context);
         vipM = ReadWrite.readVipManager(context);
         vipEvent = ReadWrite.readVipEventManager(context);
-      //  om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
+        //om.createOrganizer("Jonathan", "chenjo14", "12345678", getNewID());
         this.userID = 0;
         this.view = view;
 
@@ -67,6 +67,12 @@ public class LogInPresenter implements Serializable {
         {
             this.userID = user;
             return SpeakerMenu.class;
+        }
+        user = vipM.validate(username, password);
+        if (!(user == -100))
+        {
+            this.userID = user;
+            return AttendeeMenu.class;
         }
         return null;
     }

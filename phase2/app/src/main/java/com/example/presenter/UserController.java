@@ -245,9 +245,11 @@ public class UserController implements Serializable {
         contact.addAll(getSpeakerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
         // remove the user himself
-        contact.remove(userID);
+        int index = contact.indexOf(userID);
+        contact.remove(index);
         //get the message HashMap of user
         HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
+        // TODO: If no messages are found in the message hashmap, we won't get messages
         //add the string representation of contacts to the final HashMap
         for (int friendID : contact) {
             ArrayList<Integer> messageList = allMessage.get(friendID);

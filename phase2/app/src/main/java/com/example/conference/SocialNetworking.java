@@ -7,13 +7,15 @@ import android.view.View;
 import android.widget.Toast;
 import com.example.presenter.UserController;
 
-public class SocialNetworking extends Activity implements UserController.View, View.OnClickListener {
+import java.io.Serializable;
+
+public class SocialNetworking extends Activity implements UserController.View, View.OnClickListener, Serializable{
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.socialnetworking);
-        currentController = (UserController) getIntent().getSerializableExtra("cc");
+        currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
     }
 
