@@ -11,7 +11,9 @@ import com.example.presenter.LogInPresenter;
 import com.example.presenter.SpeakerController;
 import com.example.presenter.UserController;
 
-public class SpeakerMenu extends Activity implements View.OnClickListener, SpeakerController.View{
+import java.io.Serializable;
+
+public class SpeakerMenu extends Activity implements View.OnClickListener, SpeakerController.View, Serializable {
 
     private SpeakerController sc;
     public void onCreate(Bundle savedInstanceState){
