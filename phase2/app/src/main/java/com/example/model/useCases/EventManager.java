@@ -15,6 +15,7 @@ public class EventManager implements Serializable{
      * The list of all events
      */
     private ArrayList<Event> events = new ArrayList<>();
+    private int numOfCancelledEvents;
 
 
     /**
@@ -359,10 +360,14 @@ public class EventManager implements Serializable{
      * @return a new event will given features
      */
     public int createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
-        Event event = new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1);
+        Event event = new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1 + numOfCancelledEvents);
         int id = event.getEventID();
         addEvent(event);
         return id;
+    }
+
+    public void setNumOfCancelledEvents() {
+        this.numOfCancelledEvents = this.numOfCancelledEvents + 1;
     }
 
     /**

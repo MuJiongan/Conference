@@ -38,7 +38,10 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
         String passwordString = password.getText().toString();
         switch (v.getId()){
             case R.id.createattendee:
-                if (controller.hasUserName(usernameString)){
+                if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
+                    pushMessage("You can't leave any of the input field empty");
+                }
+                else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
                     controller.createUser(nameString,usernameString,passwordString,"Attendee");
@@ -47,18 +50,27 @@ public class OrganizerCreateAccount extends Activity implements View.OnClickList
 
                 break;
             case R.id.createOrganizeraccount:
-                if (controller.hasUserName(usernameString)){
+                if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
+                    pushMessage("You can't leave any of the input field empty");
+                }
+                else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
                 controller.createUser(nameString,usernameString,passwordString, "Organizer");}
                 break;
             case R.id.createspeaker:
-                if (controller.hasUserName(usernameString)){
+                if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
+                    pushMessage("You can't leave any of the input field empty");
+                }
+                else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
                 controller.createUser(nameString, usernameString,passwordString, "Speaker");}
             case R.id.createvip:
-                if (controller.hasUserName(usernameString)){
+                if (nameString.equals("") || usernameString.equals("") || passwordString.equals("")){
+                    pushMessage("You can't leave any of the input field empty");
+                }
+                else if (controller.hasUserName(usernameString)){
                     pushMessage("Username already exists!");
                 }else{
                 controller.createUser(nameString,usernameString,passwordString, "Vip");}

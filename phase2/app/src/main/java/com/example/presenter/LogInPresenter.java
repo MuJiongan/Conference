@@ -5,7 +5,7 @@ import com.example.conference.AttendeeMenu;
 import com.example.conference.OrganizerMenu;
 import com.example.conference.SpeakerMenu;
 import com.example.model.entities.*;
-import com.example.model.interfaceAdapters.LogInSystem;
+
 import com.example.model.interfaceAdapters.ReadWrite;
 import com.example.model.useCases.*;
 

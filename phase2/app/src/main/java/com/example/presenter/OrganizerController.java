@@ -263,8 +263,9 @@ public class OrganizerController extends AttendeeController implements Serializa
         removeUserFromEvent(eventID);
         removeEventFromRoom(eventID);
         getEventManager().removeEvent(eventID);
+        getEventManager().setNumOfCancelledEvents();
     }
-    //TODO: THERE MIGHT BE A PROBLEM WITH GENERATING EVENT IDS
+    
 
     /**
      * Remove the ID of Event which will be cancelled from Users attending the Event
