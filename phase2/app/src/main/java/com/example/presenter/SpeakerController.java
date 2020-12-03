@@ -7,6 +7,7 @@ import com.example.model.useCases.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpeakerController extends UserController implements Serializable{
 
@@ -19,11 +20,10 @@ public class SpeakerController extends UserController implements Serializable{
 
     private boolean canSend(int receiverID)
     {
-        ArrayList<Integer> talks = this.getSpeakerManager().getEventList(this.getUser());
+        List<Integer> talks = this.getSpeakerManager().getEventList(this.getUser());
         for (int x: talks)
         {
-
-            ArrayList<Integer> people = this.getEventManager().getUserIDs(x);
+            List<Integer> people = this.getEventManager().getUserIDs(x);
             if (people.contains(receiverID))
             {
                 return true;
@@ -31,6 +31,7 @@ public class SpeakerController extends UserController implements Serializable{
         }
         return false;
     }
+
     /**
      * Adds the message to the messages hashmaps of both all the receivers in the given event and the sender
      * @param eventID ID of the event the user is sending all attendees message to
@@ -48,9 +49,6 @@ public class SpeakerController extends UserController implements Serializable{
     public String getType(){
         return "SpeakerController";
     }
-
-
-
 
 }
 

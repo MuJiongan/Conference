@@ -13,6 +13,7 @@ import com.example.model.useCases.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizerController extends AttendeeController implements Serializable {
 
@@ -186,7 +187,7 @@ public class OrganizerController extends AttendeeController implements Serializa
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean availableInRoom(int roomID, LocalDateTime startTime, LocalDateTime endTime) {
-        ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
+        List<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for (Integer eventID : events) {
 
             LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
@@ -286,13 +287,13 @@ public class OrganizerController extends AttendeeController implements Serializa
      */
     private boolean removeEventFromUser(int eventID){
         //remove speakers
-        ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
+        List<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
         for (int speaker: speakerIDs)
         {
             getSpeakerManager().removeEventID(eventID, speaker);
         }
         //remove attendees
-        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        List<Integer> userIDs = getEventManager().getUserIDs(eventID);
         boolean removeAttendee;
         boolean removeSpeaker;
         boolean removeOrganizer;
@@ -315,7 +316,7 @@ public class OrganizerController extends AttendeeController implements Serializa
 //     * @return true if and only if all UserIDs are successfully removed from the list
 //     */
 //    private boolean removeUserFromEvent(int eventID){
-//        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+//        List<Integer> userIDs = getEventManager().getUserIDs(eventID);
 //        for(Integer userID: userIDs){
 //            if(!getEventManager().removeUserID(userID, eventID)){
 //                return false;

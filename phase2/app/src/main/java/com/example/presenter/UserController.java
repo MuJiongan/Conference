@@ -210,8 +210,8 @@ public class UserController implements Serializable{
                     + "\n";
         }
         return output;
-
     }
+
 
     public String getUserName(int userID) {
         if (getAttendeeManager().idInList(userID)) {
@@ -237,15 +237,15 @@ public class UserController implements Serializable{
      * string representation of contacts that satisfied the condition in the format:
      * friendID + "\t" + username
      */
-    public HashMap<String, ArrayList<String>> viewContactList() {
+    public HashMap<String, List<String>> viewContactList() {
         //create a new HashMap that key is the condition of contacts and values are the empty list.
-        HashMap<String, ArrayList<String>> contactList = new HashMap<>();
-        ArrayList<String> readList = new ArrayList<>();
-        ArrayList<String> unreadList = new ArrayList<>();
+        HashMap<String, List<String>> contactList = new HashMap<>();
+        List<String> readList = new ArrayList<>();
+        List<String> unreadList = new ArrayList<>();
         contactList.put("read", readList);
         contactList.put("unread", unreadList);
         //get the contactList of user
-        ArrayList<Integer> contact = new ArrayList<>();
+        List<Integer> contact = new ArrayList<>();
         contact.addAll(getAttendeeManager().getUserIDs());
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getSpeakerManager().getUserIDs());
@@ -254,11 +254,11 @@ public class UserController implements Serializable{
         int index = contact.indexOf(userID);
         contact.remove(index);
         //get the message HashMap of user
-        HashMap<Integer, ArrayList<Integer>> allMessage = getCurrentManager().getMessages(userID);
+        HashMap<Integer, List<Integer>> allMessage = getCurrentManager().getMessages(userID);
         // TODO: If no messages are found in the message hashmap, we won't get messages
         //add the string representation of contacts to the final HashMap
         for (int friendID : contact) {
-            ArrayList<Integer> messageList = allMessage.get(friendID);
+            List<Integer> messageList = allMessage.get(friendID);
             //check whether there are unread message and add the contact to the corresponding list
             if(messageList != null) {
                 boolean hasUnread = false;
@@ -288,10 +288,10 @@ public class UserController implements Serializable{
      * friendID + ":\t" + content + "\t" + condition(when the condition is unread)
      */
     // TODO: check whether messageId given is out of range
-    public ArrayList<String> viewChatHistory(int friendID) {
-        ArrayList<String> chatHistory = new ArrayList<>();
+    public List<String> viewChatHistory(int friendID) {
+        List<String> chatHistory = new ArrayList<>();
         // get the chat history between user and given friend
-        ArrayList<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
+        List<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
         if (messageIDList != null) {
             for (Integer messageID : messageIDList) {
                 Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
@@ -341,7 +341,6 @@ public class UserController implements Serializable{
                 getMessageManager().changeMessageCondition(messageID);
             }
         }
-
     }
 
     /**
@@ -370,7 +369,6 @@ public class UserController implements Serializable{
     public String getType() {
         return "UserController";
     }
-
 
     public interface View {
         void pushMessage(String info);
@@ -424,6 +422,7 @@ public class UserController implements Serializable{
         return true;
     }
 
+
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
                             EventManager em, MessageManager mm, VipManager vipm, VipEventManager vipe) {
         this.am = am;
@@ -435,6 +434,7 @@ public class UserController implements Serializable{
         this.vipm = vipm;
         this.vipe = vipe;
     }
+
 
     public boolean hasUserID(int userID) {
         if (am.idInList(userID)) {
@@ -451,6 +451,7 @@ public class UserController implements Serializable{
         }
         return false;
     }
+
 
     public boolean hasUserName(String username) {
         if (am.hasUserName(username)) {
@@ -478,7 +479,7 @@ public class UserController implements Serializable{
         // create a new hash map
         HashMap<Integer, Integer> friendToNumOfCommonEvent = new HashMap<>();
         // get a list of all attendees, vip attendees, and organizers
-        ArrayList<Integer> contact = new ArrayList<>();
+        List<Integer> contact = new ArrayList<>();
         contact.addAll(getAttendeeManager().getUserIDs());
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
@@ -490,7 +491,7 @@ public class UserController implements Serializable{
             for (Integer friendID : contact) {
                 // add 1 to the corresponding friend key in the hash map if the friend also has
                 // the event
-                ArrayList<Integer> friendEvents = getFriendEvents(friendID);
+                List<Integer> friendEvents = getFriendEvents(friendID);
                 if (friendEvents.contains(eventID)) {
                     if (!friendToNumOfCommonEvent.containsKey(eventID)) {
                         friendToNumOfCommonEvent.put(friendID, 1);
@@ -510,7 +511,7 @@ public class UserController implements Serializable{
      * @param friendID the friend id
      * @return a list of events the friend is attending given the friend's id.
      */
-    public ArrayList<Integer> getFriendEvents(int friendID) {
+    public List<Integer> getFriendEvents(int friendID) {
         if (getOrganizerManager().getUserIDs().contains(friendID)) {
             return getOrganizerManager().getEventList(friendID);
         } else if (getAttendeeManager().getUserIDs().contains(friendID)) {
@@ -522,24 +523,22 @@ public class UserController implements Serializable{
         }
     }
 
-    public HashMap<String, ArrayList<String>> viewRecommendedFriend() {
+
+    public HashMap<String, List<String>> viewRecommendedFriend() {
         HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
-        HashMap<String, ArrayList<String>> viewRecommendedFriend = new HashMap<String, ArrayList<String>>();
+        HashMap<String, List<String>> viewRecommendedFriend = new HashMap<>();
         for (Integer friendID : friendToNumOfCommonEvent.keySet()) {
             String numberOfSameEvent = String.valueOf(friendToNumOfCommonEvent.get(friendID));
             if (viewRecommendedFriend.containsKey(numberOfSameEvent)) {
                 viewRecommendedFriend.get(numberOfSameEvent).add(friendID + "\t" + getUserName(friendID));
             } else {
-                ArrayList<String> friendList = new ArrayList<String>();
+                List<String> friendList = new ArrayList<>();
                 friendList.add(friendID + "\t" + getUserName(friendID));
                 viewRecommendedFriend.put(numberOfSameEvent, friendList);
             }
         }
         return viewRecommendedFriend;
     }
-
-
-
 }
 
 

@@ -4,18 +4,15 @@ import android.os.Build;
 
 
 import androidx.annotation.RequiresApi;
-import com.example.model.entities.Event;
 
 import com.example.model.useCases.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AttendeeController extends UserController {
-
 
     /**
      * Create an instance of AttendeeController with the given Managers
@@ -171,7 +168,7 @@ public class AttendeeController extends UserController {
         // create a new hash map
         HashMap<Integer, Integer> friendToNumOfCommonEvent = new HashMap<>();
         // get a list of all attendees, vip attendees, and organizers
-        ArrayList<Integer> contact = new ArrayList<>();
+        List<Integer> contact = new ArrayList<>();
         contact.addAll(super.getAttendeeManager().getUserIDs());
         contact.addAll(super.getOrganizerManager().getUserIDs());
         contact.addAll(super.getVipManager().getUserIDs());
@@ -184,7 +181,7 @@ public class AttendeeController extends UserController {
             for (Integer friendID : contact) {
                 // add 1 to the corresponding friend key in the hash map if the friend also has
                 // the event
-                ArrayList<Integer> friendEvents = getFriendEvents(friendID);
+                List<Integer> friendEvents = getFriendEvents(friendID);
                 if (friendEvents.contains(eventID)) {
                     if (!friendToNumOfCommonEvent.containsKey(eventID)) {
                         friendToNumOfCommonEvent.put(friendID, 1);
@@ -204,7 +201,7 @@ public class AttendeeController extends UserController {
      * @param friendID the friend id
      * @return a list of events the friend is attending given the friend's id.
      */
-    public ArrayList<Integer> getFriendEvents(int friendID) {
+    public List<Integer> getFriendEvents(int friendID) {
         if (super.getOrganizerManager().getUserIDs().contains(friendID)) {
             return super.getOrganizerManager().getEventList(friendID);
         } else if (super.getAttendeeManager().getUserIDs().contains(friendID)) {
@@ -216,15 +213,15 @@ public class AttendeeController extends UserController {
         }
     }
 
-    public HashMap<String, ArrayList<String>> viewRecommendedFriend() {
+    public HashMap<String, List<String>> viewRecommendedFriend() {
         HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
-        HashMap<String, ArrayList<String>> viewRecommendedFriend = new HashMap<String, ArrayList<String>>();
+        HashMap<String, List<String>> viewRecommendedFriend = new HashMap<>();
         for (int friendID : friendToNumOfCommonEvent.keySet()) {
             String numberOfSameEvent = String.valueOf(friendToNumOfCommonEvent.get(friendID));
             if (viewRecommendedFriend.containsKey(numberOfSameEvent)) {
                 viewRecommendedFriend.get(numberOfSameEvent).add(friendID + "\t" + super.getUserName(friendID));
             } else {
-                ArrayList<String> friendList = new ArrayList<String>();
+                List<String> friendList = new ArrayList<>();
                 friendList.add(friendID + "\t" + super.getUserName(friendID));
                 viewRecommendedFriend.put(numberOfSameEvent, friendList);
             }
