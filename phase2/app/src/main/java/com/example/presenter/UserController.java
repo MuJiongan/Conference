@@ -55,9 +55,12 @@ public class UserController implements Serializable {
             currentManager = this.am;
         } else if (this.om.idInList((this.userID))) {
             currentManager = this.om;
-        } else {
+        } else if (this.sm.idInList((this.userID))){
             currentManager = this.sm;
+        }else{
+            currentManager = this.vipm;
         }
+
     }
 
     /**
