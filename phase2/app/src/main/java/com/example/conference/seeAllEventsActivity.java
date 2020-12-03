@@ -65,6 +65,17 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 schedule.putExtra("cc", controller);
                 startActivityForResult(schedule, 10);
                 break;
+            case R.id.reschedule:
+                Intent reschedule = new Intent(this, OrganizerReschedule.class);
+                try{
+                    int eventID = parseInt(event.getText().toString());
+                    reschedule.putExtra("eventID", eventID);
+                    reschedule.putExtra("cc", controller);
+                    startActivityForResult(reschedule, 11);
+                }
+                catch(NumberFormatException n){
+                    pushMessage("Please enter a valid eventID");
+                }
 
             case R.id.back:
                 if (controller.getType().equals("VIPController")){
@@ -90,6 +101,14 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 10){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        if (requestCode == 11){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
