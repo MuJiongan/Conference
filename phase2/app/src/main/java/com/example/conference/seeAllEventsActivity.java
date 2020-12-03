@@ -65,17 +65,6 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 schedule.putExtra("cc", controller);
                 startActivityForResult(schedule, 10);
                 break;
-            case R.id.reschedule:
-                Intent reschedule = new Intent(this, OrganizerReschedule.class);
-                try{
-                    int eventID = parseInt(event.getText().toString());
-                    reschedule.putExtra("eventID", eventID);
-                    reschedule.putExtra("cc", controller);
-                    startActivityForResult(reschedule, 11);
-                }
-                catch(NumberFormatException n){
-                    pushMessage("Please enter a valid eventID");
-                }
 
             case R.id.back:
                 if (controller.getType().equals("VIPController")){
