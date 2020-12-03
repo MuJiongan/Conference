@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizerMenu extends AttendeeMenu implements UserController{
     /**
@@ -258,7 +259,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if Speaker is available to speak in specific room
      */
     public boolean availableInRoom(User speaker, int roomID, LocalDateTime startTime, LocalDateTime endTime){
-        ArrayList<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
+        List<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for(Integer eventID : events) {
             LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
             LocalDateTime existingEndTime = getEventManager().getEndTime(eventID);
@@ -344,7 +345,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if and only if the EventID is successfully removed from list of all Users
      */
     public boolean removeEventFromUser(int eventID){
-        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        List<Integer> userIDs = getEventManager().getUserIDs(eventID);
         boolean removeAttendee;
         boolean removeSpeaker;
         boolean removeOrganizer;
@@ -366,7 +367,7 @@ public class OrganizerMenu extends AttendeeMenu implements UserController{
      * @return true if and only if all UserIDs are successfully removed from the list
      */
     public boolean removeUserFromEvent(int eventID){
-        ArrayList<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        List<Integer> userIDs = getEventManager().getUserIDs(eventID);
         for(Integer userID: userIDs){
             if(!getEventManager().removeUserID(userID, eventID)){
                 return false;

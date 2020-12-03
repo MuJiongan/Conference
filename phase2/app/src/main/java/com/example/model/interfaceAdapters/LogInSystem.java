@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LogInSystem implements UserController {
 
@@ -78,7 +79,7 @@ public class LogInSystem implements UserController {
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         UserPropertiesIterator prompts = new UserPropertiesIterator();
-        ArrayList<String> inputs = new ArrayList<>();
+        List<String> inputs = new ArrayList<>();
         System.out.println("1. Login\n2. Create new Account");
         try {
             String input = br.readLine();

@@ -27,14 +27,14 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     /**
-     * return an ArrayList of <code>Event</code> that the attendee on the keyboard can sign up for
-     * @return an ArrayList of <code>Event</code> that the attendee on the keyboard can sign up for.
-     * The <code>Event</code> in the returned ArrayList satisfy two condition:
+     * return an List of <code>Event</code> that the attendee on the keyboard can sign up for
+     * @return an List of <code>Event</code> that the attendee on the keyboard can sign up for.
+     * The <code>Event</code> in the returned List satisfy two condition:
      * 1. there is a vacancy in the event
      * 2. the event doesn't conflict with the registered event of the attendee on the keyboard
      */
-    public ArrayList<Event> eventsTheyCanSignUpFor(){
-        ArrayList<Event> eventsTheyCanSignUpFor = new ArrayList<>();
+    public List<Event> eventsTheyCanSignUpFor(){
+        List<Event> eventsTheyCanSignUpFor = new ArrayList<>();
         for (int eventID: getEventManager().getEvents()){
             if (canSignUp(eventID)){
                 eventsTheyCanSignUpFor.add(getEventManager().getEventByID(eventID));
@@ -49,7 +49,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
      * @return return true if there is a vacancy in the give event and the event wanted to sign up now doesn't conflict
      * with the given registered event
      */
-
     private boolean canSignUp(int eventID){
         LocalDateTime startTime = getEventManager().getStartTime(eventID);
         LocalDateTime endTime = getEventManager().getEndTime(eventID);
@@ -87,14 +86,12 @@ public class AttendeeMenu extends UserMenu implements UserController{
         boolean condition1 = (!endTime.isAfter(newEndTime))&&(!endTime.isBefore(newStartTime));
         // old event ends in the middle of new event or before the start of new event
 
-
         boolean condition2 = (!startTime.isAfter(newEndTime))&&(!startTime.isBefore(newStartTime));
         // old event starts in the middle of new events or before new event starts
+
         boolean condition3 = (!newEndTime.isAfter(endTime))&&(!newEndTime.isBefore(startTime));
 
         boolean condition4 = (!newStartTime.isAfter(endTime))&&(!newStartTime.isBefore(startTime));
-
-
 
         // if one of the conditions fails, return false
         if (condition1 || condition2 || condition3 || condition4){
@@ -137,10 +134,8 @@ public class AttendeeMenu extends UserMenu implements UserController{
             getEventManager().addUserID(getUser(), eventID);
             // add the attendee to the speaker's contact list
             Event event = getEventManager().getEventByID(eventID);
-            ArrayList<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
+            List<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
             for (Integer speakerID: speakerIDs){
-
-
                 // Check if the attendee is already in speaker's contact list
                 if (!getSpeakerManager().getContactList(speakerID).contains(getUser())){
                 getSpeakerManager().addToContactsList(speakerID, getUser());}
@@ -185,7 +180,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
                 if (!getSpeakerManager().getContactList(receiverID).contains(userID)){
                     getSpeakerManager().addToContactsList(receiverID, userID);
                 }
-
             }
             if (!canSend){
                 Presenter.print("Receiver ID doesn't exist or you cannot message them");
@@ -222,8 +216,8 @@ public class AttendeeMenu extends UserMenu implements UserController{
     }
 
     /**
-     * return an ArrayList of all events in the conference
-     * @return return an ArrayList of all events in the conference
+     * return an List of all events in the conference
+     * @return return an List of all events in the conference
      */
     public String viewAllEvents()
     {
@@ -299,7 +293,6 @@ public class AttendeeMenu extends UserMenu implements UserController{
                         index = Integer.parseInt(input2);
                     }
                     signUp(index);
-
                 }
                 Presenter.print("1. Sign up for event\n2. Go back to the main menu");
                 input = br.readLine();
@@ -342,6 +335,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter an integer value for the ID!!");
         }
     }
+
     /**
      * run View Contact List submenu of the main menu
      */
@@ -365,6 +359,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter an integer value for the ID");
         }
     }
+
     /**
      * run View chat history submenu of View Contact List option
      * @param receiverID the id of a user in the system that the attendee on the keyboard choose to see the chat history
@@ -391,6 +386,7 @@ public class AttendeeMenu extends UserMenu implements UserController{
             Presenter.print("Please enter a valid option");
         }
     }
+
     /**
      * run Manage Account submenu of the main menu
      */

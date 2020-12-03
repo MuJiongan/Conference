@@ -35,12 +35,12 @@ public class Presenter {
 //
 //    /**
 //     * print corresponding username of each userid in the specific contactList
-//     * @param contactList an ArrayList of userid that user on the keyboard can message to
+//     * @param contactList an List of userid that user on the keyboard can message to
 //     * @param am the instance of <code>AttendeeManager</code> in the conference system
 //     * @param om the instance of <code>OrganizerManager</code> in the conference system
 //     * @param sm the instance of <code>SpeakerManager</code> in the conference system
 //     */
-//    public static void viewContacts(ArrayList<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm){
+//    public static void viewContacts(List<Integer> contactList, AttendeeManager am, OrganizerManager om, SpeakerManager sm){
 //        System.out.println("Here are people you can send messages to: ");
 //        String divider = "------------------------";
 //        for (Integer userId : contactList) {
@@ -66,13 +66,13 @@ public class Presenter {
 //     * on the menu
 //     * @param receiverID a userid who communicate through message with the user on the keyboard
 //     * @param messageIDList a HashMap where key is a userid who communicate through message with the user on the keyboard
-//     *                      and value is an Arraylist of messageId
+//     *                      and value is a List of messageId
 //     * @param mm the instance of <code>MassageManager</code> in the conference system
 //     * @param am the instance of <code>AttendeeManager</code> in the conference system
 //     * @param om the instance of <code>OrganizerManager</code> in the conference system
 //     * @param sm the instance of <code>SpeakerManager</code> in the conference system
 //     */
-//        public static void viewChat (int receiverID, HashMap<Integer, ArrayList<Integer>> messageIDList,MessageManager mm,
+//        public static void viewChat (int receiverID, HashMap<Integer, List<Integer>> messageIDList,MessageManager mm,
 //                                     AttendeeManager am, OrganizerManager om, SpeakerManager sm){
 //            String divider = "------------------------";
 //            System.out.println("Here are your chat history:");
@@ -105,11 +105,11 @@ public class Presenter {
 //
 //    /**
 //     * print event names of all events that user on the keyboard signed up
-//     * @param eventsTheyAttended  an Arraylist of event that user on the keyboard signed up
+//     * @param eventsTheyAttended  a list of event that user on the keyboard signed up
 //     * @param em the instance of <code>EventManager</code> in the conference system
 //     * @param rm the instance of <code>RoomManager</code> in the conference system
 //     */
-//    public static void viewMyEvents(ArrayList<Event> eventsTheyAttended, EventManager em, RoomManager rm) {
+//    public static void viewMyEvents(List<Event> eventsTheyAttended, EventManager em, RoomManager rm) {
 //        String divider = "------------------------";
 //        String heading1 = "Events";
 //        String heading2 = "Time";
@@ -129,12 +129,12 @@ public class Presenter {
 //
 //    /**
 //     * print event names of all events in the conference
-//     * @param allEventsInSystem an ArrayList of all event in the conference
+//     * @param allEventsInSystem a List of all event in the conference
 //     * @param em an instance of <code>EventManager</code> in the conference system
 //     * @param rm an instance of <code>RoomManager</code> in the conference system
 //     */
 //
-//    public static void viewAllEvents(ArrayList<Event> allEventsInSystem, EventManager em, RoomManager rm) {
+//    public static void viewAllEvents(List<Event> allEventsInSystem, EventManager em, RoomManager rm) {
 //        String divider = "------------------------";
 //        String heading1 = "Events";
 //        String heading2 = "Time";
@@ -153,11 +153,11 @@ public class Presenter {
 //    }
 //
 //    /**
-//     * print a ArrayList of speakers' names corresponds to the specific ArrayList of speakers
-//     * @param speakers an ArrayList of Speaker wanted to print out
+//     * print a List of speakers' names corresponds to the specific List of speakers
+//     * @param speakers a List of Speaker wanted to print out
 //     * @param current  a specific <code>UserManager</code> corresponding to the user on the keyboard
 //     */
-//    public static void printSpeakers(ArrayList<User> speakers, UserManager current) {
+//    public static void printSpeakers(List<User> speakers, UserManager current) {
 //        String heading = "Speaker's name";
 //        int i = 1;
 //        System.out.println("Here are all speakers registered");
@@ -172,10 +172,10 @@ public class Presenter {
 //
 //    /**
 //     * print a list of rooms' names
-//     * @param rooms an ArrayList of Room wanted to print out
+//     * @param rooms a List of Room wanted to print out
 //     * @param rm the instance of <code>RoomManager</code> in the conference system
 //     */
-//    public static void printRooms(ArrayList<Room> rooms, RoomManager rm) {
+//    public static void printRooms(List<Room> rooms, RoomManager rm) {
 //        String heading = "Room's name";
 //
 //        System.out.println("Here are all rooms available");

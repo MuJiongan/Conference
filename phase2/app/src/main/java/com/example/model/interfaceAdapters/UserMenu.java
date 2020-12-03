@@ -6,6 +6,7 @@ import com.example.model.entities.User;
 import com.example.model.useCases.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class UserMenu {
 
@@ -161,7 +162,7 @@ public abstract class UserMenu {
      * Return list of all EventIDs the user is going to attend
      * @return list of all EventIDs the user is going to attend
      */
-    public ArrayList<Integer> viewMyEvents() {
+    public List<Integer> viewMyEvents() {
         return getCurrentManager().getEventList(getUser());
 
     }
@@ -225,7 +226,7 @@ public abstract class UserMenu {
 //     * friend
 //     */
 //    public boolean hasUnreadMessage(int userID, int friendID){
-//        ArrayList<Integer> messages = getCurrentManager().getMessages(userID).get(friendID);
+//        List<Integer> messages = getCurrentManager().getMessages(userID).get(friendID);
 //        for (int messageID: messages){
 //            if (!getMessageManager().getMessageById(messageID).getMessageCondition()){
 //                return true;
