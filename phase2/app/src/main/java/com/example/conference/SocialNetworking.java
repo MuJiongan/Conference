@@ -11,15 +11,17 @@ import com.example.presenter.AttendeeController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class SocialNetworking extends Activity implements UserController.View, View.OnClickListener, Serializable{
-    private AttendeeController currentController;
-    public void onCreate(Bundle savedInstanceState){
 
+public class SocialNetworking extends Activity implements UserController.View, View.OnClickListener, Serializable{
+
+    private AttendeeController currentController;
+
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.socialnetworking);
         currentController = (AttendeeController) getIntent().getSerializableExtra("controller");
@@ -29,9 +31,8 @@ public class SocialNetworking extends Activity implements UserController.View, V
 
     public void display(){
         TextView social = findViewById(R.id.socialmessage);
-
         String socialMessage = "";
-        HashMap<String, ArrayList<String>> hashMap =  currentController.viewRecommendedFriend();
+        HashMap<String, List<String>> hashMap =  currentController.viewRecommendedFriend();
         for (String score: hashMap.keySet()){
             socialMessage = socialMessage + score + " COMMON EVENTS:\n";
             for (String user: hashMap.get(score)){
@@ -40,6 +41,7 @@ public class SocialNetworking extends Activity implements UserController.View, V
         }
         social.setText(socialMessage);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -58,10 +60,9 @@ public class SocialNetworking extends Activity implements UserController.View, V
                 }}catch(NumberFormatException e){
                     pushMessage("Please enter an integer");
                 }
-
                 break;
-            case R.id.back:
 
+            case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){
                     Intent myIntent1 = new Intent(this, SpeakerMenu.class);
                     myIntent1.putExtra("cc", currentController);
