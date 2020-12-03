@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserController implements Serializable {
+public class UserController implements Serializable{
 
     private AttendeeManager am;
     private OrganizerManager om;
@@ -287,6 +287,7 @@ public class UserController implements Serializable {
      * @return list of strings representation of all messages in the chat history in the format:
      * friendID + ":\t" + content + "\t" + condition(when the condition is unread)
      */
+    // TODO: check whether messageId given is out of range
     public ArrayList<String> viewChatHistory(int friendID) {
         ArrayList<String> chatHistory = new ArrayList<String>();
         // get the chat history between user and given friend
@@ -382,6 +383,7 @@ public class UserController implements Serializable {
      * @param messageID the message id
      * @return true iff the message is successfully deleted
      */
+    // TODO: check whether messageId given is out of range
     public boolean deleteMessage(int messageID) {
         int friendID = getMessageManager().getSenderIDByMessId(messageID);
         if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
@@ -397,6 +399,7 @@ public class UserController implements Serializable {
      * @param messageID the message id
      * @return true iff the message is successfully archived
      */
+    // TODO: check whether messageId given is out of range
     public boolean archiveMessage(int messageID) {
         int friendID = getMessageManager().getSenderIDByMessId(messageID);
         if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
@@ -412,6 +415,7 @@ public class UserController implements Serializable {
      * @param messageID the message id
      * @return true iff the message is successfully marked
      */
+    // TODO: check whether messageId given is out of range
     public boolean markAsUnread(int messageID) {
         if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
             return false;

@@ -12,6 +12,8 @@ import com.example.presenter.UserController;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 public class messageActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
 
 
@@ -91,9 +93,22 @@ public class messageActivity extends Activity implements UserController.View, Vi
                     setResult(3, myIntent3);
                     finish();
                 }
+            case R.id.markAsUnread:
+                EditText messageIdText = findViewById(R.id.messageId);
+                String messageIdString = messageIdText.getText().toString();
+                int messageId = Integer.parseInt(messageIdString);
+//                if (messageId){
+//
+//                }
+//                else{
+                    try {
+                        currentController.markAsUnread(messageId);
+                    }
+                    catch(NumberFormatException n){
+                        pushMessage("Please enter a valid MessageID");
+                    }
+                }
 
-        }
-
-
+//        }
     }
 }
