@@ -91,10 +91,21 @@ public class viewContactListActivity extends Activity implements UserController.
                     setResult(3, myIntent3);
                     finish();
                 }
-
-
         }
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+      if (requestCode == 3){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                currentController.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                currentController.setView(this);
+            }
+        }
+
+    }
+
+
 
 
 

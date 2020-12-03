@@ -95,10 +95,9 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                     setResult(3, myIntent3);
                     finish();
                 }
-
-
         }
     }
+
 
     @Override
     public void pushMessage(String info) {

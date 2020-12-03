@@ -22,11 +22,10 @@ public class MessageManager implements Serializable{
 
     /**
      * add a new entities.Message to messages
-     * @param messageID message to be added
+     * @param message message to be added
      * @return true if and only if the message is successfully added to the message list
      */
-    public boolean addMessage(int messageID){
-        Message message = getMessageById(messageID);
+    public boolean addMessage(Message message){
         for (Message content: messages){
             if(content == message){
                 return false;
@@ -68,9 +67,8 @@ public class MessageManager implements Serializable{
      */
     public int createMessage(String content, int senderID, int receiverID){
         Message message = new Message(senderID, receiverID, content, messages.size() + 1);
-        int messageID = message.getMessageID();
-        this.addMessage(messageID);
-        return messageID;
+        this.addMessage(message);
+        return message.getMessageID();
     }
 
     /**

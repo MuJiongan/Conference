@@ -289,7 +289,7 @@ public class UserController implements Serializable{
      */
     // TODO: check whether messageId given is out of range
     public ArrayList<String> viewChatHistory(int friendID) {
-        ArrayList<String> chatHistory = new ArrayList<String>();
+        ArrayList<String> chatHistory = new ArrayList<>();
         // get the chat history between user and given friend
         ArrayList<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
         if (messageIDList != null) {

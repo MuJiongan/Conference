@@ -25,14 +25,14 @@ public class messageActivity extends Activity implements UserController.View, Vi
         currentController = (UserController) getIntent().getSerializableExtra("cc");
         currentController.setView(this);
         // get the receiver ID
-        index = getIntent().getIntExtra("eventID", -1);
+        index = getIntent().getIntExtra("receiverID", -1);
         showHistory();
     }
 
 
     public void showHistory() {
 
-        TextView history = findViewById(R.id.history);
+        TextView history = findViewById(R.id.allMessages);
         String historyText = "";
         ArrayList<String> list = currentController.viewChatHistory(index);
         if (list != null){
@@ -57,10 +57,6 @@ public class messageActivity extends Activity implements UserController.View, Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send:
-                // get the receiver ID
-                String receiverID = (String) getIntent().getSerializableExtra("receiverID");
-
-                int index = Integer.parseInt(receiverID);
                 EditText message = findViewById(R.id.messageContent);
                 String messageString = message.getText().toString();
                 if (!messageString.equals("")) {
@@ -72,34 +68,18 @@ public class messageActivity extends Activity implements UserController.View, Vi
 
                 break;
             case R.id.back:
-                if (currentController.getType().equals("SpeakerController")) {
-                    Intent myIntent1 = new Intent(this, SpeakerMenu.class);
-                    myIntent1.putExtra("cc", currentController);
-                    setResult(3, myIntent1);
-                    finish();
-                } else if (currentController.getType().equals("OrganizerController")) {
-                    Intent myIntent2 = new Intent(this, OrganizerMenu.class);
-                    myIntent2.putExtra("cc", currentController);
-                    setResult(3, myIntent2);
-                    finish();
-                } else if (currentController.getType().equals("AttendeeController")) {
-                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
-                    myIntent3.putExtra("cc", currentController);
-                    setResult(3, myIntent3);
-                    finish();
-                } else if (currentController.getType().equals("VIPController")) {
-                    Intent myIntent3 = new Intent(this, AttendeeMenu.class);
-                    myIntent3.putExtra("cc", currentController);
-                    setResult(3, myIntent3);
-                    finish();
-                }
+                Intent myIntent4 = new Intent(this, viewContactListActivity.class);
+                myIntent4.putExtra("cc", currentController);
+                setResult(3, myIntent4);
+                finish();
+                break;
             case R.id.markAsUnread:
                 EditText messageIdText = findViewById(R.id.messageId);
                 String messageIdString = messageIdText.getText().toString();
-                int messageId = Integer.parseInt(messageIdString);
-                    try {
+                try {
+                        int messageId = Integer.parseInt(messageIdString);
                         if(!currentController.markAsUnread(messageId)){
-                            pushMessage("You can't mark message you send as unread")
+                            pushMessage("You can't mark message you send as unread");
                         }
                     }
                     catch(NumberFormatException n){
