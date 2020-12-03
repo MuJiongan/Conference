@@ -32,7 +32,9 @@ public class AssignSpeaker extends Activity implements UserController.View, View
 
 
     public void showSpeaker() {
-
+        String speaker = currentController.showSpeaker();
+        TextView welcome = findViewById(R.id.welcome);
+        welcome.setText(speaker);
     }
 
 

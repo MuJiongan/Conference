@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class messageActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
 
@@ -18,7 +19,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
     int index;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.managemyaccount);
+        setContentView(R.layout.message);
         currentController = (UserController) getIntent().getSerializableExtra("cc");
         currentController.setView(this);
         // get the receiver ID
@@ -31,10 +32,16 @@ public class messageActivity extends Activity implements UserController.View, Vi
 
         TextView history = findViewById(R.id.history);
         String historyText = "";
-        for (String s: currentController.viewChatHistory(index)){
-            historyText = historyText + s + "\n";
+        ArrayList<String> list = currentController.viewChatHistory(index);
+        if (list != null){
+            for (String s: list){
+                historyText = historyText + s + "\n";
+            }
+            history.setText(historyText);
+        }else{
+            history.setText("There is no message right now");
         }
-        history.setText(historyText);
+
 
     }
 

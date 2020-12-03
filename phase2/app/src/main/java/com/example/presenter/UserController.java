@@ -291,15 +291,20 @@ public class UserController implements Serializable {
         ArrayList<String> chatHistory = new ArrayList<String>();
         // get the chat history between user and given friend
         ArrayList<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
-        for (Integer messageID : messageIDList) {
-            Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
-            //if the sender of message is friend and the condition of this message is unread, add the unread mark at the end of this message
-            if (!getMessageManager().getConditionByID(messageID) && sendID == friendID) {
-                chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID) + "\t(unread)");
+        if (messageIDList != null) {
+            for (Integer messageID : messageIDList) {
+                Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
+                //if the sender of message is friend and the condition of this message is unread, add the unread mark at the end of this message
+                if (!getMessageManager().getConditionByID(messageID) && sendID == friendID) {
+                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID) + "\t(unread)");
+                }
+                chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID));
             }
-            chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID));
+            return chatHistory;
         }
-        return chatHistory;
+        else{
+            return null;
+        }
     }
 
     /**

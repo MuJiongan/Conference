@@ -268,6 +268,15 @@ public class OrganizerController extends AttendeeController implements Serializa
         getView().pushMessage("That event ID does not exist!");
 
     }
+    public String showSpeaker(){
+        String finalString = "";
+        for (int speakerID: getSpeakerManager().getUserIDs()){
+            finalString = finalString + speakerID + ": " + getSpeakerManager().getnameById(speakerID) + "\n";
+
+
+        }
+        return finalString;
+    }
     
 
     /**
