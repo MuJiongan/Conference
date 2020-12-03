@@ -17,7 +17,8 @@ import static java.lang.Integer.parseInt;
 public class messageActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
 
     private UserController currentController;
-    int index;
+    private int index;
+    private String parent;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message);
@@ -25,6 +26,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
         currentController.setView(this);
         // get the receiver ID
         index = getIntent().getIntExtra("receiverID", -1);
+        parent = getIntent().getStringExtra("parent");
         showHistory();
     }
 
@@ -67,7 +69,15 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 break;
 
             case R.id.back:
-                Intent myIntent4 = new Intent(this, viewContactListActivity.class);
+                Intent myIntent4;
+                if (parent.equals("contact"))
+                {
+                    myIntent4 = new Intent(this, viewContactListActivity.class);
+                }
+               else
+                {
+                    myIntent4 = new Intent(this, SocialNetworking.class);
+                }
                 myIntent4.putExtra("cc", currentController);
                 setResult(3, myIntent4);
                 finish();

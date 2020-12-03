@@ -4,9 +4,11 @@ import android.os.Build;
 
 
 import androidx.annotation.RequiresApi;
+import com.example.model.entities.Event;
 
 import com.example.model.useCases.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +108,9 @@ public class AttendeeController extends UserController {
          {
              if (getCurrentManager().getEventList(getUser()).contains(eventID))
              {
-                 getCurrentManager().getEventList(getUser()).remove(eventID);
+                 //#TODO: consider VIP events case
+                 int position = getEventManager().getEvents().indexOf(eventID);
+                 getCurrentManager().getEventList(getUser()).remove(position);
                  getEventManager().getUserIDs(eventID).remove(getUser());
                  getView().pushMessage("Cancellation Successful");
                  return true;
@@ -177,20 +181,30 @@ public class AttendeeController extends UserController {
         int index = contact.indexOf(getUserID());
         contact.remove(index);
         // loop through all the events the current user has signed up for
-        for (Integer eventID : super.getCurrentManager().getEventList(super.getUserID())) {
-            // loop through all contacts in the list
-            for (Integer friendID : contact) {
-                // add 1 to the corresponding friend key in the hash map if the friend also has
-                // the event
-                List<Integer> friendEvents = getFriendEvents(friendID);
-                if (friendEvents.contains(eventID)) {
-                    if (!friendToNumOfCommonEvent.containsKey(eventID)) {
-                        friendToNumOfCommonEvent.put(friendID, 1);
-                    } else {
-                        int curr = friendToNumOfCommonEvent.get(friendID);
-                        friendToNumOfCommonEvent.put(friendID, curr + 1);
+        int numEvents = getCurrentManager().getEventList(getUserID()).size();
+        if (numEvents != 0) {
+            for (Integer eventID : super.getCurrentManager().getEventList(super.getUserID())) {
+                // loop through all contacts in the list
+                for (Integer friendID : contact) {
+                    // add 1 to the corresponding friend key in the hash map if the friend also has
+                    // the event
+                    List<Integer> friendEvents = getFriendEvents(friendID);
+                    if (friendEvents.contains(eventID)) {
+                        if (!friendToNumOfCommonEvent.containsKey(eventID)) {
+                            friendToNumOfCommonEvent.put(friendID, 1);
+                        } else {
+                            int curr = friendToNumOfCommonEvent.get(friendID);
+                            friendToNumOfCommonEvent.put(friendID, curr + 1);
+                        }
                     }
                 }
+            }
+        }
+        else
+        {
+            for (int id: contact)
+            {
+                friendToNumOfCommonEvent.put(id, 0);
             }
         }
         return friendToNumOfCommonEvent;

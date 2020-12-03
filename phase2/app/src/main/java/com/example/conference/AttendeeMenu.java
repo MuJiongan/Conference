@@ -55,6 +55,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             case R.id.social:
                 Toast.makeText(this, "Network", Toast.LENGTH_SHORT).show();
                 Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
+                myIntent5.putExtra("controller", controller);
                 startActivityForResult(myIntent5, 7);
                 break;
             case R.id.exit:
@@ -105,6 +106,16 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
             }
         }
         if (requestCode == 6)
+        {
+            if (resultCode == 3)
+            {
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
+        if (requestCode == 7)
         {
             if (resultCode == 3)
             {

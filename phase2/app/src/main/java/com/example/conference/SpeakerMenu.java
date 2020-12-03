@@ -47,12 +47,6 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
                 myIntent4.putExtra("controller", sc);
                 startActivityForResult(myIntent4, 6);
                 break;
-            case R.id.social:
-                Toast.makeText(this, "All your social networking", Toast.LENGTH_SHORT).show();
-                Intent myIntent5 = new Intent(v.getContext(), SocialNetworking.class);
-                myIntent5.putExtra("controller", sc);
-                startActivityForResult(myIntent5, 7);
-                break;
             case R.id.exit:
                 //Serialize objects
                 ReadWrite.saveAttendees(getApplicationContext(),sc.getAttendeeManager());

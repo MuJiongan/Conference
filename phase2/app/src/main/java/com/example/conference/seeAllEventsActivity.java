@@ -53,6 +53,8 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 try {
                     int eventID = parseInt(event.getText().toString());
                     ((OrganizerController)controller).cancelEvent(eventID);
+                    pushMessage("Event cancelled");
+                    setAllEventsText();
                 }
                 catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
@@ -107,6 +109,7 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
                         passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
                 controller.setView(this);
+                setAllEventsText();
             }
         }
         if (requestCode == 11){

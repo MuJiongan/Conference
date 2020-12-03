@@ -55,6 +55,7 @@ public class SocialNetworking extends Activity implements UserController.View, V
                         Intent myIntent = new Intent(v.getContext(), messageActivity.class);
                         myIntent.putExtra("cc", currentController);
                         myIntent.putExtra("receiverID", userIDInt);
+                        myIntent.putExtra("parent", "Networking");
                         startActivityForResult(myIntent, 3);
 
                 }}catch(NumberFormatException e){
@@ -90,7 +91,17 @@ public class SocialNetworking extends Activity implements UserController.View, V
         }
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 3){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                currentController.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                currentController.setView(this);
+            }
+        }
 
+    }
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

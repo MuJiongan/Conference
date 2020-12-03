@@ -54,6 +54,7 @@ public class viewContactListActivity extends Activity implements UserController.
                         Intent myIntent = new Intent(v.getContext(), messageActivity.class);
                         myIntent.putExtra("cc", currentController);
                         myIntent.putExtra("receiverID", userID1);
+                        myIntent.putExtra("parent", "contact");
                         startActivityForResult(myIntent, 3);
                     }else{
                         pushMessage("The userID you entered is not valid");

@@ -163,4 +163,9 @@ public class MessageManager implements Serializable{
     public boolean getConditionByID(int messageID){
         return this.getMessageById(messageID).getMessageCondition();
     }
+
+    public String getMescontentById(Integer messageID) {
+        Message actualmessage = this.getMessageById(messageID);
+        return actualmessage.getContent();
+    }
 }

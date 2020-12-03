@@ -27,7 +27,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.viewAllEvents:
-                Toast.makeText(this, "These are all your events", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "These are all the events", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(v.getContext(), seeAllEventsActivity.class);
                 myIntent.putExtra("controller", controller);
                 startActivityForResult(myIntent, 1);
@@ -63,7 +63,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
 
                 break;
             case R.id.createRoom:
-                Toast.makeText(this, "create room", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter room", Toast.LENGTH_SHORT).show();
                 Intent myIntentCreate = new Intent(v.getContext(), CreateRoom.class);
                 myIntentCreate.putExtra("controller", controller);
                 startActivityForResult(myIntentCreate, 7);

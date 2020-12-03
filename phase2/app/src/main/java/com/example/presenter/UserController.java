@@ -212,7 +212,6 @@ public class UserController implements Serializable{
         return output;
     }
 
-
     public String getUserName(int userID) {
         if (getAttendeeManager().idInList(userID)) {
             return getAttendeeManager().getnameById(userID);
@@ -294,12 +293,14 @@ public class UserController implements Serializable{
         List<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
         if (messageIDList != null) {
             for (Integer messageID : messageIDList) {
-                Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
+                int sendID = getMessageManager().getSenderIDByMessId(messageID);
                 //if the sender of message is friend and the condition of this message is unread, add the unread mark at the end of this message
                 if (!getMessageManager().getConditionByID(messageID) && sendID == friendID) {
-                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMesContentById(messageID) + "\t(unread)");
+                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID) + "\t(unread)");
                 }
-                chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMesContentById(messageID));
+                else {
+                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID));
+                }
             }
             return chatHistory;
         }
@@ -422,7 +423,6 @@ public class UserController implements Serializable{
         return true;
     }
 
-
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
                             EventManager em, MessageManager mm, VipManager vipm, VipEventManager vipe) {
         this.am = am;
@@ -494,11 +494,12 @@ public class UserController implements Serializable{
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
         // remove the user himself
-        contact.remove(userID);
+        int index = contact.indexOf(userID);
+        contact.remove(index);
         // loop through all the events the current user has signed up for
-        for (Integer eventID : getCurrentManager().getEventList(userID)) {
+        for (int eventID : getCurrentManager().getEventList(userID)) {
             // loop through all contacts in the list
-            for (Integer friendID : contact) {
+            for (int friendID : contact) {
                 // add 1 to the corresponding friend key in the hash map if the friend also has
                 // the event
                 List<Integer> friendEvents = getFriendEvents(friendID);

@@ -70,6 +70,7 @@ public class CreateRoom extends Activity implements View.OnClickListener, UserCo
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid capacity");
                 }
+                break;
             case R.id.back:
                 Intent myIntent = new Intent(this, seeAllEventsActivity.class);
                 myIntent.putExtra("cc", controller);

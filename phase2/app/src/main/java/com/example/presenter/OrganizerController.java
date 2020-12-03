@@ -261,12 +261,23 @@ public class OrganizerController extends AttendeeController implements Serializa
      */
     public void cancelEvent(int eventID){
         if (getEventManager().getEvents().contains(eventID)) {
-            removeEventFromUser(eventID);
-            removeEventFromRoom(eventID);
+            removeEventFromUser(eventID, getEventManager());
+            removeEventFromRoom(eventID, getEventManager());
             getEventManager().removeEvent(eventID);
             getEventManager().setNumOfCancelledEvents();
         }
-        getView().pushMessage("That event ID does not exist!");
+        else if (getVipEventManager().getEvents().contains(eventID)){
+            removeEventFromUser(eventID, getVipEventManager());
+            removeEventFromRoom(eventID, getVipEventManager());
+            getVipEventManager().removeEvent(eventID);
+            getVipEventManager().setNumOfCancelledEvents();
+
+        }
+        else {
+            getView().pushMessage("That event ID does not exist!");
+        }
+       // else if (getVipEventManager().ge)
+
 
     }
     public String showSpeaker(){
@@ -285,7 +296,7 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param eventID the id of Event to be cancelled
      * @return true if and only if the EventID is successfully removed from list of all Users
      */
-    private boolean removeEventFromUser(int eventID){
+    private boolean removeEventFromUser(int eventID, EventManager em){
         //remove speakers
         List<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
         for (int speaker: speakerIDs)
@@ -295,11 +306,10 @@ public class OrganizerController extends AttendeeController implements Serializa
         //remove attendees
         List<Integer> userIDs = getEventManager().getUserIDs(eventID);
         boolean removeAttendee;
-        boolean removeSpeaker;
         boolean removeOrganizer;
         boolean removeVIP;
         for (Integer userID : userIDs) {
-            getEventManager().removeUserID(userID, eventID);
+            em.removeUserID(userID, eventID);
             removeAttendee = getAttendeeManager().removeEventID(eventID, userID);
             removeVIP =getVipManager().removeEventID(eventID, userID);
             removeOrganizer = getOrganizerManager().removeEventID(eventID, userID);
@@ -329,8 +339,8 @@ public class OrganizerController extends AttendeeController implements Serializa
      * Remove Event from Room
      * @param eventID id of the Event held
      */
-    private void removeEventFromRoom(int eventID){
-        int roomID = getEventManager().getRoomID(eventID);
+    private void removeEventFromRoom(int eventID, EventManager em){
+        int roomID = em.getRoomID(eventID);
         getRoomManager().removeEventID(roomID, eventID);
     }
 

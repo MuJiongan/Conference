@@ -55,12 +55,13 @@ public class OrganizerScheduleEvent extends Activity implements View.OnClickList
                 {
                     pushMessage("Please format your times as year-mm-ddThour:minute:second");
                 }
-
+                break;
             case R.id.back:
                     Intent myIntent = new Intent(this, seeAllEventsActivity.class);
                     myIntent.putExtra("cc", controller);
                     setResult(3, myIntent);
                     finish();
+                    break;
 
 
         }
