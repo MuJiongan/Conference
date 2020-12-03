@@ -42,25 +42,25 @@
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/send"/>
 
+
     <EditText
             android:id="@+id/messageId"
 
-            android:layout_marginTop="170dp"
             android:layout_width="120dp"
+            android:layout_below="@+id/send"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:hint="Message ID"
             android:paddingLeft="8dp"
             android:layout_height="50dp"
             android:background="@drawable/textinputborder"
             android:inputType="text"/>
-
-
     <Button
             android:text="MARK AS UNREAD"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/send"
+            android:layout_below="@+id/messageId"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/markAsUnread"/>
     <Button
