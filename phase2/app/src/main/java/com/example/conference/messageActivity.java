@@ -97,18 +97,14 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 EditText messageIdText = findViewById(R.id.messageId);
                 String messageIdString = messageIdText.getText().toString();
                 int messageId = Integer.parseInt(messageIdString);
-//                if (messageId){
-//
-//                }
-//                else{
                     try {
-                        currentController.markAsUnread(messageId);
+                        if(!currentController.markAsUnread(messageId)){
+                            pushMessage("You can't mark message you send as unread")
+                        }
                     }
                     catch(NumberFormatException n){
                         pushMessage("Please enter a valid MessageID");
                     }
                 }
-
-//        }
     }
 }
