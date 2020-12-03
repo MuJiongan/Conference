@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class RoomManager implements Serializable {
 
-    private ArrayList<Room> rooms;
+    private List<Room> rooms;
 
     /**
      * Create a new useCases.RoomManager object
@@ -56,6 +56,7 @@ public class RoomManager implements Serializable {
         }
         return -1;
     }
+
     /**
      * check whether a room in the rooms list
      * @param roomID of the user
@@ -96,12 +97,11 @@ public class RoomManager implements Serializable {
      * @param roomID entities.Room's event ID's we want
      * @return list of event ID's for entities.Room r
      */
-    public ArrayList<Integer> getSchedule(int roomID)
+    public List<Integer> getSchedule(int roomID)
     {
         Room room = getRoomByID(roomID);
         return room.getEventsScheduled();
     }
-
 
     /**
      * Schedules an event in entities.Room r, assumes that event is valid for that specific room
@@ -111,7 +111,7 @@ public class RoomManager implements Serializable {
     public void scheduleEvent (int roomID, int event)
     {
         Room r = getRoomByID(roomID);
-        ArrayList<Integer> eventCopy = r.getEventsScheduled();
+        List<Integer> eventCopy = r.getEventsScheduled();
         if (!eventCopy.contains(event))
         {
             r.addEventID(event);
@@ -148,6 +148,7 @@ public class RoomManager implements Serializable {
         Room room = getRoomByID(roomID);
         return room.getName();
     }
+
     /**
      * Read the useCases.RoomManager object that was stored in a .ser file
      * @param path String representing the file path

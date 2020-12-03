@@ -297,9 +297,9 @@ public class UserController implements Serializable{
                 Integer sendID = getMessageManager().getSenderIDByMessId(messageID);
                 //if the sender of message is friend and the condition of this message is unread, add the unread mark at the end of this message
                 if (!getMessageManager().getConditionByID(messageID) && sendID == friendID) {
-                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID) + "\t(unread)");
+                    chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMesContentById(messageID) + "\t(unread)");
                 }
-                chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMescontentById(messageID));
+                chatHistory.add(getUserName(sendID) + ":\t" + getMessageManager().getMesContentById(messageID));
             }
             return chatHistory;
         }

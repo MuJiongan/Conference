@@ -6,6 +6,7 @@ import com.example.model.entities.Room;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,9 +15,8 @@ public class EventManager implements Serializable{
     /**
      * The list of all events
      */
-    private ArrayList<Event> events = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
     private int numOfCancelledEvents;
-
 
     /**
      * Return the start time of the given event
@@ -72,8 +72,8 @@ public class EventManager implements Serializable{
         {
             eventIDs.add(getIDByEvent(e));
         }
-        return (List<Integer>) ((ArrayList<Integer>) eventIDs).clone();
-
+//        return (List<Integer>) ((ArrayList<Integer>) eventIDs).clone();
+        return new ArrayList<>(eventIDs);
     }
 
     /**
@@ -82,7 +82,6 @@ public class EventManager implements Serializable{
      * @return true if and only if the event is successfully added to the event list
      */
     public boolean addEvent(Event event){
-        ;
         for (Event value : events) {
             if (event == value) {
                 return false;
@@ -140,7 +139,6 @@ public class EventManager implements Serializable{
         return event.getEventID();
     }
 
-
     /**
      * add a userID to the list of all attendees in the event
      * @param userID ID of entities.Attendee to be added
@@ -157,7 +155,6 @@ public class EventManager implements Serializable{
         event.addUserID(userID);
         return true;
     }
-
 
     /**
      * add a speakerID to the list of all speakers in the event
@@ -178,7 +175,6 @@ public class EventManager implements Serializable{
         event.addSpeakerID(speakerID);
         return true;
     }
-
 
     /**
      * Remove an entities.Attendee's ID from the list of all attendees of the event
@@ -201,9 +197,7 @@ public class EventManager implements Serializable{
             event.removeUserID(userID);
             return true;
         }
-
     }
-
 
     /**
      * Remove a entities.Speaker's ID from the list of all entities.Speaker of the event
@@ -226,9 +220,7 @@ public class EventManager implements Serializable{
             event.removeSpeakerID(speakerID);
             return true;
         }
-
     }
-
 
     /**
      * change the room ID to a new ID of a given event
@@ -239,7 +231,6 @@ public class EventManager implements Serializable{
         Event event = getEventByID(eventID);
         event.changeRoomID(roomID);
     }
-
 
     /**
      * Read the useCases.EventManager object that was stored in a .ser file
@@ -263,7 +254,6 @@ public class EventManager implements Serializable{
         }
     }
 
-
     /**
      * return the event name given the event object
      * @param eventID the given entities.Event object
@@ -273,7 +263,6 @@ public class EventManager implements Serializable{
         Event event = getEventByID(eventID);
         return event.getName();
     }
-
 
     /**
      * Write the useCases.EventManager object to a .ser file to store once program exists
@@ -296,10 +285,9 @@ public class EventManager implements Serializable{
      * @param eventID that attendees will attend
      * @return a list of all attendees of the given entities.Event
      */
-    public ArrayList<Integer> getUserIDs(int eventID){
+    public List<Integer> getUserIDs(int eventID){
         Event event = getEventByID(eventID);
         return  event.getUserIDs();
-
     }
 
     /**
@@ -307,7 +295,7 @@ public class EventManager implements Serializable{
      * @param eventID that speakers will speak
      * @return a list of all speakers of the given entities.Event
      */
-    public ArrayList<Integer> getSpeakerIDs(int eventID){
+    public List<Integer> getSpeakerIDs(int eventID){
         Event event = getEventByID(eventID);
         return  event.getSpeakerIDs();
     }
@@ -341,6 +329,7 @@ public class EventManager implements Serializable{
         Event event = getEventByID(eventID);
         return event.getRoomID();
     }
+
     /**
      * Return the the number of attendees in the given event
      * @param eventID the we want to know the number of attendees
@@ -350,6 +339,7 @@ public class EventManager implements Serializable{
         Event event = getEventByID(eventID);
         return event.getNumOfAttendee();
     }
+
     /**
      * Return a new event with given features
      * @param startTime of new event

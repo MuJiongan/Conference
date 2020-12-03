@@ -13,7 +13,7 @@ public abstract class UserManager implements Serializable{
     /**
      * The list of all attendees
      */
-    private ArrayList<User> users;
+    private List<User> users;
 
 
     public UserManager()
@@ -25,8 +25,10 @@ public abstract class UserManager implements Serializable{
      * @return the shallow copy of all users in a list
      */
     public List<User> getUsers(){
-        return (ArrayList<User>) users.clone();
+//        return (ArrayList<User>) users.clone();
+        return new ArrayList<>(users);
     }
+
     /**
      * Returns the id's of the users
      * @return a list of the id's of all the users
@@ -64,6 +66,7 @@ public abstract class UserManager implements Serializable{
     public int getIDByUser(User user){
         return user.getUserId();
     }
+
     /**
      * add an eventID to the list of all events the user is going to attend
      * @param userID the given User object
@@ -80,6 +83,7 @@ public abstract class UserManager implements Serializable{
         user.addEvent(eventID);
         return true;
     }
+
     /**
      * return the username  given the userid
      * @param userId the given userid
@@ -113,6 +117,7 @@ public abstract class UserManager implements Serializable{
         }
         return false;
     }
+
     /**
      * add a messageID to the messages hashmap for user
      * @param userID the given entities.User object
@@ -128,7 +133,7 @@ public abstract class UserManager implements Serializable{
      * @param userID the given entities.User object
      * @return a list of all events the user is going to attend
      */
-    public ArrayList<Integer> getEventList(int userID){
+    public List<Integer> getEventList(int userID){
         User user = getUserByID(userID);
         return user.getEventsAttend();
     }
@@ -177,7 +182,7 @@ public abstract class UserManager implements Serializable{
      * @param userID object of which user to access
      * @return the HashMap Messages
      */
-    public HashMap<Integer, ArrayList<Integer>> getMessages(int userID){
+    public HashMap<Integer, List<Integer>> getMessages(int userID){
         User user = getUserByID(userID);
         return user.getMessages();
     }

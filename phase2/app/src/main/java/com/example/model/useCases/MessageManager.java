@@ -4,20 +4,22 @@ import com.example.model.entities.Message;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageManager implements Serializable{
 
     /**
      * The list of all Messages
      */
-    private ArrayList<Message> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     /**
      * Returns the shallow copy of all messages in a list
      * @return the shallow copy of all messages in a list
      */
-    public ArrayList<Message> getMessages(){
-        return (ArrayList<Message>) messages.clone();
+    public List<Message> getMessages(){
+//        return (ArrayList<Message>) messages.clone();
+        return new ArrayList<>(messages);
     }
 
     /**
@@ -48,14 +50,15 @@ public class MessageManager implements Serializable{
         }
         return null;
     }
+
     /**
      * return the entities.Message content given the message ID
      * @param messageID the given entities.Message ID
      * @return the content variable in entities.Message corresponding to the messageID
      */
-    public String getMescontentById(int messageID){
-        Message actualmessage = this.getMessageById(messageID);
-        return actualmessage.getContent();
+    public String getMesContentById(int messageID){
+        Message actualMessage = this.getMessageById(messageID);
+        return actualMessage.getContent();
     }
 
     /**
