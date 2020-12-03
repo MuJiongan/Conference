@@ -14,21 +14,22 @@ import com.example.presenter.SpeakerController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class seeMyEventsActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private UserController currentController;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
-
         currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
+
         if (currentController.getType().equals("SpeakerController")){
             setContentView(R.layout.speakerseemyevents);
         }else{
-        setContentView(R.layout.seemyevents);}
+            setContentView(R.layout.seemyevents);
+        }
+
         TextView myEvents = findViewById(R.id.allEvents);
         String text = currentController.viewMyEvents();
         myEvents.setText(text);
@@ -56,6 +57,7 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                     pushMessage("Please enter a valid eventID");
                 }
                 break;
+
             case R.id.cancel:
                 EditText eventToCancel = findViewById(R.id.eventID);
                 String eventIDString = eventToCancel.getText().toString();
@@ -68,8 +70,7 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }
-
-
+                
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){
                     Intent myIntent = new Intent(this, SpeakerMenu.class);
