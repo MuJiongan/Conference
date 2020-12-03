@@ -4,30 +4,61 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.example.presenter.AttendeeController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static java.lang.Integer.parseInt;
 
 public class SocialNetworking extends Activity implements UserController.View, View.OnClickListener, Serializable{
-    private UserController currentController;
+    private AttendeeController currentController;
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.socialnetworking);
-        currentController = (UserController) getIntent().getSerializableExtra("controller");
+        currentController = (AttendeeController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
+        display();
     }
 
     public void display(){
+        TextView social = findViewById(R.id.socialmessage);
 
+        String socialMessage = "";
+        HashMap<String, ArrayList<String>> hashMap =  currentController.viewRecommendedFriend();
+        for (String score: hashMap.keySet()){
+            socialMessage = socialMessage + score + " COMMON EVENTS:\n";
+            for (String user: hashMap.get(score)){
+                socialMessage = socialMessage + user + "\n";
+            }
+        }
+        social.setText(socialMessage);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.message:
-                // TODO
+                EditText userIDInput = findViewById(R.id.userIDInput);
+                String userID = userIDInput.getText().toString();
+                try{
+                    int userIDInt = parseInt(userID);
+                    if (currentController.hasUserID(userIDInt)){
+                        Intent myIntent = new Intent(v.getContext(), messageActivity.class);
+                        myIntent.putExtra("cc", currentController);
+                        myIntent.putExtra("receiverID", userIDInt);
+                        startActivityForResult(myIntent, 3);
+
+                }}catch(NumberFormatException e){
+                    pushMessage("Please enter an integer");
+                }
+
                 break;
             case R.id.back:
 
