@@ -434,6 +434,16 @@ public class UserController implements Serializable{
         this.mm = mm;
         this.vipm = vipm;
         this.vipe = vipe;
+        //SET CURRENTMANAGER
+        if (am.idInList(this.userID)) {
+            currentManager = am;
+        } else if (om.idInList((this.userID))) {
+            currentManager = om;
+        } else if (sm.idInList((this.userID))){
+            currentManager = sm;
+        }else{
+            currentManager = vipm;
+        }
     }
 
     public boolean hasUserID(int userID) {
