@@ -65,6 +65,19 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 schedule.putExtra("cc", controller);
                 startActivityForResult(schedule, 10);
                 break;
+            case R.id.assign:
+                Intent assign = new Intent (this, AssignSpeaker.class);
+                try {
+                    int eventID = parseInt(event.getText().toString());
+                    assign.putExtra("cc", controller);
+                    assign.putExtra("eventID", eventID);
+                    startActivityForResult(assign, 11);
+                }
+                catch(NumberFormatException n){
+                    pushMessage("Please enter a valid eventID");
+                }
+
+                break;
 
             case R.id.back:
                 if (controller.getType().equals("VIPController")){

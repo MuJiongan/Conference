@@ -107,12 +107,12 @@ public class OrganizerController extends AttendeeController implements Serializa
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean assignSpeaker(int speakerID, int eventID) {
         // check if the event ID exists
-        if (getEventManager().idInList(eventID)) {
+        if (!getEventManager().idInList(eventID)) {
             getView().pushMessage("Event ID doesn't exist!");
             return false;
         }
         // check if the speaker ID exists
-        if (getSpeakerManager().idInList(speakerID)) {
+        if (!getSpeakerManager().idInList(speakerID)) {
             getView().pushMessage("Speaker doesn't exist!");
             return false;
         }

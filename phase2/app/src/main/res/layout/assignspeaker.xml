@@ -5,77 +5,58 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.conference.seeAllEventsActivity">
+        tools:context="com.example.conference.seeMyEventsActivity">
 
-
-    <TextView
-            android:text="HERE ARE ALL EVENTS"
-            android:layout_marginTop="50dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/welcome"/>
-
-    <EditText
-            android:id="@+id/eventIDinput"
-            android:layout_below="@+id/welcome"
-            android:layout_marginTop="10dp"
-            android:layout_width="300dp"
-            android:layout_centerHorizontal="true"
-            android:hint="Enter your event ID"
-            android:paddingLeft="8dp"
-            android:layout_height="50dp"
-            android:background="@drawable/textinputborder"
-            android:inputType="text"
-    />
-    <Button
-            android:text="Sign up"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/eventIDinput"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/signup"/>
-
-    <Button
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/signup"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/cancel"/>
-    <Button
-            android:text="assign speaker"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/cancel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/assign"/>
-
-    <Button
-            android:text="Schedule"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/assign"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/schedule"/>
-
-    <Button
-            android:text="back"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/schedule"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="onClick"
-            android:layout_height="wrap_content" android:id="@+id/back"/>
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/back"
             android:layout_marginTop="10dp">
+    <TextView
+            android:text="HERE ARE ALL SPEAKERS"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/welcome"/>
+    </ScrollView>
+
+    <EditText
+            android:id="@+id/speakerID"
+            android:layout_marginTop="30dp"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter your speaker ID"
+            android:paddingLeft="8dp"
+            android:layout_height="50dp"
+            android:background="@drawable/textinputborder"
+            android:inputType="text"
+    />
+
+    <Button
+            android:text="Assign Speaker"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/speakerID"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/assign"/>
+
+
+    <Button
+            android:text="back"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/assign"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/back"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/back"
+            android:layout_marginTop="20dp">
 
         <TextView
                 android:text=""
@@ -85,6 +66,5 @@
                 android:layout_height="match_parent"
                 android:id="@+id/allEvents"/>
     </ScrollView>
-
 
 </RelativeLayout>

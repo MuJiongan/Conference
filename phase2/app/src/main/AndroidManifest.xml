@@ -29,6 +29,8 @@
         <activity android:name="com.example.conference.OrganizerScheduleEvent"/>
         <activity android:name="com.example.conference.OrganizerCreateAccount"/>
         <activity android:name="com.example.conference.CreateRoom"/>
+        <activity android:name="com.example.conference.AssignSpeaker"/>
+
     </application>
 
 </manifest>
