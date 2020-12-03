@@ -4,6 +4,7 @@ import com.example.model.entities.Room;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -66,12 +67,11 @@ public class RoomManager implements Serializable {
 
     /**
      * Add a new entities.Room to the list of all entities.Room in the conference
-     * @param roomID entities.Room to add to list
+     * @param room entities.Room to add to list
      * @return True if room was succesfully added, false otherwise
      */
-    public boolean addRoom(int roomID)
+    public boolean addRoom(Room room)
     {
-        Room room = getRoomByID(roomID);
         if (!rooms.contains(room))
         {
             rooms.add(room);
@@ -126,7 +126,7 @@ public class RoomManager implements Serializable {
      */
     public int createRoom(String name, int capacity){
         Room room = new Room(capacity, name, rooms.size() + 1);
-        addRoom(room.getRoomID());
+        addRoom(room);
         return room.getRoomID();
     }
 
@@ -187,10 +187,15 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Return a list of all rooms
-     * @return a list of all rooms
+     * Return a list of all room ID's
+     * @return a list of all room ID's
      */
-    public ArrayList<Room> getRooms() {
-        return rooms;
+    public List<Integer> getRooms() {
+        List<Integer> roomIDs = new ArrayList<>();
+        for (Room room: rooms)
+        {
+            roomIDs.add(getIDbyRoom(room));
+        }
+        return roomIDs;
     }
 }

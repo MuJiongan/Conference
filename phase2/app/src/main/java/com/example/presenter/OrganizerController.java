@@ -43,7 +43,7 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param capacity capacity of the room wanted to create
      */
     public void enterRoom(String name, int capacity) {
-        int newRoomID = getRoomManager().createRoom(name, capacity);
+        getRoomManager().createRoom(name, capacity);
         getView().pushMessage("Room Succesfully added");
         //Maybe we need to check duplicate names
 

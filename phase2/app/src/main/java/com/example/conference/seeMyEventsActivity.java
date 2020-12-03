@@ -29,7 +29,7 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
             setContentView(R.layout.speakerseemyevents);
         }else{
         setContentView(R.layout.seemyevents);}
-        TextView myEvents = findViewById(R.id.welcome);
+        TextView myEvents = findViewById(R.id.allEvents);
         String text = currentController.viewMyEvents();
         myEvents.setText(text);
     }

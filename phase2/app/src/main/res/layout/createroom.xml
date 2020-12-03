@@ -13,14 +13,12 @@
             android:layout_below="@id/back"
             android:layout_marginTop="20dp"
     >
-    <TextView
-            android:text="Here are your rooms:"
-            android:layout_marginTop="20dp"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/rooms"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/rooms"/>
     </ScrollView>
     <EditText
             android:id="@+id/roomName"

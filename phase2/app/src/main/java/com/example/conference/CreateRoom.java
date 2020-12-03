@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CreateRoom extends Activity implements View.OnClickListener, UserController.View, Serializable {
 
@@ -22,7 +24,21 @@ public class CreateRoom extends Activity implements View.OnClickListener, UserCo
         displayRooms();
     }
     public void displayRooms(){
-        //TODO: set a string
+        TextView allRooms = findViewById(R.id.rooms);
+        List<Integer> rooms = controller.getRoomManager().getRooms();
+        String message ="";
+        for (int roomID: rooms)
+        {
+            message = message + roomID +". "+ controller.getRoomManager().getRoomName(roomID) + "\n";
+        }
+        if (message.equals(""))
+        {
+            allRooms.setText("There are no rooms in the system yet!");
+        }
+        else
+        {
+            allRooms.setText(message);
+        }
     }
     @Override
     public void pushMessage(String info) {
@@ -42,18 +58,18 @@ public class CreateRoom extends Activity implements View.OnClickListener, UserCo
                 }
                 try{
                     int index = Integer.parseInt(capacityString);
-                    if (index > 0){controller.enterRoom(roomNameString, index);
-                        Toast.makeText(this, "room created", Toast.LENGTH_SHORT).show();
+                    if (index > 0)
+                    {
+                        controller.enterRoom(roomNameString, index);
+                        displayRooms();
                     }
                     else{
                         pushMessage("Please enter a capacity > 0");
                     }
 
-
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid capacity");
                 }
-                displayRooms();
             case R.id.back:
                 Intent myIntent = new Intent(this, seeAllEventsActivity.class);
                 myIntent.putExtra("cc", controller);

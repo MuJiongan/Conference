@@ -11,8 +11,6 @@ import android.widget.Toast;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import static java.lang.Integer.parseInt;
 
 

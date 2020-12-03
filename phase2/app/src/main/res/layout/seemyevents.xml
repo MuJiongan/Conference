@@ -9,7 +9,7 @@
 
 
     <TextView
-            android:text="HERE ARE my EVENTS"
+            android:text="HERE ARE MY EVENTS"
             android:layout_marginTop="100dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
