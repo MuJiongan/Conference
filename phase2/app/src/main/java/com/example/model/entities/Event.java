@@ -15,8 +15,8 @@ public class Event implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int roomID;
-    private ArrayList<Integer> userIDs;
-    private ArrayList<Integer> speakerIDs;
+    private List<Integer> userIDs;
+    private List<Integer> speakerIDs;
     private String name;
     private int eventID;
     private int capacity;
@@ -39,8 +39,8 @@ public class Event implements Serializable {
         this.name = name;
         this.capacity = capacity;
         this.eventID = eventID;
-        userIDs = new ArrayList<Integer>();
-        speakerIDs = new ArrayList<Integer>();
+        userIDs = new ArrayList<>();
+        speakerIDs = new ArrayList<>();
 
     }
 
@@ -131,8 +131,8 @@ public class Event implements Serializable {
      *
      * @return the UserIDs of the event
      */
-    public ArrayList<Integer> getUserIDs() {
-        return (ArrayList<Integer>) userIDs.clone();
+    public List<Integer> getUserIDs() {
+        return new ArrayList<>(userIDs);
     }
 
     /**
@@ -140,8 +140,8 @@ public class Event implements Serializable {
      *
      * @return the SpeakerIDs of the event
      */
-    public ArrayList<Integer> getSpeakerIDs() {
-        return (ArrayList<Integer>) speakerIDs.clone();
+    public List<Integer> getSpeakerIDs() {
+        return new ArrayList<>(speakerIDs);
     }
 
     /**

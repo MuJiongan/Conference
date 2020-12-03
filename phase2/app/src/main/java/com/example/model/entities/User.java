@@ -2,6 +2,7 @@ package com.example.model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 
@@ -10,9 +11,9 @@ public class User implements Serializable {
     private String name;
     private String userName;
     private String passWord;
-    private HashMap<Integer, ArrayList<Integer>> message;
-    private ArrayList<Integer> eventsAttend;
-    private ArrayList<Integer> archivedMessages;
+    private HashMap<Integer, List<Integer>> message;
+    private List<Integer> eventsAttend;
+    private List<Integer> archivedMessages;
 
     /**
      * Constructs an instance of Student based on the given name, userName, password and userID
@@ -92,9 +93,10 @@ public class User implements Serializable {
      * Returns the shallow copy of the HashMap message
      * @return shallow copy of message
      */
-    public HashMap<Integer, ArrayList<Integer>> getMessages() {
-        return (HashMap<Integer, ArrayList<Integer>>) message.clone();
+    public HashMap<Integer, List<Integer>> getMessages() {
+        return (HashMap<Integer, List<Integer>>) message.clone();
     }
+
     /**
      * Add a message ID to the user's hashmap
      * @param userID receiver ID
@@ -102,12 +104,12 @@ public class User implements Serializable {
      */
     public void addMessage(int userID, int messageID) {
         if (!message.containsKey(userID)){
-            ArrayList<Integer> newList = new ArrayList<>();
+            List<Integer> newList = new ArrayList<>();
             message.put(userID, newList);
         }
         this.message.get(userID).add(messageID);
-
     }
+
     /**
      * Delete a message ID from the user's hashmap iff the message exists in the user's message
      * hashmap
@@ -130,8 +132,8 @@ public class User implements Serializable {
      * Returns the shallow copy of eventsAttend list of the user
      * @return shallow copy of eventsAttend list of the user
      */
-    public ArrayList<Integer> getEventsAttend() {
-        return (ArrayList<Integer>) eventsAttend.clone();
+    public List<Integer> getEventsAttend() {
+        return new ArrayList<>(eventsAttend);
     }
 
     /**
@@ -150,6 +152,7 @@ public class User implements Serializable {
         Integer eventId = eventID;
         this.eventsAttend.remove(eventId);
     }
+
     /**
      * change the name of this user to the given name
      * @param name new name that this user want to set

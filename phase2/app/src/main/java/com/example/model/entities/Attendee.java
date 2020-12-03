@@ -2,6 +2,7 @@ package com.example.model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Represents a attendee in the conference.
  */

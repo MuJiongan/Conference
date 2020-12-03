@@ -2,6 +2,8 @@ package com.example.model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a room in the conference.
  * A room is where the events will occur and has a capacity limit for number of people.
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Room implements Serializable {
     private int capacity;
-    private ArrayList<Integer> eventsScheduled;
+    private List<Integer> eventsScheduled;
     private int roomID;
     private String name;
 
@@ -26,6 +28,7 @@ public class Room implements Serializable {
         this.roomID = roomID;
         this.name = name;
     }
+
     /**
      * Returns the maximum capacity of the room.
      * @return the maximum capacity of the room
@@ -34,6 +37,7 @@ public class Room implements Serializable {
     {
         return capacity;
     }
+
     /**
      * Returns ID value of the room
      * @return ID value of the room
@@ -51,6 +55,7 @@ public class Room implements Serializable {
     {
         eventsScheduled.add(eventID);
     }
+
     /**
      * Removes an event ID from the eventsScheduled list
      * @param eventID ID of an event to be removed from the schedule for Room
@@ -65,10 +70,9 @@ public class Room implements Serializable {
      * Returns a shallow copy of getEventsScheduled
      * @return shallow copy of getEventsScheduled
      */
-    public ArrayList<Integer> getEventsScheduled() {
-        return (ArrayList<Integer>) eventsScheduled.clone();
+    public List<Integer> getEventsScheduled() {
+        return new ArrayList<>(eventsScheduled);
     }
-
 
     /**
      * Returns the name of the room
