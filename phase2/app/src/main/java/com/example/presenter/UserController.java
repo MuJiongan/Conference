@@ -205,9 +205,9 @@ public class UserController implements Serializable{
         }
         String output = "";
         for (int ID : eventIDs) {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    + "\n";
+            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID) + "\t" + getEventManager().getEndTime(ID)
+                    + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID)) + "\t" + getEventManager().getCapacity(ID)
+                    +"\n";
         }
         return output;
     }
@@ -433,6 +433,16 @@ public class UserController implements Serializable{
         this.mm = mm;
         this.vipm = vipm;
         this.vipe = vipe;
+        //SET CURRENTMANAGER
+        if (am.idInList(this.userID)) {
+            currentManager = am;
+        } else if (om.idInList((this.userID))) {
+            currentManager = om;
+        } else if (sm.idInList((this.userID))){
+            currentManager = sm;
+        }else{
+            currentManager = vipm;
+        }
     }
 
 

@@ -26,6 +26,7 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
 
         if (currentController.getType().equals("SpeakerController")){
             setContentView(R.layout.speakerseemyevents);
+
         }else{
             setContentView(R.layout.seemyevents);
         }

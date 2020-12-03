@@ -84,11 +84,12 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                     setResult(3, myIntent);
                     finish();
                 }
-                 if (controller.getType().equals("OrganizerController")){
+                else if (controller.getType().equals("OrganizerController")){
                     Intent myIntent = new Intent(this, OrganizerMenu.class);
                     myIntent.putExtra("cc", controller);
                     setResult(3, myIntent);
                     finish();
+
                 }
                 else if (controller.getType().equals("AttendeeController")){
                     Intent myIntent = new Intent(this, AttendeeMenu.class);
