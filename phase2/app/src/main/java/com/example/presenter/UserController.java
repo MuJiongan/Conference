@@ -205,9 +205,9 @@ public class UserController implements Serializable{
         }
         String output = "";
         for (int ID : eventIDs) {
-            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                    + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
-                    + "\n";
+            output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID) + "\t" + getEventManager().getEndTime(ID)
+                    + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID)) + "\t" + getEventManager().getCapacity(ID)
+                    +"\n";
         }
         return output;
 

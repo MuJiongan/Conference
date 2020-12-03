@@ -28,7 +28,7 @@
             android:paddingLeft="8dp"
             android:layout_height="50dp"
             android:background="@drawable/textinputborder"
-            android:inputType="text"/>
+            />
      <EditText
             android:id="@+id/endTime"
             android:layout_below="@+id/startTime"
@@ -68,9 +68,9 @@
     <Button
             android:text="Schedule event"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/capacity"
+            android:layout_below="@+id/vip"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/schedule"/>
 
@@ -83,5 +83,13 @@
             android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
+    <Switch
+            android:text="VIP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/capacity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:id="@+id/vip"/>
 
 </RelativeLayout>

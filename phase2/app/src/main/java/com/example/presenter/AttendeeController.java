@@ -62,7 +62,8 @@ public class AttendeeController extends UserController {
              if (isUserAvailable(getEventManager().getStartTime(eventID), getEventManager().getEndTime(eventID)))
              {
                  //sign Attendee up for the event
-                 getCurrentManager().addEventID(getUser(), eventID);
+
+                 getCurrentManager().addEventID(eventID, getUser());
                  getEventManager().addUserID(getUser(), eventID);
                  getView().pushMessage("Successfully signed up!");
                  return true;
@@ -127,8 +128,8 @@ public class AttendeeController extends UserController {
          String output ="";
          for (int ID: eventIDs)
          {
-             output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID)
-                     + "\t" + getEventManager().getEventByID(ID) + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID))
+             output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID) + "\t" + getEventManager().getEndTime(ID)
+                      + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID)) + "\t" + getEventManager().getCapacity(ID)
                      +"\n";
          }
          return output;

@@ -172,9 +172,7 @@ public class EventManager implements Serializable{
                 return false;
             }
         }
-        if (event.getSpeakerIDs().size() >= 1){
-            return false;
-        }
+
         event.addSpeakerID(speakerID);
         return true;
     }

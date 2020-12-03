@@ -8,15 +8,20 @@
         tools:context="com.example.conference.seeMyEventsActivity">
 
 
-    <TextView
-            android:text="HERE ARE my EVENTS"
-            android:layout_marginTop="100dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/welcome"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/back"
+            android:layout_marginTop="20dp">
 
-
+        <TextView
+                android:text=""
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/allEvents"/>
+    </ScrollView>
     <EditText
             android:id="@+id/eventMessage"
             android:layout_below="@+id/welcome"
@@ -33,7 +38,7 @@
     <EditText
             android:id="@+id/messageContent"
             android:layout_below="@+id/eventMessage"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_width="200dp"
             android:layout_centerHorizontal="true"
             android:hint="Enter Message Content"
@@ -47,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/messageContent"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/messageAll"/>
     <Button
@@ -55,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/messageAll"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
 
