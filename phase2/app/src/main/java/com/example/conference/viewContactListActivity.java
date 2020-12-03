@@ -10,10 +10,11 @@ import android.widget.Toast;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 import static java.lang.Integer.parseInt;
+
 
 public class viewContactListActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
     private UserController currentController;
@@ -23,20 +24,18 @@ public class viewContactListActivity extends Activity implements UserController.
         currentController = (UserController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
         displayContactList();
-
     }
 
     public void displayContactList(){
         String message = "UNREAD" + "\n";
-        HashMap<String, ArrayList<String>> messageMap = currentController.viewContactList();
+        HashMap<String, List<String>> messageMap = currentController.viewContactList();
         for (String s: messageMap.get("unread")){
             message = message + s + "\n";
-
         }
         message = message + "READ" + "\n";
+
         for (String s: messageMap.get("read")){
             message = message + s + "\n";
-
         }
         TextView allContacts = findViewById(R.id.allContacts);
         allContacts.setText(message);
@@ -59,13 +58,12 @@ public class viewContactListActivity extends Activity implements UserController.
                     }else{
                         pushMessage("The userID you entered is not valid");
                     }
-
                 }
                 catch(NumberFormatException n){
                     pushMessage("Please enter a valid userID");
                 }
-
                 break;
+
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){
                     Intent myIntent1 = new Intent(this, SpeakerMenu.class);
@@ -93,6 +91,8 @@ public class viewContactListActivity extends Activity implements UserController.
                 }
         }
     }
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
       if (requestCode == 3){
             if (resultCode == 3){
@@ -104,9 +104,6 @@ public class viewContactListActivity extends Activity implements UserController.
         }
 
     }
-
-
-
 
 
     @Override
