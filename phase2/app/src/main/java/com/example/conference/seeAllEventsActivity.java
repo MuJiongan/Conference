@@ -97,6 +97,14 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 controller.setView(this);
             }
         }
+        if (requestCode == 11){
+            if (resultCode == 3){
+                UserController passedData = (UserController) data.getSerializableExtra("cc");
+                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
+                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
+                controller.setView(this);
+            }
+        }
     }
     @Override
     public void pushMessage(String info) {

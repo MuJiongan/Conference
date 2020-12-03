@@ -22,9 +22,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
         currentController = (UserController) getIntent().getSerializableExtra("cc");
         currentController.setView(this);
         // get the receiver ID
-        String receiverID = (String) getIntent().getSerializableExtra("receiverID");
-
-        int index = Integer.parseInt(receiverID);
+        index = getIntent().getIntExtra("eventID", -1);
         showHistory();
     }
 

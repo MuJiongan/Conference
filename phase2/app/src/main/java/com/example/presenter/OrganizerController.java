@@ -227,19 +227,19 @@ public class OrganizerController extends AttendeeController implements Serializa
         return false;
     }
 
-    /**
-     * Reschedule an Event with given startTime, endTime and roomID
-     * @param eventID the id of Event to be rescheduled
-     * @param startTime new start time that the event will be rescheduled at
-     * @param endTime new end time that the event will be rescheduled at
-     * @param roomID id of new room that the event will be rescheduled in
-     */
-    public void rescheduleEvent(int eventID, LocalDateTime startTime, LocalDateTime endTime, int roomID){
-        getEventManager().setStartTime(eventID, startTime);
-        getEventManager().setEndTime(eventID, endTime);
-        getEventManager().changeRoomID(roomID, eventID);
-        //TODO: CHECK THE CONDITION
-    }
+//    /**
+//     * Reschedule an Event with given startTime, endTime and roomID
+//     * @param eventID the id of Event to be rescheduled
+//     * @param startTime new start time that the event will be rescheduled at
+//     * @param endTime new end time that the event will be rescheduled at
+//     * @param roomID id of new room that the event will be rescheduled in
+//     */
+//    public void rescheduleEvent(int eventID, LocalDateTime startTime, LocalDateTime endTime, int roomID){
+//        getEventManager().setStartTime(eventID, startTime);
+//        getEventManager().setEndTime(eventID, endTime);
+//        getEventManager().changeRoomID(roomID, eventID);
+//        //TODO: CHECK THE CONDITION
+//    }
 
     /**
      * Change the Capacity of Event

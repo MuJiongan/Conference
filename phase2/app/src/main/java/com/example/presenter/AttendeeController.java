@@ -176,7 +176,8 @@ public class AttendeeController extends UserController {
         contact.addAll(super.getOrganizerManager().getUserIDs());
         contact.addAll(super.getVipManager().getUserIDs());
         // remove the user himself
-        contact.remove(super.getUserID());
+        int index = contact.indexOf(getUserID());
+        contact.remove(index);
         // loop through all the events the current user has signed up for
         for (Integer eventID : super.getCurrentManager().getEventList(super.getUserID())) {
             // loop through all contacts in the list
@@ -218,7 +219,7 @@ public class AttendeeController extends UserController {
     public HashMap<String, ArrayList<String>> viewRecommendedFriend() {
         HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
         HashMap<String, ArrayList<String>> viewRecommendedFriend = new HashMap<String, ArrayList<String>>();
-        for (Integer friendID : friendToNumOfCommonEvent.keySet()) {
+        for (int friendID : friendToNumOfCommonEvent.keySet()) {
             String numberOfSameEvent = String.valueOf(friendToNumOfCommonEvent.get(friendID));
             if (viewRecommendedFriend.containsKey(numberOfSameEvent)) {
                 viewRecommendedFriend.get(numberOfSameEvent).add(friendID + "\t" + super.getUserName(friendID));
