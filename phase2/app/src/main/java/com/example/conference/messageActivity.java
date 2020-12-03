@@ -10,12 +10,11 @@ import android.widget.Toast;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
 public class messageActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
-
 
     private UserController currentController;
     int index;
@@ -34,7 +33,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
 
         TextView history = findViewById(R.id.allMessages);
         String historyText = "";
-        ArrayList<String> list = currentController.viewChatHistory(index);
+        List<String> list = currentController.viewChatHistory(index);
         if (list != null){
             for (String s: list){
                 historyText = historyText + s + "\n";
@@ -43,8 +42,6 @@ public class messageActivity extends Activity implements UserController.View, Vi
         }else{
             history.setText("There is no message right now");
         }
-
-
     }
 
 
@@ -53,9 +50,11 @@ public class messageActivity extends Activity implements UserController.View, Vi
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.send:
                 EditText message = findViewById(R.id.messageContent);
                 String messageString = message.getText().toString();
@@ -65,14 +64,15 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 } else {
                     pushMessage("Your message can't be empty!");
                 }
-
                 break;
+
             case R.id.back:
                 Intent myIntent4 = new Intent(this, viewContactListActivity.class);
                 myIntent4.putExtra("cc", currentController);
                 setResult(3, myIntent4);
                 finish();
                 break;
+                
             case R.id.markAsUnread:
                 EditText messageIdText = findViewById(R.id.messageId);
                 String messageIdString = messageIdText.getText().toString();
