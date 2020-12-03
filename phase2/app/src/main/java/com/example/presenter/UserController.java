@@ -217,11 +217,14 @@ public class UserController implements Serializable {
         if (getAttendeeManager().idInList(userID)) {
             return getAttendeeManager().getnameById(userID);
         }
-        if (getOrganizerManager().idInList(userID)) {
+        else if (getOrganizerManager().idInList(userID)) {
             return getOrganizerManager().getnameById(userID);
         }
-        if (getSpeakerManager().idInList(userID)) {
+        else if (getSpeakerManager().idInList(userID)) {
             return getSpeakerManager().getnameById(userID);
+        }
+        else if (getVipManager().idInList(userID)) {
+            return getVipManager().getnameById(userID);
         }
         return "This is not an valid ID.";
     }
