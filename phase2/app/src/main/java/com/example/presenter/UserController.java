@@ -201,7 +201,7 @@ public class UserController implements Serializable{
      * @return list of all EventIDs the user is going to attend
      */
     public String viewMyEvents() {
-        List<Integer> eventIDs = getEventManager().getEvents();
+        List<Integer> eventIDs = getCurrentManager().getEventList(getUserID());
         if (eventIDs.size() == 0) {
             return "You haven't signed up for any event yet!";
         }
