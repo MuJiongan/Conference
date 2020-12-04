@@ -38,11 +38,17 @@ public class SpeakerController extends UserController implements Serializable{
      * @param content content of the message
      */
     public void messageAll(int eventID, String content)
-    {
+    {   if (getEventManager().idInList(eventID)){
         for (int userID: getEventManager().getUserIDs(eventID))
         {
             sendMessage(userID, content);
         }
+        }else{
+        for (int userID: getVipEventManager().getUserIDs(eventID))
+        {
+            sendMessage(userID, content);
+        }
+    }
         getView().pushMessage("Messages sent");
     }
 
