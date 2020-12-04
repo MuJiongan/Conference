@@ -211,10 +211,15 @@ public class OrganizerController extends AttendeeController implements Serializa
     public boolean availableInRoom(int roomID, LocalDateTime startTime, LocalDateTime endTime) {
         List<Integer> events = getRoomManager().getRoomByID(roomID).getEventsScheduled();
         for (Integer eventID : events) {
-
+            if (getEventManager().idInList(eventID)){
             LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
             LocalDateTime existingEndTime = getEventManager().getEndTime(eventID);
-            if (!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;
+            if (!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;}
+            else{
+                LocalDateTime existingStartTime = getVipEventManager().getStartTime(eventID);
+                LocalDateTime existingEndTime = getVipEventManager().getEndTime(eventID);
+                if (!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;
+            }
         }
         return true;
     }
@@ -338,13 +343,13 @@ public class OrganizerController extends AttendeeController implements Serializa
      */
     private boolean removeEventFromUser(int eventID, EventManager em){
         //remove speakers
-        List<Integer> speakerIDs = getEventManager().getSpeakerIDs(eventID);
+        List<Integer> speakerIDs = em.getSpeakerIDs(eventID);
         for (int speaker: speakerIDs)
         {
             getSpeakerManager().removeEventID(eventID, speaker);
         }
         //remove attendees
-        List<Integer> userIDs = getEventManager().getUserIDs(eventID);
+        List<Integer> userIDs = em.getUserIDs(eventID);
         boolean removeAttendee;
         boolean removeOrganizer;
         boolean removeVIP;
