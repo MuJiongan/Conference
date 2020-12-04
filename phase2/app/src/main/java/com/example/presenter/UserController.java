@@ -52,7 +52,7 @@ public class UserController implements Serializable{
         this.vipe = vipe;
         this.userID = userID;
         this.view = view;
-
+        //Set current manager
         if (this.am.idInList(this.userID)) {
             currentManager = this.am;
         } else if (this.om.idInList((this.userID))) {

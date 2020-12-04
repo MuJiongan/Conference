@@ -76,7 +76,6 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }
-
                 break;
 
             case R.id.back:

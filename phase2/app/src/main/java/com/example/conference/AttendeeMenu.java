@@ -9,10 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.model.interfaceAdapters.ReadWrite;
-import com.example.presenter.AttendeeController;
-import com.example.presenter.LogInPresenter;
-import com.example.presenter.OrganizerController;
-import com.example.presenter.UserController;
+import com.example.presenter.*;
 
 import java.io.Serializable;
 
@@ -22,8 +19,14 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendeemenu);
         LogInPresenter presenter = (LogInPresenter) getIntent().getSerializableExtra("presenter");
-        controller = new AttendeeController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
-                presenter.getMm(),presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(),this);
+        if (presenter.getAm().idInList(presenter.getUserID())) {
+            controller = new AttendeeController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
+                    presenter.getMm(), presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(), this);
+        }
+        else {
+            controller = new VipController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
+                    presenter.getMm(), presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(), this);
+        }
     }
     @Override
     public void onClick(View v) {

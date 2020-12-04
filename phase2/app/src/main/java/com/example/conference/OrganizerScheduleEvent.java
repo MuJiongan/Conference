@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 import com.example.presenter.AttendeeController;
 import com.example.presenter.OrganizerController;
@@ -46,7 +47,14 @@ public class OrganizerScheduleEvent extends Activity implements View.OnClickList
                     int roomID = parseInt(room.getText().toString());
                     EditText size = findViewById(R.id.capacity);
                     int capacity = parseInt(size.getText().toString());
-                    controller.scheduleEvent(startTime, endTime, roomID, eventName,capacity);
+                    Switch isVIP = (Switch) findViewById(R.id.vip);
+                    if (isVIP.isChecked())
+                    {
+                        controller.scheduleEvent(startTime, endTime, roomID, eventName, capacity, controller.getVipEventManager());
+                    }
+                    else {
+                        controller.scheduleEvent(startTime, endTime, roomID, eventName, capacity, controller.getEventManager());
+                    }
                 }
                 catch(NumberFormatException n){
                     pushMessage("Please enter an integer for the ID");

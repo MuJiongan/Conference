@@ -345,10 +345,11 @@ public class EventManager implements Serializable{
      * @param roomID of new event
      * @param name of new event
      * @param capacity of new event
+     * @param ID is the ID of new event
      * @return a new event will given features
      */
-    public int createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity){
-        Event event = new Event(startTime, endTime, roomID, name, capacity, getEvents().size() + 1 + numOfCancelledEvents);
+    public int createEvent(LocalDateTime startTime, LocalDateTime endTime, int roomID, String name, int capacity, int ID){
+        Event event = new Event(startTime, endTime, roomID, name, capacity, ID);
         int id = event.getEventID();
         addEvent(event);
         return id;
@@ -365,6 +366,11 @@ public class EventManager implements Serializable{
      */
     public boolean idInList(int eventID){
         return events.contains(getEventByID(eventID));
+    }
+
+    public int getNumOfCancelledEvents()
+    {
+        return numOfCancelledEvents;
     }
 
 }

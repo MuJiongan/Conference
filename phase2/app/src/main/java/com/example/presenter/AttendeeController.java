@@ -128,11 +128,18 @@ public class AttendeeController extends UserController {
      */
      public String formatEvents(List<Integer> eventIDs){
          String output ="";
-         for (int ID: eventIDs)
-         {
-             output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID) + "\t" + getEventManager().getEndTime(ID)
-                      + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID)) + "\t" + getEventManager().getCapacity(ID)
-                     +"\n";
+         for (int ID: eventIDs) {
+             if (getEventManager().idInList(ID)) {
+                 output = output + ID + ".\t" + getEventManager().getName(ID) + "\t" + getEventManager().getStartTime(ID) + "\t" + getEventManager().getEndTime(ID)
+                     + "\t" + getRoomManager().getRoomName(getEventManager().getRoomID(ID)) + "\t" + getEventManager().getCapacity(ID)
+                     + "\n";
+             }
+             else if (getVipEventManager().idInList(ID))
+             {
+                 output = output + ID + ".\t" + getVipEventManager().getName(ID) + "\t" + getVipEventManager().getStartTime(ID) + "\t" + getVipEventManager().getEndTime(ID)
+                         + "\t" + getRoomManager().getRoomName(getVipEventManager().getRoomID(ID)) + "\t" + getVipEventManager().getCapacity(ID)
+                         + "\n";
+             }
          }
          return output;
      }

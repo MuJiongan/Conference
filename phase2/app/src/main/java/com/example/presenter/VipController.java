@@ -73,8 +73,7 @@ public class VipController extends AttendeeController implements Serializable {
     }
     private boolean VIPSignUp(int eventID)
     {
-        if (!getVipEventManager().idInList(eventID)){
-            getView().pushMessage("That Event does not exist!");
+        if (getVipEventManager().getEventByID(eventID) == null){
             return false;
         }
 
@@ -87,7 +86,7 @@ public class VipController extends AttendeeController implements Serializable {
             return false;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (isUserAvailable(getEventManager().getStartTime(eventID), getVipEventManager().getEndTime(eventID)))
+            if (isUserAvailable(getVipEventManager().getStartTime(eventID), getVipEventManager().getEndTime(eventID)))
             {
                 //sign Attendee up for the event
                 getCurrentManager().addEventID(getUser(), eventID);

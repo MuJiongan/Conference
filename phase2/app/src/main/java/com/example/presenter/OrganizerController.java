@@ -86,11 +86,12 @@ public class OrganizerController extends AttendeeController implements Serializa
      * @param roomID    ID of room that this Event is scheduled in
      * @param capacity  maximum number of attendees allowed in this Event
      * @param name      event's name
+     * @param em type of manager of event we want to create
      * @return true if speakerID successfully added to the new Event
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean scheduleEvent(LocalDateTime startTime, LocalDateTime endTime,
-                                 int roomID, String name, int capacity) {
+                                 int roomID, String name, int capacity, EventManager em) {
 
         if (!getRoomManager().idInList(roomID)) {
             getView().pushMessage("RoomID doesn't exist.");
@@ -104,10 +105,20 @@ public class OrganizerController extends AttendeeController implements Serializa
             getView().pushMessage("The room you entered is occupied at the time");
             return false;
         }
-        int eventID = getEventManager().createEvent(startTime, endTime, roomID, name, capacity);
+        int eventID = em.createEvent(startTime, endTime, roomID, name, capacity, getEventID());
         getRoomManager().scheduleEvent(roomID, eventID);
         getView().pushMessage("New Event Scheduled");
         return true;
+    }
+    /**
+     * Return the next ID that is going to be assigned to the new Event created
+     *
+     * @return the next ID that is going to be assigned to the new Event created
+     */
+    public int getEventID() {
+        int size = getEventManager().getEvents().size() + getEventManager().getNumOfCancelledEvents() +
+                getVipEventManager().getEvents().size() + getVipEventManager().getNumOfCancelledEvents();
+        return size + 1;
     }
 
     /**
