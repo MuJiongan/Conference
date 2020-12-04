@@ -264,7 +264,8 @@ public class UserController implements Serializable{
             if(messageList != null) {
                 boolean hasUnread = false;
                 for (int messageID : messageList) {
-                    if (!getMessageManager().getConditionByID(messageID)) {
+                    int sendID = getMessageManager().getSenderIDByMessId(messageID);
+                    if (!getMessageManager().getConditionByID(messageID) && sendID == friendID) {
                         hasUnread = true;
                     }
                 }
