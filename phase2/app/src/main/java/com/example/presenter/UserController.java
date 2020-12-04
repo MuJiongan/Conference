@@ -1,5 +1,7 @@
 package com.example.presenter;
 
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import com.example.model.entities.Message;
 import com.example.model.entities.Organizer;
 import com.example.model.useCases.*;
@@ -415,8 +417,17 @@ public class UserController implements Serializable{
      * @return true iff the message is successfully marked
      */
     // TODO: check whether messageId given is out of range
-    public boolean markAsUnread(int messageID) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean markAsUnread(int messageID, int friendId) {
+        // check if the sender is not user himself
         if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
+            view.pushMessage("You can't mark your own message as unread");
+            return false;
+        }
+        // check if the messageID is valid (friendID, out of range)
+        List<Integer> chatHistory = getCurrentManager().getMessages(userID).get(friendId);
+        if (!chatHistory.contains(friendId)){
+            view.pushMessage("Please enter a valid message ID");
             return false;
         }
         getMessageManager().markAsUnread(messageID);
