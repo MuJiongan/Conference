@@ -48,6 +48,19 @@ public class VipController extends AttendeeController implements Serializable {
         }
         return formatEvents(allEventIDs);
     }
+    /**
+     * Return list of all EventIDs the user is going to attend
+     *
+     * @return list of all EventIDs the user is going to attend
+     */
+    @Override
+    public String viewMyEvents() {
+        List<Integer> eventIDs = getCurrentManager().getEventList(getUserID());
+        if (eventIDs.size() == 0) {
+            return "You haven't signed up for any event yet!";
+        }
+        return formatEvents(eventIDs);
+    }
 
     /**
      * return true if signed up successfully, and false if not and update the attendee list in the

@@ -71,6 +71,9 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }
+                TextView myEvents = findViewById(R.id.allEvents);
+                String text = currentController.viewMyEvents();
+                myEvents.setText(text);
                 break;
             case R.id.back:
                 if (currentController.getType().equals("SpeakerController")){

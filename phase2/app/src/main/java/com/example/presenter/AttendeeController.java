@@ -75,11 +75,21 @@ public class AttendeeController extends UserController {
      {
          for (int currentEvents: getCurrentManager().getEventList(getUser()))
          {
-             LocalDateTime start = getEventManager().getStartTime(currentEvents);
-             LocalDateTime end = getEventManager().getEndTime(currentEvents);
-             if (checkTime(start, end, startTime, endTime))
+             if (getVipEventManager().idInList(currentEvents))
              {
-                 return false;
+                 LocalDateTime start = getVipEventManager().getStartTime(currentEvents);
+                 LocalDateTime end = getVipEventManager().getEndTime(currentEvents);
+                 if (!checkTime(start, end, startTime, endTime))
+                 {
+                     return false;
+                 }
+             }
+             else if (getEventManager().idInList(currentEvents)) {
+                 LocalDateTime start = getEventManager().getStartTime(currentEvents);
+                 LocalDateTime end = getEventManager().getEndTime(currentEvents);
+                 if (!checkTime(start, end, startTime, endTime)) {
+                     return false;
+                 }
              }
          }
          return true;
@@ -109,10 +119,8 @@ public class AttendeeController extends UserController {
              if (getCurrentManager().getEventList(getUser()).contains(eventID))
              {
                  //#TODO: consider VIP events case
-                 int position = getCurrentManager().getEventList(getUser()).indexOf(eventID);
-                 getCurrentManager().getEventList(getUser()).remove(position);
-                 int index =  getEventManager().getUserIDs(eventID).indexOf(getUser());
-                 getEventManager().getUserIDs(eventID).remove(index);
+                 getCurrentManager().removeEventID(eventID, getUserID());
+                 getEventManager().removeUserID(getUserID(), eventID);
                  getView().pushMessage("Cancellation Successful");
                  return true;
              }

@@ -133,7 +133,7 @@ public class User implements Serializable {
      * @return shallow copy of eventsAttend list of the user
      */
     public List<Integer> getEventsAttend() {
-        return new ArrayList<>(eventsAttend);
+        return eventsAttend;
     }
 
     /**
