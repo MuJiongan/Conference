@@ -130,7 +130,7 @@ public class OrganizerController extends AttendeeController implements Serializa
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean assignSpeaker(int speakerID, int eventID) {
         // check if the event ID exists
-        if (!getEventManager().idInList(eventID)) {
+        if (!getEventManager().idInList(eventID) && !getVipEventManager().idInList(eventID)) {
             getView().pushMessage("Event ID doesn't exist!");
             return false;
         }
@@ -139,18 +139,34 @@ public class OrganizerController extends AttendeeController implements Serializa
             getView().pushMessage("Speaker doesn't exist!");
             return false;
         }
-        LocalDateTime startTime = getEventManager().getStartTime(eventID);
-        LocalDateTime endTime = getEventManager().getEndTime(eventID);
+
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+        if (getEventManager().idInList(eventID)){
+            startTime = getEventManager().getStartTime(eventID);
+            endTime = getEventManager().getEndTime(eventID);
+        }else if(getVipEventManager().idInList(eventID)){
+            startTime = getVipEventManager().getStartTime(eventID);
+            endTime = getVipEventManager().getEndTime(eventID);
+        }else{
+            getView().pushMessage("An error occurred while reading the time.");
+            return false;
+        }
         // check if the speaker is available at the time
         if (!availableAtTime(speakerID, startTime, endTime)) {
             getView().pushMessage("The speaker is not available at the time");
             return false;
         }
         // check if the speaker is already in the event
-        if (!getEventManager().addSpeakerID(speakerID, eventID)) {
+        if (getEventManager().idInList(eventID) && !getEventManager().addSpeakerID(speakerID, eventID)) {
             getView().pushMessage("You already added this speaker!");
             return false;
         }
+        if (getVipEventManager().idInList(eventID) && !getVipEventManager().addSpeakerID(speakerID, eventID)) {
+            getView().pushMessage("You already added this speaker!");
+            return false;
+        }
+
         getSpeakerManager().addEventID(eventID, speakerID);
         getView().pushMessage("Speaker assigned");
         return true;
@@ -166,9 +182,16 @@ public class OrganizerController extends AttendeeController implements Serializa
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean availableAtTime(int speakerID, LocalDateTime startTime, LocalDateTime endTime) {
         for (Integer eventID : getSpeakerManager().getEventList(speakerID)) {
+            LocalDateTime existingStartTime;
+            LocalDateTime existingEndTime;
+            if (getEventManager().idInList(eventID)){
+                existingStartTime = getEventManager().getStartTime(eventID);
+                existingEndTime = getEventManager().getEndTime(eventID);
+            }else{
+                existingStartTime = getVipEventManager().getStartTime(eventID);
+                existingEndTime = getVipEventManager().getEndTime(eventID);
+            }
 
-            LocalDateTime existingStartTime = getEventManager().getStartTime(eventID);
-            LocalDateTime existingEndTime = getEventManager().getEndTime(eventID);
             if (!checkTime(startTime, endTime, existingStartTime, existingEndTime))
                 return false;
         }
