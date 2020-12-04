@@ -207,8 +207,7 @@ public class AttendeeController extends UserController {
         contact.addAll(super.getOrganizerManager().getUserIDs());
         contact.addAll(super.getVipManager().getUserIDs());
         // remove the user himself
-        int index = contact.indexOf(getUserID());
-        contact.remove(index);
+        contact.remove((Integer) getUserID());
         // loop through all the events the current user has signed up for
         int numEvents = getCurrentManager().getEventList(getUserID()).size();
         if (numEvents != 0) {
@@ -222,8 +221,9 @@ public class AttendeeController extends UserController {
                         if (!friendToNumOfCommonEvent.containsKey(eventID)) {
                             friendToNumOfCommonEvent.put(friendID, 1);
                         } else {
-                            int curr = friendToNumOfCommonEvent.get(friendID);
-                            friendToNumOfCommonEvent.put(friendID, curr + 1);
+                            Integer curr = friendToNumOfCommonEvent.get(friendID);
+                            if (curr != null){
+                            friendToNumOfCommonEvent.put(friendID, curr + 1);}
                         }
                     }
                 }
