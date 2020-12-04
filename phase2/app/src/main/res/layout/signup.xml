@@ -64,7 +64,7 @@
             android:paddingLeft="8dp"
             android:layout_height="50dp"
             android:background="@drawable/textinputborder"
-            android:inputType="textPassword"
+            android:inputType="text"
             />
     <Button
             android:text="Create account"
