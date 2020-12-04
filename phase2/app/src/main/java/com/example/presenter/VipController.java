@@ -73,7 +73,7 @@ public class VipController extends AttendeeController implements Serializable {
     }
     private boolean VIPSignUp(int eventID)
     {
-        if (getVipEventManager().getEventByID(eventID) == null){
+        if (getVipEventManager().idInList(eventID)){
             return false;
         }
 
@@ -89,7 +89,7 @@ public class VipController extends AttendeeController implements Serializable {
             if (isUserAvailable(getVipEventManager().getStartTime(eventID), getVipEventManager().getEndTime(eventID)))
             {
                 //sign Attendee up for the event
-                getCurrentManager().addEventID(getUser(), eventID);
+                getCurrentManager().addEventID(eventID, getUser());
                 getVipEventManager().addUserID(getUser(), eventID);
                 getView().pushMessage("Successfully signed up!");
                 return true;
