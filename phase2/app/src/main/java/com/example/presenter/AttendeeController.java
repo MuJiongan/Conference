@@ -114,11 +114,10 @@ public class AttendeeController extends UserController {
 
      public boolean cancelEnrollment(int eventID)
      {
-         if (getEventManager().getEventByID(eventID) != null)
+         if (getEventManager().idInList(eventID))
          {
              if (getCurrentManager().getEventList(getUser()).contains(eventID))
              {
-                 //#TODO: consider VIP events case
                  getCurrentManager().removeEventID(eventID, getUserID());
                  getEventManager().removeUserID(getUserID(), eventID);
                  getView().pushMessage("Cancellation Successful");
@@ -127,8 +126,22 @@ public class AttendeeController extends UserController {
              getView().pushMessage("Enter an event you have signed up for!");
              return false;
          }
-         getView().pushMessage("Enter a valid event ID");
-         return false;
+         else if (getVipEventManager().idInList(eventID))
+         {
+             if (getCurrentManager().getEventList(getUser()).contains(eventID))
+             {
+                 getCurrentManager().removeEventID(eventID, getUserID());
+                 getVipEventManager().removeUserID(getUserID(), eventID);
+                 getView().pushMessage("Cancellation Successful");
+                 return true;
+             }
+             getView().pushMessage("Enter an event you have signed up for!");
+             return false;
+         }
+         else {
+             getView().pushMessage("Enter a valid event ID");
+             return false;
+         }
      }/**
      * Return the string representation of all the events in the conference
      * @return a list of string representation of all events  in the given list in the format:
@@ -216,13 +229,13 @@ public class AttendeeController extends UserController {
                 }
             }
         }
-        else
-        {
-            for (int id: contact)
+        //Add users with 0 common events
+        for (int id: contact)
             {
-                friendToNumOfCommonEvent.put(id, 0);
+                if (!friendToNumOfCommonEvent.containsKey(id)) {
+                    friendToNumOfCommonEvent.put(id, 0);
+                }
             }
-        }
         return friendToNumOfCommonEvent;
     }
 
