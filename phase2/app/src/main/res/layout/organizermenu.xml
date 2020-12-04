@@ -10,7 +10,7 @@
 
     <TextView
             android:text="WELCOME!"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/welcome"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/viewAllEvents"/>
 
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/viewAllEvents"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/viewMyEvents"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/viewMyEvents"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/organizerCreateAccount"/>
 
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/organizerCreateAccount"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/viewContactList"/>
     <Button
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/viewContactList"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/manage"/>
     <Button
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/manage"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/social"/>
     <Button
@@ -71,15 +71,23 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/social"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/createRoom"/>
     <Button
-            android:text="Exit"
+            android:text="message all"
             android:layout_width="wrap_content"
             android:layout_below="@+id/createRoom"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="17dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/messageAll"/>
+    <Button
+            android:text="Exit"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/messageAll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/exit"/>
 

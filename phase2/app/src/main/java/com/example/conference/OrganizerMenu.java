@@ -69,6 +69,13 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
                 startActivityForResult(myIntentCreate, 7);
 
                 break;
+            case R.id.messageAll:
+                Toast.makeText(this, "Here you message all users", Toast.LENGTH_SHORT).show();
+                Intent myIntentMessageAll = new Intent(v.getContext(), OrganizerMessageAllActivity.class);
+                myIntentMessageAll.putExtra("controller", controller);
+                startActivityForResult(myIntentMessageAll, 8);
+
+                break;
             case R.id.exit:
                 //Serialize objects
                 ReadWrite.saveAttendees(getApplicationContext(),controller.getAttendeeManager());
@@ -138,7 +145,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
                 controller.setView(this);
             }
         }
-        else if (requestCode ==7){
+        else if (requestCode ==7 || requestCode == 8){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),

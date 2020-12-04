@@ -8,18 +8,12 @@
         tools:context="com.example.conference.viewContactListActivity">
 
 
-    <TextView
-            android:text="HERE ARE ALL YOUR CONTACTS"
-            android:layout_marginTop="100dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/welcome"/>
+
 
     <EditText
             android:id="@+id/messageContent"
-            android:layout_below="@+id/welcome"
-            android:layout_marginTop="30dp"
+
+            android:layout_marginTop="100dp"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
             android:hint="Enter your message here"
@@ -33,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/messageContent"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/allAttendee"/>
 
@@ -42,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/allAttendee"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/allSpeaker"/>
 
@@ -52,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/allSpeaker"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/allVIP"/>
 
@@ -61,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/allVIP"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/back"/>
 
