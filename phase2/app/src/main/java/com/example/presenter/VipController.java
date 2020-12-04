@@ -73,7 +73,7 @@ public class VipController extends AttendeeController implements Serializable {
     }
     private boolean VIPSignUp(int eventID)
     {
-        if (getVipEventManager().getEventByID(eventID) == null){
+        if (!getVipEventManager().idInList(eventID)){
             getView().pushMessage("That Event does not exist!");
             return false;
         }

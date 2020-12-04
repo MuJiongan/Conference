@@ -68,6 +68,17 @@ public class OrganizerController extends AttendeeController implements Serializa
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public boolean signUp(int eventID) {
+        if (getVipEventManager().idInList(eventID)){
+            getView().pushMessage("You can't sign up for a VIP event.");
+
+        }else{
+        return super.signUp(eventID);}
+        return false;
+    }
+
     /**
      * Schedule Speaker to a new Event
      * @param startTime the LocalDateTime of start time of Event
@@ -195,6 +206,24 @@ public class OrganizerController extends AttendeeController implements Serializa
             if (!checkTime(startTime, endTime, existingStartTime, existingEndTime)) return false;
         }
         return true;
+    }
+    /**
+     * Return the string representation of all the events in the conference or message that inform user on the keyboard
+     * if there is no event in the conference yet
+     * @return a list of string representation of all non-Vip  and Vip events  in the conference in the format:
+     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     * or message that inform user on the keyboard if there is no event in the conference yet
+     */
+    @Override
+    public String viewAllEvents()
+    {
+        List<Integer> nonVipEventIDs = getEventManager().getEvents();
+        List<Integer> allEventIDs = getVipEventManager().getEvents();
+        allEventIDs.addAll(nonVipEventIDs);
+        if (allEventIDs.size() == 0) {
+            return "There are no current events at the moment! Check again soon";
+        }
+        return formatEvents(allEventIDs);
     }
 
     private boolean haveEnoughCapacity(int roomID, int capacity) {

@@ -44,7 +44,7 @@ public class AttendeeController extends UserController {
      */
      @RequiresApi(api = Build.VERSION_CODES.O)
      public boolean signUp(int eventID) {
-         if (getEventManager().getEventByID(eventID) == null){
+         if (!getEventManager().idInList(eventID)){
              getView().pushMessage("That Event does not exist!");
              return false;
          }
@@ -109,9 +109,10 @@ public class AttendeeController extends UserController {
              if (getCurrentManager().getEventList(getUser()).contains(eventID))
              {
                  //#TODO: consider VIP events case
-                 int position = getEventManager().getEvents().indexOf(eventID);
+                 int position = getCurrentManager().getEventList(getUser()).indexOf(eventID);
                  getCurrentManager().getEventList(getUser()).remove(position);
-                 getEventManager().getUserIDs(eventID).remove(getUser());
+                 int index =  getEventManager().getUserIDs(eventID).indexOf(getUser());
+                 getEventManager().getUserIDs(eventID).remove(index);
                  getView().pushMessage("Cancellation Successful");
                  return true;
              }
