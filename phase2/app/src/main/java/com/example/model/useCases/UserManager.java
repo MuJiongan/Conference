@@ -1,10 +1,7 @@
 package com.example.model.useCases;
-
-import com.example.model.entities.Attendee;
 import com.example.model.entities.User;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

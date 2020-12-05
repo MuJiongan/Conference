@@ -1,8 +1,5 @@
 package com.example.model.useCases;
 
-import com.example.model.entities.Attendee;
-import com.example.model.entities.User;
-
 import java.io.*;
 
 public class AttendeeManager extends UserManager implements Serializable{

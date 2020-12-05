@@ -1,7 +1,5 @@
 package com.example.model.useCases;
 
-import com.example.model.entities.Speaker;
-
 import java.io.*;
 
 public class SpeakerManager extends UserManager implements Serializable{

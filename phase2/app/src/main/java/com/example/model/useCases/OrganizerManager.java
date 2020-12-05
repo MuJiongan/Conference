@@ -1,6 +1,4 @@
 package com.example.model.useCases;
-
-import com.example.model.entities.Organizer;
 import com.example.model.entities.User;
 
 import java.io.*;

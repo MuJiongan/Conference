@@ -1,8 +1,6 @@
 package com.example.model.interfaceAdapters;
 
 import android.content.Context;
-import com.example.model.entities.Message;
-import com.example.model.entities.Speaker;
 import com.example.model.useCases.*;
 
 import java.io.*;
