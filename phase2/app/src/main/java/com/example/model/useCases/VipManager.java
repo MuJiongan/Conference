@@ -1,7 +1,4 @@
 package com.example.model.useCases;
-
-import com.example.model.useCases.AttendeeManager;
-
 import java.io.Serializable;
 
 public class VipManager extends AttendeeManager implements Serializable {

@@ -1,7 +1,4 @@
 package com.example.model.entities;
-
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

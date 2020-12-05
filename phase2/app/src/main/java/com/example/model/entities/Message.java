@@ -1,7 +1,6 @@
 package com.example.model.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Represents the messages for the conference.

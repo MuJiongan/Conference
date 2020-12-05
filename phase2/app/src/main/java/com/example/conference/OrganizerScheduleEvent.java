@@ -9,9 +9,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
