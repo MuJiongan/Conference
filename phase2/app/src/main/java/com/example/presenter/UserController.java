@@ -422,6 +422,13 @@ public class UserController implements Serializable{
     // TODO: check whether messageId given is out of range
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean markAsUnread(int messageID, int friendId) {
+
+        // check if the message exists
+        if (!getMessageManager().getMessages().contains(messageID)){
+            view.pushMessage("Please enter a valid message ID");
+            return false;
+        }
+
         // check if the sender is not user himself
         if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
             view.pushMessage("You can't mark your own message as unread");
