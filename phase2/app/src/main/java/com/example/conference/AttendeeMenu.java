@@ -80,55 +80,16 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 3){
+
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
                         passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
                 controller.setView(this);
             }
+
         }
-        if (requestCode ==5)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        if (requestCode == 4)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        if (requestCode == 6)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        if (requestCode == 7)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-    }
+
 
 
     @Override

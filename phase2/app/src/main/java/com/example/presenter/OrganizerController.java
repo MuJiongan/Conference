@@ -40,24 +40,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         //Maybe we need to check duplicate names
 
     }
-    /**
-     * Create new Speaker account
-     * @param name     name of the speaker wanted to create
-     * @param username username of the speaker wanted to create
-     * @param password password of the speaker wanted to create
-     * @return true if new Speaker account successfully created
-     */
-    public boolean createSpeaker(String name, String username, String password) {
-        int speakerID = getNewID();
-        boolean successful = getSpeakerManager().createUser(name, username, password, getNewID());
-        // can't initialize contact list because the speaker has no talks to give for now
-        // add this speaker to organizers and attendees contact list
-        if (!successful) {
-            return false;
-        }
-        getView().pushMessage("Speaker successfully created");
-        return true;
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -301,14 +284,14 @@ public class OrganizerController extends AttendeeController implements Serializa
 //        //TODO: CHECK THE CONDITION
 //    }
 
-    /**
-     * Change the Capacity of Event
-     * @param eventID the id of Event to be rescheduled
-     * @param capacity the new capacity of the Event
-     */
-    public void changeCapacity(int eventID, int capacity){
-        getEventManager().setCapacity(eventID, capacity);
-    }
+//    /**
+//     * Change the Capacity of Event
+//     * @param eventID the id of Event to be rescheduled
+//     * @param capacity the new capacity of the Event
+//     */
+//    public void changeCapacity(int eventID, int capacity){
+//        getEventManager().setCapacity(eventID, capacity);
+//    }
 
     /**
      * Cancel Event
