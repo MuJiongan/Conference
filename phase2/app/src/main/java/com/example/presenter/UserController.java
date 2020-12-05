@@ -292,10 +292,24 @@ public class UserController implements Serializable{
      * @return list of strings representation of all messages in the chat history in the format:
      * friendID + ":\t" + content + "\t" + condition(when the condition is unread)
      */
-    // TODO: check whether messageId given is out of range
     public List<String> viewChatHistory(int friendID) {
         List<String> chatHistory = new ArrayList<>();
+
+        // check if the friendID is valid
+        //get the contactList of user
+        List<Integer> contact = new ArrayList<>();
+        contact.addAll(getAttendeeManager().getUserIDs());
+        contact.addAll(getOrganizerManager().getUserIDs());
+        contact.addAll(getSpeakerManager().getUserIDs());
+        contact.addAll(getVipManager().getUserIDs());
+
+        if (!contact.contains(friendID)){
+            view.pushMessage("Please enter a valid friend ID");
+            return null;
+        }
+
         // get the chat history between user and given friend
+
         List<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
         if (messageIDList != null) {
             for (Integer messageID : messageIDList) {
@@ -315,20 +329,25 @@ public class UserController implements Serializable{
         }
     }
 
-//    /**
-//     * Set all messages receiving from the friend given by ID as already read
-//     *
-//     * @param friendID ID of the friend that the current user is chatting to
-//     */
-//    public void readAllMessage(int friendID) {
-//        // TODO: How to handle this null-pointer exception and we can't interact with message directly
-//        for (Integer messageID : getCurrentManager().getMessages(userID).get(friendID)) {
-//            Message message = getMessageManager().getMessageById(messageID);
-//            if (message.getSenderID() == friendID) {
-//                getMessageManager().changeMessageCondition(messageID);
-//            }
-//        }
-//    }
+    /**
+     * Set all messages receiving from the friend given by ID as already read
+     *
+     * @param friendID ID of the friend that the current user is chatting to
+     */
+    public void readAllMessage(int friendID) {
+        // TODO: How to handle this null-pointer exception and we can't interact with message directly
+        HashMap<Integer, List<Integer>> allMessages = getCurrentManager().getMessages(userID);
+        if (allMessages.keySet().contains(friendID)){
+            if (getCurrentManager().getMessages(userID).get(friendID) != null) {
+                for (Integer messageID : getCurrentManager().getMessages(userID).get(friendID)) {
+                    int senderID = getMessageManager().getSenderIDByMessId(messageID);
+                    if (senderID == friendID) {
+                        getMessageManager().changeMessageCondition(messageID);
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Return the next ID that is going to be assigned to the new User created

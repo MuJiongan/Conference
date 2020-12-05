@@ -2,11 +2,15 @@ package com.example.conference;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
@@ -41,6 +45,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 historyText = historyText + s + "\n";
             }
             history.setText(historyText);
+            currentController.readAllMessage(index);
         }else{
             history.setText("There is no message right now");
         }
@@ -53,6 +58,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -82,7 +88,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 setResult(3, myIntent4);
                 finish();
                 break;
-                
+
             case R.id.markAsUnread:
                 EditText messageIdText = findViewById(R.id.messageId);
                 String messageIdString = messageIdText.getText().toString();
