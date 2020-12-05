@@ -101,6 +101,7 @@ public class viewContactListActivity extends Activity implements UserController.
                 currentController.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
                         passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
                 currentController.setView(this);
+                displayContactList();
             }
         }
 

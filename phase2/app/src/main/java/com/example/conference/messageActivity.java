@@ -32,6 +32,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
         index = getIntent().getIntExtra("receiverID", -1);
         parent = getIntent().getStringExtra("parent");
         showHistory();
+        currentController.readAllMessage(index);
     }
 
 
@@ -45,7 +46,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 historyText = historyText + s + "\n";
             }
             history.setText(historyText);
-            currentController.readAllMessage(index);
+
         }else{
             history.setText("There is no message right now");
         }
@@ -95,6 +96,7 @@ public class messageActivity extends Activity implements UserController.View, Vi
                 try {
                         int messageId = Integer.parseInt(messageIdString);
                         currentController.markAsUnread(messageId, index);
+                        showHistory();
                     }
                     catch(NumberFormatException n){
                         pushMessage("Please enter a valid MessageID");
