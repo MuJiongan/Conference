@@ -1,18 +1,9 @@
 package com.example.presenter;
-
 import android.os.Build;
 import androidx.annotation.RequiresApi;
-import com.example.conference.AttendeeMenu;
-import com.example.model.entities.Event;
-import com.example.model.entities.Room;
-import com.example.model.entities.Speaker;
-import com.example.model.entities.User;
-
 import com.example.model.useCases.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizerController extends AttendeeController implements Serializable {
@@ -32,8 +23,8 @@ public class OrganizerController extends AttendeeController implements Serializa
      */
     public void messageAll(UserManager current, String content)
     {
-        for (User user : current.getUsers()) {
-            sendMessage(current.getIDByUser(user), content);
+        for (int userid : current.getUserIDs()) {
+            sendMessage(userid, content);
         }
         getView().pushMessage("Messages sent");
     }

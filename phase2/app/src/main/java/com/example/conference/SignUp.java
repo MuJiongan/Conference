@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.model.interfaceAdapters.ReadWrite;
-import com.example.model.useCases.OrganizerManager;
 import com.example.presenter.LogInPresenter;
 
 import java.io.Serializable;

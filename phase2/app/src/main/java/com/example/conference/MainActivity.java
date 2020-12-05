@@ -1,10 +1,9 @@
 package com.example.conference;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.GatewayInfo;
+
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +11,7 @@ import com.example.presenter.LogInPresenter;
 import com.example.presenter.UserController;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements LogInPresenter.View,View.OnClickListener, Serializable {
 

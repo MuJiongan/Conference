@@ -14,7 +14,7 @@ import com.example.presenter.SpeakerController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 
 public class seeMyEventsActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {

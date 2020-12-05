@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 public class OrganizerMessageAllActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
 

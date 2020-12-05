@@ -1,13 +1,7 @@
 package com.example.presenter;
-
-import com.example.model.entities.Event;
-import com.example.model.entities.Message;
-
 import com.example.model.useCases.*;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class SpeakerController extends UserController implements Serializable{
 
@@ -17,20 +11,6 @@ public class SpeakerController extends UserController implements Serializable{
 
     }
 
-
-    private boolean canSend(int receiverID)
-    {
-        List<Integer> talks = this.getSpeakerManager().getEventList(this.getUser());
-        for (int x: talks)
-        {
-            List<Integer> people = this.getEventManager().getUserIDs(x);
-            if (people.contains(receiverID))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Adds the message to the messages hashmaps of both all the receivers in the given event and the sender

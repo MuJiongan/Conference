@@ -2,12 +2,8 @@ package com.example.presenter;
 
 import android.os.Build;
 import androidx.annotation.RequiresApi;
-import com.example.model.entities.Message;
-import com.example.model.entities.Organizer;
 import com.example.model.useCases.*;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -260,8 +256,7 @@ public class UserController implements Serializable{
         contact.addAll(getSpeakerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
         // remove the user himself
-        int index = contact.indexOf(userID);
-        contact.remove(index);
+        contact.remove((Integer) userID);
         //get the message HashMap of user
         HashMap<Integer, List<Integer>> allMessage = getCurrentManager().getMessages(userID);
         // TODO: If no messages are found in the message hashmap, we won't get messages
@@ -320,40 +315,20 @@ public class UserController implements Serializable{
         }
     }
 
-    /**
-     * Return whether the given event's ID is in the list of all events
-     *
-     * @param eventID ID of the event that is going to be checked
-     * @return true iff the given event's ID is in the list of all events
-     */
-    public boolean hasEvent(int eventID) {
-        return this.getEventManager().getEvents().contains(getEventManager().getEventByID(eventID));
-    }
-
-    /**
-     * Return whether the given event's ID is in the event list of the current user
-     *
-     * @param eventID ID of the event that is going to be checked
-     * @return true iff the given event's ID is in the event list of the current user
-     */
-    public boolean hasMyEvent(int eventID) {
-        return currentManager.getEventList(userID).contains(eventID);
-    }
-
-    /**
-     * Set all messages receiving from the friend given by ID as already read
-     *
-     * @param friendID ID of the friend that the current user is chatting to
-     */
-    public void readAllMessage(int friendID) {
-        // TODO: How to handle this null-pointer exception
-        for (Integer messageID : getCurrentManager().getMessages(userID).get(friendID)) {
-            Message message = getMessageManager().getMessageById(messageID);
-            if (message.getSenderID() == friendID) {
-                getMessageManager().changeMessageCondition(messageID);
-            }
-        }
-    }
+//    /**
+//     * Set all messages receiving from the friend given by ID as already read
+//     *
+//     * @param friendID ID of the friend that the current user is chatting to
+//     */
+//    public void readAllMessage(int friendID) {
+//        // TODO: How to handle this null-pointer exception and we can't interact with message directly
+//        for (Integer messageID : getCurrentManager().getMessages(userID).get(friendID)) {
+//            Message message = getMessageManager().getMessageById(messageID);
+//            if (message.getSenderID() == friendID) {
+//                getMessageManager().changeMessageCondition(messageID);
+//            }
+//        }
+//    }
 
     /**
      * Return the next ID that is going to be assigned to the new User created
@@ -514,8 +489,7 @@ public class UserController implements Serializable{
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
         // remove the user himself
-        int index = contact.indexOf(userID);
-        contact.remove(index);
+        contact.remove((Integer) userID);
         // loop through all the events the current user has signed up for
         for (int eventID : getCurrentManager().getEventList(userID)) {
             // loop through all contacts in the list

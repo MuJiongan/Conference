@@ -1,9 +1,7 @@
 package com.example.presenter;
-
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import com.example.model.useCases.*;
-
 import java.io.Serializable;
 import java.util.List;
 

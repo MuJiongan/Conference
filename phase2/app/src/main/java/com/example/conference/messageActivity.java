@@ -12,7 +12,7 @@ import com.example.presenter.UserController;
 import java.io.Serializable;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
+
 
 public class messageActivity extends Activity implements UserController.View, View.OnClickListener, Serializable {
 

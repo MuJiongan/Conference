@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.model.useCases.OrganizerManager;
 import com.example.presenter.LogInPresenter;
 import com.example.presenter.OrganizerController;
-import com.example.presenter.UserController;
+
 
 import java.io.Serializable;
 

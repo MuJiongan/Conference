@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.model.entities.Organizer;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 
