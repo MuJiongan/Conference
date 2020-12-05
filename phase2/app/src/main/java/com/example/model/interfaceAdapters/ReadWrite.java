@@ -14,7 +14,7 @@ public class ReadWrite implements Serializable {
 
     /**
      * Read stored information and load the stored AttendeeManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>AttendeeManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>AttendeeManager</code> updated based on the given file
      */
@@ -38,7 +38,7 @@ public class ReadWrite implements Serializable {
 
     /**
      * Read stored information and load the stored OrganizerManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>OrganizerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>OrganizerManager</code> updated based on the given file
      */
@@ -62,7 +62,7 @@ public class ReadWrite implements Serializable {
 
     /**
      * Read stored information and load the stored SpeakerManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>SpeakerManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>SpeakerManager</code> updated based on the given file
      */
@@ -85,7 +85,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * Read stored information and load the stored RoomManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>RoomManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>RoomManager</code> updated based on the given file
      */
@@ -108,7 +108,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * Read stored information and load the stored EventManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>EventManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>EventManager</code> updated based on the given file
      */
@@ -131,7 +131,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * Read stored information and load the stored MessageManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>MessageManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>MessageManager</code> updated based on the given file
      */
@@ -154,7 +154,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * Read stored information and load the stored VipEventManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>VipEventManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>VipEventManager</code> updated based on the given file
      */
@@ -177,7 +177,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * Read stored information and load the stored VipManager
-     * @param path filepath of the ser. file that stores nothing if the main method is never ran and store
+     * @param context context of the ser. file that stores nothing if the main method is never ran and store
      *             <code>VipManager</code> by the end of the last running if the main method is ran
      * @return return the instance of <code>VipManager</code> updated based on the given file
      */
@@ -201,7 +201,7 @@ public class ReadWrite implements Serializable {
 
     /**
      * store the <code>VipManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
+     * @param context context of the ser. file to store the <code>AttendeeManager</code>
      */
     public static void saveVips(Context context, VipManager vipM)
     {
@@ -219,7 +219,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>VipEventManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>VipEventManager</code>
+     * @param context context of the ser. file to store the <code>VipEventManager</code>
      */
     public static void saveVipEventManager(Context context, VipEventManager vipEventM)
     {
@@ -237,7 +237,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>AttendeeManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>AttendeeManager</code>
+     * @param context context of the ser. file to store the <code>AttendeeManager</code>
      */
     public static void saveAttendees(Context context, AttendeeManager am)
     {
@@ -255,7 +255,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>OrganizerManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>OrganizerManager</code>
+     * @param context context of the ser. file to store the <code>OrganizerManager</code>
      */
     public static void saveOrganizers(Context context, OrganizerManager om)
     {
@@ -273,7 +273,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>SpeakerManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>SpeakerManager</code>
+     * @param context context of the ser. file to store the <code>SpeakerManager</code>
      */
     public static void saveSpeakers(Context context, SpeakerManager sm)
     {
@@ -291,7 +291,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>EventManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>EventManager</code>
+     * @param context context of the ser. file to store the <code>EventManager</code>
      */
     public static void saveEvent (Context context, EventManager em)
     {
@@ -311,7 +311,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>RoomManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>RoomManager</code>
+     * @param context context of the ser. file to store the <code>RoomManager</code>
      */
     public static void saveRoom (Context context, RoomManager rm) {
         try {
@@ -328,7 +328,7 @@ public class ReadWrite implements Serializable {
     }
     /**
      * store the <code>MessageManager</code> in the conference to the given file
-     * @param path filepath of the ser. file to store the <code>MessageManager</code>
+     * @param context context of the ser. file to store the <code>MessageManager</code>
      */
     public static void saveMessage (Context context, MessageManager mm)
     {
