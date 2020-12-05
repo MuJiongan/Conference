@@ -96,55 +96,7 @@ public class OrganizerMenu extends Activity implements View.OnClickListener, Use
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 1){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode == 2){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode == 3){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode ==4){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode ==5){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode ==6){
-            if (resultCode == 3){
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                controller.setView(this);
-            }
-        }
-        else if (requestCode ==7 || requestCode == 8){
+        if (requestCode == 1 || requestCode == 2 || requestCode == 3 || requestCode == 4 || requestCode == 5 || requestCode == 6 || requestCode == 7 || requestCode == 8 ){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 controller.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),

@@ -66,7 +66,7 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
         }
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 3){
+        if (requestCode == 3 || requestCode == 4 || requestCode == 5 || requestCode == 6 ){
             if (resultCode == 3){
                 UserController passedData = (UserController) data.getSerializableExtra("cc");
                 sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
@@ -74,36 +74,8 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
                 sc.setView(this);
             }
         }
-        if (requestCode ==5)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                sc.setView(this);
-            }
-        }
-        if (requestCode == 4)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                sc.setView(this);
-            }
-        }
-        if (requestCode == 6)
-        {
-            if (resultCode == 3)
-            {
-                UserController passedData = (UserController) data.getSerializableExtra("cc");
-                sc.setManagers(passedData.getAttendeeManager(), passedData.getOrganizerManager(), passedData.getSpeakerManager(), passedData.getRoomManager(),
-                        passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
-                sc.setView(this);
-            }
-        }
+
+
     }
 
 
