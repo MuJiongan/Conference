@@ -429,7 +429,7 @@ public class UserController implements Serializable{
         }
         // check if the messageID is valid (friendID, out of range)
         List<Integer> chatHistory = getCurrentManager().getMessages(userID).get(friendId);
-        if (!chatHistory.contains(friendId)){
+        if (!chatHistory.contains(messageID)){
             view.pushMessage("Please enter a valid message ID");
             return false;
         }
