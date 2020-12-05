@@ -28,7 +28,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="200dp"
             android:layout_centerHorizontal="true"
-            android:hint="enter an event ID"
+            android:hint="Enter an event ID"
             android:paddingLeft="8dp"
             android:layout_height="50dp"
             android:background="@drawable/textinputborder"

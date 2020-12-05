@@ -67,6 +67,10 @@ public class AttendeeController extends UserController {
                  getView().pushMessage("Successfully signed up!");
                  return true;
              }
+             else
+             {
+                 getView().pushMessage("You are already busy at this time");
+             }
          }
          return false;
      }
