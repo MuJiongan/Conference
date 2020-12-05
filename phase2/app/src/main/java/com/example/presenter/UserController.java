@@ -423,8 +423,9 @@ public class UserController implements Serializable{
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean markAsUnread(int messageID, int friendId) {
 
-        // check if the message exists
-        if (!getMessageManager().getMessages().contains(messageID)){
+        // check if the messageID is valid (friendID, out of range)
+        List<Integer> chatHistory = getCurrentManager().getMessages(userID).get(friendId);
+        if (!chatHistory.contains(messageID)){
             view.pushMessage("Please enter a valid message ID");
             return false;
         }
@@ -434,12 +435,7 @@ public class UserController implements Serializable{
             view.pushMessage("You can't mark your own message as unread");
             return false;
         }
-        // check if the messageID is valid (friendID, out of range)
-        List<Integer> chatHistory = getCurrentManager().getMessages(userID).get(friendId);
-        if (!chatHistory.contains(messageID)){
-            view.pushMessage("Please enter a valid message ID");
-            return false;
-        }
+
         getMessageManager().markAsUnread(messageID);
         return true;
     }
