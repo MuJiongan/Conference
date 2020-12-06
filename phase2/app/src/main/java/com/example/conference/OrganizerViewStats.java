@@ -39,13 +39,13 @@ public class OrganizerViewStats extends Activity implements View.OnClickListener
 
         HashMap<Integer, ArrayList<Integer>> allEvents = currentController.topThreeEvents();
         List<Integer> sortedKey = currentController.sortedKeys(new ArrayList<Integer>(allEvents.keySet()));
-        statistics += "\n\nNumber of Attendees  Name of event";
+        statistics += "\n\nNumber of Attendees  Name of event \n";
         for (int key: sortedKey){
             List<Integer> events = allEvents.get(key);
             for (int eventId: events){
                 statistics += key;
                 statistics += "  ";
-                statistics += currentController.getEventName(eventId);
+                statistics += currentController.getEventName(eventId) + "\n";
             }
         }
 

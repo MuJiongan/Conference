@@ -83,7 +83,7 @@
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/messageAll"/>
     <Button
-            android:text="stats"
+            android:text="Analytics"
             android:layout_width="wrap_content"
             android:layout_below="@+id/messageAll"
             android:layout_centerHorizontal="true"

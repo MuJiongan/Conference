@@ -410,8 +410,8 @@ public class OrganizerController extends AttendeeController implements Serializa
         int totalNumOfEvents  = getEventManager().getNumOfEvents();
         totalNumOfEvents += getVipEventManager().getNumOfEvents();
 
-        String allStats = "Total Number of Users" + totalNumOfUsers + "\n" + "Total Number of Messages" + totalNumOfMess
-                + "\n" + "Total Number of Events" + totalNumOfEvents + "\n" + "Total Number of Rooms" + totalNumOfRooms;
+        String allStats = "Total Number of Users:\t" + totalNumOfUsers + "\n" + "Total Number of Messages:\t" + totalNumOfMess
+                + "\n" + "Total Number of Events:\t" + totalNumOfEvents + "\n" + "Total Number of Rooms:\t" + totalNumOfRooms;
         return allStats;
     }
 
@@ -423,9 +423,7 @@ public class OrganizerController extends AttendeeController implements Serializa
     public HashMap<Integer, ArrayList<Integer>> topThreeEvents(){
         HashMap<Integer, ArrayList<Integer>> topThreeEvents = new HashMap<>();
         List<Integer> allEvents = new ArrayList<>();
-
         List<Integer> normalEvents = getEventManager().getEvents();
-        List<Integer> vipEvents = getVipEventManager().getEvents();
         allEvents.addAll(normalEvents);
         allEvents.addAll(getVipEventManager().getEvents());
 
@@ -439,19 +437,21 @@ public class OrganizerController extends AttendeeController implements Serializa
                 if (normalEvents.contains(eventId)){
                     int numOfAttendee = getEventManager().getNumOfAttendee(eventId);
                     if (topThreeEvents.keySet().contains(numOfAllEvents)){
-                        topThreeEvents.get(numOfAttendee).add(eventId);
+                            topThreeEvents.get(numOfAttendee).add(eventId);
                         }
                     else{
-                        topThreeEvents.put(numOfAttendee, new ArrayList<>()); // TODO: any problems?
+                            topThreeEvents.put(numOfAttendee, new ArrayList<>());
+                            topThreeEvents.get(numOfAttendee).add(eventId); // TODO: any problems?
                         }
                 }
                 else{
                     int numOfVipAttendee = getVipEventManager().getNumOfAttendee(eventId);
                     if (topThreeEvents.keySet().contains(numOfAllEvents)){
-                        topThreeEvents.get(numOfVipAttendee).add(eventId);
+                            topThreeEvents.get(numOfVipAttendee).add(eventId);
                     }
                     else{
-                        topThreeEvents.put(numOfVipAttendee, new ArrayList<>()); // TODO: any problems?
+                        topThreeEvents.put(numOfVipAttendee, new ArrayList<>());
+                        topThreeEvents.get(numOfVipAttendee).add(eventId); /// TODO: any problems?
                     }
                 }
             }
