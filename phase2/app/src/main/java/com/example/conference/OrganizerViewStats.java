@@ -32,12 +32,12 @@ public class OrganizerViewStats extends Activity implements View.OnClickListener
     }
 
     /**
-     * totalNumOfUsers","totalNumOfMessages","totalNumOfRooms","totalNumOfEvents"
+     * display all events with the number of attendee registered
      */
     public void displayStats(){
         String statistics = currentController.systemStats();
 
-        HashMap<Integer, ArrayList<Integer>> allEvents = currentController.topThreeEvents();
+        HashMap<Integer, ArrayList<Integer>> allEvents = currentController.allEventsWithAttendee();
         List<Integer> sortedKey = currentController.sortedKeys(new ArrayList<Integer>(allEvents.keySet()));
         statistics += "\n\nNumber of Attendees  Name of event \n";
         for (int key: sortedKey){
