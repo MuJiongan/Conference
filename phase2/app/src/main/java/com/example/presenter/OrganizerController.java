@@ -436,7 +436,7 @@ public class OrganizerController extends AttendeeController implements Serializa
             for (int eventId: allEvents){
                 if (normalEvents.contains(eventId)){
                     int numOfAttendee = getEventManager().getNumOfAttendee(eventId);
-                    if (eventsWithAttendee.keySet().contains(numOfAllEvents)){
+                    if (eventsWithAttendee.keySet().contains(numOfAttendee)){
                             eventsWithAttendee.get(numOfAttendee).add(eventId);
                         }
                     else{
@@ -446,7 +446,7 @@ public class OrganizerController extends AttendeeController implements Serializa
                 }
                 else{
                     int numOfVipAttendee = getVipEventManager().getNumOfAttendee(eventId);
-                    if (eventsWithAttendee.keySet().contains(numOfAllEvents)){
+                    if (eventsWithAttendee.keySet().contains(numOfVipAttendee)){
                             eventsWithAttendee.get(numOfVipAttendee).add(eventId);
                     }
                     else{
