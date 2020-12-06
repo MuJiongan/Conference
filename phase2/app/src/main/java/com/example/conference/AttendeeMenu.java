@@ -87,7 +87,6 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                         passedData.getEventManager(), passedData.getMessageManager(), passedData.getVipManager(), passedData.getVipEventManager());
                 controller.setView(this);
             }
-
         }
 
 
