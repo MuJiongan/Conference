@@ -8,9 +8,6 @@ import com.example.model.useCases.*;
 import java.io.Serializable;
 
 public class LogInPresenter implements Serializable {
-    /**
-     * Store the AttendeeManager
-     */
     private AttendeeManager am;
     private OrganizerManager om;
     private SpeakerManager sm;
@@ -25,7 +22,6 @@ public class LogInPresenter implements Serializable {
     private View view;
 
     public LogInPresenter(View view, Context context) {
-        //https://stackoverflow.com/questions/14768191/how-do-i-read-the-file-content-from-the-internal-storage-android-app
         am = ReadWrite.readAttendee(context);
         om = ReadWrite.readOrganizer(context);
         sm = ReadWrite.readSpeaker(context);
