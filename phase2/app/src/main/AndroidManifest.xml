@@ -31,6 +31,7 @@
         <activity android:name="com.example.conference.CreateRoom"/>
         <activity android:name="com.example.conference.AssignSpeaker"/>
         <activity android:name="com.example.conference.OrganizerMessageAllActivity"/>
+        <activity android:name="com.example.conference.OrganizerViewStats"/>
 
     </application>
 

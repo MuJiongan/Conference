@@ -83,9 +83,18 @@
             android:onClick="onClick"
             android:layout_height="wrap_content" android:id="@+id/messageAll"/>
     <Button
-            android:text="Exit"
+            android:text="stats"
             android:layout_width="wrap_content"
             android:layout_below="@+id/messageAll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" android:id="@+id/stats"/>
+
+    <Button
+            android:text="Exit"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/stats"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:onClick="onClick"

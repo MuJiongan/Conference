@@ -4,28 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.presenter.OrganizerController;
 import com.example.presenter.UserController;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
-import static java.lang.Integer.parseInt;
 
 
-public class OrganizerViewStats extends Activity implements UserController.View, View.OnClickListener, Serializable {
+
+public class OrganizerViewStats extends Activity implements View.OnClickListener, UserController.View, Serializable {
 
     private OrganizerController currentController;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizerstatictics);
-        currentController = (OrganizerController) getIntent().getSerializableExtra("cc"); // TODO: check
+        currentController = (OrganizerController) getIntent().getSerializableExtra("controller");
         currentController.setView(this);
         displayStats();
     }
@@ -48,17 +49,23 @@ public class OrganizerViewStats extends Activity implements UserController.View,
             }
         }
 
-        TextView allStats = findViewById(R.id.orgainzerstats);
+        TextView allStats = findViewById(R.id.organizerStats);
         allStats.setText(statistics); //TODO: check
     }
 
-
-
     @Override
-    public void onClick(View view) { // TODO: do we need this method?
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                Intent myIntent = new Intent(this, OrganizerMenu.class);
+                myIntent.putExtra("cc", currentController);
+                setResult(3, myIntent);
+                finish();
+                break;
 
+
+        }
     }
-
 
     @Override
     public void pushMessage(String info) {
