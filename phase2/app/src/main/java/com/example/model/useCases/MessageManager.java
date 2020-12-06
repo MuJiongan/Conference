@@ -168,4 +168,12 @@ public class MessageManager implements Serializable{
         Message actualmessage = this.getMessageById(messageID);
         return actualmessage.getContent();
     }
+
+    /**
+     * return the number of messages in the conference
+     * @return return the number of messages in the conference
+     */
+    public int getNumOfMess(){
+        return messages.size();
+    }
 }

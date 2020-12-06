@@ -244,4 +244,14 @@ public abstract class UserManager implements Serializable{
     public boolean addArchivedMessage(int userID, int friendID, int messageID){
         return getUserByID(userID).addArchivedMessage(friendID, messageID);
     }
+
+    /**
+     * return the number of user in the conference
+     * @return the numerb of user in the conference
+     */
+    public int numberOfUser(){
+        return users.size();
+    }
 }
+
+

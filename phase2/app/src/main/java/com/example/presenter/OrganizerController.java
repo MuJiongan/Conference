@@ -4,7 +4,10 @@ import androidx.annotation.RequiresApi;
 import com.example.model.useCases.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 public class OrganizerController extends AttendeeController implements Serializable {
 
@@ -386,7 +389,104 @@ public class OrganizerController extends AttendeeController implements Serializa
         getRoomManager().removeEventID(roomID, eventID);
     }
 
+    /**
+     * Return a hashmap contains statistics in the conference
+     * @return a hash map where the keys are the following strings and values are data indicated by the corresponding
+     * key.
+     * keys are totalNumOfUsers","totalNumOfMessages","totalNumOfRooms","totalNumOfEvents"
+     */
+    public String systemStats(){
+
+        int totalNumOfUsers = 0;
+        totalNumOfUsers += getAttendeeManager().numberOfUser();
+        totalNumOfUsers += getOrganizerManager().numberOfUser();
+        totalNumOfUsers += getSpeakerManager().numberOfUser();
+        totalNumOfUsers += getVipManager().numberOfUser();
+
+        int totalNumOfMess = getMessageManager().getNumOfMess();
+
+        int totalNumOfRooms = getRoomManager().getNumOfRooms();
+
+        int totalNumOfEvents  = getEventManager().getNumOfEvents();
+        totalNumOfEvents += getVipEventManager().getNumOfEvents();
+
+        String allStats = "Total Number of Users" + totalNumOfUsers + "\n" + "Total Number of Messages" + totalNumOfMess
+                + "\n" + "Total Number of Events" + totalNumOfEvents + "\n" + "Total Number of Rooms" + totalNumOfRooms;
+        return allStats;
+    }
+
+    /**
+     * Return a list of three or less id of events that are most of people in the conference attend
+     * @return return a list of id of events that are most popular in the conference.
+     */
+    // TODO: look for exception of addAll method
+    public HashMap<Integer, ArrayList<Integer>> topThreeEvents(){
+        HashMap<Integer, ArrayList<Integer>> topThreeEvents = new HashMap<>();
+        List<Integer> allEvents = new ArrayList<>();
+
+        List<Integer> normalEvents = getEventManager().getEvents();
+        List<Integer> vipEvents = getVipEventManager().getEvents();
+        allEvents.addAll(normalEvents);
+        allEvents.addAll(getVipEventManager().getEvents());
+
+        int numOfAllEvents = allEvents.size();
+
+        if (numOfAllEvents == 0){
+            return topThreeEvents;
+        }
+        else{
+            for (int eventId: allEvents){
+                if (normalEvents.contains(eventId)){
+                    int numOfAttendee = getEventManager().getNumOfAttendee(eventId);
+                    if (topThreeEvents.keySet().contains(numOfAllEvents)){
+                        topThreeEvents.get(numOfAttendee).add(eventId);
+                        }
+                    else{
+                        topThreeEvents.put(numOfAttendee, new ArrayList<>()); // TODO: any problems?
+                        }
+                }
+                else{
+                    int numOfVipAttendee = getVipEventManager().getNumOfAttendee(eventId);
+                    if (topThreeEvents.keySet().contains(numOfAllEvents)){
+                        topThreeEvents.get(numOfVipAttendee).add(eventId);
+                    }
+                    else{
+                        topThreeEvents.put(numOfVipAttendee, new ArrayList<>()); // TODO: any problems?
+                    }
+                }
+            }
+        }
+        return topThreeEvents;
+
+    }
+
+    /**
+     * return a sorted set of key
+     * @param keySet a set of key in a Hashmap
+     * @return a sorted set of key, the set is sorted in an increasing order
+     */
+    public ArrayList<Integer> sortedKeys(ArrayList<Integer> keySet){
+            Collections.sort(keySet);
+            return keySet;
+    }
+
+    /**
+     * return the name of event given the id of an event in the conference
+     * @param eventId the id of an event in the conference
+     * @return the name of event given the id of an event in the conference
+     */
+    public String getEventName(int eventId){
+        if (getVipEventManager().getEvents().contains(eventId)){
+            return getVipEventManager().getName(eventId);
+        }
+        else{
+            return getEventManager().getName(eventId);
+        }
+
+    }
 }
+
+
 
 
 

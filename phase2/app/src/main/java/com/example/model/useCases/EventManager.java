@@ -372,4 +372,12 @@ public class EventManager implements Serializable{
         return numOfCancelledEvents;
     }
 
+    /**
+     * return the number of events in the conference
+     * @return
+     */
+    public int getNumOfEvents(){
+        return events.size();
+    }
+
 }

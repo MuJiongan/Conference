@@ -199,4 +199,12 @@ public class RoomManager implements Serializable {
         }
         return roomIDs;
     }
+
+    /**
+     * return the number of rooms in the conference
+     * @return return the number of rooms in the conference
+     */
+    public int getNumOfRooms(){
+        return rooms.size();
+    }
 }
