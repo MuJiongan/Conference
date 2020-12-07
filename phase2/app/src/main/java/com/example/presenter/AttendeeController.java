@@ -320,7 +320,4 @@ public class AttendeeController extends UserController {
         }
         return viewRecommendedFriend;
     }
-
-
-
 }

@@ -12,7 +12,8 @@ import java.util.*;
 public class OrganizerController extends AttendeeController implements Serializable {
 
     /**
-     * Create an instance of AttendeeController with the given Managers's instance
+     * Create an instance of AttendeeController with the given Managers' instance
+     *
      * @param am     the instance of <code>AttendeeManager</code> in the conference
      * @param om     the instance of <code>OrganizerManager</code> in the conference
      * @param sm     the instance of <code>SpeakerManager</code> in the conference
@@ -31,11 +32,13 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * send Message with the given content to all
-     * @param current current is a <code>AttendeeManager</code> if the organizer on the keyboard choose to message
-     *                all attendees , and is a <code>SpeakerManager</code> if the organizer on the keyboard choose
-     *                to message all speakers
-     * @param content the given content of message the organizer on the keyboard wanted to send
+     * Send Message with the given content to all
+     *
+     * @param current is a <code>AttendeeManager</code> if the organizer on the keyboard
+     *                choose to message all attendees
+     *                and is a <code>SpeakerManager</code> if the organizer on the keyboard
+     *                choose to message all speakers
+     * @param content the given content of message the organizer on the keyboard want to send
      */
     public void messageAll(UserManager current, String content)
     {
@@ -47,8 +50,9 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Enter new Rooms into the System
-     * @param name     name of the room wanted to create
-     * @param capacity capacity of the room wanted to create
+     *
+     * @param name     the name of the room wanted to create
+     * @param capacity the capacity of the room wanted to create
      */
     public void enterRoom(String name, int capacity) {
         getRoomManager().createRoom(name, capacity);
@@ -58,12 +62,14 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Sign up for an Event with given eventID
+     * Sign up for an Event with the given eventID
+     *
      * @param eventID the id of event that attendee on the keyboard want to sign up for
      * 1. the given event is not in the conference
      * 2. attendee on the keyboard has already signed up for the given event
      * 3. there is no vacancy in the given event
-     * @return true if and only if successfully signed up for the Event with the given EventID
+     *
+     * @return true iff successfully signed up for the Event with the given EventID
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -77,14 +83,16 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Schedule Speaker to a new Event
-     * @param startTime the LocalDateTime of start time of Event
-     * @param endTime   the LocalDateTime of end time of Event
-     * @param roomID    ID of room that this Event is scheduled in
-     * @param capacity  maximum number of attendees allowed in this Event
-     * @param name      event's name
-     * @param em type of manager of event we want to create
-     * @return true if speakerID successfully added to the new Event
+     * Schedule the Speaker to a new Event
+     *
+     * @param startTime the LocalDateTime of startTime of Event
+     * @param endTime   the LocalDateTime of endTime of Event
+     * @param roomID    the ID of room that this Event is scheduled in
+     * @param capacity  the maximum number of attendees allowed in this Event
+     * @param name      the Event's name
+     * @param em        thetype of manager of event we want to create
+     *
+     * @return true iff speakerID successfully added to the new Event
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean scheduleEvent(LocalDateTime startTime, LocalDateTime endTime,
@@ -110,8 +118,9 @@ public class OrganizerController extends AttendeeController implements Serializa
 
 
     /**
-     * Return the next User ID that is going to be assigned to the new Event created
-     * @return the next User ID that is going to be assigned to the new Event created
+     * Return the next User ID that is to be assigned to the new Event created
+     *
+     * @return the next User ID that is to be assigned to the new Event created
      */
     public int getEventID() {
         int size = getEventManager().getEvents().size() + getEventManager().getNumOfCancelledEvents() +
@@ -121,9 +130,11 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Assign a Speaker to an existing Event
+     *
      * @param speakerID the Speaker who is to be scheduled to the Event
      * @param eventID the eventID of the Event
-     * @return true if and only if the speakerID successfully added to the existing Event
+     *
+     * @return true iff the speakerID successfully added to the existing Event
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean assignSpeaker(int speakerID, int eventID) {
@@ -173,11 +184,13 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Check whether a Speaker is available to be scheduled at specific time (avoiding double-booking a speaker)
+     * Check whether a Speaker is available to be scheduled at specific time (avoiding double-booking a Speaker)
+     *
      * @param speakerID the Speaker who is to be scheduled to the Event
      * @param startTime the LocalDateTime of start time of the Event
      * @param endTime   the LocalDateTime of end time of the Event
-     * @return true if and only if the Speaker is available to speak during specific time slot
+     *
+     * @return true iff the Speaker is available to speak during specific time slot
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean availableAtTime(int speakerID, LocalDateTime startTime, LocalDateTime endTime) {
@@ -200,11 +213,13 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Check whether the Event conflict with the given period of time
+     *
      * @param startTime    the start time of 1st pair of time
      * @param endTime      the end time of 1st pair of time
      * @param newStartTime the start time of 2nd pair of time
      * @param newEndTime   the end time of 2nd pair of time
-     * @return true if and only if no conflict occurs
+     *
+     * @return true iff no conflict occurs
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime,
@@ -225,10 +240,12 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Check whether a Speaker is available to be scheduled to a specific Room (avoiding double-booking a room)
+     *
      * @param roomID    the ID of room that this Event is scheduled in
      * @param startTime the start time of event
      * @param endTime   the end time of event
-     * @return true if and only if the Speaker is available to speak in specific Room
+     *
+     * @return true iff the Speaker is available to speak in specific Room
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean availableInRoom(int roomID, LocalDateTime startTime, LocalDateTime endTime) {
@@ -249,10 +266,11 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Return the String representation of all the Events in the conference or
-     * Messages that inform User on the keyboard if there is no Event in the conference yet
+     * messages that inform User on the keyboard if there is no Event in the conference yet
+     *
      * @return a list of String representation of all non-Vip and Vip events in the conference in the format of:
      *         eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName or
-     *         Message the inform User on the keyboard if there is no Event in the conference yet
+     *         message the inform User on the keyboard if there is no Event in the conference yet
      */
     @Override
     public String viewAllEvents()
@@ -267,10 +285,12 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Check whether there is enough space in the Room
-     * @param roomID the ID of the room to be checked
-     * @param capacity the capacity we aiming at
-     * @return true if and only if there is enough space (equal or more than the given capacity) in the Room
+     * Check whether there is enough space (equal or more than the given capacity) in the Room
+     *
+     * @param roomID the ID of the Room to be checked
+     * @param capacity the capacity that aiming at
+     *
+     * @return true iff there is enough space (equal or more than the given capacity) in the Room
      */
     private boolean haveEnoughCapacity(int roomID, int capacity) {
         int roomCapacity = getRoomManager().getCapacity(roomID);
@@ -278,19 +298,22 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Return the type of this class
-     * @return the type of this class: "OrganizerController"
+     * Return the type of the current class
+     *
+     * @return the type of the current class: "OrganizerController"
      */
     public String getType() {
         return "OrganizerController";
     }
 
     /**
-     * Return true if and only if an give type of User is successfully created
+     * Return true iff an give type of User is successfully created
+     *
      * @param name     the name of the User
-     * @param username the username of the User Account
-     * @param password the password associated with the User Account
-     * @return Return true if and only if an Attendee Account is successfully created.
+     * @param username the username of the User's Account
+     * @param password the password associated with the User's Account
+     *
+     * @return Return true iff an Attendee Account is successfully created.
      */
     public boolean createUser(String name, String username, String password, String type) {
         // invariant: type is one of "Organizer", "Speaker", "Attendee", "Vip"
@@ -332,10 +355,11 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Cancel Event
-     *  - Remove the EventID from all User signed up for the Event
-     *  - Remove all the UserID from the Event
-     *  - Remove the EventID from Room that the Event held
-     *  - Remove EventID from the list events
+     * Remove the EventID from all User signed up for the Event
+     * Remove all the UserID from the Event
+     * Remove the EventID from Room that the Event held
+     * Remove EventID from the list events
+     *
      * @param eventID id of Event to be cancelled
      */
     public void cancelEvent(int eventID){
@@ -361,8 +385,9 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Return a list of Speaker ID and Speaker's name
-     * @return the String contains the list of Speaker's IDs and Speaker's names
+     * Return a list of Speaker ID and theSpeaker's name
+     *
+     * @return the String contains the list of Speaker's IDs and the Speaker's names
      */
     public String showSpeaker(){
         String finalString = "";
@@ -374,7 +399,9 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Remove the ID of Event which is to be cancelled from Users attending the Event
-     * @param eventID the ID of Event to be cancelled
+     *
+     * @param eventID the ID of theEvent to be cancelled
+     *
      * @return true if and only if the Event ID is successfully removed from list of all Users
      */
     private boolean removeEventFromUser(int eventID, EventManager em){
@@ -418,6 +445,7 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Remove Event from Room
+     *
      * @param eventID the ID of the Event held
      */
     private void removeEventFromRoom(int eventID, EventManager em){
@@ -427,10 +455,11 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Return a hashmap contains statistics in the conference
-     * @return a hash map where the keys are the following strings and
-     *         values are data indicated by the corresponding key.
      *
-     * keys are "totalNumOfUsers", "totalNumOfMessages", "totalNumOfRooms", and "totalNumOfEvents"
+     * @return a hash map where the keys are the following strings
+     *         and values are data indicated by the corresponding key.
+     *
+     * the keys are "totalNumOfUsers", "totalNumOfMessages", "totalNumOfRooms", and "totalNumOfEvents"
      */
     public String systemStats(){
 
