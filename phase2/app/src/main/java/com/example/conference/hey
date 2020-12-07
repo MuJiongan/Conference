@@ -1,0 +1,44 @@
+private UserController currentController;
+currentController = (UserController) getIntent().getSerializableExtra("cc");
+        currentController.setView(this);
+
+
+         case R.id.back:
+                        if (currentController.getType().equals("SpeakerController")){
+                            Intent myIntent11 = new Intent(this, SpeakerMenu.class);
+                            myIntent11.putExtra("cc", currentController);
+                            setResult(3, myIntent11);
+                            finish();
+                        }
+                        else if (currentController.getType().equals("OrganizerController")){
+                            Intent myIntent22 = new Intent(this, OrganizerMenu.class);
+                            myIntent22.putExtra("cc", currentController);
+                            setResult(3, myIntent22);
+                            finish();
+                        }
+                        else if (currentController.getType().equals("AttendeeController")){
+                            Intent myIntent33 = new Intent(this, AttendeeMenu.class);
+                            myIntent33.putExtra("cc", currentController);
+                            setResult(3, myIntent33);
+                            finish();
+                        }
+                        //TODO Also do it for the VIPMenu
+
+
+UserController.View, View.OnClickListener
+
+
+ @Override
+    public void pushMessage(String info) {
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+    }
+
+
+vipmanager.ser
+vipeventmanager.ser
+attendeemanager.ser
+organizermanager.ser
+speakermanager.ser
+eventmanager.ser
+roommanager.ser
+messagemanager.ser
