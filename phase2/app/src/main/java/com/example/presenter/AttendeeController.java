@@ -74,6 +74,15 @@ public class AttendeeController extends UserController {
          }
          return false;
      }
+
+    /**
+     * Check whether the User is available during specific time period
+     *
+     * @param startTime the start time of the specific time period
+     * @param endTime the end time of the specific time period
+     *
+     * @return true iff the User is available during the specific time period
+     */
      @RequiresApi(api = Build.VERSION_CODES.O)
      public boolean isUserAvailable(LocalDateTime startTime, LocalDateTime endTime)
      {
@@ -98,6 +107,17 @@ public class AttendeeController extends UserController {
          }
          return true;
      }
+
+    /**
+     * Check whether there is time conflict
+     *
+     * @param startTime    the start time of the first time period
+     * @param endTime      the end time of the first time period
+     * @param newStartTime the start time of the second time period
+     * @param newEndTime   the end time of the second time period
+     *
+     * @return true iff there is no time conflict
+     */
      @RequiresApi(api = Build.VERSION_CODES.O)
      private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime, LocalDateTime newEndTime)
      {
@@ -116,6 +136,13 @@ public class AttendeeController extends UserController {
          return true;
      }
 
+    /**
+     * Cancel the enrollment of Event for the User
+     *
+     * @param eventID the Event that the User want to cancelled enrollment
+     *
+     * @return true iff the User successfully cancel the enrollment of the Event
+     */
      public boolean cancelEnrollment(int eventID)
      {
          if (getEventManager().idInList(eventID))
@@ -146,10 +173,13 @@ public class AttendeeController extends UserController {
              getView().pushMessage("Enter a valid event ID");
              return false;
          }
-     }/**
-     * Return the string representation of all the events in the conference
-     * @return a list of string representation of all events  in the given list in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     }
+
+     /**
+     * Return the String representation of all the events in the conference
+      *
+     * @return a list of String representation of all events  in the given list in the format:
+     *         eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
      */
      public String formatEvents(List<Integer> eventIDs){
          String output ="";
@@ -168,12 +198,14 @@ public class AttendeeController extends UserController {
          }
          return output;
      }
+
     /**
-     * Return the string representation of all the events in the conference or a String message which informs user on the keyboard
-     * if there is no event in the conference yet
-     * @return return a list of string representation of all non-Vip events  in the conference in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
-     * or a String message which inform user on the keyboard if there is no event in the conference yet
+     * Return the String representation of all the Events in the conference or a String message which
+     * informs user on the keyboard if there is no Event in the conference yet
+     *
+     * @return return a list of String representation of all non-Vip events  in the conference in the format:
+     *         eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     *         or a String message which inform user on the keyboard if there is no Event in the conference yet
      */
     public String viewAllEvents() {
         List<Integer> eventIDs = getEventManager().getEvents();
@@ -192,15 +224,20 @@ public class AttendeeController extends UserController {
 //        List<String> allStringRep = getEventManager().getAllEvents();
 //        return allStringRep;}
 
+    /**
+     * Return the String representation of the type of the current class
+     *
+     * @return the String representation of the type of the current class: "AttendeeController"
+     */
     public String getType(){
         return "AttendeeController";
     }
 
     /**
-     * Return a hashmap of friend ids to number of common events.
+     * Return a hashmap of friend ids to number of common Events.
      *
-     * @return a hashmap of friend ids to number of common events, with key of the id of the friend
-     * and value of the number of common events the friend has as the current user
+     * @return a hashmap of friend ids to number of common Events, with key of the id of the friend
+     * and value of the number of common Events the friend has as the current user
      */
     public HashMap<Integer, Integer> friendToNumOfCommonEvent() {
         // create a new hash map
@@ -261,6 +298,13 @@ public class AttendeeController extends UserController {
         }
     }
 
+    /**
+     * Return a hashmap for number of common Events and list of recommended friends
+     *
+     * @return a hashmap of the number of common Events and list of recommended friends,
+     *         with key of the value of the number of common Events the friend has as the current User
+     *         and the list of recommended friends information
+     */
     public HashMap<String, List<String>> viewRecommendedFriend() {
         HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
         HashMap<String, List<String>> viewRecommendedFriend = new HashMap<>();
