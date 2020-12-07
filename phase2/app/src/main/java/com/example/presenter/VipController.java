@@ -28,11 +28,12 @@ public class VipController extends AttendeeController implements Serializable {
     }
 
     /**
-     * Return the string representation of all the events in the conference or message that inform user on the keyboard
-     * if there is no event in the conference yet
+     * Return the string representation of all the Events in the conference or message that
+     * inform User on the keyboard if there is no Event in the conference yet
+     *
      * @return a list of string representation of all non-Vip  and Vip events  in the conference in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
-     * or message that inform user on the keyboard if there is no event in the conference yet
+     *         eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
+     *         or message that inform User on the keyboard if there is no event in the conference yet
      */
     @Override
     // # TODO: Change from String representation
@@ -46,10 +47,11 @@ public class VipController extends AttendeeController implements Serializable {
         }
         return formatEvents(allEventIDs);
     }
+
     /**
-     * Return list of all EventIDs the user is going to attend
+     * Return the list of all EventIDs the user is going to attend
      *
-     * @return list of all EventIDs the user is going to attend
+     * @return the list of all EventIDs the user is going to attend
      */
     @Override
     public String viewMyEvents() {
@@ -61,13 +63,15 @@ public class VipController extends AttendeeController implements Serializable {
     }
 
     /**
-     * return true if signed up successfully, and false if not and update the attendee list in the
-     * given event and update the contact list of each speaker host the given event
-     * @param eventID the id of event that attendee on the keyboard want to sign up for
-     * 1. the given event is not in the conference
-     * 2. attendee on the keyboard has already signed up for the given event
-     * 3. there is no vacancy in the given event
-     * 4. the given event is conflicted with an event that the attendee on the keyboard signed up
+     * Return true if signed up successfully and false if not
+     * Update the Attendee list in the given Event
+     * Update the contact list of each Speaker host the given Event
+     *
+     * @param eventID the id of Event that attendee on the keyboard want to sign up for
+     * 1. the given Event is not in the conference
+     * 2. the Attendee on the keyboard has already signed up for the given event
+     * 3. there is no vacancy in the given Event
+     * 4. the given Event is conflicted with an Event that the Attendee on the keyboard signed up
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean signUp(int eventID) {
@@ -82,8 +86,16 @@ public class VipController extends AttendeeController implements Serializable {
         }
 
     }
-    private boolean VIPSignUp(int eventID)
-    {
+
+    /**
+     * Sign up for a Vip Event
+     *
+     * @param eventID the ID of Event to be signed up for
+     *
+     * @return true iff successfully signed up
+     */
+    private boolean VIPSignUp(int eventID) {
+
         if (!getVipEventManager().idInList(eventID)){
             return false;
         }
@@ -92,10 +104,12 @@ public class VipController extends AttendeeController implements Serializable {
             getView().pushMessage("You already signed up for this event.");
             return false;
         }
+
         if (getVipEventManager().getCapacity(eventID) - getVipEventManager().getUserIDs(eventID).size() <= 0){
             getView().pushMessage("The event is already full.");
             return false;
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (isUserAvailable(getVipEventManager().getStartTime(eventID), getVipEventManager().getEndTime(eventID)))
             {
