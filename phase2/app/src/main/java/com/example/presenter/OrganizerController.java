@@ -11,6 +11,19 @@ import java.util.*;
 
 public class OrganizerController extends AttendeeController implements Serializable {
 
+    /**
+     * Create an instance of AttendeeController with the given Managers
+     * @param am the instance of <code>AttendeeManager</code> in the conference
+     * @param om the instance of <code>OrganizerManager</code> in the conference
+     * @param sm the instance of <code>SpeakerManager</code> in the conference
+     * @param rm the instance of <code>RoomManager</code> in the conference
+     * @param em the instance of <code>EventManager</code> in the conference
+     * @param mm the instance of <code>MessageManager</code> in the conference
+     * @param vipm the instance of <code>VipManager</code> in the conference
+     * @param vipe the instance of <code>VipEventManager</code> in the conference
+     * @param userID the ID of User currently in program
+     * @param view the View of the application
+     */
     public OrganizerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
                                EventManager em, MessageManager mm, VipManager vipm,
                                VipEventManager vipe, int userID, View view) {
@@ -44,7 +57,14 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     }
 
-
+    /**
+     * Sign up for an Event with given eventID
+     * @param eventID the id of event that attendee on the keyboard want to sign up for
+     * 1. the given event is not in the conference
+     * 2. attendee on the keyboard has already signed up for the given event
+     * 3. there is no vacancy in the given event
+     * @return true if and only if successfully signed up for the Event with the given EventID
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean signUp(int eventID) {
@@ -87,10 +107,11 @@ public class OrganizerController extends AttendeeController implements Serializa
         getView().pushMessage("New Event Scheduled");
         return true;
     }
+
+
     /**
-     * Return the next ID that is going to be assigned to the new Event created
-     *
-     * @return the next ID that is going to be assigned to the new Event created
+     * Return the next User ID that is going to be assigned to the new Event created
+     * @return the next User ID that is going to be assigned to the new Event created
      */
     public int getEventID() {
         int size = getEventManager().getEvents().size() + getEventManager().getNumOfCancelledEvents() +
@@ -99,10 +120,10 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Assign Speaker to an existing Event
-     * @param speakerID the Speaker who is to be scheduled
-     * @param eventID   the eventID of which event
-     * @return true if speakerID successfully added to the existing Event
+     * Assign a Speaker to an existing Event
+     * @param speakerID the Speaker who is to be scheduled to the Event
+     * @param eventID the eventID of the Event
+     * @return true if and only if the speakerID successfully added to the existing Event
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean assignSpeaker(int speakerID, int eventID) {
@@ -129,12 +150,14 @@ public class OrganizerController extends AttendeeController implements Serializa
             getView().pushMessage("An error occurred while reading the time.");
             return false;
         }
-        // check if the speaker is available at the time
+
+        // check if the speaker is available between the startTime and endTime
         if (!availableAtTime(speakerID, startTime, endTime)) {
             getView().pushMessage("The speaker is not available at the time");
             return false;
         }
-        // check if the speaker is already in the event
+
+        // check if the speaker is already assigned for the Event
         if (getEventManager().idInList(eventID) && !getEventManager().addSpeakerID(speakerID, eventID)) {
             getView().pushMessage("You already added this speaker!");
             return false;
@@ -151,10 +174,10 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Check whether a Speaker is available to be scheduled at specific time (avoiding double-booking a speaker)
-     * @param speakerID the Speaker who is to be scheduled
-     * @param startTime the LocalDateTime of start time of Event
-     * @param endTime   the LocalDateTime of end time of Event
-     * @return true if Speaker is available to speak at specific time
+     * @param speakerID the Speaker who is to be scheduled to the Event
+     * @param startTime the LocalDateTime of start time of the Event
+     * @param endTime   the LocalDateTime of end time of the Event
+     * @return true if and only if the Speaker is available to speak during specific time slot
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean availableAtTime(int speakerID, LocalDateTime startTime, LocalDateTime endTime) {
@@ -176,12 +199,12 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Check whether event conflict with the given period of time
-     * @param startTime    start time of 1st pair of time
-     * @param endTime      end time of 1st pair of time
-     * @param newStartTime start time of 2nd pair of time
-     * @param newEndTime   end time of 2nd pair of time
-     * @return true if and only if no conflict occur
+     * Check whether the Event conflict with the given period of time
+     * @param startTime    the start time of 1st pair of time
+     * @param endTime      the end time of 1st pair of time
+     * @param newStartTime the start time of 2nd pair of time
+     * @param newEndTime   the end time of 2nd pair of time
+     * @return true if and only if no conflict occurs
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean checkTime(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime newStartTime,
@@ -201,11 +224,11 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Check whether a Speaker is available to be scheduled in specific room (avoiding double-booking a room)
-     * @param roomID    ID of room that this Event is scheduled in
-     * @param startTime start time of event
-     * @param endTime   end time of event
-     * @return true if Speaker is available to speak in specific room
+     * Check whether a Speaker is available to be scheduled to a specific Room (avoiding double-booking a room)
+     * @param roomID    the ID of room that this Event is scheduled in
+     * @param startTime the start time of event
+     * @param endTime   the end time of event
+     * @return true if and only if the Speaker is available to speak in specific Room
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean availableInRoom(int roomID, LocalDateTime startTime, LocalDateTime endTime) {
@@ -223,12 +246,13 @@ public class OrganizerController extends AttendeeController implements Serializa
         }
         return true;
     }
+
     /**
-     * Return the string representation of all the events in the conference or message that inform user on the keyboard
-     * if there is no event in the conference yet
-     * @return a list of string representation of all non-Vip  and Vip events  in the conference in the format:
-     * eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName
-     * or message that inform user on the keyboard if there is no event in the conference yet
+     * Return the String representation of all the Events in the conference or
+     * Messages that inform User on the keyboard if there is no Event in the conference yet
+     * @return a list of String representation of all non-Vip and Vip events in the conference in the format of:
+     *         eventID + "\t" + name + "\t" + startTime + "\t" + endTime + "\t" + roomName or
+     *         Message the inform User on the keyboard if there is no Event in the conference yet
      */
     @Override
     public String viewAllEvents()
@@ -242,21 +266,31 @@ public class OrganizerController extends AttendeeController implements Serializa
         return formatEvents(allEventIDs);
     }
 
+    /**
+     * Check whether there is enough space in the Room
+     * @param roomID the ID of the room to be checked
+     * @param capacity the capacity we aiming at
+     * @return true if and only if there is enough space (equal or more than the given capacity) in the Room
+     */
     private boolean haveEnoughCapacity(int roomID, int capacity) {
         int roomCapacity = getRoomManager().getCapacity(roomID);
         return roomCapacity >= capacity;
     }
 
+    /**
+     * Return the type of this class
+     * @return the type of this class: "OrganizerController"
+     */
     public String getType() {
         return "OrganizerController";
     }
 
     /**
      * Return true if and only if an give type of User is successfully created
-     * @param name     name of the user
-     * @param username username of the user
-     * @param password password associated with the user
-     * @return Return true if and only if an Attendee is successfully created.
+     * @param name     the name of the User
+     * @param username the username of the User Account
+     * @param password the password associated with the User Account
+     * @return Return true if and only if an Attendee Account is successfully created.
      */
     public boolean createUser(String name, String username, String password, String type) {
         // invariant: type is one of "Organizer", "Speaker", "Attendee", "Vip"
@@ -325,21 +359,23 @@ public class OrganizerController extends AttendeeController implements Serializa
 
 
     }
+
+    /**
+     * Return a list of Speaker ID and Speaker's name
+     * @return the String contains the list of Speaker's IDs and Speaker's names
+     */
     public String showSpeaker(){
         String finalString = "";
         for (int speakerID: getSpeakerManager().getUserIDs()){
             finalString = finalString + speakerID + ": " + getSpeakerManager().getnameById(speakerID) + "\n";
-
-
         }
         return finalString;
     }
-    
 
     /**
-     * Remove the ID of Event which will be cancelled from Users attending the Event
-     * @param eventID the id of Event to be cancelled
-     * @return true if and only if the EventID is successfully removed from list of all Users
+     * Remove the ID of Event which is to be cancelled from Users attending the Event
+     * @param eventID the ID of Event to be cancelled
+     * @return true if and only if the Event ID is successfully removed from list of all Users
      */
     private boolean removeEventFromUser(int eventID, EventManager em){
         //remove speakers
@@ -382,7 +418,7 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Remove Event from Room
-     * @param eventID id of the Event held
+     * @param eventID the ID of the Event held
      */
     private void removeEventFromRoom(int eventID, EventManager em){
         int roomID = em.getRoomID(eventID);
@@ -391,9 +427,10 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Return a hashmap contains statistics in the conference
-     * @return a hash map where the keys are the following strings and values are data indicated by the corresponding
-     * key.
-     * keys are totalNumOfUsers","totalNumOfMessages","totalNumOfRooms","totalNumOfEvents"
+     * @return a hash map where the keys are the following strings and
+     *         values are data indicated by the corresponding key.
+     *
+     * keys are "totalNumOfUsers", "totalNumOfMessages", "totalNumOfRooms", and "totalNumOfEvents"
      */
     public String systemStats(){
 
@@ -408,6 +445,7 @@ public class OrganizerController extends AttendeeController implements Serializa
         int totalNumOfRooms = getRoomManager().getNumOfRooms();
 
         int totalNumOfEvents  = getEventManager().getNumOfEvents();
+
         totalNumOfEvents += getVipEventManager().getNumOfEvents();
 
         String allStats = "Total Number of Users:\t" + totalNumOfUsers + "\n" + "Total Number of Messages:\t" + totalNumOfMess
@@ -416,8 +454,8 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * Return a list of all events with the number of attendee registered
-     * @return return a list of all events with the number of attendee registered
+     * Return a list of all Events with the number of Attendee registered
+     * @return return a list of all Events with the number of Attendee registered
      */
     // TODO: look for exception of addAll method
     public HashMap<Integer, ArrayList<Integer>> allEventsWithAttendee(){
@@ -429,10 +467,10 @@ public class OrganizerController extends AttendeeController implements Serializa
 
         int numOfAllEvents = allEvents.size();
 
-        if (numOfAllEvents == 0){
+        if (numOfAllEvents == 0){      // No Event held
             return eventsWithAttendee;
         }
-        else{
+        else{                          // At least one Event held
             for (int eventId: allEvents){
                 if (normalEvents.contains(eventId)){
                     int numOfAttendee = getEventManager().getNumOfAttendee(eventId);
@@ -457,13 +495,12 @@ public class OrganizerController extends AttendeeController implements Serializa
             }
         }
         return eventsWithAttendee;
-
     }
 
     /**
-     * return a sorted set of key
-     * @param keySet a set of key in a Hashmap
-     * @return a sorted set of key, the set is sorted in an increasing order
+     * Return a sorted set of keys
+     * @param keySet a set of keys in a Hashmap
+     * @return a sorted set of keys, and the set is sorted in an increasing order
      */
     public ArrayList<Integer> sortedKeys(ArrayList<Integer> keySet){
             Collections.sort(keySet);
@@ -471,9 +508,9 @@ public class OrganizerController extends AttendeeController implements Serializa
     }
 
     /**
-     * return the name of event given the id of an event in the conference
-     * @param eventId the id of an event in the conference
-     * @return the name of event given the id of an event in the conference
+     * Return the name of the Event given the ID of an Event in the conference
+     * @param eventId the id of an Event in the conference
+     * @return the name of the Event given the ID of an Event in the conference
      */
     public String getEventName(int eventId){
         if (getVipEventManager().getEvents().contains(eventId)){
