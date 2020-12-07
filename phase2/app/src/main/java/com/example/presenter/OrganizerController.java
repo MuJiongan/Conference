@@ -12,7 +12,7 @@ import java.util.*;
 public class OrganizerController extends AttendeeController implements Serializable {
 
     /**
-     * Create an instance of AttendeeController with the given Managers
+     * Create an instance of AttendeeController with the given Managers's instance
      * @param am the instance of <code>AttendeeManager</code> in the conference
      * @param om the instance of <code>OrganizerManager</code> in the conference
      * @param sm the instance of <code>SpeakerManager</code> in the conference
