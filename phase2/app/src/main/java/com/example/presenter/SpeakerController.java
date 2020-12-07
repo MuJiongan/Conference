@@ -33,7 +33,6 @@ public class SpeakerController extends UserController implements Serializable{
         if (getEventManager().idInList(eventID)){
             for (int userID: getEventManager().getUserIDs(eventID)) {
                 sendMessage(userID, content);
-
             }
             getView().pushMessage("Messages sent");
         } else if (getVipEventManager().idInList(eventID)){
