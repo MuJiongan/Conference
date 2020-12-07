@@ -13,16 +13,16 @@ public class OrganizerController extends AttendeeController implements Serializa
 
     /**
      * Create an instance of AttendeeController with the given Managers's instance
-     * @param am the instance of <code>AttendeeManager</code> in the conference
-     * @param om the instance of <code>OrganizerManager</code> in the conference
-     * @param sm the instance of <code>SpeakerManager</code> in the conference
-     * @param rm the instance of <code>RoomManager</code> in the conference
-     * @param em the instance of <code>EventManager</code> in the conference
-     * @param mm the instance of <code>MessageManager</code> in the conference
-     * @param vipm the instance of <code>VipManager</code> in the conference
-     * @param vipe the instance of <code>VipEventManager</code> in the conference
-     * @param userID the ID of User currently in program
-     * @param view the View of the application
+     * @param am     the instance of <code>AttendeeManager</code> in the conference
+     * @param om     the instance of <code>OrganizerManager</code> in the conference
+     * @param sm     the instance of <code>SpeakerManager</code> in the conference
+     * @param rm     the instance of <code>RoomManager</code> in the conference
+     * @param em     the instance of <code>EventManager</code> in the conference
+     * @param mm     the instance of <code>MessageManager</code> in the conference
+     * @param vipm   the instance of <code>VipManager</code> in the conference
+     * @param vipe   the instance of <code>VipEventManager</code> in the conference
+     * @param userID an instance of <code>User</code> that simulate the user on the keyboard
+     * @param view   the View of the application
      */
     public OrganizerController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
                                EventManager em, MessageManager mm, VipManager vipm,

@@ -34,10 +34,14 @@ public class UserController implements Serializable{
      * @param rm     the instance of <code>RoomManager</code> in the conference
      * @param em     the instance of <code>EventManager</code> in the conference
      * @param mm     the instance of <code>MessageManager</code> in the conference
-     * @param userID a instance of <code>User</code> that simulate the user on the keyboard
+     * @param vipm   the instance of <code>VipManager</code> in the conference
+     * @param vipe   the instance of <code>VipEventManager</code> in the conference
+     * @param userID an instance of <code>User</code> that simulate the user on the keyboard
+     * @param view   the View of the application
      */
-    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm, EventManager em, MessageManager mm, VipManager vipm,
-                          VipEventManager vipe, int userID, View view) {
+    public UserController(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
+                          EventManager em, MessageManager mm, VipManager vipm, VipEventManager vipe,
+                          int userID, View view) {
         this.am = am;
         this.om = om;
         this.sm = sm;
@@ -48,7 +52,8 @@ public class UserController implements Serializable{
         this.vipe = vipe;
         this.userID = userID;
         this.view = view;
-        //Set current manager
+
+        //Set the current Manager
         if (this.am.idInList(this.userID)) {
             currentManager = this.am;
         } else if (this.om.idInList((this.userID))) {
@@ -62,42 +67,46 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Adds the message to the messages hashmaps of both the receiver and the sender, returns true iff successful
+     * Adding the Message to the messages hashmaps of both the receiver and the sender,
+     * and returns true iff successful
      *
-     * @param receiverID     ID of the other user the current user is sending message to
-     * @param messageContent content of the message
-     * @return true iff the message is sent successfully
+     * @param receiverID     the ID of the other User the current User is sending message to
+     * @param messageContent the content of the message
+     * @return true iff the Message is sent successfully
      */
     public boolean sendMessage(int receiverID, String messageContent) {
         if (getAttendeeManager().idInList(receiverID)) {
             int messageID = getMessageManager().createMessage(messageContent, getUser(), receiverID);
-            //add message to receiver's hashmap
+            //add Message to receiver's hashmap
             getAttendeeManager().addMessageID(messageID, receiverID, userID);
-            //add message to current user's hashmap
+            //add Message to current User's hashmap
             currentManager.addMessageID(messageID, userID, receiverID);
             getView().pushMessage("Message Sent");
             return true;
+
         } else if (getOrganizerManager().idInList(receiverID)) {
             int messageID = getMessageManager().createMessage(messageContent, getUser(), receiverID);
-            //add message to receiver's hashmap
+            //add Message to receiver's hashmap
             getOrganizerManager().addMessageID(messageID, receiverID, userID);
-            //add message to current user's hashmap
+            //add Message to current User's hashmap
             currentManager.addMessageID(messageID, userID, receiverID);
             getView().pushMessage("Message Sent");
             return true;
+
         } else if (getSpeakerManager().idInList(receiverID)) {
             int messageID = getMessageManager().createMessage(messageContent, getUser(), receiverID);
-            //add message to receiver's hashmap
+            //add Message to receiver's hashmap
             getSpeakerManager().addMessageID(messageID, receiverID, userID);
-            //add message to current user's hashmap
+            //add Message to current User's hashmap
             currentManager.addMessageID(messageID, userID, receiverID);
             getView().pushMessage("Message Sent");
             return true;
+
         } else if (getVipManager().idInList(receiverID)) {
             int messageID = getMessageManager().createMessage(messageContent, getUser(), receiverID);
-            //add message to receiver's hashmap
+            //add Message to receiver's hashmap
             getVipManager().addMessageID(messageID, receiverID, getUser());
-            //add message to current user's hashmap
+            //add Message to current User's hashmap
             currentManager.addMessageID(messageID, userID, receiverID);
             getView().pushMessage("Message Sent");
             return true;
@@ -106,16 +115,16 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return the current userID
+     * Return the current UserID
      *
-     * @return the current userID
+     * @return the current UserID
      */
     public int getUser() {
         return userID;
     }
 
     /**
-     * Return EventManager
+     * Return the EventManager
      *
      * @return the <code>EventManager</code> in the conference
      */
@@ -124,7 +133,7 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return MessageManager
+     * Return the MessageManager
      *
      * @return the <code>MessageManager</code> in the conference
      */
@@ -133,7 +142,7 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return RoomManager
+     * Return the RoomManager
      *
      * @return the <code>RoomManager</code> in the conference
      */
@@ -142,7 +151,7 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return AttendeeManager
+     * Return the AttendeeManager
      *
      * @return the <code>AttendeeManager</code> in the conference
      */
@@ -151,7 +160,7 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return OrganizerManager
+     * Return the OrganizerManager
      *
      * @return the <code>OrganizerManager</code> in the conference
      */
@@ -160,7 +169,7 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return SpeakerManager
+     * Return the SpeakerManager
      *
      * @return the <code>SpeakerManager</code> in the conference
      */
@@ -168,33 +177,48 @@ public class UserController implements Serializable{
         return sm;
     }
 
+    /**
+     * Return the VipManager
+     *
+     * @return the <code>VipManager</code> in the conference
+     */
     public VipManager getVipManager() {
         return vipm;
     }
 
+    /**
+     * Return the VipEventManager
+     *
+     * @return the <code>VipEventManager</code>
+     */
     public VipEventManager getVipEventManager() {
         return vipe;
     }
 
     /**
-     * Return currentManager
+     * Return the currentManager
      *
-     * @return return the <code>AttendeeManager</code> in the conference if the user on the keyboard is an attendee,
-     * return the <code>OrganizerManager</code> in the conference if the user on the keyboard is an organizer,
-     * return the <code>AttendeeManager</code> in the conference if the user on the keyboard is an attendee,
+     * @return return the <code>AttendeeManager</code> in the conference if the User on the keyboard is an attendee,
+     *         return the <code>OrganizerManager</code> in the conference if the User on the keyboard is an organizer,
+     *         return the <code>AttendeeManager</code> in the conference if the User on the keyboard is an attendee,
      */
     public UserManager getCurrentManager() {
         return currentManager;
     }
 
+    /**
+     * Return the current UserID
+     *
+     * @return the current UserID
+     */
     public int getUserID(){
         return userID;
     }
 
     /**
-     * Return list of all EventIDs the user is going to attend
+     * Return the list of IDS of all Events that the User is going to attend
      *
-     * @return list of all EventIDs the user is going to attend
+     * @return the list of IDs of all Events that the User is going to attend
      */
     public String viewMyEvents() {
         List<Integer> eventIDs = getCurrentManager().getEventList(getUserID());
@@ -213,34 +237,42 @@ public class UserController implements Serializable{
                         + "\t" + getRoomManager().getRoomName(getVipEventManager().getRoomID(ID)) + "\t" + getVipEventManager().getCapacity(ID)
                         +"\n";
             }
-
         }
         return output;
     }
 
+    /**
+     * Return the UserName given the User's ID
+     * @param userID the ID of a User
+     * @return UserName of the User with given UserID
+     */
     public String getUserName(int userID) {
         if (getAttendeeManager().idInList(userID)) {
+            // User is an Attendee
             return getAttendeeManager().getnameById(userID);
         }
         else if (getOrganizerManager().idInList(userID)) {
+            // User is a Organizer
             return getOrganizerManager().getnameById(userID);
         }
         else if (getSpeakerManager().idInList(userID)) {
+            // User is a Speaker
             return getSpeakerManager().getnameById(userID);
         }
         else if (getVipManager().idInList(userID)) {
+            // User is a Vip
             return getVipManager().getnameById(userID);
         }
         return "This is not an valid ID.";
     }
 
     /**
-     * Return HashMap of contactList that key is condition of contacts and value is the list of
-     * string representation of contacts that satisfied the condition
+     * Return the HashMap of contactList that key is condition of contacts and value is the list of
+     * String representation of contacts that satisfied the condition
      *
-     * @return HashMap of contactList that key is condition of contacts and value is the list of
-     * string representation of contacts that satisfied the condition in the format:
-     * friendID + "\t" + username
+     * @return the HashMap of contactList that key is condition of contacts and value is the list of
+     *         String representation of contacts that satisfied the condition in the format:
+     *         friendID + "\t" + username
      */
     public HashMap<String, List<String>> viewContactList() {
         //create a new HashMap that key is the condition of contacts and values are the empty list.
@@ -249,16 +281,20 @@ public class UserController implements Serializable{
         List<String> unreadList = new ArrayList<>();
         contactList.put("read", readList);
         contactList.put("unread", unreadList);
+
         //get the contactList of user
         List<Integer> contact = new ArrayList<>();
         contact.addAll(getAttendeeManager().getUserIDs());
         contact.addAll(getOrganizerManager().getUserIDs());
         contact.addAll(getSpeakerManager().getUserIDs());
         contact.addAll(getVipManager().getUserIDs());
+
         // remove the user himself
         contact.remove((Integer) userID);
+
         //get the message HashMap of user
         HashMap<Integer, List<Integer>> allMessage = getCurrentManager().getMessages(userID);
+
         // TODO: If no messages are found in the message hashmap, we won't get messages
         //add the string representation of contacts to the final HashMap
         for (int friendID : contact) {
@@ -284,13 +320,12 @@ public class UserController implements Serializable{
         return contactList;
     }
 
-
     /**
-     * Return list of strings representation of all messages in the chat history with the friendID,
-     * content and the condition of the message
+     * Return the list of strings representation of all messages in the chat history with the friendID,
+     * content and the condition of the Message
      *
-     * @return list of strings representation of all messages in the chat history in the format:
-     * friendID + ":\t" + content + "\t" + condition(when the condition is unread)
+     * @return the list of strings representation of all Messages in the chat history in the format:
+     *         friendID + ":\t" + content + "\t" + condition (iff the condition is unread)
      */
     public List<String> viewChatHistory(int friendID) {
         List<String> chatHistory = new ArrayList<>();
@@ -309,7 +344,6 @@ public class UserController implements Serializable{
         }
 
         // get the chat history between user and given friend
-
         List<Integer> messageIDList = getCurrentManager().getMessages(userID).get(friendID);
         if (messageIDList != null) {
             for (Integer messageID : messageIDList) {
@@ -330,9 +364,9 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Set all messages receiving from the friend given by ID as already read
+     * Set all Messages receiving from the friend given by ID as already read
      *
-     * @param friendID ID of the friend that the current user is chatting to
+     * @param friendID the ID of the friend that the current User is chatting to
      */
     public void readAllMessage(int friendID) {
         // TODO: How to handle this null-pointer exception and we can't interact with message directly
@@ -350,9 +384,9 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return the next ID that is going to be assigned to the new User created
+     * Return the next ID that is going to be assigned to the new User being created
      *
-     * @return the next ID that is going to be assigned to the new User created
+     * @return the next ID that is going to be assigned to the new User being created
      */
     public int getNewID() {
         int size = getAttendeeManager().getUsers().size() + getOrganizerManager().getUsers().size() + getSpeakerManager().getUsers().size()
@@ -360,32 +394,55 @@ public class UserController implements Serializable{
         return size + 1;
     }
 
+    /**
+     * Set the View of current application
+     *
+     * @param view the new View to be set
+     */
     public void setView(View view) {
         this.view = view;
     }
 
+    /**
+     * Getter of the current View
+     *
+     * @return the current View
+     */
     public View getView() {
         return view;
     }
 
+    /**
+     * Set the name of an User
+     *
+     * @param name the new name of the User
+     */
     public void setName(String name) {
         getCurrentManager().setName(getUser(), name);
     }
 
+    /**
+     * Return the String representation of the current class
+     *
+     * @return the String representation of the current class: "UserController"
+     */
     public String getType() {
         return "UserController";
     }
 
+    /**
+     * marks View that push Messages
+     */
     public interface View {
         void pushMessage(String info);
     }
 
     /**
-     * Delete the given message from the message hashmap of the user. Return true iff the message
-     * is successfully deleted
+     * Delete the given Message from the message hashmap of the user.
+     * Return true iff the message is successfully deleted
      *
-     * @param messageID the message id
-     * @return true iff the message is successfully deleted
+     * @param messageID the Message id
+     * @return true iff the Message is successfully deleted
      */
     // TODO: check whether messageId given is out of range
     public boolean deleteMessage(int messageID) {
@@ -397,11 +454,11 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Archive the given message to the archived message list of the user. Return true iff the
-     * message is successfully archived
+     * Archive the given Message to the archived message list of the user.
+     * Return true iff the Message is successfully archived
      *
-     * @param messageID the message id
-     * @return true iff the message is successfully archived
+     * @param messageID the Message id
+     * @return true iff the Message is successfully archived
      */
     // TODO: check whether messageId given is out of range
     public boolean archiveMessage(int messageID) {
@@ -413,11 +470,11 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Mark the given message as unread to the receiver, who is the current user. Return true iff
-     * the message is successfully marked
+     * Mark the given Message as unread to the receiver, who is the current user.
+     * Return true iff the Message is successfully marked
      *
-     * @param messageID the message id
-     * @return true iff the message is successfully marked
+     * @param messageID the Message id
+     * @return true iff the Message is successfully marked
      */
     // TODO: check whether messageId given is out of range
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -440,6 +497,17 @@ public class UserController implements Serializable{
         return true;
     }
 
+    /**
+     * Set the instances of UserMenu to the given Managers
+     * @param am     the instance of <code>AttendeeManager</code> in the conference
+     * @param om     the instance of <code>OrganizerManager</code> in the conference
+     * @param sm     the instance of <code>SpeakerManager</code> in the conference
+     * @param rm     the instance of <code>RoomManager</code> in the conference
+     * @param em     the instance of <code>EventManager</code> in the conference
+     * @param mm     the instance of <code>MessageManager</code> in the conference
+     * @param vipm   the instance of <code>VipManager</code> in the conference
+     * @param vipe   the instance of <code>VipEventManager</code> in the conference
+     */
     public void setManagers(AttendeeManager am, OrganizerManager om, SpeakerManager sm, RoomManager rm,
                             EventManager em, MessageManager mm, VipManager vipm, VipEventManager vipe) {
         this.am = am;
@@ -450,6 +518,7 @@ public class UserController implements Serializable{
         this.mm = mm;
         this.vipm = vipm;
         this.vipe = vipe;
+
         //SET CURRENTMANAGER
         if (am.idInList(this.userID)) {
             currentManager = am;
@@ -463,6 +532,11 @@ public class UserController implements Serializable{
     }
 
 
+    /**
+     * Check whether the User ID exists
+     * @param userID the User ID to be checked
+     * @return true iff the User ID exists (is contained in at least one UserManager)
+     */
     public boolean hasUserID(int userID) {
         if (am.idInList(userID)) {
             return true;
@@ -479,7 +553,11 @@ public class UserController implements Serializable{
         return false;
     }
 
-
+    /**
+     * Check whether an UserName exists
+     * @param username the UserName to be checked
+     * @return true iff the UserName is already existed
+     */
     public boolean hasUserName(String username) {
         if (am.hasUserName(username)) {
             return true;
@@ -497,10 +575,10 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return a hashmap of friend ids to number of common events.
+     * Return a hashmap of friend ids to number of common Events.
      *
-     * @return a hashmap of friend ids to number of common events, with key of the id of the friend
-     * and value of the number of common events the friend has as the current user
+     * @return a hashmap of friend ids to number of common Events, with key of the id of the friend
+     * and value of the number of common Events the friend has as the current User
      */
     public HashMap<Integer, Integer> friendToNumOfCommonEvent() {
         // create a new hash map
@@ -533,10 +611,10 @@ public class UserController implements Serializable{
     }
 
     /**
-     * Return a list of events the friend is attending given the friend's id.
+     * Return a list of Events the friend is attending given the friend's ID.
      *
-     * @param friendID the friend id
-     * @return a list of events the friend is attending given the friend's id.
+     * @param friendID the friend ID
+     * @return a list of Events the friend is attending given the friend's ID.
      */
     public List<Integer> getFriendEvents(int friendID) {
         if (getOrganizerManager().getUserIDs().contains(friendID)) {
@@ -550,7 +628,13 @@ public class UserController implements Serializable{
         }
     }
 
-
+    /**
+     * Return a hashmap for number of common Events and list of recommended friends
+     *
+     * @return a hashmap of the number of common Events and list of recommended friends,
+     * with key of the value of the number of common Events the friend has as the current User
+     * and the list of recommended friends information
+     */
     public HashMap<String, List<String>> viewRecommendedFriend() {
         HashMap<Integer, Integer> friendToNumOfCommonEvent = friendToNumOfCommonEvent();
         HashMap<String, List<String>> viewRecommendedFriend = new HashMap<>();
