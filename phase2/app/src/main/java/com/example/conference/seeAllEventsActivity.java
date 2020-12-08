@@ -16,6 +16,11 @@ import static java.lang.Integer.parseInt;
 
 public class  seeAllEventsActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private AttendeeController controller;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         controller = (AttendeeController) getIntent().getSerializableExtra("controller");
@@ -31,11 +36,20 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
         setAllEventsText();
 
     }
+
+    /**
+     * Display the list of all events in the layout
+     */
     public void setAllEventsText()
     {
         TextView allevents = findViewById(R.id.allEvents);
         allevents.setText(controller.viewAllEvents());
     }
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         EditText event = findViewById(R.id.eventIDinput);
@@ -101,6 +115,9 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
                 break;
         }
     }
+
+
+    // Get the data from previous activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 10){
             if (resultCode == 3){
@@ -120,6 +137,11 @@ public class  seeAllEventsActivity extends Activity implements View.OnClickListe
             }
         }
     }
+
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

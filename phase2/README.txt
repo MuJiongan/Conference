@@ -23,3 +23,5 @@ You can start running the program now.
 After you run the program make sure to comment out line 37 in LogInPresenter again because we don't want to create the same account twice.
 If the files are saved properly you don't need to create this organizer account again.
 
+Here is the link to the video demo:
+https://drive.google.com/drive/folders/1B8egksW0SGTWtRdMvI1swhcJZbVxEiTr?usp=sharing

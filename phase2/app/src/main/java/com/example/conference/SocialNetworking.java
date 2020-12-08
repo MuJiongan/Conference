@@ -21,6 +21,10 @@ public class SocialNetworking extends Activity implements UserController.View, V
 
     private AttendeeController currentController;
 
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.socialnetworking);
@@ -29,6 +33,9 @@ public class SocialNetworking extends Activity implements UserController.View, V
         display();
     }
 
+    /**
+     * Display the social networking message in the layout
+     */
     public void display(){
         TextView social = findViewById(R.id.socialmessage);
         String socialMessage = "";
@@ -42,7 +49,10 @@ public class SocialNetworking extends Activity implements UserController.View, V
         social.setText(socialMessage);
     }
 
-
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -91,6 +101,7 @@ public class SocialNetworking extends Activity implements UserController.View, V
         }
     }
 
+    // Get the data from previous activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 3){
             if (resultCode == 3){
@@ -102,6 +113,12 @@ public class SocialNetworking extends Activity implements UserController.View, V
         }
 
     }
+
+
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

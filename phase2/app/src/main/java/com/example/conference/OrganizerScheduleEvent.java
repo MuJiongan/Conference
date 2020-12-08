@@ -17,6 +17,11 @@ import static java.lang.Integer.parseInt;
 
 public class OrganizerScheduleEvent extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private OrganizerController controller;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizerscheduleevent);
@@ -24,11 +29,21 @@ public class OrganizerScheduleEvent extends Activity implements View.OnClickList
         controller.setView(this);
     }
 
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 
+
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){

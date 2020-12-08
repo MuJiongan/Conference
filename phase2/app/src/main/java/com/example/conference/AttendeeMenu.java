@@ -15,6 +15,11 @@ import java.io.Serializable;
 
 public class AttendeeMenu extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private AttendeeController controller;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendeemenu);
@@ -28,6 +33,12 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
                     presenter.getMm(), presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(), this);
         }
     }
+
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -79,6 +90,7 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
         }
     }
 
+    // Get the data from previous activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
             if (resultCode == 3){
@@ -90,7 +102,10 @@ public class AttendeeMenu extends Activity implements View.OnClickListener, User
         }
 
 
-
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

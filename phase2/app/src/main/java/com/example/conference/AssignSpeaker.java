@@ -19,6 +19,11 @@ public class AssignSpeaker extends Activity implements UserController.View, View
 
     private OrganizerController currentController;
     int index;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assignspeaker);
@@ -29,19 +34,29 @@ public class AssignSpeaker extends Activity implements UserController.View, View
         showSpeaker();
     }
 
-
+    /**
+     * Display the list of speaker in the layout
+     */
     public void showSpeaker() {
         String speaker = currentController.showSpeaker();
         TextView welcome = findViewById(R.id.welcome);
         welcome.setText(speaker);
     }
 
-
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

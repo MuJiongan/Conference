@@ -13,6 +13,11 @@ import java.io.*;
 public class MainActivity extends AppCompatActivity implements LogInPresenter.View,View.OnClickListener, Serializable {
 
     private LogInPresenter presenter;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -25,6 +30,11 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
     }
 
 
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -54,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
         }
     }
 
+    // Get the data from previous activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 1){
             if (resultCode == 3){
@@ -74,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements LogInPresenter.Vi
         }
     }
 
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

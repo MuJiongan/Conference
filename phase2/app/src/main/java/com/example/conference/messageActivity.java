@@ -23,6 +23,11 @@ public class messageActivity extends Activity implements UserController.View, Vi
     private UserController currentController;
     private int index;
     private String parent;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message);
@@ -35,7 +40,9 @@ public class messageActivity extends Activity implements UserController.View, Vi
         currentController.readAllMessage(index);
     }
 
-
+    /**
+     * Display the chat history in the layout
+     */
     public void showHistory() {
 
         TextView history = findViewById(R.id.allMessages);
@@ -52,13 +59,21 @@ public class messageActivity extends Activity implements UserController.View, Vi
         }
     }
 
-
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 
 
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {

@@ -13,6 +13,11 @@ import java.io.Serializable;
 
 public class manageMyAccountActivity extends Activity implements View.OnClickListener, UserController.View, Serializable {
     private UserController currentController;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.managemyaccount);
@@ -21,6 +26,9 @@ public class manageMyAccountActivity extends Activity implements View.OnClickLis
         setName();
     }
 
+    /**
+     * Display the name in the layout
+     */
     public void setName(){
         String curName = currentController.getUserName(currentController.getUser());
         TextView currentNameTextView = findViewById(R.id.currentName);
@@ -28,6 +36,10 @@ public class manageMyAccountActivity extends Activity implements View.OnClickLis
     }
 
 
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -73,6 +85,10 @@ public class manageMyAccountActivity extends Activity implements View.OnClickLis
         }
     }
 
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();

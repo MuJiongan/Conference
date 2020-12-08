@@ -15,6 +15,11 @@ import java.io.Serializable;
 public class SpeakerMenu extends Activity implements View.OnClickListener, SpeakerController.View, Serializable {
 
     private SpeakerController sc;
+
+    /**
+     * Create this new activity
+     * @param  savedInstanceState the saved instanceState
+     */
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.speakermenu);
@@ -22,9 +27,13 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
 
         sc = new SpeakerController(presenter.getAm(), presenter.getOm(), presenter.getSm(), presenter.getRm(), presenter.getEm(),
                 presenter.getMm(),presenter.getVipManager(), presenter.getVipEvent(), presenter.getUserID(),this);
-
-
     }
+
+
+    /**
+     * Perform certain actions when the user clicks a button
+     * @param v view of the current activity
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -65,6 +74,8 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
 
         }
     }
+
+    // Get the data from previous activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == 3 || requestCode == 4 || requestCode == 5 || requestCode == 6 ){
             if (resultCode == 3){
@@ -78,7 +89,10 @@ public class SpeakerMenu extends Activity implements View.OnClickListener, Speak
 
     }
 
-
+    /**
+     * Display a toast message given a string
+     * @param info message content of the toast message
+     */
     @Override
     public void pushMessage(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
