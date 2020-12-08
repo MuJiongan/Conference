@@ -13,14 +13,15 @@ public class User implements Serializable {
     private String passWord;
     private HashMap<Integer, List<Integer>> message;
     private List<Integer> eventsAttend;
-    private List<Integer> archivedMessages;
+
 
     /**
      * Constructs an instance of Student based on the given name, userName, password and userID
-     * @param name User's real name
+     *
+     * @param name     User's real name
      * @param userName User's username
      * @param passWord User's password
-     * @param userID User's userID
+     * @param userID   User's userID
      */
     public User(String name, String userName, String passWord, int userID) {
 
@@ -30,11 +31,11 @@ public class User implements Serializable {
         this.passWord = passWord;
         this.message = new HashMap<>();
         this.eventsAttend = new ArrayList<>();
-        this.archivedMessages = new ArrayList<>();
     }
 
     /**
      * Returns the userID of the user
+     *
      * @return the userID of the user
      */
     public int getUserId() {
@@ -43,6 +44,7 @@ public class User implements Serializable {
 
     /**
      * Returns the name of the user
+     *
      * @return the name of the user
      */
     public String getName() {
@@ -51,6 +53,7 @@ public class User implements Serializable {
 
     /**
      * change name to the given new name
+     *
      * @param newName of the user
      */
     public void setName(String newName) {
@@ -59,6 +62,7 @@ public class User implements Serializable {
 
     /**
      * Returns the userName of the user
+     *
      * @return the userName of the user
      */
     public String getUserName() {
@@ -67,6 +71,7 @@ public class User implements Serializable {
 
     /**
      * change the username to the given new username
+     *
      * @param userName of the user
      */
     public void setUserName(String userName) {
@@ -75,6 +80,7 @@ public class User implements Serializable {
 
     /**
      * Returns the passWord of the user
+     *
      * @return the passWord of the user
      */
     public String getPassWord() {
@@ -83,6 +89,7 @@ public class User implements Serializable {
 
     /**
      * change the password to the given new password
+     *
      * @param passWord of the user
      */
     public void setPassWord(String passWord) {
@@ -91,6 +98,7 @@ public class User implements Serializable {
 
     /**
      * Returns the shallow copy of the HashMap message
+     *
      * @return shallow copy of message
      */
     public HashMap<Integer, List<Integer>> getMessages() {
@@ -99,11 +107,12 @@ public class User implements Serializable {
 
     /**
      * Add a message ID to the user's hashmap
-     * @param userID receiver ID
+     *
+     * @param userID    receiver ID
      * @param messageID message ID
      */
     public void addMessage(int userID, int messageID) {
-        if (!message.containsKey(userID)){
+        if (!message.containsKey(userID)) {
             List<Integer> newList = new ArrayList<>();
             message.put(userID, newList);
         }
@@ -111,25 +120,8 @@ public class User implements Serializable {
     }
 
     /**
-     * Delete a message ID from the user's hashmap iff the message exists in the user's message
-     * hashmap
-     * @param friendID receiver ID
-     * @param messageID message ID
-     * @return true iff the message is successfully deleted
-     */
-    public boolean deleteMessage(int friendID, int messageID) {
-        if(!message.containsKey(friendID)){
-            return false;
-        }
-        if(!message.get(friendID).contains(messageID)){
-            return false;
-        }
-        this.message.get(friendID).remove(messageID);
-        return true;
-    }
-
-    /**
      * Returns the shallow copy of eventsAttend list of the user
+     *
      * @return shallow copy of eventsAttend list of the user
      */
     public List<Integer> getEventsAttend() {
@@ -138,6 +130,7 @@ public class User implements Serializable {
 
     /**
      * Add an event to the eventsAttend list of the user
+     *
      * @param eventID to be added to the eventsAttend list of the user
      */
     public void addEvent(int eventID) {
@@ -146,6 +139,7 @@ public class User implements Serializable {
 
     /**
      * Remove an event to the eventsAttend list of the user
+     *
      * @param eventID to be removed from the eventsAttend list of the user
      */
     public void removeEvent(int eventID) {
@@ -155,28 +149,10 @@ public class User implements Serializable {
 
     /**
      * change the name of this user to the given name
+     *
      * @param name new name that this user want to set
      */
-    public void userSetName(String name)
-    {
+    public void userSetName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Add a message ID to the user's archived messages list iff the message exists in the user's
-     * message hashmap
-     * @param friendID friend ID
-     * @param messageID message ID
-     * @return true iff the message is successfully archived
-     */
-    public boolean addArchivedMessage(int friendID, int messageID){
-        if(!message.containsKey(friendID)){
-            return false;
-        }
-        if(!message.get(friendID).contains(messageID)){
-            return false;
-        }
-        this.archivedMessages.add(messageID);
-        return true;
     }
 }

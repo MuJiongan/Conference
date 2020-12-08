@@ -14,15 +14,6 @@ public class MessageManager implements Serializable{
     private List<Message> messages = new ArrayList<>();
 
     /**
-     * Returns the shallow copy of all messages in a list
-     * @return the shallow copy of all messages in a list
-     */
-    public List<Message> getMessages(){
-//        return (ArrayList<Message>) messages.clone();
-        return new ArrayList<>(messages);
-    }
-
-    /**
      * add a new entities.Message to messages
      * @param message message to be added
      * @return true if and only if the message is successfully added to the message list
@@ -52,16 +43,6 @@ public class MessageManager implements Serializable{
     }
 
     /**
-     * return the entities.Message content given the message ID
-     * @param messageID the given entities.Message ID
-     * @return the content variable in entities.Message corresponding to the messageID
-     */
-    public String getMesContentById(int messageID){
-        Message actualMessage = this.getMessageById(messageID);
-        return actualMessage.getContent();
-    }
-
-    /**
      * Return a new message with given features
      * @param content of new message
      * @param senderID of new message
@@ -74,14 +55,6 @@ public class MessageManager implements Serializable{
         return message.getMessageID();
     }
 
-    /**
-     * return the messageID given the entities.Message object
-     * @param message the given entities.Message object
-     * @return the messageID corresponding to the entities.Message object
-     */
-    public int getIdByMessage(Message message){
-        return message.getMessageID();
-    }
 
     /**
      * return the sender ID by the given message id
@@ -100,44 +73,7 @@ public class MessageManager implements Serializable{
     public int getReceiverIDByMessId(int messageId){
         return getMessageById(messageId).getReceiverID();
     }
-    
-    /**
-     * Read the useCases.MessageManager object that was stored in a .ser file
-     * @param path String representing the file path
-     * @return useCases.MessageManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if useCases.MessageManager object is not found
-     */
-    public MessageManager readFromFile (String path) throws ClassNotFoundException {
 
-        try {
-            InputStream file = new FileInputStream(path); // String path should be "fileName.ser"
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            // deserialize the StudentManager
-            MessageManager mm = (MessageManager) input.readObject();
-            input.close();
-            return mm;
-        } catch (IOException ex) {
-            return new MessageManager();
-        }
-    }
-
-    /**
-     * Write the useCases.MessageManager object to a .ser file to store once program exists
-     * @param filePath file to write to
-     * @throws IOException is thrown if file we want to write to does not exist
-     */
-    public void saveToFile(String filePath) throws IOException {
-
-        OutputStream file = new FileOutputStream(filePath);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
-
-        // serialize the useCases.MessageManager
-        output.writeObject(this);
-        output.close();
-    }
 
     /**
      * Change the condition of message

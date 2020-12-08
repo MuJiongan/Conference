@@ -50,16 +50,6 @@ public class EventManager implements Serializable{
         return event.getEndTime();
     }
 
-    /**
-     * Change the end time of the event to the given time
-     * @param eventID which end time will be changed
-     * @param time that will be set as end time
-     */
-    public void setEndTime(int eventID, LocalDateTime time)
-    {
-        Event event = getEventByID(eventID);
-        event.setEndTime(time);
-    }
 
     /**
      * Returns the string representation of all the events
@@ -118,15 +108,6 @@ public class EventManager implements Serializable{
             }
         }
         return null;
-    }
-    /**
-     * return the vacancy given the event object
-     * @param eventID the given entities.Event object
-     * @return the vacancy corresponding to the entities.Event object
-     */
-    public int getVacancy(int eventID){
-        Event event = getEventByID(eventID);
-        return event.getCapacity() - event.getUserIDs().size();
     }
 
     /**
@@ -196,60 +177,6 @@ public class EventManager implements Serializable{
         }
     }
 
-    /**
-     * Remove a entities.Speaker's ID from the list of all entities.Speaker of the event
-     * @param speakerID ID of entities.Speaker to be removed
-     * @param eventID in which event the entities.Speaker is being removed
-     * @return true if and only if the entities.Speaker is successfully removed
-     */
-    public boolean removeSpeakerID(int speakerID, int eventID) {
-        Event event = getEventByID(eventID);
-        boolean exists = false;
-        for (int i = 0; i < event.getSpeakerIDs().size(); i++) {
-            if (speakerID == event.getSpeakerIDs().get(i)) {
-                exists = true;
-            }
-        }
-        if (!exists){
-            return false;
-        }
-        else{
-            event.removeSpeakerID(speakerID);
-            return true;
-        }
-    }
-
-    /**
-     * change the room ID to a new ID of a given event
-     * @param roomID new entities.Room
-     * @param eventID in which event the roomID is being changed
-     */
-    public void changeRoomID(int roomID, int eventID){
-        Event event = getEventByID(eventID);
-        event.changeRoomID(roomID);
-    }
-
-    /**
-     * Read the useCases.EventManager object that was stored in a .ser file
-     * @param path String representing the file path
-     * @return useCases.EventManager object read from .ser file
-     * @throws ClassNotFoundException is thrown if useCases.EventManager object is not found
-     */
-    public EventManager readFromFile (String path) throws ClassNotFoundException {
-
-        try {
-            InputStream file = new FileInputStream(path); // String path should be "fileName.ser"
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            // deserialize the StudentManager
-            EventManager em = (EventManager) input.readObject();
-            input.close();
-            return em;
-        } catch (IOException ex) {
-            return new EventManager();
-        }
-    }
 
     /**
      * return the event name given the event object
@@ -259,22 +186,6 @@ public class EventManager implements Serializable{
     public String getName (int eventID){
         Event event = getEventByID(eventID);
         return event.getName();
-    }
-
-    /**
-     * Write the useCases.EventManager object to a .ser file to store once program exists
-     * @param filePath file to write to
-     * @throws IOException is thrown if file we want to write to does not exist
-     */
-    public void saveToFile(String filePath) throws IOException {
-
-        OutputStream file = new FileOutputStream(filePath);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
-
-        // serialize the useCases.EventManager
-        output.writeObject(this);
-        output.close();
     }
 
     /**
@@ -307,15 +218,6 @@ public class EventManager implements Serializable{
         return event.getCapacity();
     }
 
-    /**
-     * Change the capacity of the room that holds the given event
-     * @param eventID that will be held
-     * @param capacity the new capacity of the room that hold the given Event
-     */
-    public void setCapacity(int eventID, int capacity){
-        Event event = getEventByID(eventID);
-        event.setCapacity(capacity);
-    }
 
     /**
      * Return the ID of the room that holds the given event

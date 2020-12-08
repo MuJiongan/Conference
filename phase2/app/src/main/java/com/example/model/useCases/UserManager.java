@@ -226,26 +226,6 @@ public abstract class UserManager implements Serializable{
     }
 
     /**
-     * Delete a message ID from the user's hashmap
-     * @param userID the given entities.User object
-     * @param friendID friend ID
-     * @param messageID message ID
-     */
-    public boolean deleteMessage(int userID, int friendID, int messageID) {
-        return getUserByID(userID).deleteMessage(friendID, messageID);
-    }
-
-    /**
-     * Add a message ID to the user's archived messages list
-     * @param userID the given entities.User object
-     * @param friendID friendID to whom the user is sending message to
-     * @param messageID message ID
-     */
-    public boolean addArchivedMessage(int userID, int friendID, int messageID){
-        return getUserByID(userID).addArchivedMessage(friendID, messageID);
-    }
-
-    /**
      * return the number of user in the conference
      * @return the numerb of user in the conference
      */

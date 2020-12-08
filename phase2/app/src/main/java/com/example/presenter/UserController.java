@@ -437,37 +437,7 @@ public class UserController implements Serializable{
         void pushMessage(String info);
     }
 
-    /**
-     * Delete the given Message from the message hashmap of the user.
-     * Return true iff the message is successfully deleted
-     *
-     * @param messageID the Message id
-     * @return true iff the Message is successfully deleted
-     */
-    // TODO: check whether messageId given is out of range
-    public boolean deleteMessage(int messageID) {
-        int friendID = getMessageManager().getSenderIDByMessId(messageID);
-        if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
-            friendID = getMessageManager().getReceiverIDByMessId(messageID);
-        }
-        return currentManager.deleteMessage(userID, friendID, messageID);
-    }
 
-    /**
-     * Archive the given Message to the archived message list of the user.
-     * Return true iff the Message is successfully archived
-     *
-     * @param messageID the Message id
-     * @return true iff the Message is successfully archived
-     */
-    // TODO: check whether messageId given is out of range
-    public boolean archiveMessage(int messageID) {
-        int friendID = getMessageManager().getSenderIDByMessId(messageID);
-        if (getMessageManager().getSenderIDByMessId(messageID) == userID) {
-            friendID = getMessageManager().getReceiverIDByMessId(messageID);
-        }
-        return currentManager.addArchivedMessage(userID, friendID, messageID);
-    }
 
     /**
      * Mark the given Message as unread to the receiver, who is the current user.
