@@ -25,3 +25,4 @@ If the files are saved properly you don't need to create this organizer account 
 
 Here is the link to the video demo:
 https://drive.google.com/drive/folders/1B8egksW0SGTWtRdMvI1swhcJZbVxEiTr?usp=sharing
+Additional Note: Run the program on an API 30 Android Device
