@@ -61,7 +61,6 @@ public class seeMyEventsActivity extends Activity implements View.OnClickListene
                 try{
                     int index = Integer.parseInt(eventID);
                     speakerController.messageAll(index, messageContent);
-                    Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
                 }catch(NumberFormatException n){
                     pushMessage("Please enter a valid eventID");
                 }

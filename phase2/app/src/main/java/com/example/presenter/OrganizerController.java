@@ -45,7 +45,15 @@ public class OrganizerController extends AttendeeController implements Serializa
         for (int userid : current.getUserIDs()) {
             sendMessage(userid, content);
         }
-        getView().pushMessage("Messages sent");
+        if (current.getUserIDs().size()!=0)
+        {
+            getView().pushMessage("Messages sent");
+        }
+        else
+        {
+            getView().pushMessage("There isn't anyone to send the message to");
+        }
+
     }
 
     /**

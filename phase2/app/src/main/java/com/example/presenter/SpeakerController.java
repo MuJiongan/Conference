@@ -31,15 +31,40 @@ public class SpeakerController extends UserController implements Serializable{
      */
     public void messageAll(int eventID, String content) {
         if (getEventManager().idInList(eventID)){
-            for (int userID: getEventManager().getUserIDs(eventID)) {
-                sendMessage(userID, content);
+            if (getEventManager().getSpeakerIDs(eventID).contains(getUser())){
+                for (int userID : getEventManager().getUserIDs(eventID)) {
+                    sendMessage(userID, content);
+                }
+                if (getEventManager().getUserIDs(eventID).size() != 0)
+                {
+                    getView().pushMessage("Messages sent");
+                }
+                else if (getEventManager().getUserIDs(eventID).size() == 0){
+                    getView().pushMessage("No attendees to send message");
+                }
             }
-            getView().pushMessage("Messages sent");
+            else
+            {
+                getView().pushMessage("You are not a speaker at that event");
+            }
+
         } else if (getVipEventManager().idInList(eventID)){
-            for (int userID : getVipEventManager().getUserIDs(eventID)) {
-                sendMessage(userID, content);
+            if (getVipEventManager().getSpeakerIDs(eventID).contains(getUser()))
+            {
+                for (int userID : getVipEventManager().getUserIDs(eventID)) {
+                    sendMessage(userID, content);
+                }
+                if (getVipEventManager().getUserIDs(eventID).size()!= 0)
+                {
+                    getView().pushMessage("Messages sent");
+                }
+                else if (getVipEventManager().getUserIDs(eventID).size() == 0){
+                    getView().pushMessage("No attendees to send message");
+                }
             }
-            getView().pushMessage("Messages sent");
+            else {
+                getView().pushMessage("You are not a speaker at that event");
+            }
         }
         else{
             getView().pushMessage("Event ID not valid");
