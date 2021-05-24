@@ -3,7 +3,8 @@ An Android Application for planning & hosting virtual conferences.
 
 Final Culminating Project for CSC207: Software Design
 
-## Set Up and Configuration
+Utilized MVP (Model View Presenter) Pattern, Clean Architecture and SOLID Principles.
 
-<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/5ct92h" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+## Set Up and Configuration
+Watch our tutorial video to set up the Android Application on your laptop [here](https://drive.google.com/file/d/1l-ud5FFCSxvmqy-1THbU3ee_EPoPO-Jq/view?usp=sharing).
 
